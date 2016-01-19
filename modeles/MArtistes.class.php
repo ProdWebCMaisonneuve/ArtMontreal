@@ -99,6 +99,31 @@ class MArtistes {
 		}
 		return $artistes;
 	}
+
+
+     /*
+     * Fonction qui ajouter une artiste
+	 * @access public static
+     * @author Thuy Tien Vo
+	 * @return none
+	 */
+
+     
+    public function ajoutArtiste( $prenom, $nom, $collectif, $photoArtiste)
+
+        {
+            self::$database->query(" INSERT INTO artiste VALUES ('', :prenom, :nom, :collectif, '', :photoArtiste)") ;
+            //On lie les paramètres aux valeurs
+            self::$database->bind(':prenom', $prenom);
+            self::$database->bind(':nom', $nom);
+            self::$database->bind(':collectif', $collectif);
+            self::$database->bind(':photoArtiste', $photoArtiste);
+            self::$database->execute();
+            return(self::$database->execute());
+        }  
+
+
+
     
     /*
      * Fonction qui supprime un artiste

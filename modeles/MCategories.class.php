@@ -79,22 +79,7 @@ class MCategories
 			return $categories;
 		}
 
-    //public static function listeOeuvresParCat($uneCategorie) 
-	//public static function listeOeuvresParCat($id_categorie) 
-    //{
-       // Oeuvre::$database->query('SELECT oeuvre.titreOeuvre, oeuvre.titreVariante, oeuvre.technique, oeuvre.description
-                                 // FROM oeuvre INNER JOIN categorie ON oeuvre.idCategorie=categorie.idCategorie;
-        	                     // AND categorie.nomCategorie = :categorie');
-        //Oeuvre::$database->bind(':categorie', $id_categorie);
-        //Oeuvre::$database->execute();
-       // $lignes = Oeuvre::$database->resultset();
-        //foreach ($lignes as $ligne) 
-       // {  // $unOeuvre = new Oeuvre($ligne['titreOeuvre'], $ligne['titreVariante'], $ligne['technique'], $ligne['description']);
-           // $aOeuvres[] = $unOeuvre;
-       // }
 
-       // return $aOeuvres;
-    //}
   
 }
 
