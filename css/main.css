@@ -56,13 +56,14 @@ h2 {
 header .conteneurNav
 {
 /*    border: solid 1px black;*/
-    height: 95%;
+    height: 120px;
     background-color: #354a5d;
     position: static;
 }
 
 header .conteneurNav img{
-     width: 17em;
+    width: 19em;
+    height: 120px;
 }
 
 .container:after
