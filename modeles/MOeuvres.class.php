@@ -399,6 +399,42 @@ class MOeuvres {
 		}
 
     }//FIN FUNCTION listerOeuvresParArr
+
+
+     /**
+	 *
+	 * @return Array Tableau contenant la liste de toutes les oeuvres par CATEGORIE
+     * @author Thuy Tien Vo
+     * @version 1.1
+     * 
+     */
+
+
+	public static function listeOeuvresParCat($idCategorie) 
+    {
+       
+    	 self::$database->query('SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre FROM oeuvre JOIN categorie ON categorie.idCategorie= oeuvre.idCategorie WHERE  categorie.idCategorie = :idCategorie');
+    
+        self::$database->bind(':idCategorie', $idCategorie);
+    
+        $lignes = self::$database->resultset();
+        foreach ($lignes as $ligne) 
+        {   $unOeuvreParCat = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','','','','','','','','','','','','','','','','','','');
+            $OeuvresParCat[] = $unOeuvreParCat;
+        }
+        if(isset($OeuvresParCat))
+        {
+        	return $OeuvresParCat;
+        }
+        else
+        {
+        	echo "il n'y a pas d'oeuvres dans ce catégorie";
+        }
+    }
+
+
+
+
     
     /**
 	 * Fonction d'ajout d'oeuvre
