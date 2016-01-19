@@ -123,13 +123,23 @@ class Controler
                     } 
                     break;
 
+                case 'categories':
+                   if($_GET['idCategorie'] !='')
+                    {
+                        $this->oeuvresParCat($_GET['idCategorie']);
+                    }
+                    else
+                    {
+                        $this->categories();
+                    } 
+                    break;
+
                 case 'unOeuvre':
                     $this->unOeuvre($_GET['idOeuvre']);
                     break;
 
-                case 'categories':
-                    $this->categories();
-                    break;
+               
+
                 case 'oeuvresParCat':
                     $this->oeuvresParCat();
                     break;
@@ -153,6 +163,13 @@ class Controler
                     $this->listerUtilisateurs();
                     break;
                 
+                case 'ajouterUnArtiste':
+                    $this->ajouterUnArtiste();
+                    break;
+                case 'formulaireAjouterArtiste() ':
+                    $this->afficheAjouterUnArtiste();
+                    break;
+
                 case 'admin':
                     $this->admin();
                     break;
@@ -444,32 +461,6 @@ class Controler
             $oVue->afficheFooter();
     
 		}
-    
-		private function categories()
-		{
-            $oCategories = new MCategories('', '', '' ,'', '','');
-            $aCategories = $oCategories::listeCategories();
-            $oVue = new VueDefaut();
-
-            $oVue->afficheHeader();
-			$oVue->afficheCategories($aCategories);
-            $oVue->afficheFooter();
-    
-		}
-
-
-        private function oeuvresParCat()
-        {   
-            $id_cat = $_GET['idCategorie'];
-            $oOeuvreParCat = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvreParCat = $oOeuvreParCat::listeOeuvresParCat($id_cat);
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
-            $oVue->afficheFooter();
-    
-        }
 
 		private function oeuvresParArr($getIdArr)
         {   
@@ -481,6 +472,34 @@ class Controler
             $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr);
             $oVue->afficheFooter();
         }
+
+        private function categories()
+        {
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories::listeCategories();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheCategories($aCategories);
+            $oVue->afficheFooter();
+    
+        }
+
+
+        private function oeuvresParCat($id_cat)
+        {   
+         
+            $oOeuvreParCat = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            $aOeuvreParCat = $oOeuvreParCat::listeOeuvresParCat($id_cat);
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
+            $oVue->afficheFooter();
+    
+        }
+
+
     
         private function inscription()
         {
@@ -577,14 +596,6 @@ class Controler
 
         
 
-        private function ajouterUnArtiste()
-        {
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->ajouterUnArtiste();
-            $oVue->afficheFooter();
-        }
-
         private function profilUtilisateur()
         {
             $oVue = new VueDefaut();
@@ -612,6 +623,40 @@ class Controler
             $oVue->afficheListeModifierArtistes($aArtistes);
             $oVue->afficheFooter();
         }
+
+            /* Ajouter  une ARTISTE
+                Auteure: Thuy Tien Vo
+             */
+
+        private function ajouterUnArtiste()
+        {     
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+
+            $erreurTitre ='';
+            $message ='';
+            if($_GET['action'] == 'ajoutArtiste')
+
+                {   $oArtiste=new MArtistes('', '', '','', '', '');
+                    $oArtiste->ajoutArtiste('',$_POST['prenom'], $_POST['nom'], $_POST['collectif'],'' ,'');
+                    $message = "Artiste ajoutée.";
+                   
+                }
+       
+            $oVue->formulaireAjouterArtiste();
+            $oVue->afficheFooter();
+        }
+
+        private function afficheAjouterUnArtiste()
+        {
+          
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheAjouterUnArtiste();
+            $oVue->afficheFooter();
+            
+        } 
+
 
 }
 ?>
