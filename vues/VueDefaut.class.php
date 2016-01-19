@@ -555,7 +555,7 @@ class VueDefaut
             }
         
             echo "<figure class='categorie'>";   
-            echo "<a href = 'index.php?requete=oeuvresParCat&idCategorie=$id_Categorie' class='categorie'> " . $nom. "</a>";
+            echo "<a href = 'index.php?requete=categories&idCategorie=$id_Categorie' class='categorie'> " . $nom. "</a>";
             echo "</figure>";
             echo "</div>";
             $compteur = $compteur + 1;
@@ -565,7 +565,7 @@ class VueDefaut
     } //FIN FUNCTION afficheCategorie
 
 
-    /**
+/**
      * Affiche les oeuvres par catégorie
      * @access public
      * @author THuy Tien VO
@@ -579,13 +579,16 @@ class VueDefaut
             <h2>Oeuvre Par Catégorie</h2>
             <?php
 
-            foreach($aOeuvreParCat as $OeuvreParCat)
-            {
-                 $nomOeuvre_Par_Cat = $OeuvreParCat->getTitreOeuvre();
-                 echo $nomOeuvre_Par_Cat.'<br/>';   
+            foreach($aOeuvreParCat as $OeuvresParCat)
+            {    
+                $idOeuvre= $OeuvresParCat->getIdOeuvre();
+                $titre = $OeuvresParCat->getTitreOeuvre();
+                echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='categorie'>" .  $titre. "</a>" . '</br>';  
             }
         }    //FIN FUNCTION afficheOeuvreParCat
-        
+    
+
+
     /**
      * Affiche le header de la partie Admin
      * @access public
@@ -1212,17 +1215,17 @@ class VueDefaut
     }
 
 
-    /**
+        /**
      * Affiche la page pour ajouter un artiste
      * @access public
-     * @author: Jorge Blanco
+     * @auteure: Jorge Blanco
      */
-    public function ajouterUnArtiste() 
+    public function formulaireAjouterArtiste() 
     {
         ?>
         <div>
         <h2 id="titre">Ajouter un artiste</h2>
-        <form class="formulaire" action="">
+        <form method="POST"class="formulaire"action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
             <fieldset>
             Prénom:<br>
             <input type="text" name="prenom" >
@@ -1231,7 +1234,7 @@ class VueDefaut
             <input type="text" name="nom" >
             <br> <br>
             Collectif:<br>
-            <input  type="text" name="Collectif" >
+            <input  type="text" name="collectif" >
              <br> <br>
             Prendre une photo:<br><br>
             <input type="button" name="photoArtiste" value = "prendre une photo" >
