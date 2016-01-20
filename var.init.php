@@ -64,5 +64,8 @@
     if(empty($photoArtiste)) {
         $photoArtiste ='';
     }
-
+   
+     if(empty($oeuvres)) {
+        $oeuvres ='';
+    }
 ?>

@@ -18,10 +18,12 @@
  
 .slidesjs-pagination li {
 	float:left;
+    display: none;
 }
  
 .slidesjs-pagination li a {
-	display:block;
+	/*display:block;*/
+    display:none;
 	padding:10px 20px;
 	color:#fff;
 	text-decoration:none;
@@ -29,6 +31,7 @@
  
 .slidesjs-pagination li a:hover {
 	background:#000;
+    display:none;
 }
  
 .slides .active {
@@ -39,7 +42,8 @@
 	background:#424242;
 	color:#fff;
 	text-decoration:none;
-	display:inline-block;
+	/*display:inline-block;*/
+    display: none;
 	padding:13.5px;
 	float:right;
     margin-top: 15px;
@@ -376,7 +380,7 @@ i:after {
     display: inline-table;
     vertical-align: top;
 }
-#submit 
+#buttonRecherche 
 {
 
     border-width: 0px;
@@ -391,7 +395,7 @@ i:after {
 }
 
   
- #submit:hover
+ #buttonRecherche:hover
 {       
     background-color: #83defe;
  

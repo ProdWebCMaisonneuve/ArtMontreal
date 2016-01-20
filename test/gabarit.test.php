@@ -14,14 +14,68 @@
 			<h1>Test - Modèles</h1>
 		</div>
 		<div id="contenu">
-			<?php
+		    <?php 
+            //include("../lib/PdoBDD.class.php");
+          
+            include("../modeles/MOeuvres.class.php");
+            //include ("../modeles/MArrondissement.class.php");
+            //include ("../modeles/MArtistes.class.php");
+            //include ("../modeles/Categories.class.php");
             
-            include ("../modeles/MOeuvres.class.php");
-            include ("../lib/PdoBDD.class.php");
+                
+            /**
+            * Test Unitaire pour lister un oeuvre. Il affiche l'oeuvre passé en paramettre. 
+            * @author German Mahecha
+            * @version 1.0
+            * @update 2015-12-27
+            * @license Creative Commons BY-NC 3.0 (Licence Creative Commons Attribution - Pas d’utilisation commerciale 3.0 non transposé)
+            * @license http://creativecommons.org/licenses/by-nc/3.0/deed.fr
+            * 
+            */         
+            $oOeuvre = new MOeuvres('','','','','','','','','','','','','','','','','','','','','','','','','');
+            echo "<details>";
+            echo "<summary>MOeuvres::listeUnOeuvre()</summary>";
+            var_dump($oOeuvre->listeUnOeuvre(4));
+            echo "</details>"; 
+            
+            
+            /**
+            * Test Unitaire pour la funtion recherche des oeuvres par mot clé                 * @author German Mahecha
+            * @version 1.0
+            * @update 2015-12-27
+            * @license Creative Commons BY-NC 3.0 (Licence Creative Commons Attribution - Pas d’utilisation commerciale 3.0 non transposé)
+            * @license http://creativecommons.org/licenses/by-nc/3.0/deed.fr
+            * 
+            */         
+            $oOeuvre = new MOeuvres('','','','','','','','','','','','','','','','','','','','','','','','','');
+            echo "<details>";
+            echo "<summary>MOeuvres::listeOeuvresparMot()</summary>";
+            var_dump($oOeuvre->listeOeuvresparMot('a'));
+            echo "</details>"; 
+            
+            
+            
+            /**
+            * Test Unitaire pour ajouter un artiste. 
+            * @author German Mahecha
+            * @version 1.0
+            * @update 2015-12-27
+            * @license Creative Commons BY-NC 3.0 (Licence Creative Commons Attribution - Pas d’utilisation commerciale 3.0 non transposé)
+            * @license http://creativecommons.org/licenses/by-nc/3.0/deed.fr
+            * 
+            */         
+            $oArtiste = new MArtistes('','','','','','')
+            echo "<details>";
+            echo "<summary>MArtistes::ajoutArtiste()</summary>";
+            var_dump($oArtiste->listeUnOeuvre( 'test','test','test','test'));
+            echo "</details>"; 
+            
+                       
             
 			//$oArrondisement = new MArrondissement('', '');
 			//$aArrondissements = $oArrondisement::listeArrondissement();
 			//var_dump($oArrondisement);
+            
             
             $oOeuvre = new MOeuvres('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
             $aOeuvre = $oOeuvre::ajouterOeuvre();
