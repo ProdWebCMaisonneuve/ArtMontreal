@@ -108,9 +108,6 @@ class Controler
                 case 'connexion':
                     $this->connexion();
                     break;
-                case 'recherche':
-                    $this->rechercheOeuvre();
-                    break;
                 
                 case 'arrondissements':
                     if($_GET['idArrondissement'] !='')
@@ -151,10 +148,8 @@ class Controler
                     $this->ajoutOeuvre();
                     break;
 
-                case 'ajouterUnArtiste':
-                    $this->ajouterUnArtiste();
-                    break;
-
+              //ajouterUnArtiste était duplique...
+                    
                 case 'profilUtilisateur':
                     $this->profilUtilisateur();
                     break;
@@ -169,7 +164,11 @@ class Controler
                 case 'formulaireAjouterArtiste() ':
                     $this->afficheAjouterUnArtiste();
                     break;
-
+                
+                case 'recherche':
+                    $this->rechercheOeuvresMot();
+                    break;                
+                
                 case 'admin':
                     $this->admin();
                     break;
@@ -530,11 +529,14 @@ class Controler
             
         } 
 
-        private function rechercheOeuvre()
+        private function rechercheOeuvresMot()
         {
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->rechercheOeuvre();
+            
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            $aOeuvres=$oOeuvre::listeOeuvresparMot($_POST['mot']);
+            $oVue->afficheOeuvresMot($aOeuvres);
             $oVue->afficheFooter();
                 
         }
@@ -656,7 +658,7 @@ class Controler
             $oVue->afficheFooter();
             
         } 
-
-
+    
+        
 }
 ?>

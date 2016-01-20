@@ -326,18 +326,19 @@ class MOeuvres {
 	 */
 	public static function listeUnOeuvre($idcon) {
 		self::$database->query('
-		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie 
+		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, oeuvre.titreVariante,oeuvre.technique,oeuvre.techniqueAng,oeuvre.noInterne,oeuvre.description,oeuvre.validationOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie, categorie.nomCatAng, souscategorie.nomSousCat, souscategorie.nomSousCatAng, oeuvre.nomMateriaux,oeuvre.nomMateriauxAng  
 		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
 		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
-		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie 
+		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie
+        JOIN souscategorie ON oeuvre.idSousCategorie = souscategorie.idSousCategorie
         WHERE oeuvre.idOeuvre = :idcon');
 		self::$database->bind(':idcon', $idcon);
         $ligne = self::$database->uneLigne();
-		$oeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','',$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],'','','','','');
+		$oeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],$ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],$ligne['nomCatAng'],$ligne['nomSousCat'],$ligne['nomSousCatAng'],$ligne['nomMateriaux'],$ligne['nomMateriauxAng']);
         return $oeuvre;
 	}
     
-     
+ 
     /*
      * Fonction qui récupère les infos d'une oeuvre selon son id
 	 * @access public static
@@ -598,6 +599,36 @@ class MOeuvres {
     }
     
     
+    
+    
+    
+    
+    /**
+     * Fonction qui récupère la recherche des oeuvres par mot
+	 * @access public static
+     * @author German Mahecha
+	 * @return array
+	 */
+    
+    public static function listeOeuvresparMot($mot) {
+		
+        
+       self::$database->query("
+		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie 
+		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
+		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
+		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie 
+        WHERE oeuvre.titreOeuvre LIKE '%$mot%'");
+		$lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','',$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],'','','','','');
+			$oeuvres[] = $uneOeuvre;
+		}
+        if($oeuvres)
+		  return $oeuvres;
+        else
+            return 'Aucune';
+	}
     
     /**
 	 * @access public static

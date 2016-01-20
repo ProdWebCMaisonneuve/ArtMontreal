@@ -61,13 +61,13 @@ class VueDefaut
                             </div>
 
                             <div id="recherche" >
-                                <form action="index.php?requete=recherche"  method="post" >
-                                <input type="text"  name="mot"  value=""> 
-                                <input type="submit" id="submit" value="OK"   >
+                                <form name='recherche' action="index.php?requete=recherche"   method="POST" >
+                                    <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
+                                    <input type="submit" id="buttonRecherche" value="OK">
                                 </form>
                             </div>
-
-
+                            
+                            
                             <div class="menu">
                                 <nav>
                                     <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
@@ -91,34 +91,7 @@ class VueDefaut
     }
     
 
-    /**
-     * Affiche le résultat de RECHERCHE
-     * Auteure: Thuy Tien VO
-     * @access public
-     *
-     */
-
-    public function rechercheOeuvre()
-    {   ?>
-       
-        <h2>Recherche</h2>
-
-     
-        <?php
-
-        if(isset($_POST['submit']))
-            {
-                if($_POST['mot']=="")
-                    {
-                      echo "Veuillez saisir un mot clé avant d'effectuer la recherche";    
-                    }
-                else
-                    {
-                      $mot=$_POST['mot'];
-                    }    
-            }
-
-    }
+    
 
     /**
      * Affiche la page d'inscription
@@ -234,7 +207,7 @@ class VueDefaut
                                         // [number] Time spent on each slide in milliseconds.
                                       auto: true,
                                         // [boolean] Start playing the slideshow on load.
-                                      swap: true,
+                                      swap: false,
                                         // [boolean] show/hide stop and play buttons
                                       pauseOnHover: false,
                                         // [boolean] pause a playing slideshow on hover
@@ -321,7 +294,24 @@ class VueDefaut
                 <img src='images/img_2.jpg' alt="">
             </div>
             <div class= 'sixcol'>
-                <p>Artiste: <?php echo $oeuvre->getPrenomArtiste()." ".$oeuvre->getNomArtiste(); ?></p>
+                <?php
+                    
+                   $idOeuvre= $oeuvre->getIdOeuvre();
+                   $titre = $oeuvre->getTitreOeuvre();
+                   $arrondissement= $oeuvre ->getNomArrondissement();
+                   $prenom = $oeuvre->getPrenomArtiste();
+                   $nom = $oeuvre->getNomArtiste();
+                   $collectif = $oeuvre->getCollectif();
+                   $categorie = $oeuvre->getNomCategorie();
+ 
+                    if($collectif =="") {
+                    echo "<p>Artiste: ".$prenom." ".$nom."</p>";
+
+                    } else {
+                        echo "<p>Artiste: ".$collectif."</p>";
+                    }
+                 ?>
+                
                 <p>Nom de l'oeuvre: <?php echo $oeuvre->getTitreOeuvre(); ?></p>
                 <p>Categorie: <?php echo $oeuvre->getNomCategorie(); ?></p>
                 <p>Souscategorie: <?php echo $oeuvre->getNomSousCat(); ?></p>
@@ -1442,6 +1432,7 @@ class VueDefaut
                         <br>
                         <li>
                             <a href="#">MISE A JOUR BDD</a>
+                         <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
                         </li> 
 
                     </ul>
@@ -1471,6 +1462,53 @@ class VueDefaut
     }
     
     
+    
+    
+    /**
+     * Affiche Liste des categories
+     * @access public
+     * @author German Mahecha
+     * @version 1.0
+     */
+    
+     public function afficheOeuvresMot($aOeuvres){
+        ?>
+            <h2>Resultats de la recherche</h2>
+            <section class='contenu container'>
+                <div class='tableArtistes'>
+        <?php
+        if($aOeuvres!='Aucune')
+        {
+            echo "<table>";
+            echo "<tr>";
+            echo "<th></th>";
+            echo "<th>Titre</th>";
+            echo "<th>Artiste</th>";
+            echo "<th>Arrondissement</th>";
+            echo "</tr>";
+            
+            foreach($aOeuvres as $oeuvre) {
+                echo "<tr>";
+                $idOeuvre = $oeuvre->getIdOeuvre();
+                echo "<td><a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre'><span class='icon-blackboard'></span>";
+                echo "<td>".$oeuvre->getTitreOeuvre()."</td>" ;
+               if($oeuvre->getCollectif() =="") {
+                  echo "<td>".$oeuvre->getNomArtiste()." ".$oeuvre->getPrenomArtiste()."</td>" ;
+               } else {
+                   echo "<td>".$oeuvre->getCollectif()."</td>" ;
+               }
+               echo "<td>".$oeuvre->getNomArrondissement()."</td>" ;
+               echo "</tr>";
+            }
+                    
+            echo "</table>";
+            echo "</div>";
+            echo "</section> ";
+        }
+        else
+            echo "Pas des resultats";
+       echo "</div>";
+    }
     
         //private function rechercheOeuvreParCat()
        // {
