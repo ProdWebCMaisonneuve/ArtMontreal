@@ -396,7 +396,7 @@ class MOeuvres {
 		}
 		else
 		{
-			echo "il n'y a pas d'oeuvres dans cette arrondissement";
+			echo "";
 		}
 
     }//FIN FUNCTION listerOeuvresParArr

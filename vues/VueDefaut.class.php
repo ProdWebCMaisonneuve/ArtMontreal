@@ -502,14 +502,22 @@ class VueDefaut
 
         <h2>Oeuvres par Arrondissements</h2>
         <?php
-        foreach($aOevuresParArr as $OevuresParArr)
+        if($aOevuresParArr == "")
         {
-            $idOeuvre= $OevuresParArr->getIdOeuvre();
-            $titre = $OevuresParArr->getTitreOeuvre();
-
-            echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='arrondisement'>" . $titre . "</a>" . '</br>';
-   
+            echo "il n'y a pas d'oeuvres dans ce arrondisement";
         }
+        else
+        {
+            foreach($aOevuresParArr as $OevuresParArr)
+            {
+                $idOeuvre= $OevuresParArr->getIdOeuvre();
+                $titre = $OevuresParArr->getTitreOeuvre();
+
+                echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='arrondisement'>" . $titre . "</a>" . '</br>';
+       
+            }
+        }
+
     }    //FIN FUNCTION afficheOeuvre_Par_Arr
     
 
