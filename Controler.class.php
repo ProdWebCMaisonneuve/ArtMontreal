@@ -440,10 +440,11 @@ class Controler
         {   
             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
             $oUtilisateur->supprimerUtilisateurs($idUtil);
+            $aUtilisateurs=$oUtilisateur->listeUtilisateurs();
 
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheInscription();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
         }
     
