@@ -85,9 +85,9 @@ class Controler
                 case 'modifierCategories':
                         $this->modifierCategories($_GET['idCategorie']);
                     break;
-                case 'supprimerCategories':
-                        $this->supprimerCategories($_GET['idCategorie']);
-                    break;
+                //case 'supprimerCategories':
+                        //$this->supprimerCategories($_GET['idCategorie']);
+                   // break;
                 case 'supprimerOeuvres':
                         $this->supprimerOeuvres($_GET['idOeuvre']);
                     break; 
@@ -170,6 +170,12 @@ class Controler
                     $this->afficheAjouterUnArtiste();
                     break;
 
+                case 'ajouterUnCategorie':
+                    $this->ajouterUnCategorie();
+                    break;
+                case 'formulaireAjouterCategorie() ':
+                    $this->afficheAjouterUnCategorie();
+                    break;
                 case 'admin':
                     $this->admin();
                     break;
@@ -485,6 +491,17 @@ class Controler
     
         }
 
+       // private function supprimerCategories($idCat)
+        //{   
+            //$oCategories = new MCategories('', '', '','','','');
+            //$oCategories->supprimerCategories($idCat);
+
+           // $oVue = new VueDefaut();
+            //$oVue->afficheHeader();
+            //$oVue->afficheListeSupprimerCategories($aCategories);
+            ///$oVue->afficheFooter();
+        //}
+
 
         private function oeuvresParCat($id_cat)
         {   
@@ -647,15 +664,32 @@ class Controler
             $oVue->afficheFooter();
         }
 
-        private function afficheAjouterUnArtiste()
-        {
-          
+    
+
+            /* Ajouter  un Catégorie
+                Auteure: Thuy Tien Vo
+             */
+
+        private function ajouterUnCategorie()
+        {     
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficheAjouterUnArtiste();
+
+            $erreurTitre ='';
+            $message ='';
+            if($_GET['action'] == 'ajoutCategorie')
+
+                {   $oArtiste=new MCategories('', '', '');
+                    $oArtiste->ajoutCategorie($_POST['nomCategorie'], $_POST['nomCatAng'],'');
+                    $message = "Catégorie ajoutée.";
+                   
+                }
+       
+            $oVue->formulaireAjouterCategorie();
             $oVue->afficheFooter();
-            
-        } 
+        }
+
+     
 
 
 }
