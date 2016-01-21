@@ -629,6 +629,83 @@ class VueDefaut
 
                         </div>
 
+                               <div class="admin2">
+           <div class="menuAdmin2">
+                <nav>
+                    <ul>
+                         
+                        <li>
+                            GESTION
+                            <ul>
+                                <li>
+                                    <a href="#">OEUVRES</a>
+                                       <ul>
+                                            <li><a href="index.php?requete=ajoutOeuvre">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierOeuvres">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerOeuvres">Supprimer</a></li>
+                                        </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#">ARTISTES</a>
+                                        <ul>
+                                            <li><a href="index.php?requete=ajouterUnArtiste">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierArtistes">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerArtistes">Supprimer</a></li>
+                                        </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#">CATEGORIES</a>
+                                        <ul>
+                                            <li><a href="#">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
+                                        </ul>
+                                </li>
+
+                                <li>
+                                    <a href="index.php?requete=listerUtilisateurs">UTILISATEURS</a>
+                                        <ul>
+                                            <li><a href="index.php?requete=afficheInscriptionAdmin">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierUtilisateurs">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
+                                        </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            MODERATION
+                            <ul>
+                                <li><a href="#">Photos</a></li>
+                                <li><a href="#">Commentaires</a></li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li>
+                            <a href="#">MISE A JOUR BDD</a>
+                         <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
+                        </li> 
+
+                    </ul>
+
+                </nav>
+            </div>
+            
+            <section class="contenu container">
+        
+                <!-- <h2>Gestion</h2> -->
+
+                <div class="administration">
+                   <div class="twelvecol">
+                       
+                    
+                     
+                   </div>
+
+                </div>
+            </section>
+        </div>
                     </div>
 
 
@@ -650,7 +727,7 @@ class VueDefaut
     {   
         
         ?>
-        <div class="admin">
+        <!-- <div class="admin">
            <div class="menuAdmin">
                 <nav>
                     <ul>
@@ -710,7 +787,7 @@ class VueDefaut
                     </ul>
 
                 </nav>
-            </div>
+            </div> -->
             
             <section class="contenu container">
         
@@ -720,7 +797,7 @@ class VueDefaut
                    <div class="twelvecol">
                        <h3>Ajouter une oeuvre</h3>
 
-                       <form method="POST" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
+                       <form method="POST" class="formulaire" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
                            
                             <label>Titre : </label> <input type="text" name="titre"><span><?php echo $erreurTitre;?><br>
                             <label>Titre (Variante) : </label> <input type="text" name="titreVariante"><br>
@@ -1292,10 +1369,12 @@ class VueDefaut
     {
         ?>
         <div>
-        <h2 id="titre">Formulaire d'inscription</h2>
-        <form class="formulaire"action="">
+        <h2 id="titre">Ajouter un utilisateur</h2>
+        <form method="POST" class="formulaire" action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
+        
             <fieldset>
-            Prénom:<br>
+                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
+            <!-- Prénom:<br>
             <input type="text" name="prenom" >
             <br> <br>
             Nom:<br>
@@ -1309,7 +1388,7 @@ class VueDefaut
             <input type="radio" name="sex" value="female"> Female<br><br>
             Courriel:<br>
             <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-            <br> <br>
+            <br> <br> -->
             Biographie:<br>
             <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
             <br><br>
@@ -1317,17 +1396,23 @@ class VueDefaut
             <input type="text" name="utilisateur" >
             <br><br>
             Mot de passe:<br>
-            <input type="text" name="motDePasse" >
+            <input type="password" name="motDePasse" >
             <br><br>
             Confirmer le mot de passe:<br>
-            <input type="text" name="motDePasse" value="">
+            <input type="password" name="motDePasse" value="">
+            <br><br>
+            score:<br>
+            <input type="text" name="score" value="">
+            <br><br>
+            photo:<br>
+            <input type="text" name="photoUtilisateur" value="">
             <br><br>
             <input type="submit" value="Envoyer" id="button">
             <fieldset>
         </form>  
         </fieldset>
         </fieldset>
-        </div>          
+        </div>           
         <?php
 
     }
@@ -1355,8 +1440,13 @@ class VueDefaut
                 foreach($aUtilisateurs as $utilisateur) {
                         echo "<tr>";
                         $idUtilisateur = $utilisateur->getIdUtilisateur();
+                        $loginUtilisateur = $utilisateur->getloginUtilisateur();
+                        $passUtilisateur = $utilisateur->getpassUtilisateur();
+                        $bio = $utilisateur->getbio();
+                        $score = $utilisateur->getscore();
+                        $photoUtilisateur = $utilisateur->getphotoUtilisateur();
                         echo "<td><span class='icon-user'></span>";
-                        echo "<td><a href='index.php?requete=profilUtilisateur&idUtilisateur=$idUtilisateur'>".$utilisateur->getLoginUtilisateur()."</a>" ."</td>" ;
+                        echo "<td><a href='index.php?requete=unUtilisateur&idUtilisateur=$idUtilisateur'>".$utilisateur->getLoginUtilisateur()."</a>" ."</td>" ;
                         //echo "<td><a href='index.php?requete=supprimerUtilisateurs&idUtilisateur=$idUtilisateur'><span class='icon-remove-user'></span></a></td>";
                         echo "</tr>";
                 }
@@ -1461,6 +1551,107 @@ class VueDefaut
         <?php
 
         
+    }
+
+        /**
+     * Fonction qui modifie un utilisateur  
+     * @access public
+     * @auteure: Jorge Blanco
+     * @version 1.0
+     */
+
+    public function afficherUnUtilisateur($aUtilisateur)
+    {
+        ?>
+        <section class='contenu container'>
+            <div class= 'fourcol '>
+                <img src='images/img_2.jpg' alt="">
+            </div>
+            <div class= 'sixcol'>
+                <?php
+                    
+                   $idUtilisateur= $aUtilisateur->getIdUtilisateur();
+
+
+
+                 ?>
+                
+                <p>Nom de l'oeuvre: <?php echo $aUtilisateur->getIdUtilisateur(); ?></p>
+
+                <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
+            </div>
+        
+        </section>
+
+        <?php
+    }
+
+
+    /**
+     * Fonction qui modifie un utilisateur  
+     * @access public
+     * @auteure: Jorge Blanco
+     * @version 1.0
+     */
+
+    public function modifierUnUtilisateur($aUtilisateur)
+    {
+        $idUtilisateur = $aUtilisateur['idUtilisateur'];
+        $bio = $aUtilisateur['bio'];
+        $utilisateur = $aUtilisateur['utilisateur'];
+        $motDePasse = $aUtilisateur['motDePasse'];
+        $score = $aUtilisateur['score'];
+        $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
+
+        ?>
+        <div>
+        <h2 id="titre">Modifier Utilisateur</h2>
+    
+        <form class="formulaire" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" method='POST'>
+        
+            <fieldset>
+                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
+            <!-- Prénom:<br>
+            <input type="text" name="prenom" >
+            <br> <br>
+            Nom:<br>
+            <input type="text" name="nom" >
+            <br> <br>
+            Date de naissance:<br>
+            <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
+             <br> <br>
+            Sexe:<br><br>
+            <input type="radio" name="sex" value="male" checked> Male
+            <input type="radio" name="sex" value="female"> Female<br><br>
+            Courriel:<br>
+            <input type="text" name="courriel" placeholder="exemple@domaine.com" >
+            <br> <br> -->
+            Biographie:<br>
+            <textarea rows="8" cols="60" name="bio" placeholder="Entrer un text ici..."></textarea>
+            <br><br>
+             Nom d'utilisateur:<br> 
+            <input type="text" name="utilisateur" value="<?php echo $utilisateur; ?>">
+            <br><br>
+            Mot de passe:<br>
+            <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
+            <br><br>
+            Confirmer le mot de passe:<br>
+            <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
+            <br><br>
+            score:<br>
+            <input type="text" name="score" value="<?php echo $score; ?>">
+            <br><br>
+            photo:<br>
+            <input type="text" name="photoUtilisateur" value="<?php echo $photoUtilisateur; ?>">
+            <br><br>
+            <input type="submit" value="Envoyer" id="button">
+            <fieldset>
+        </form>  
+        </fieldset>
+        </fieldset>
+        </div>          
+        <?php
+
     }
     
     

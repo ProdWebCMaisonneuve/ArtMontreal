@@ -128,12 +128,45 @@ class MUtilisateurs {
     }
 
 
-    public static function supprimerUtilisateurs($idUtilisateur)
+
+
+
+     /**
+	 * Fonction pour recuperer l'info d'un utilisateur par son id
+	 * @return none
+     * @author Jorge Blanco
+     * @version 1.0
+     * 
+     */
+    public static function getUtilisateurParId($idUtilisateur)
     {
     	self::$database->query("DELETE FROM utilisateur_enregistre WHERE idUtilisateur=:idUtilisateur");
     	self::$database->bind(':idUtilisateur', $idUtilisateur);
 
     	return(self::$database->execute());
+    }
+
+     /**
+	 * Fonction modiffier un utilisateur enregistre
+	 * @return none
+     * @author Jorge Blanco
+     * @version 1.0
+     * 
+     */
+
+    public static function modifierUtilisateur($idUtilisateur, $loginUtilisateur, $passUtilisateur, $bio, $score, $photoUtilisateur)
+    {
+    	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, bio = :bio, score = :score, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur ");
+
+    	self::$database->bind('idUtilisateur', $idUtilisateur);
+    	self::$database->bind('loginUtilisateur', $loginUtilisateur);
+    	self::$database->bind('passUtilisateur', $passUtilisateur);
+    	self::$database->bind('bio', $bio);
+    	self::$database->bind('score', $score);
+    	self::$database->bind('photoUtilisateur', $photoUtilisateur);
+
+    	return(self::$database->execute());
+
     }
     
 }
