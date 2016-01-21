@@ -476,9 +476,10 @@ class MOeuvres {
      */
     public static function modifierOeuvre($idOeuvre, $titre, $titreVariante, $technique, $techniqueAng, $description, $validationOeuvre, $idArrondissement, $idAdresse, $idArtiste, $idCategorie, $idSousCategorie, $nomMateriaux, $nomMateriauxAng) {
         
-        self::$database->query("UPDATE oeuvre SET titre = :titre, titreVariante = :titreVariante, technique = :technique, techniqueAng = :techniqueAng,  description = :description, validationOeuvre = :validationOeuvre, idArrondissement = :idArrondissement, idAdresse = :idAdresse, idArtiste = :idArtiste, nomMateriaux = :nomMateriaux, nomMateriauxAng = :nomMateriauxAng, idCategorie = :idCategorie, idSousCategorie = :idSousCategorie)");
+        self::$database->query("UPDATE oeuvre SET titreOeuvre = :titre, titreVariante = :titreVariante, technique = :technique, techniqueAng = :techniqueAng,  description = :description, validationOeuvre = :validationOeuvre, idArrondissement = :idArrondissement, idAdresse = :idAdresse, idArtiste = :idArtiste, nomMateriaux = :nomMateriaux, nomMateriauxAng = :nomMateriauxAng, idCategorie = :idCategorie, idSousCategorie = :idSousCategorie WHERE idOeuvre = :idOeuvre");
         //On lie les paramètres auxvaleurs
         
+        self::$database->bind(':idOeuvre', $idOeuvre);
         self::$database->bind(':titre', $titre);
         self::$database->bind(':titreVariante', $titreVariante);
         self::$database->bind(':technique', $technique);
