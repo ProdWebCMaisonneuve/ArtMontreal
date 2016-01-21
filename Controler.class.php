@@ -76,9 +76,14 @@ class Controler
                 case 'supprimerArtistes':
                         $this->supprimerArtistes($_GET['idArtiste']);
                     break;
-                case 'modifierUtilisateurs':
-                        $this->modifierUtilisateurs($_GET['idUtilisateur']);
+
+
+                case 'modifierUtilisateur':
+                        $this->modifierUtilisateur($_GET['idUtilisateur']);
                     break;
+
+
+
                 case 'supprimerUtilisateurs':
                         $this->supprimerUtilisateurs($_GET['idUtilisateur']);
                     break;
@@ -135,6 +140,11 @@ class Controler
                     $this->unOeuvre($_GET['idOeuvre']);
                     break;
 
+                    
+                case 'unUtilisateur':
+                    $this->unUtilisateur($_GET['idUtilisateur']);
+                    break;
+
                
 
                 case 'oeuvresParCat':
@@ -172,6 +182,7 @@ class Controler
                 case 'admin':
                     $this->admin();
                     break;
+
                     
                 default:
 			    $this->accueil();
@@ -179,6 +190,16 @@ class Controler
 			}
             
 		}
+
+        private function afficheContenuAdmin()
+        {
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheContenuAdmin();
+            $oVue->afficheFooter();
+            
+        } 
 		
         private function accueil()
 		{
@@ -201,6 +222,16 @@ class Controler
 			$oVue->afficheFooter();
 			
 		}
+
+        private function unUtilisateur($idGetUtilisateur)
+        {
+            $oUtilisateurs = new MUtilisateurs('','','','','','');
+            $aUtilisateur = $oUtilisateurs::listeUtilisateurs($idGetUtilisateur);
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficherUnUtilisateur($aUtilisateur);
+            $oVue->afficheFooter();
+        }
 		
 		
          private function artistes()
@@ -223,7 +254,7 @@ class Controler
             $aArtistes = $oArtistes::listeArtistes();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierArtistes($aArtistes);
             $oVue->afficheFooter();
     
@@ -234,7 +265,7 @@ class Controler
             $aArtistes = $oArtistes::listeArtistes();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerArtistes($aArtistes);
             $oVue->afficheFooter();
     
@@ -247,7 +278,7 @@ class Controler
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
 
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
             $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
         }
@@ -258,7 +289,7 @@ class Controler
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
     
@@ -269,7 +300,7 @@ class Controler
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
     
@@ -281,7 +312,7 @@ class Controler
             $aCategories = $oCategories::listeCategories();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierCategories($aCategories);
             $oVue->afficheFooter();
     
@@ -292,7 +323,7 @@ class Controler
             $aCategories = $oCategories::listeCategories();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerCategories($aCategories);
             $oVue->afficheFooter();
     
@@ -304,7 +335,7 @@ class Controler
             $aOeuvres = $oOeuvres::listeOeuvres();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierOeuvres($aOeuvres);
             $oVue->afficheFooter();
     
@@ -315,7 +346,7 @@ class Controler
             $aOeuvres = $oOeuvres::listeOeuvres();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerOeuvres($aOeuvres);
             $oVue->afficheFooter();
     
@@ -369,13 +400,46 @@ class Controler
         
         private function modifierUtilisateur($idUtil)
         {   
-            
+             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+             $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+             $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+
+            var_dump($_GET['idUtilisateur']);
+            var_dump($_GET['action']);
+            if($_GET['idUtilisateur'])
+            {
+
+
+                try
+                {
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['bio'], $_POST['utilisateur'], $_POST['motDePasse']  , $_POST['score'], $_POST['photoUtilisateur']);
+
+                    $oVue = new VueDefaut();
+                    $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
+                    $oVue = afficheListeModifierUtilisateurs($aUtilisateurs);
+
+                }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();
+                }
+            }
+            else
+            {
+                $oVue->modifierUnUtilisateur($aUtilisateur);
+            }
+            $oVue->afficheFooter();
+
+
         }
     
         private function supprimerUtilisateurs($idUtil)
         {   
             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-            $oUtilisateur->supprimerUtilisateurs($idUtil);
+            $oUtilisateur->getUtilisateurParId($idUtil);
 
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
@@ -591,20 +655,38 @@ class Controler
         private function afficheInscriptionAdmin()
         {
           
+            $erreurTitre ='';
+            $message ='';
+          
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
+
+            if($_GET['action'] == 'ajoutUtilisateur') 
+            {
+                
+                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                $message = "Utilisateur ajoutée.";
+            }
+
             $oVue->afficheInscriptionAdmin();
-            $oVue->afficheFooter();
-            
+            $oVue->afficheFooter();    
         } 
+         
 
         
 
         private function profilUtilisateur()
         {
+
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+
+
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             //$oVue->ajouterUnArtiste();
+            $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
         }
 
@@ -628,6 +710,9 @@ class Controler
             $oVue->afficheFooter();
         }
 
+
+
+
             /* Ajouter  une ARTISTE
                 Auteure: Thuy Tien Vo
              */
@@ -635,7 +720,7 @@ class Controler
         private function ajouterUnArtiste()
         {     
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 
             $erreurTitre ='';
             $message ='';

@@ -536,28 +536,33 @@ i:after {
 
 /*ADMIN*/
 
-.admin {
+.menuAdmin2{
+    background-color: #354a5d;
+    width: 272px;
+    height: 100%;
+}
+/*.admin {
     overflow: hidden;
     position: relative;
-}
+}*/
 /*MENU ADMIN*/
 
-.menuAdmin {
+/*.menuAdmin {
     position: absolute;
     left: 0;
     top: 0;
     background-color: #354a5d;
     width: 272px;
     height: 100%;
-}
+}*/
 
-.menuAdmin ul li ul {
+/*.menuAdmin ul li ul {
     display: none;
 }
 
 .menuAdmin ul li:hover ul {
     display: block;
-}
+}*/
 
 .administration {
     float: right;
