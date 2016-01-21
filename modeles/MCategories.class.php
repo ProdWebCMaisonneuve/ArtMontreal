@@ -62,6 +62,22 @@ class MCategories
 	{
 		return $this->nomCatAng;				
     }
+
+      /**
+	 * @author Thuy Tien Vo
+	 * @return Array Tableau contenant la liste de toutes les categories
+	 */
+
+    public function ajoutCategorie($nomCategorie,$nomCatAng)
+
+        {
+            self::$database->query("INSERT INTO categorie VALUES ('', :nomCategorie, :nomCatAng)") ;
+            //On lie les paramètres aux valeurs
+            self::$database->bind(':nomCategorie', $nomCategorie);
+            self::$database->bind(':nomCatAng', $nomCatAng);
+            self::$database->execute();
+            return(self::$database->execute());
+        }  
     
      /**
 	 * @author Gautier Piatek
@@ -91,7 +107,9 @@ class MCategories
  * @update 2016-01-12
  * 
  */
-class MSousCategories extends MCategories {
+class MSousCategories extends MCategories 
+
+{
     
     public $idSousCategorie;
 	public $nomSousCategorie;
@@ -162,6 +180,18 @@ class MSousCategories extends MCategories {
 			}
 			return $SousCategories;
 		}
+	/**
+	 * @author Thuy Tien Vo
+	 * @return Supprimer un catégorie
+	 */
+
+	public static function supprimerCategories($idCategorie)
+    {
+    	self::$database->query("DELETE FROM categorie WHERE idCategorie=:idCategorie");
+    	self::$database->bind(':idCategorie', $idCategorie);
+
+    	return(self::$database->execute());
+    }
 }
  
 
