@@ -172,7 +172,7 @@ class MUtilisateurs {
 
     public static function modifierUtilisateur($idUtilisateur, $loginUtilisateur, $passUtilisateur, $bio, $score, $photoUtilisateur)
     {
-    	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, bio = :bio, score = :score, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur ");
+    	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, bio = :bio, score = :score, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur");
 
     	self::$database->bind('idUtilisateur', $idUtilisateur);
     	self::$database->bind('loginUtilisateur', $loginUtilisateur);
