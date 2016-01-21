@@ -429,7 +429,7 @@ class Controler
             }
             else
             {
-                $oVue->modifierUnUtilisateur($aUtilisateur);
+                //$oVue->modifierUnUtilisateur($aUtilisateur);
             }
             $oVue->afficheFooter();
 
@@ -439,7 +439,7 @@ class Controler
         private function supprimerUtilisateurs($idUtil)
         {   
             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-            $oUtilisateur->getUtilisateurParId($idUtil);
+            $oUtilisateur->supprimerUtilisateurs($idUtil);
 
             $oVue = new VueDefaut();
             $oVue->afficheHeader();

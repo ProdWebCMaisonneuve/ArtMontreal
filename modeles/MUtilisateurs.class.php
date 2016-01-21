@@ -127,8 +127,24 @@ class MUtilisateurs {
     	return(self::$database->execute());
     }
 
+     /**
+	 * Fonction pour recuperer l'info d'un utilisateur par son id
+	 * @return none
+     * @author Jorge Blanco
+     * @version 1.0
+     * 
+     */
 
-
+     public static function getUtilisateurParId($idUtilisateur)
+     {
+     	self::$database->query("SELECT * FROM utilisateur_enregistre WHERE idUtilisateur=:idUtilisateur");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idUtilisateur', $idUtilisateur);
+        
+        $ligne = self::$database->uneLigne();
+        
+        return $ligne;
+     }
 
 
      /**
@@ -138,7 +154,7 @@ class MUtilisateurs {
      * @version 1.0
      * 
      */
-    public static function getUtilisateurParId($idUtilisateur)
+    public static function supprimerUtilisateurs($idUtilisateur)
     {
     	self::$database->query("DELETE FROM utilisateur_enregistre WHERE idUtilisateur=:idUtilisateur");
     	self::$database->bind(':idUtilisateur', $idUtilisateur);
