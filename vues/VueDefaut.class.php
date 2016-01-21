@@ -666,7 +666,7 @@ class VueDefaut
                                 <li>
                                     <a href="#">CATEGORIES</a>
                                         <ul>
-                                            <li><a href="#">Ajouter</a></li>
+                                            <li><a href="index.php?requete=ajouterUnCategorie">Ajouter</a></li>
                                             <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
                                             <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
                                         </ul>
@@ -1466,7 +1466,7 @@ class VueDefaut
     }
     
      /**
-     * Affiche l'ajout d'oeuvre
+     * Affiche menu Admin
      * @access public
      * @author Gautier Piatek
      * @version 1.0
@@ -1561,7 +1561,7 @@ class VueDefaut
         
     }
 
-        /**
+    /**
      * Fonction qui modifie un utilisateur  
      * @access public
      * @auteure: Jorge Blanco

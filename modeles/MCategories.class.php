@@ -102,7 +102,7 @@ class MCategories
  
  	public static function supprimerCategories($idCategorie)
      {
-     	self::$database->query("DELETE FROM categorie WHERE idCategorie=:idCategorie");
+     	self::$database->query("DELETE FROM categorie WHERE idCategoCAterie=:idCategorie");
      	self::$database->bind(':idCategorie', $idCategorie);
  
      	return(self::$database->execute());

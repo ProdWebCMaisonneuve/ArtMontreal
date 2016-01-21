@@ -171,7 +171,8 @@ class Controler
                 case 'ajouterUnArtiste':
                     $this->ajouterUnArtiste();
                     break;
-                case 'formulaireAjouterArtiste() ':
+                
+                case 'formulaireAjouterArtiste':
                     $this->afficheAjouterUnArtiste();
                     break;
                 
@@ -179,7 +180,7 @@ class Controler
                     $this->ajouterUnCategorie();
                     break;
                     
-                case 'formulaireAjouterCategorie() ':
+                case 'formulaireAjouterCategorie':
                    $this->afficheAjouterUnCategorie();
                     break;
                     
@@ -325,10 +326,11 @@ class Controler
             $oVue->afficheFooter();
     
 		}
+        
         private function listeSupprimerCategories()
 		{
             $oCategories = new MCategories('','','');
-            $aCategories = $oCategories::listeCategories();
+            $aCategories = $oCategories->listeCategories();
               
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
@@ -722,9 +724,9 @@ class Controler
 
 
 
-            /* Ajouter  une ARTISTE
-                Auteure: Thuy Tien Vo
-             */
+        /* Ajouter  une ARTISTE
+        * Auteure: Thuy Tien Vo
+        */
 
         private function ajouterUnArtiste()
         {     
@@ -777,5 +779,17 @@ class Controler
             $oVue->afficheFooter();
              
         } 
+    
+        private function supprimerCategories($idCategorie) 
+        {   
+            $oCategorie = new MCategories('', '', '');
+            $oCategorie->supprimerCAtegories($idCategorie);
+            $aCategories = $oCategorie->listeCategories();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerCategories($aCategories);
+            $oVue->afficheFooter();
+        }
 }
 ?>
