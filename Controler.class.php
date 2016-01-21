@@ -477,22 +477,24 @@ class Controler
             
             
             if($_GET['idOeuvre'] && $_GET['action'] == 'valider') {
-                $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-                
-                $oOeuvre->modifierAdresse($idAdresse, $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
-                
-                                         
+                                    
                 try
                 {
+                    $oOeuvre->modifierAdresse($idAdresse, $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
+                    
                     $oOeuvre->modifierOeuvre($_GET['idOeuvre'], $_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $idAdresse, $_POST['artiste'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['materiaux'], $_POST['materiauxAng']);
                 
+                $oVue = new VueDefaut();
+                $aOeuvres = $oOeuvre->listeOeuvres();
+                $oVue->afficheListeModifierOeuvres($aOeuvres);
+                    
                 $message = "Oeuvre modifiée.";
                     
                 }
                 catch (Exception $e)
                 {
                     $message = $e->getMessage();     
-                } 
+                }
             } else {
                 $oVue->modifierOeuvre($aOeuvre, $aAdresse, $aArrondissements, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message);
             }     

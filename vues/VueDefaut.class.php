@@ -983,7 +983,9 @@ class VueDefaut
                 </div> 
                 <?
     }
-      
+    
+    
+       
     /**
      * Affiche Liste Artistes
      * @access public
@@ -1022,7 +1024,7 @@ class VueDefaut
                 echo "</div>";
             echo "</section> ";
        echo "</div>";
-    }
+    } 
     
      /**
      * Affiche Liste Artistes
