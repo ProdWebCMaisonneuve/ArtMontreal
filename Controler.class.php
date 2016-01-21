@@ -175,6 +175,14 @@ class Controler
                     $this->afficheAjouterUnArtiste();
                     break;
                 
+                case 'ajouterUnCategorie':
+                    $this->ajouterUnCategorie();
+                    break;
+                    
+                case 'formulaireAjouterCategorie() ':
+                   $this->afficheAjouterUnCategorie();
+                    break;
+                    
                 case 'recherche':
                     $this->rechercheOeuvresMot();
                     break;                
@@ -745,7 +753,28 @@ class Controler
             $oVue->afficheFooter();
             
         } 
-    
         
+        /* Ajouter  un Catégorie
+        * Auteure: Thuy Tien Vo
+        */
+ 
+         private function ajouterUnCategorie()
+         {     
+              $oVue = new VueDefaut();
+              $oVue->afficheHeader();
+                $erreurTitre ='';
+            $message ='';
+            if($_GET['action'] == 'ajoutCategorie')
+
+                {   $oArtiste=new MCategories('', '', '');
+                    $oArtiste->ajoutCategorie($_POST['nomCategorie'], $_POST['nomCatAng'],'');
+                    $message = "Catégorie ajoutée.";
+                    
+                }
+        
+            $oVue->formulaireAjouterCategorie();
+            $oVue->afficheFooter();
+             
+        } 
 }
 ?>
