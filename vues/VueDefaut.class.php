@@ -689,7 +689,7 @@ class VueDefaut
                                 <li>
                                     <a href="#">CATEGORIES</a>
                                         <ul>
-                                            <li><a href="#">Ajouter</a></li>
+                                            <li><a href="index.php?requete=ajouterUnCategorie">Ajouter</a></li>
                                             <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
                                             <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
                                         </ul>
@@ -1066,6 +1066,37 @@ class VueDefaut
     }
     
 
+
+        /**
+     * Affiche la page pour ajouter un catégorie
+     * @access public
+     * @auteure: Thuy Tien Vo
+     */
+    public function formulaireAjouterCategorie() 
+    {   
+      
+        ?>
+        <div>
+        <h2 id="titre">Ajouter un categorie</h2>
+        <form method="POST"class="formulaire"action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
+            <fieldset>
+             Nom catégorie:<br>
+            <input type="text" name="nomCategorie" >
+            <br> <br>
+             Nom catégorie en Anglais:<br>
+            <input  type="text" name="nomCatAng" >
+             <br> <br>    
+            <input type="submit" value="Envoyer" id="button">
+            <fieldset>
+        </form>  
+        </fieldset>
+        </fieldset>
+        </div>        
+        <?php        
+    }
+
+  
+
     
     /**
      * Affiche Liste des categories
@@ -1125,7 +1156,8 @@ class VueDefaut
                         $idCategorie = $categorie->getIdCategorie();
                         echo "<td><span class='icon-list'></span>";
                         echo "<td>".$categorie->getNomCategorie()."</td>" ;
-                        echo "<td><a href='index.php?requete=eliminerCategorie&idCategorie=$idCategorie'><span class='icon-erase'></span></a></td>";
+                        //echo "<td><a href='index.php?requete=eliminerCategorie&idCategorie=$idCategorie'><span class='icon-erase'></span></a></td>";
+                        echo "<td><a href='index.php?requete=supprimerCategories&idCategorie=$idCategorie'><span class='icon-erase'></span></a></td>";
                         echo "</tr>";
                     }
                 echo "</table>";
