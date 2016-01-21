@@ -513,10 +513,11 @@ class Controler
         {   
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
             $oOeuvre->supprimerOeuvre($idOeuvre);
+            $aOeuvres = $oOeuvre->listeOeuvres();
             
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
-            $oVue->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message);
+            $oVue->afficheListeSupprimerOeuvres($aOeuvres);
             $oVue->afficheFooter();
         }
     
