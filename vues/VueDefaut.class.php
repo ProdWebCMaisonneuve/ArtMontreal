@@ -1562,7 +1562,7 @@ class VueDefaut
     }
 
     /**
-     * Fonction qui modifie un utilisateur  
+     * Fonction qui affiche un utilisateur 
      * @access public
      * @auteure: Jorge Blanco
      * @version 1.0
@@ -1573,20 +1573,21 @@ class VueDefaut
         ?>
         <section class='contenu container'>
             <div class= 'fourcol '>
-                <img src='images/img_2.jpg' alt="">
+                <img src='images/util_1.png' alt="">
             </div>
             <div class= 'sixcol'>
                 <?php
-                    
-                   $idUtilisateur= $aUtilisateur->getIdUtilisateur();
+                    //var_dump($aUtilisateur);
+                   //$idUtilisateur= $aUtilisateur->getIdUtilisateur();
 
 
 
                  ?>
                 
-                <p>Nom de l'oeuvre: <?php echo $aUtilisateur->getIdUtilisateur(); ?></p>
+                <p>Nom utilisateur: <?php echo $aUtilisateur->getloginUtilisateur(); ?></p>
+                <p>bio: <?php echo $aUtilisateur->getbio(); ?></p>
 
-                <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
+                <a href='index.php?requete=profilUtilisateur'><span class='icon-reply'></span> Retourner</a>
             </div>
         
         </section>
@@ -1604,12 +1605,22 @@ class VueDefaut
 
     public function modifierUnUtilisateur($aUtilisateur)
     {
+        
         $idUtilisateur = $aUtilisateur['idUtilisateur'];
-        $bio = $aUtilisateur['bio'];
-        $utilisateur = $aUtilisateur['utilisateur'];
-        $motDePasse = $aUtilisateur['motDePasse'];
+        $bio = $aUtilisateur['loginUtilisateur'];
+        $utilisateur = $aUtilisateur['passUtilisateur'];
+        $motDePasse = $aUtilisateur['bio'];
         $score = $aUtilisateur['score'];
         $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
+        
+        
+//        
+//        $idUtilisateur = $aUtilisateur['idUtilisateur'];
+//        $bio = $aUtilisateur['bio'];
+//        $utilisateur = $aUtilisateur['loginUtilisateur'];
+//        $motDePasse = $aUtilisateur['passUtilisateur'];
+//        $score = $aUtilisateur['score'];
+//        $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
 
         ?>
         <div>
@@ -1643,9 +1654,11 @@ class VueDefaut
             Mot de passe:<br>
             <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
             <br><br>
+<!--
             Confirmer le mot de passe:<br>
             <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
             <br><br>
+-->
             score:<br>
             <input type="text" name="score" value="<?php echo $score; ?>">
             <br><br>

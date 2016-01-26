@@ -185,7 +185,26 @@ class MUtilisateurs {
 
     }
     
+    
+    /**
+	 * Fonction tableau contenant l'information des utilisateurs 
+	 * @return tableau contenant l'information des utilisateurs 
+     * @author Jorge Blanco
+     * @version 1.2
+     */
+    public static function listeUnUtilisateur($idUtil)
+    {
+        self::$database->query('SELECT idUtilisateur, loginUtilisateur, bio, photoUtilisateur FROM utilisateur_enregistre WHERE idUtilisateur = :idUtil');
+        self::$database->bind(':idUtil', $idUtil);
+        $ligne = self::$database->uneLigne();
+        $oUtilisateur = new MUtilisateurs($ligne['idUtilisateur'],$ligne['loginUtilisateur'],'', $ligne['bio'],'',$ligne['photoUtilisateur']);
+        return $oUtilisateur;
+        
+    }
+    
 }
+
+
 
 
 
