@@ -234,11 +234,11 @@ class Controler
 
         private function unUtilisateur($idGetUtilisateur)
         {
-            $oUtilisateurs = new MUtilisateurs('','','','','','');
-            $aUtilisateur = $oUtilisateurs::listeUtilisateurs($idGetUtilisateur);
+            $oUtilisateur = new MUtilisateurs('','','','','','');
+            $outilisateur = $oUtilisateur::listeUnUtilisateur($idGetUtilisateur);
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficherUnUtilisateur($aUtilisateur);
+            $oVue->afficherUnUtilisateur($outilisateur);
             $oVue->afficheFooter();
         }
 		
@@ -415,23 +415,17 @@ class Controler
              $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
 
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
 
-            var_dump($_GET['idUtilisateur']);
-            var_dump($_GET['action']);
-            if($_GET['idUtilisateur'])
+            if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
             {
-
-
-                try
+               try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['bio'], $_POST['utilisateur'], $_POST['motDePasse']  , $_POST['score'], $_POST['photoUtilisateur']);
-
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], $_POST['motDePasse'], $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
                     $oVue = new VueDefaut();
-                    $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
-                    $oVue = afficheListeModifierUtilisateurs($aUtilisateurs);
-
-                }
+                   //$aUtilisateurs = $oUtilisateur->listeUtilisateurs();
+                    $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+               }
                 catch (Exception $e)
                 {
                     $message = $e->getMessage();
@@ -439,8 +433,9 @@ class Controler
             }
             else
             {
-                //$oVue->modifierUnUtilisateur($aUtilisateur);
+                $oVue->modifierUnUtilisateur($aUtilisateur);
             }
+           // $oVue = afficheListeModifierUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
 
 
