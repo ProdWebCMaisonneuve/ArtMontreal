@@ -148,7 +148,7 @@ class MUtilisateurs {
 
 
      /**
-	 * Fonction pour recuperer l'info d'un utilisateur par son id
+	 * Fonction pour supprimer un utilisateur 
 	 * @return none
      * @author Jorge Blanco
      * @version 1.0
