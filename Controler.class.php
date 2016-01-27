@@ -22,7 +22,7 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				case 'accueil':
-                    if($_GET['idOeuvre'] != '')
+                    if($_GET['action'] == 'envoyer')
                     {
                         $this->unOeuvre($_GET['idOeuvre']);    
                     }
@@ -111,7 +111,16 @@ class Controler
 
             
                 case 'connexion':
-                    $this->connexion();
+                    if($_GET['action'] == 'envoyer')
+                    {
+                        $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }
+                    else
+                    {
+                        
+                        $this->connexion();
+                    }
+                    
                     break;
                 
                 case 'arrondissements':
@@ -251,7 +260,7 @@ class Controler
             $aArtistes = $oArtistes::listeArtistes();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeader($_SESSION["session"]);
 			$oVue->afficheArtistes($aArtistes, $oOeuvres);
             $oVue->afficheFooter();
     
@@ -421,7 +430,7 @@ class Controler
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], $_POST['motDePasse'], $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
                     $oVue = new VueDefaut();
                    //$aUtilisateurs = $oUtilisateur->listeUtilisateurs();
                     $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
@@ -594,10 +603,13 @@ class Controler
         } 
 
         private function connexion()
-        {
+        {   
+            $nombreAleatoire = rand(1, 1000);
+            $erreurConnexion = '';
+            
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficheConnexion();
+            $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
             $oVue->afficheFooter();
             
         } 
@@ -753,7 +765,7 @@ class Controler
             
         } 
         
-        /* Ajouter  un Catégorie
+        /* Ajouter une Catégorie
         * Auteure: Thuy Tien Vo
         */
  
@@ -775,7 +787,10 @@ class Controler
             $oVue->afficheFooter();
              
         } 
-    
+        
+        /* Supprimer  un Catégorie
+        * Author: Thuy Tien Vo
+        */
         private function supprimerCategories($idCategorie) 
         {   
             $oCategorie = new MCategories('', '', '');
@@ -786,6 +801,43 @@ class Controler
             $oVue->afficheHeaderAdmin();
             $oVue->afficheListeSupprimerCategories($aCategories);
             $oVue->afficheFooter();
+        }
+    
+        /* Vérifie la connexion 
+        * Author: Gautier Piatek
+        */
+
+        private function validerConnexion($login, $pass, $grainSel)
+        {
+            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '');
+            $motDePasseMD5 = $oUtilisateur->MotDePasse($login);
+		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
+
+            if($pass === $motDePassePlusGrainSel)
+            {   
+                $_SESSION["session"] = $login;
+                //rediriger vers la page accueil
+                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+                $aOeuvres = $oOeuvres->listeOeuvres();
+                
+                
+                
+                $oVue = new VueDefaut();
+                $oVue->afficheHeader($_SESSION["session"]);
+                $oVue->afficheAccueil($aOeuvres);
+                $oVue->afficheFooter();
+               
+            }
+            else
+            {
+                $nombreAleatoire = rand(1, 1000);
+                $messageErreur = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $oVue = new VueDefaut();
+                $oVue->afficheHeader();
+                $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
+                $oVue->afficheFooter();
+                
+            }
         }
 }
 ?>

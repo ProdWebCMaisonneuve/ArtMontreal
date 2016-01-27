@@ -1,113 +1,23 @@
 <?php
 /**
- * Class Vue
- * Template de classe Vue. Dupliquer et modifier pour votre usage.
+ * Class VueAdmin
+ * classe de la vue Admin
  *
- * @author Jonathan Martel
+ * @author Gautier Piatek
  * @version 1.0
  * @update 2013-12-11
  * @license Creative Commons BY-NC 3.0 (Licence Creative Commons Attribution - Pas d’utilisation commerciale 3.0 non transposé)
  * @license http://creativecommons.org/licenses/by-nc/3.0/deed.fr
  *
  */
-class VueDefaut 
+class VueAdmin
 {
-
-
-    /**
-     * Affiche l'entete
-     * @access public
-     *
-     */
-    public function afficheHeader($session) 
-
-    {
-        session_start();
-        $_SESSION["session"] = $session;
-        print_r($_SESSION);
-        ?>
-        <!DOCTYPE html>
-        <html lang="fr">
-            <head>
-                <title>Chass'Oeuvres</title>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <meta name="description" content="">
-                <meta name="viewport" content="width=device-width">
-
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="fonts/style.css" type="text/css">
-
-                <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-                <script src="./js/plugins.js"></script>
-                <script src="./js/main.js"></script>
-                <script type="text/javascript" src="./js/md5.js"></script>
-            </head>
-
-            <body>
-                <div id="wrapper">
-                <header>
-                    <div class="conteneurNav">
-
-                        <a href="index.php?requete=accueil"><img src="images/logo.png" alt="logo"></a>
-
-                        <div class="conteneurMenu">
-
-                            <div class="langue">
-
-                                <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
-                                <?php
-                                    if($_SESSION["session"]) {
-                                        echo "<span class='icon-user' class='connexion'></span> " . $_SESSION["session"];
-                                    } else {
-                                        echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
-                                    }
-                                ?>
-                                <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->
-         
-                            </div>
-
-                            <div id="recherche" >
-                                <form name='recherche' action="index.php?requete=recherche"   method="POST" >
-                                    <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
-                                    <input type="submit" id="buttonRecherche" value="OK">
-                                </form>
-                            </div>
-                            
-                            
-                            <div class="menu">
-                                <nav>
-                                    <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
-                                    <a href="index.php?requete=artistes" class="artiste"><span class='icon-man'></span> ARTISTE</a>
-                                    <a href="index.php?requete=arrondissements" class="arrondisement"><span class='icon-map'></span> ARRONDISSEMENT</a>
-                                    <a href="index.php?requete=categories" class="categorie"><span class='icon-list'></span> CATEGORIE</a>
-                                </nav>
-                            </div><br><br>
-
-                         
-                            </form>
-                        </div>
-
-                    </div>
-
-
-                </header>
-
-        <?php
-       
-    }
-    
-
-    
 
     /**
      * Affiche la page d'inscription
      * @access public
-     * @author Thuy Tien Vo
-     * @author Jorge Blanco
+     * @auteure: Thuy Tien Vo
+     * @modifie: Jorge Blanco
      */
     public function afficheInscription() 
     {
@@ -162,451 +72,30 @@ class VueDefaut
     }
 
     /**
-     * Affiche la page de connexion utilisateur
+     * Affiche la page de connexion
      * @access public
-     * @author Thuy Tien Vo
-     * @author Gautier Piatek
+     * @auteure: Thuy Tien Vo
      */
-    public function afficheConnexion($nombreAleatoire, $erreurConnexion) 
+    public function afficheConnexion() 
     {
-        $_SESSION["grainSel"] = $nombreAleatoire;
-       
         ?>
         <div>
-            <h2 id="titre1">Connexion</h2>
-            <form method ="post" name="loginForm" class="formulaire1">
-                <span><?php echo $erreurConnexion;?></span>
-                <fieldset>
-                    Nom d'utilisateur:<br> 
-                    <input type="text" name="utilisateur" >
-                    <br>
-                    Mot de passe:<br>
-                    <input type="password" name="motDePasse" >
-                    <br> <br>
-                    <input type="button" value="Connexion" id="button" onclick="encrypte();">
-                </fieldset>
-            </form>
-
-            <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
-                <input  name="utilisateur"/><br/>
-                <input  name="motDePasse"/><br/>
-                <input name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
-            </form>
+        <h2 id="titre1">Connexion</h2>
+        <form class="formulaire1" action="">
+            <fieldset>
+            Nom d'utilisateur:<br> 
+            <input type="text" name="utilisateur" >
+            <br>
+            Mot de passe:<br>
+            <input type="text" name="motDePasse" >
+            <br> <br>
+            <input type="submit" value="Connexion" id="button">
+            <fieldset>
+        </form>
         </div>            
         <?php
 
     }
-    
-    /**
-     * Affiche le pied de page
-     * @access public
-     *
-     */
-    public function afficheFooter() 
-    {
-        ?>
-                   <footer >
-                       Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
-                        <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
-                        Sous licence Creative Commons (BY-NC 3.0)</span> 
-                    </footer>
-
-                    </div>
-                    <script src='js/jquery.js'></script>
-                    <script src='js/jquery.slides.js'></script>
-                    
-                    <script >
-                        $(function(){
-                            $('.slides').slidesjs({
-                               play: {
-                                      active: true,
-                                        // [boolean] Generate the play and stop buttons.
-                                        // You cannot use your own buttons. Sorry.
-                                      effect: "slide",
-                                        // [string] Can be either "slide" or "fade".
-                                      interval: 3000,
-                                        // [number] Time spent on each slide in milliseconds.
-                                      auto: true,
-                                        // [boolean] Start playing the slideshow on load.
-                                      swap: false,
-                                        // [boolean] show/hide stop and play buttons
-                                      pauseOnHover: false,
-                                        // [boolean] pause a playing slideshow on hover
-                                      restartDelay: 2500
-                                        // [number] restart delay on inactive slideshow
-                                    } 
-                            });
-                        });
-
-                   </script>
-                </body>
-            </html>
-        <?php
-    }
-
-
-    /**
-     * Affiche la page d'accueil
-     * @access public
-     * @auteur: German Mahecha
-     */
-    public function afficheAccueil($oeuvres) 
-    {
-        
-        ?>
-            <div class="slides">
-                <img src="images/img1.jpg" alt=''>
-                <img src="images/img2.jpg" alt=''>
-                <img src="images/img3.jpg" alt=''>
-            </div>
-            
-        <?php
-           $compteur = 1;
-           echo "<section class='contenu container'>";
-           foreach($oeuvres as $oeuvre) {
-                             
-               if($compteur == 1){
-                   echo "<div class= 'threecol first'>";
-               }else if($compteur == 2||$compteur == 3){
-                    echo "<div class= 'threecol'>";
-               }else if  ($compteur == 4){
-                    echo "<div class= 'threecol last'>";
-               }
-                              
-                   $idOeuvre= $oeuvre->getIdOeuvre();
-                   $titre = $oeuvre->getTitreOeuvre();
-                   $arrondissement= $oeuvre ->getNomArrondissement();
-                   $prenom = $oeuvre->getPrenomArtiste();
-                   $nom = $oeuvre->getNomArtiste();
-                   $collectif = $oeuvre->getCollectif();
-                   $categorie = $oeuvre->getNomCategorie();
-
-                   echo "<figure>";
-                   echo "<a href='index.php?requete=accueil&idOeuvre=".$idOeuvre."'><img src='images/img_2.jpg' alt=''></a>";
-                   echo "<figcaption>".$idOeuvre."</figcaption>";
-                   echo "</figure>";
-
-                   if($collectif =="") {
-                      echo "<p>Artiste: ". $prenom . " " . $nom . "</p>";
-                   } else {
-                       echo "<p>Collectif: " . $collectif . "</p>";
-                   }
-                   echo "<p>Arondissement: ". $arrondissement ."</p>";
-                   echo "<p>Categorie: ". $categorie ."</p>";
-               echo "</div>";            
-               if  ($compteur == 4){
-                   $compteur=1;
-               }
-            }
-        echo "</section>";
-    }
-
-    
-    /**
-     * Affiche un Oeuvre
-     * @access public
-     * @auteur: German Mahecha
-     */
-    public function afficheUnOeuvre($oeuvre) 
-    {
-         ?>
-        <section class='contenu container'>
-            <div class= 'fourcol '>
-                <img src='images/img_2.jpg' alt="">
-            </div>
-            <div class= 'sixcol'>
-                <?php
-                    
-                   $idOeuvre= $oeuvre->getIdOeuvre();
-                   $titre = $oeuvre->getTitreOeuvre();
-                   $arrondissement= $oeuvre ->getNomArrondissement();
-                   $prenom = $oeuvre->getPrenomArtiste();
-                   $nom = $oeuvre->getNomArtiste();
-                   $collectif = $oeuvre->getCollectif();
-                   $categorie = $oeuvre->getNomCategorie();
- 
-                    if($collectif =="") {
-                    echo "<p>Artiste: ".$prenom." ".$nom."</p>";
-
-                    } else {
-                        echo "<p>Artiste: ".$collectif."</p>";
-                    }
-                 ?>
-                
-                <p>Nom de l'oeuvre: <?php echo $oeuvre->getTitreOeuvre(); ?></p>
-                <p>Categorie: <?php echo $oeuvre->getNomCategorie(); ?></p>
-                <p>Souscategorie: <?php echo $oeuvre->getNomSousCat(); ?></p>
-                <p>Technique: <?php echo $oeuvre->getTechnique(); ?></p>
-                <p>Materiaux: <?php echo $oeuvre->getNomMateriaux(); ?></p>
-                <p>Arrondissement: <?php echo $oeuvre ->getNomArrondissement(); ?></p>
-                <p>Parc: <?php echo $oeuvre ->getParc(); ?></p>
-                <p>Batiment: <?php echo $oeuvre ->getBatiment(); ?></p>
-                <p>adresse: <?php echo $oeuvre ->getAdresse(); ?></p>
-                <p>Description:<?php echo  $oeuvre->getDescription(); ?></p>
-                <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
-            </div>
-        
-        </section>
-    
-    <?php
-       
-    }
-
-    
-    
-    
-    
-    /**
-     * Affiche les oeuvres par artistes
-     * @access public
-     *
-     */
-    public function afficheArtistes($aArtistes, $oOeuvres) 
-    {
-        ?>
-            <h2>Découvrez nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
-
-        <?php
-        $compteur = 1;
-        
-        echo "<section class='contenu container'>";
-
-        foreach($aArtistes as $artiste) {
-
-            $photo = $artiste->getPhoto();
-            $prenom = $artiste->getPrenom();
-            $nom = $artiste->getNom();
-            $collectif = $artiste->getCollectif();
-            $idArtiste = $artiste->getIdArtiste();
-            
-            echo "<div class=' accordion sixcol ";
-
-            if($compteur%2 == 1){
-                echo "last'>";
-            } else {
-                 echo "first'>";
-            }
-
-            echo "<figure class='";
-                if($collectif == ""){
-                    echo "artistes'>";
-                } else {
-                    echo "collectif'>";
-                }
-
-            if($photo == ""){
-                echo "<img src='./images/artisteDefaut.jpg'>";
-            } else {
-                echo "<img src='./images/". $photo . "'>";
-            }
-
-            if($collectif =="") {
-                echo "<input type='checkbox' checked><p>". $prenom . " " . $nom . "</p>";
-
-            } else {
-                echo "<input type='checkbox' checked><p>" . $collectif . "</p>";
-
-            }
-            echo "<i></i>"
-        ?>
-            <div class="accordion-contenu">
-               
-        <?php
-            
-            $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
-            //var_dump($idArtiste);
-            //var_dump($aOeuvres);
-            $compteurContenu = 1;
-            
-            echo "<div class='sixcol first'>";
-            echo "<ul>";
-            foreach($aOeuvres as $oeuvre){
-                
-                if ($compteurContenu != 11) {
-                    if($compteurContenu ==6) {
-                    echo "</div><div class='sixcol first'>";
-                    echo "<ul>";
-                    $titreOeuvre = $oeuvre->getTitreOeuvre();
-                    $idOeuvre = $oeuvre->getIdOeuvre();
-                   // echo "<li>" . $titreOeuvre . "</li>";
-                    echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a></li>";
-                    $compteurContenu = $compteurContenu+1;
-                }
-                
-                $titreOeuvre = $oeuvre->getTitreOeuvre();
-                $idOeuvre = $oeuvre->getIdOeuvre();
-                //echo "<li>" . $titreOeuvre . "</li>";
-                echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a></li>";
-                }
-                
-                $compteurContenu = $compteurContenu+1;
-            }
-        ?>            
-                    </ul>
-                </div>
-                
-        <?php
-            echo "</figure>";
-            echo "</div>";
-
-            $compteur = $compteur + 1;
-        }
-        echo "</section> ";
-    }
-    
-    
-    
-   
-/**
-     * Affiche les arrondissements 
-     * @access public
-     * @author Jorge Blanco
-     * @version 1.0
-     * 
-     */
-    public function afficheArrondissements($aArrondissements)
-
-    {
-        ?>
-
-        <h2>Arrondissements</h2>
-        <?php
-        $compteur = 1;
-        
-        echo "<section class='contenu container'>";
-
-        foreach($aArrondissements as $arrondissement)
-        {
-            $id_Arrondissement= $arrondissement->getidArrondissement();
-            $nom = $arrondissement->getnomArrondissement();
-
-            /////////////////////////////// DEVELOPPEMENT ////////////////////////////////////
-            //var_dump($id_Arrondissement);
-            //echo  $nom .'<br/>';
-            //echo "<a href = 'index.php?requete=oeuvresParArr&idArrondissement=$id_Arrondissement'> " . $nom . "</a>";
-            //echo "<a href = 'index.php?requete=oeuvresParArr' class='noir'> " . $nom . "</a>";
-
-            echo "<div class=' accordion sixcol ";
-
-             if($compteur%2 == 1){
-                echo "last'>";
-            } else {
-                 echo "first'>";
-            }
-            /////////////////////////////// DEVELOPPEMENT ////////////////////////////////////
-            //echo "<a href = 'index.php?requete=oeuvresParArr&idArrondissement=$id_Arrondissement' class='arrondisement'> " . $nom . "</a>";
-            //<a href="index.php?requete=categories" class="categorie">CATEGORIE</a>
-            //echo "<a href = 'index.php?requete=oeuvresParArr' class='arrondisement'> " . $nom . "</a>";
-            echo "<figure class='arrondisement'>";   
-            echo "<a href = 'index.php?requete=arrondissements&idArrondissement=$id_Arrondissement' class='arrondisement'> " . $nom . "</a>";
-            echo "</figure>";
-            echo "</div>";
-            $compteur = $compteur + 1;
-        }
-        echo "</section>";
-        
-    } //FIN FUNCTION afficheArrondissements
-
-
-
-    /**
-     * Affiche les oeuvres par arrondissement
-     * @access public
-     * @author Jorge Blanco
-     * @version 1.0
-     * 
-     */
-    public function afficheOeuvre_Par_Arr($aOevuresParArr) 
-
-    {
-        ?>
-
-        <h2>Oeuvres par Arrondissements</h2>
-        <?php
-        if($aOevuresParArr == "")
-        {
-            echo "il n'y a pas d'oeuvres dans ce arrondisement";
-        }
-        else
-        {
-            foreach($aOevuresParArr as $OevuresParArr)
-            {
-                $idOeuvre= $OevuresParArr->getIdOeuvre();
-                $titre = $OevuresParArr->getTitreOeuvre();
-
-                echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='arrondisement'>" . $titre . "</a>" . '</br>';
-       
-            }
-        }
-
-    }    //FIN FUNCTION afficheOeuvre_Par_Arr
-    
-
-    /**
-     * Affiche catégories
-     * @access public
-     * @author Thuy Tien VO
-     * @version 1.0
-     */
-    public function afficheCategories($aCategories) 
-
-    {
-        ?>
-
-        <h2>Catégories</h2>
-        <?php
-        $compteur = 1;
-        
-        echo "<section class='contenu container'>";
-
-        foreach($aCategories as $categorie)
-        {
-            $id_Categorie= $categorie->getIdCategorie();
-            //$categorie->afficher();
-            $nom = $categorie->getNomCategorie();
-
-            echo "<div class=' accordion sixcol ";
-
-             if($compteur%2 == 1){
-                echo "last'>";
-            } else {
-                 echo "first'>";
-            }
-        
-            echo "<figure class='categorie'>";   
-            echo "<a href = 'index.php?requete=categories&idCategorie=$id_Categorie' class='categorie'> " . $nom. "</a>";
-            echo "</figure>";
-            echo "</div>";
-            $compteur = $compteur + 1;
-        }
-        echo "</section>";
-        
-    } //FIN FUNCTION afficheCategorie
-
-
-/**
-     * Affiche les oeuvres par catégorie
-     * @access public
-     * @author THuy Tien VO
-     * @version 1.0
-     * 
-     */
-        public function afficheOeuvre_Par_Cat($aOeuvreParCat) 
-
-        {
-            ?>
-            <h2>Oeuvre Par Catégorie</h2>
-            <?php
-
-            foreach($aOeuvreParCat as $OeuvresParCat)
-            {    
-                $idOeuvre= $OeuvresParCat->getIdOeuvre();
-                $titre = $OeuvresParCat->getTitreOeuvre();
-                echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='categorie'>" .  $titre. "</a>" . '</br>';  
-            }
-        }    //FIN FUNCTION afficheOeuvreParCat
-    
-
 
     /**
      * Affiche le header de la partie Admin
@@ -618,7 +107,6 @@ class VueDefaut
     public function afficheHeaderAdmin() 
 
     {
-        session_start();
         ?>
          <!DOCTYPE html>
         <html lang="fr">
@@ -638,7 +126,6 @@ class VueDefaut
                 <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
                 <script src="./js/plugins.js"></script>
                 <script src="./js/main.js"></script>
-                <script type="text/javascript" src="./js/md5.js"></script>
             </head>
 
             <body>
@@ -653,7 +140,7 @@ class VueDefaut
                             <div class="langue">
 
                                 <a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>
-                               <!-- <a href="#">FR/EN</a>-->
+                                <a href="#">FR/EN</a>
                                 <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
          
                             </div>
@@ -742,7 +229,7 @@ class VueDefaut
 
                 </header>
         <?php
-        
+
         
     }
     
@@ -757,10 +244,72 @@ class VueDefaut
 
     {   
         
-        ?>            
+        ?>
+        <!-- <div class="admin">
+           <div class="menuAdmin">
+                <nav>
+                    <ul>
+                         
+                        <li>
+                            GESTION
+                            <ul>
+                                <li>
+                                    <a href="#">OEUVRES</a>
+                                       <ul>
+                                            <li><a href="index.php?requete=ajoutOeuvre">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierOeuvres">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerOeuvres">Supprimer</a></li>
+                                        </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#">ARTISTES</a>
+                                        <ul>
+                                            <li><a href="index.php?requete=ajouterUnArtiste">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierArtistes">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerArtistes">Supprimer</a></li>
+                                        </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#">CATEGORIES</a>
+                                        <ul>
+                                            <li><a href="#">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
+                                        </ul>
+                                </li>
+
+                                <li>
+                                    <a href="index.php?requete=listerUtilisateurs">UTILISATEURS</a>
+                                        <ul>
+                                            <li><a href="index.php?requete=afficheInscription">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierUtilisateurs">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
+                                        </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            MODERATION
+                            <ul>
+                                <li><a href="#">Photos</a></li>
+                                <li><a href="#">Commentaires</a></li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li>
+                            <a href="#">MISE A JOUR BDD</a>
+                        </li> 
+
+                    </ul>
+
+                </nav>
+            </div> -->
+            
             <section class="contenu container">
         
-                <h2>Administration</h2>
+               <!-- <h2>Administration</h2>-->
 
                 <div class="administration">
                    <div class="twelvecol">
@@ -1253,7 +802,7 @@ class VueDefaut
     }
 
 
-        /**
+    /**
      * Affiche la page pour ajouter un artiste
      * @access public
      * @auteure: Jorge Blanco
@@ -1329,7 +878,7 @@ class VueDefaut
     }
 
     /**
-     * Affiche la page d'inscription - admin
+     * Affiche la page ajout utilisateur - admin
      * @access public
      * @auteure: Thuy Tien Vo
      * @modifie: Jorge Blanco
@@ -1568,9 +1117,9 @@ class VueDefaut
     {
         
         $idUtilisateur = $aUtilisateur['idUtilisateur'];
-        $bio = $aUtilisateur['bio'];
-        $utilisateur = $aUtilisateur['loginUtilisateur'];
-        $motDePasse = $aUtilisateur['passUtilisateur'];
+        $bio = $aUtilisateur['loginUtilisateur'];
+        $utilisateur = $aUtilisateur['passUtilisateur'];
+        $motDePasse = $aUtilisateur['bio'];
         $score = $aUtilisateur['score'];
         $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
         
@@ -1607,13 +1156,13 @@ class VueDefaut
             <input type="text" name="courriel" placeholder="exemple@domaine.com" >
             <br> <br> -->
             Biographie:<br>
-            <textarea rows="8" cols="60" name="bio"><?php echo $bio; ?></textarea>
+            <textarea rows="8" cols="60" name="bio" placeholder="Entrer un text ici..."></textarea>
             <br><br>
              Nom d'utilisateur:<br> 
             <input type="text" name="utilisateur" value="<?php echo $utilisateur; ?>">
             <br><br>
             Mot de passe:<br>
-            <input type="text" name="motDePasse" placeholder="Nouveau mot de passe" value="">
+            <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
             <br><br>
 <!--
             Confirmer le mot de passe:<br>

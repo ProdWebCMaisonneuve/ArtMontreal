@@ -65,7 +65,16 @@
         $photoArtiste ='';
     }
    
-     if(empty($oeuvres)) {
+    if(empty($oeuvres)) {
         $oeuvres ='';
     }
+
+    if(empty($erreurConnexion)) {
+        $erreurConnexion = '';
+    }
+    
+    if(empty($_SESSION['session']))
+    {
+		$_SESSION['session'] = '';
+	}
 ?>

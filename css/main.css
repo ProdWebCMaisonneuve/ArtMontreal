@@ -128,8 +128,8 @@ figure figcaption
 a{
     text-decoration: none;
     color: white;
-    margin-left: 20px;
-    padding: 5px;
+    /*margin-left: 20px;
+    padding: 5px;*/
 }
 section a{
     color:black;
@@ -588,7 +588,7 @@ footer
 /*    margin-top: 50px;*/
     width: 100%;
     height: 81px;
-/*    position: absolute;*/
+    /*position: fixed;*/
     bottom: 0;
     left: 0;
     background-color: #354a5d;
@@ -597,6 +597,9 @@ footer
     padding: 1%;
 }
 
+#jonathan {
+    font-size: 0.8em;
+}
 
 /*
 @media only screen and (max-width: 708px){
