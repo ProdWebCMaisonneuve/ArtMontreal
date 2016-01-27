@@ -1092,7 +1092,7 @@ class VueDefaut
      * @version 1.0
      */
     
-    public function afficheListeModifierUtilisateurs($aUtilisateurs){
+    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message){
         ?>
             <h2>Modifier nos utilisateurs</h2>
             <section class='contenu container'>
@@ -1112,7 +1112,9 @@ class VueDefaut
                         echo "<td><a href='index.php?requete=modifierUtilisateur&idUtilisateur=$idUtilisateur'><span class='icon-edit'></span></a></td>";
                         echo "</tr>";
                 }
+       
                 echo "</table>";
+                echo '<span>'.$message.'</span>';
                 echo "</div>";
             echo "</section> ";
        echo "</div>";
@@ -1737,6 +1739,7 @@ class VueDefaut
             <input type="text" name="photoUtilisateur" value="<?php echo $photoUtilisateur; ?>">
             <br><br>
             <input type="submit" value="Envoyer" id="button">
+
             <fieldset>
         </form>  
         </fieldset>
@@ -1802,11 +1805,11 @@ class VueDefaut
         <div>
         <h2 id="titre">Ajouter un admin/moderateur</h2>
         
-        <form class="formulaire" action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST'> 
+        <form class="formulaire" action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST' name='FormAjoutAdmin' id="FormAjoutAdmin"> 
             <fieldset>
                 
                 login:<br>
-                <input type="text" name="login"><br>
+                <input type="text" name="login"><br><span id="erreurPrenom"></span>
                 Mot de pass:<br>
                 <input type="password" name="pass"><br>
                 role:<br>
@@ -1815,7 +1818,7 @@ class VueDefaut
                     <option value="1">Administrateur</option>
                     <option value="0">Moderateur</option>
                 </select><br>
-                <input type="submit" value="Envoyer" id="button"> 
+                <input type="button"  onclick="validerFormAjoutAdmin()" value="Envoyer" id="button"> 
                 
             </fieldset>        
         </form>                    
