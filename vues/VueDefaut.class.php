@@ -49,15 +49,17 @@ class VueDefaut
 
             <body>
                 <div id="wrapper">
-                <header>
-                    <div class="conteneurNav">
+                    <header>
+                        <div class="conteneurNav">
+
 
                         <a href="index.php?requete=accueil"><img src="images/logo.png" alt="logo"></a>
 
-                        <div class="conteneurMenu">
 
-                            <div class="langue">
+                            <div class="conteneurMenu">
 
+                                <div class="langue">
+                                    
                                 <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
                                 <?php
                                     if($_SESSION["session"]) {
@@ -68,33 +70,35 @@ class VueDefaut
                                 ?>
                                 <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->
          
+                                </div>
+
                             </div>
 
-                            <div id="recherche" >
-                                <form name='recherche' action="index.php?requete=recherche"   method="POST" >
-                                    <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
-                                    <input type="submit" id="buttonRecherche" value="OK">
-                                </form>
-                            </div>
-                            
-                            
-                            <div class="menu">
-                                <nav>
-                                    <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
-                                    <a href="index.php?requete=artistes" class="artiste"><span class='icon-man'></span> ARTISTE</a>
-                                    <a href="index.php?requete=arrondissements" class="arrondisement"><span class='icon-map'></span> ARRONDISSEMENT</a>
-                                    <a href="index.php?requete=categories" class="categorie"><span class='icon-list'></span> CATEGORIE</a>
-                                </nav>
-                            </div><br><br>
+                                <div id="recherche" >
+                                    <form name='recherche' action="index.php?requete=recherche"   method="POST" >
+                                        <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
+                                        <input type="submit" id="buttonRecherche" value="OK">
+                                    </form>
+                                </div>
 
-                         
-                            </form>
+
+
+                                <div class="menu">
+                                    <nav>
+                                        <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
+                                        <a href="index.php?requete=artistes" class="artiste"><span class='icon-man'></span> ARTISTE</a>
+                                        <a href="index.php?requete=arrondissements" class="arrondisement"><span class='icon-map'></span> ARRONDISSEMENT</a>
+                                        <a href="index.php?requete=categories" class="categorie"><span class='icon-list'></span> CATEGORIE</a>
+                                    </nav>
+                                </div><br><br>
+
+
+                            </div>
+
                         </div>
 
-                    </div>
-
-
-                </header>
+                    </header>
+                </div> 
 
         <?php
        
@@ -188,9 +192,9 @@ class VueDefaut
             </form>
 
             <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
-                <input  name="utilisateur"/><br/>
-                <input  name="motDePasse"/><br/>
-                <input name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
+                <input type="hidden" name="utilisateur"/><br/>
+                <input type="hidden" name="motDePasse"/><br/>
+                <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
             </form>
         </div>            
         <?php
@@ -703,6 +707,15 @@ class VueDefaut
                                             <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
                                         </ul>
                                 </li>
+                                
+                                                                <li>
+                                    <a href="index.php?requete=listerUtilisateurs">ADMIN/MODERATEUR</a>
+                                        <ul>
+                                            <li><a href="index.php?requete=ajouterAdmin_moderateur">Ajouter</a></li>
+                                            <li><a href="index.php?requete=listeModifierAdmin_moderateur">Modifier</a></li>
+                                            <li><a href="index.php?requete=listeSupprimerAdmin_moderateur">Supprimer</a></li>
+                                        </ul>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -1069,6 +1082,79 @@ class VueDefaut
        echo "</div>";
     }
     
+    
+        /**
+     * Afficher un liste d'admin/moderateur
+     * @access public
+     * @auteure: Jorge Blanco
+     */
+    
+    public function afficheListeModifierAdmin_moderater($aAdmin_moderateur)
+    {
+        ?>
+             <h2>Modifier nos admins/moderateurs</h2>
+            <section class='contenu container'>
+                <div class='tableArtistes'>
+                    
+        <?php
+                echo "<table>";
+                echo "<tr>";
+                echo "<th></th>";
+                echo "<th>Admin</th>";
+                echo "<th>Modifier</th>	";
+                echo "</tr>";
+                foreach($aAdmin_moderateur as $admin_moderater){
+                    echo "<tr>";
+                    $idAdMod = $admin_moderater->getIdAdMod();
+                    echo "<td><span class='icon-user'></span>";
+                    echo "<td>" .$admin_moderater->getLogin()."</td>" ;
+                    echo "<td><a href='index.php?requete=modifierAdmin_moderateur&idAdMod=$idAdMod'><span class='icon-edit'></span></a></td>";
+                        echo "</tr>";
+                }
+                echo "</table>";
+                echo "</div>";
+            echo "</section> ";
+       echo "</div>";
+    }
+    
+    /**
+     * Afficher un liste d'admin/moderateur
+     * @access public
+     * @auteure: Jorge Blanco
+     */
+    public function afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur)
+    {
+        ?>
+            
+            <h2>Supprimer nos admins/moderateurs</h2>
+            <section class='contenu container'>
+            <div class='tableArtistes'>                                      
+        <?php
+                
+                echo "<table>";
+                echo "<tr>";
+                echo "<th></th>";
+                echo "<th>Admin</th>";
+                echo "<th>Supprimer</th>	";
+                echo "</tr>";
+                foreach($aAdmin_moderateur as $admin_moderater){
+                    echo "<tr>";
+                    $idAdMod = $admin_moderater->getIdAdMod();
+                    echo "<td><span class='icon-user'></span>";
+                    echo "<td>" .$admin_moderater->getLogin()."</td>" ;
+                    echo "<td><a href='index.php?requete=supprimerAdmin_moderateur&idAdMod=$idAdMod'><span class='icon-edit'></span></a></td>";
+                        echo "</tr>";
+                }
+                echo "</table>";
+                echo "</div>";
+            echo "</section> ";
+       echo "</div>";
+    }
+        
+    
+    
+    
+    
     /**
      * Affiche Liste des utilisateurs
      * @access public
@@ -1339,48 +1425,46 @@ class VueDefaut
         ?>
         <div>
         <h2 id="titre">Ajouter un utilisateur</h2>
-        <form method="POST" class="formulaire" action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
-        
-            <fieldset>
-                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-            <!-- Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Date de naissance:<br>
-            <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
-             <br> <br>
-            Sexe:<br><br>
-            <input type="radio" name="sex" value="male" checked> Male
-            <input type="radio" name="sex" value="female"> Female<br><br>
-            Courriel:<br>
-            <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-            <br> <br> -->
-            Biographie:<br>
-            <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
-            <br><br>
-             Nom d'utilisateur:<br> 
-            <input type="text" name="utilisateur" >
-            <br><br>
-            Mot de passe:<br>
-            <input type="password" name="motDePasse" >
-            <br><br>
-            Confirmer le mot de passe:<br>
-            <input type="password" name="motDePasse" value="">
-            <br><br>
-            score:<br>
-            <input type="text" name="score" value="">
-            <br><br>
-            photo:<br>
-            <input type="text" name="photoUtilisateur" value="">
-            <br><br>
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
+            <form method="POST" class="formulaire" action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
+
+                <fieldset>
+                    <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
+                <!-- Prénom:<br>
+                <input type="text" name="prenom" >
+                <br> <br>
+                Nom:<br>
+                <input type="text" name="nom" >
+                <br> <br>
+                Date de naissance:<br>
+                <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
+                 <br> <br>
+                Sexe:<br><br>
+                <input type="radio" name="sex" value="male" checked> Male
+                <input type="radio" name="sex" value="female"> Female<br><br>
+                Courriel:<br>
+                <input type="text" name="courriel" placeholder="exemple@domaine.com" >
+                <br> <br> -->
+                Biographie:<br>
+                <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
+                <br><br>
+                 Nom d'utilisateur:<br> 
+                <input type="text" name="utilisateur" >
+                <br><br>
+                Mot de passe:<br>
+                <input type="password" name="motDePasse" >
+                <br><br>
+                Confirmer le mot de passe:<br>
+                <input type="password" name="motDePasse" value="">
+                <br><br>
+                score:<br>
+                <input type="text" name="score" value="">
+                <br><br>
+                photo:<br>
+                <input type="text" name="photoUtilisateur" value="">
+                <br><br>
+                <input type="submit" value="Envoyer" id="button">
+                </fieldset>
+                </form>  
         </div>           
         <?php
 
@@ -1403,7 +1487,6 @@ class VueDefaut
                 echo "<tr>";
                 echo "<th></th>";
                 echo "<th>Utilisateur</th>";
-                //echo "<th>Supprimer</th>    ";
                 echo "</tr>";
                 
                 foreach($aUtilisateurs as $utilisateur) {
@@ -1416,7 +1499,6 @@ class VueDefaut
                         $photoUtilisateur = $utilisateur->getphotoUtilisateur();
                         echo "<td><span class='icon-user'></span>";
                         echo "<td><a href='index.php?requete=unUtilisateur&idUtilisateur=$idUtilisateur'>".$utilisateur->getLoginUtilisateur()."</a>" ."</td>" ;
-                        //echo "<td><a href='index.php?requete=supprimerUtilisateurs&idUtilisateur=$idUtilisateur'><span class='icon-remove-user'></span></a></td>";
                         echo "</tr>";
                 }
                 echo "</table>";
@@ -1573,15 +1655,7 @@ class VueDefaut
         $motDePasse = $aUtilisateur['passUtilisateur'];
         $score = $aUtilisateur['score'];
         $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
-        
-        
-//        
-//        $idUtilisateur = $aUtilisateur['idUtilisateur'];
-//        $bio = $aUtilisateur['bio'];
-//        $utilisateur = $aUtilisateur['loginUtilisateur'];
-//        $motDePasse = $aUtilisateur['passUtilisateur'];
-//        $score = $aUtilisateur['score'];
-//        $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
+    
 
         ?>
         <div>
@@ -1634,6 +1708,84 @@ class VueDefaut
         </div>          
         <?php
 
+    }
+    
+        /**
+     * Fonction qui modifie un admin/moderateur 
+     * @access public
+     * @auteure: Jorge Blanco
+     * @version 1.0
+     */
+    
+    public function modifierUnAdmin_moderateur($aAdmin_moderateur)
+    {
+        $idAdMod = $aAdmin_moderateur['idAdMod'];
+        $role = $aAdmin_moderateur['role'];
+        $login = $aAdmin_moderateur['login'];
+        $pass = $aAdmin_moderateur['pass'];
+        
+        ?>
+        <div>
+        <h2 id="titre">Modifier un admin/moderateur</h2>
+        
+        <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
+            <fieldset>
+                role:<br>
+                <input type="text" name="role" value="<?php echo $role; ?>"><br>
+<!--
+                <select>
+                    <option value='nonChoisi'>choisissez une option</option>
+                    <option value="">Administrateur</option>
+                    <option value="">Moderateur</option>
+                </select><br>
+-->
+                login:<br>
+                <input type="text" name="login" value="<?php echo $login; ?>"><br>
+                Mot de pass:<br>
+                <input type="text" name="pass" value="<?php echo $pass; ?>"><br>
+                <input type="submit" value="Envoyer" id="button">           
+            </fieldset>        
+        </form>                    
+        </div>
+                    
+        <?php
+        
+    }
+    
+    
+    /**
+     * Fonction qui montre le formaulaire pour ajouter admin/moderateur 
+     * @access public
+     * @auteure: Jorge Blanco
+     * @version 1.0
+     */
+    
+    public function formulaireAjouterAdmin_moderateur()
+    {
+        ?>
+        <div>
+        <h2 id="titre">Ajouter un admin/moderateur</h2>
+        
+        <form class="formulaire" action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST'> 
+            <fieldset>
+                
+                login:<br>
+                <input type="text" name="login"><br>
+                Mot de pass:<br>
+                <input type="password" name="pass"><br>
+                role:<br>
+                <select name="role">
+                    <option value='nonChoisi'>choisissez une option</option>
+                    <option value="1">Administrateur</option>
+                    <option value="0">Moderateur</option>
+                </select><br>
+                <input type="submit" value="Envoyer" id="button"> 
+                
+            </fieldset>        
+        </form>                    
+        </div>
+        
+        <?php
     }
     
     
