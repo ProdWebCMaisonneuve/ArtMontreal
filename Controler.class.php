@@ -68,7 +68,13 @@ class Controler
                     break;
                 case 'listeSupprimerOeuvres':
                         $this->listeSupprimerOeuvres();
-                    break;   
+                    break;
+                case 'listeModifierAdmin_moderateur':
+                        $this->listeModifierAdmin_moderateur();
+                    break;
+                case 'listeSupprimerAdmin_moderateur':
+                    $this->listeSupprimerAdmin_moderateur();
+                    break;
                     
                 case 'modifierArtiste':
                         $this->modifierArtiste($_GET['idArtiste']);
@@ -77,15 +83,16 @@ class Controler
                         $this->supprimerArtistes($_GET['idArtiste']);
                     break;
 
-
                 case 'modifierUtilisateur':
                         $this->modifierUtilisateur($_GET['idUtilisateur']);
                     break;
 
-
-
                 case 'supprimerUtilisateurs':
                         $this->supprimerUtilisateurs($_GET['idUtilisateur']);
+                    break;
+                    
+                case 'supprimerAdmin_moderateur':
+                    $this->supprimerAdmin_moderateur($_GET['idAdMod']);
                     break;
                 case 'modifierCategories':
                         $this->modifierCategories($_GET['idCategorie']);
@@ -98,7 +105,11 @@ class Controler
                     break; 
                 case 'modifierOeuvre':
                         $this->modifierOeuvre($_GET['idOeuvre']);
-                    break;     
+                    break; 
+                    
+                case 'modifierAdmin_moderateur':
+                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
+                    break;
                     
                     
                 case 'inscription':
@@ -182,6 +193,10 @@ class Controler
                     
                 case 'formulaireAjouterCategorie':
                    $this->afficheAjouterUnCategorie();
+                    break;
+                    
+                case 'ajouterAdmin_moderateur':
+                    $this->ajouterAdmin_moderateur();
                     break;
                     
                 case 'recherche':
@@ -362,6 +377,28 @@ class Controler
     
 		}
     
+        private function listeModifierAdmin_moderateur()
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateur);
+            $oVue->afficheFooter();
+        }
+    
+        private function listeSupprimerAdmin_moderateur()
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur);
+            $oVue->afficheFooter();
+        }
+    
     
     
         private function modifierArtiste($idArt)
@@ -441,6 +478,41 @@ class Controler
 
         }
     
+        private function modifierAdmin_moderateur($idAmin_moderateur)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateur = $oAdmin_moderateur->getAdmin_moderateurParId($idAmin_moderateur);
+            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['idAdMod'] && $_GET['action'] == 'valider')
+            {
+                try
+                {
+                    $oAdmin_moderateur->modifierAdmin_moderateur($_GET['idAdMod'], $_POST['role'], $_POST['login'], $_POST['pass']);
+                
+                    $oVue = new VueDefaut();
+                    $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+               }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();
+                }
+            
+            }
+            else
+            {
+               $oVue->modifierUnAdmin_moderateur($aAdmin_moderateur);
+            }
+
+            
+            
+            
+            $oVue->afficheFooter();
+        }
+    
         private function supprimerUtilisateurs($idUtil)
         {   
             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
@@ -450,6 +522,19 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             $oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
+            $oVue->afficheFooter();
+        }
+    
+    
+        private function supprimerAdmin_moderateur($idAmin_moderateur)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $oAdmin_moderateur->supprimerAdmin_moderateur($idAmin_moderateur);
+            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateurs);
             $oVue->afficheFooter();
         }
     
@@ -709,11 +794,36 @@ class Controler
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
             $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
              
+            $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
+             
+             
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             $oVue->afficheListeModifierOeuvres($aOeuvres);
             $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
             $oVue->afficheListeModifierArtistes($aArtistes);
+            $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+            $oVue->afficheFooter();
+        }
+    
+    
+    
+        private function ajouterAdmin_moderateur()
+        {
+            $erreurTitre ='';
+            $message ='';
+          
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['action'] == 'ajoutAdmin_moderateur')
+            {
+                $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+                $oAdmin_moderateur->ajoutAdmin_moderateur($_POST['role'], $_POST['login'], $mdp=MD5($_POST['pass']));
+            }
+            
+            $oVue->formulaireAjouterAdmin_moderateur();
             $oVue->afficheFooter();
         }
 
@@ -760,7 +870,7 @@ class Controler
          private function ajouterUnCategorie()
          {     
               $oVue = new VueDefaut();
-              $oVue->afficheHeader();
+              $oVue->afficheHeaderAdmin();
                 $erreurTitre ='';
             $message ='';
             if($_GET['action'] == 'ajoutCategorie')
