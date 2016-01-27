@@ -809,35 +809,32 @@ class VueDefaut
             
             <section class="contenu container">
         
-                <h2>Administration</h2>
-
-                <div class="administration">
-                   <div class="twelvecol">
-                       <h3>Ajouter une oeuvre</h3>
-
-                       <form method="POST" class="formulaire" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
+                <h2 id='titreAdm'>Ajouter une oeuvre</h2>
+                <div class="formulaireAd1">
+                
+                       <form method="POST" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
                            
-                            <label>Titre : </label> <input type="text" name="titre"><span><?php echo $erreurTitre;?><br>
-                            <label>Titre (Variante) : </label> <input type="text" name="titreVariante"><br>
-                            <label>Technique : </label> <input type="text" name="technique"><br>
-                            <label>Technique (anglais) : </label> <input type="text" name="techniqueAng"><br>
-                            <label>Description : </label> <input type="text" name="description"><br>
-                            <label>Validation : </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br>
+                            <label>Titre : <br></label> <input type="text" name="titre"><span><?php echo $erreurTitre;?><br><br>
+                            <label>Titre (Variante) : <br></label> <input type="text" name="titreVariante"><br><br>
+                            <label>Technique : <br></label> <input type="text" name="technique"><br><br>
+                            <label>Technique (anglais) :<br> </label> <input type="text" name="techniqueAng"><br><br>
+                            <label>Description : <br></label> <input type="text" name="description"><br><br>
+                            <label>Validation :<br> </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br><br>
                             
-                            <label>Adresse Civique : </label> <input type="text" name="adresse"><br>
-                            <label>Batiment : </label> <input type="text" name="batiment"><br>
-                            <label>Parc : </label> <input type="text" name="parc"><br>
-                            <label>Latitude : </label> <input type="text" name="latitude"><br>
-                            <label>Longitude : </label> <input type="text" name="longitude"><br>
-                            <label>Arrondissement : </label> <select name="arrondissement">
-                                <option value="nonChoisi">Choisir un Arrondissement</option>
+                            <label>Adresse Civique : <br></label> <input type="text" name="adresse"><br><br>
+                            <label>Batiment : <br></label> <input type="text" name="batiment"><br><br>
+                            <label>Parc :<br> </label> <input type="text" name="parc"><br><br>
+                            <label>Latitude :<br> </label> <input type="text" name="latitude"><br><br>
+                            <label>Longitude :<br> </label> <input type="text" name="longitude"><br><br>
+                            <label>Arrondissement :<br> </label> <select name="arrondissement"><br>
+                                <option value="nonChoisi">Choisir un Arrondissement</option><br>
                             <?php
                                 foreach ($aArrondissements as $arrondissement) {
                                     echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
                                 }
                             ?>
-                           </select><br>
-                               <label>Artiste/Collectif : </label> <select name="artiste">
+                           </select><br><br>
+                               <label>Artiste/Collectif : </label> <br><select name="artiste">
                                 <option value="nonChoisi">Choisir un Artiste/Collectif</option>
                             <?php
                                 foreach ($aArtistes as $artiste) {
@@ -851,27 +848,27 @@ class VueDefaut
                                     }
                                 }
                             ?>
-                           </select><br>
-                               <label>Catégorie : </label> <select name="categorie">
+                           </select><br><br>
+                               <label>Catégorie : </label><br> <select name="categorie"><br><br>
                                 <option value="nonChoisi">Choisir une Catégorie</option>
                             <?php 
                                 foreach ($aCategories as $categorie) {
                                     echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
                                 }
                             ?>
-                           </select><br>
-                               <label>Sous-Catégorie : </label> <select name="sousCategorie">
+                           </select><br><br>
+                               <label>Sous-Catégorie : </label><br> <select name="sousCategorie"><br><br>
                                 <option value="nonChoisi">Choisir une Sous-Catégorie</option>
                             <?php
                                 foreach ($aSousCategories as $sousCategorie) {
                                     echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
                                 }
                             ?>    
-                           </select><br>
-                               <label>Matériaux : </label> <input type="text" name="materiaux"><br>
-                               <label>Matériaux (anglais) : </label> <input type="text" name="materiauxAng"><br><br>
+                           </select><br><br>
+                               <label>Matériaux : </label><br> <input type="text" name="materiaux"><br><br>
+                               <label>Matériaux (anglais) : </label> <br><input type="text" name="materiauxAng"><br><br>
                             
-                            <input type="submit" name="sauvegarder" value="Valider"> <span><?php echo $message; ?></span>
+                            <input type="submit" name="sauvegarder" id="button" value="Valider"> <span><?php echo $message; ?></span>
                        </form>
 
                    </div>
@@ -1013,10 +1010,11 @@ class VueDefaut
     
     public function afficheListeSupprimerArtistes($aArtistes){
         ?>
-            <h2>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
+            <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1052,10 +1050,11 @@ class VueDefaut
      */
     public function afficheListeModifierArtistes($aArtistes){
         ?>
-            <h2>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
+            <h2 id='titreA'>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1094,10 +1093,11 @@ class VueDefaut
     
     public function afficheListeModifierUtilisateurs($aUtilisateurs){
         ?>
-            <h2>Modifier nos utilisateurs</h2>
+            <h2 id='titreA'>Modifier nos utilisateurs</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>"; 
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1128,11 +1128,12 @@ class VueDefaut
     public function afficheListeModifierAdmin_moderater($aAdmin_moderateur)
     {
         ?>
-             <h2>Modifier nos admins/moderateurs</h2>
+             <h2 id='titreA'>Modifier nos admins/moderateurs</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
                     
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1162,11 +1163,11 @@ class VueDefaut
     {
         ?>
             
-            <h2>Supprimer nos admins/moderateurs</h2>
+            <h2 id='titreA'>Supprimer nos admins/moderateurs</h2>
             <section class='contenu container'>
             <div class='tableArtistes'>                                      
         <?php
-                
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1200,10 +1201,11 @@ class VueDefaut
     
     public function afficheListeSupprimerUtilisateurs($aUtilisateurs){
         ?>
-            <h2>Supprimer nos utilisateurs</h2>
+            <h2 id='titreA'>Supprimer nos utilisateurs</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1237,10 +1239,11 @@ class VueDefaut
     
     public function afficheListeModifierCategories($aCategories){
         ?>
-            <h2>Modifier nos categories</h2>
+            <h2 id='titreA'>Modifier nos categories</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1270,10 +1273,11 @@ class VueDefaut
     
      public function afficheListeSupprimerCategories($aCategories){
         ?>
-            <h2>Supprimer nos categories</h2>
+            <h2 id='titreA'>Supprimer nos categories</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1298,10 +1302,11 @@ class VueDefaut
     
     public function afficheListeModifierOeuvres($aOeuvres){
         ?>
-            <h2>Modifier nos Oeuvres</h2>
+            <h2 id='titreA'>Modifier nos Oeuvres</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1341,10 +1346,11 @@ class VueDefaut
     
      public function afficheListeSupprimerOeuvres($aOeuvres){
         ?>
-            <h2>Supprimer une oeuvre</h2>
+            <h2 id='titreA'>Supprimer une oeuvre</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1384,8 +1390,9 @@ class VueDefaut
     {
         ?>
         <div>
-        <h2 id="titre">Ajouter un artiste</h2>
-        <form method="POST"class="formulaire"action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
+        <h2 id="titreAdm">Ajouter un artiste</h2>
+        <div class="formulaireAd1">
+        <form method="POST"action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
             <fieldset>
             Prénom:<br>
             <input type="text" name="prenom" >
@@ -1460,8 +1467,9 @@ class VueDefaut
     {
         ?>
         <div>
-        <h2 id="titre">Ajouter un utilisateur</h2>
-            <form method="POST" class="formulaire" action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
+        <h2 id="titreAdm">Ajouter un utilisateur</h2>
+        <div class="formulaireAd1">
+            <form method="POST"  action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
 
                 <fieldset>
                     <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
@@ -1519,6 +1527,7 @@ class VueDefaut
             <section class='contenu container'>
                 <div class='tableArtistes'>
         <?php
+                echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
                 echo "<th></th>";
@@ -1695,7 +1704,7 @@ class VueDefaut
 
         ?>
         <div>
-        <h2 id="titre">Modifier Utilisateur</h2>
+        <h2 id="titreAdm">Modifier Utilisateur</h2>
     
         <form class="formulaire" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" method='POST'>
         
@@ -1762,7 +1771,7 @@ class VueDefaut
         
         ?>
         <div>
-        <h2 id="titre">Modifier un admin/moderateur</h2>
+        <h2 id="titreA">Modifier un admin/moderateur</h2>
         
         <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
             <fieldset>
@@ -1800,9 +1809,10 @@ class VueDefaut
     {
         ?>
         <div>
-        <h2 id="titre">Ajouter un admin/moderateur</h2>
-        
-        <form class="formulaire" action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST'> 
+        <h2 id="titreAdm">Ajouter un admin/moderateur</h2>
+
+        <div class="formulaireAd1"> 
+        <form  action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST'> 
             <fieldset>
                 
                 login:<br>
@@ -1882,9 +1892,11 @@ class VueDefaut
     {   
        
          ?>
-         <div>
-         <h2 id="titre">Ajouter un categorie</h2>
-         <form method="POST"class="formulaire"action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
+     
+         <h2 id="titreAdm">Ajouter un categorie</h2>
+           <div class="formulaireAd1">
+       
+         <form method="POST" action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
              <fieldset>
               Nom catégorie:<br>
              <input type="text" name="nomCategorie" >
@@ -1893,10 +1905,9 @@ class VueDefaut
              <input  type="text" name="nomCatAng" >
               <br> <br>    
              <input type="submit" value="Envoyer" id="button">
-             <fieldset>
+             </fieldset>
          </form>  
-         </fieldset>
-         </fieldset>
+       
          </div>        
          <?php        
     }
