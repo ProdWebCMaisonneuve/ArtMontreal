@@ -1774,26 +1774,30 @@ class VueDefaut
         
         ?>
         <div>
-        <h2 id="titreA">Modifier un admin/moderateur</h2>
-        
-        <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
-            <fieldset>
-                role:<br>
-                <input type="text" name="role" value="<?php echo $role; ?>"><br>
-<!--
-                <select>
-                    <option value='nonChoisi'>choisissez une option</option>
-                    <option value="">Administrateur</option>
-                    <option value="">Moderateur</option>
-                </select><br>
--->
-                login:<br>
-                <input type="text" name="login" value="<?php echo $login; ?>"><br>
-                Mot de pass:<br>
-                <input type="text" name="pass" value="<?php echo $pass; ?>"><br>
-                <input type="submit" value="Envoyer" id="button">           
-            </fieldset>        
-        </form>                    
+            <h2 id="titreA">Modifier un admin/moderateur</h2>
+
+            <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
+                <fieldset>
+                    login:<br>
+                    <input type="text" name="login" value="<?php echo $login; ?>"><br>
+                    Mot de pass:<br>
+                    <input type="text" name="pass" value="<?php echo $pass; ?>"><br>
+                    role:
+                    <select name='role'>
+                        <?php
+                            echo "<option value='".'1'."'";
+                            if($role==1){echo "selected";}
+                            echo ">".'Administrateur'."</option>";
+                        ?>
+                        <?php
+                            echo "<option value='".'0'."'";
+                            if($role==0){echo "selected";}
+                            echo ">".'Moderateur'."</option>";
+                        ?>
+                        <input type="submit" value="Envoyer" id="button">
+                    </select> 
+                </fieldset>        
+            </form>                    
         </div>
                     
         <?php
