@@ -22,7 +22,7 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				case 'accueil':
-                    if($_GET['idOeuvre'] != '')
+                    if($_GET['action'] == 'envoyer')
                     {
                         $this->unOeuvre($_GET['idOeuvre']);    
                     }
@@ -122,7 +122,16 @@ class Controler
 
             
                 case 'connexion':
-                    $this->connexion();
+                    if($_GET['action'] == 'envoyer')
+                    {
+                        $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }
+                    else
+                    {
+                        
+                        $this->connexion();
+                    }
+                    
                     break;
                 
                 case 'arrondissements':
@@ -204,7 +213,19 @@ class Controler
                     break;                
                 
                 case 'admin':
-                    $this->admin();
+                    
+                    if($_GET['action'] == 'envoyer')
+                    {
+                        $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }
+                    else
+                    {
+                        $this->admin();
+                    }
+                    break;
+                
+                case 'adminPanel':
+                    $this->adminPanel();
                     break;
 
                     
@@ -462,7 +483,7 @@ class Controler
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], $_POST['motDePasse'], $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
                     $oVue = new VueDefaut();
                    $message = 'Utilistaeur modifie';
 
@@ -685,10 +706,13 @@ class Controler
         } 
 
         private function connexion()
-        {
+        {   
+            $nombreAleatoire = rand(1, 1000);
+            $erreurConnexion = '';
+            
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficheConnexion();
+            $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
             $oVue->afficheFooter();
             
         } 
@@ -788,7 +812,7 @@ class Controler
             $oVue->afficheFooter();
         }
 
-         private function admin()
+         private function adminPanel()
         {
              
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -813,7 +837,15 @@ class Controler
             $oVue->afficheFooter();
         }
     
-    
+         private function admin()
+        {
+            $erreurConnexion = '';
+            $nombreAleatoire = rand(1, 1000); 
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderCnxAdmin();
+            $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
+            $oVue->afficheFooter();
+        }
     
         private function ajouterAdmin_moderateur()
         {
@@ -869,7 +901,7 @@ class Controler
             
         } 
         
-        /* Ajouter  un Catégorie
+        /* Ajouter une Catégorie
         * Auteure: Thuy Tien Vo
         */
  
@@ -891,7 +923,10 @@ class Controler
             $oVue->afficheFooter();
              
         } 
-    
+        
+        /* Supprimer  un Catégorie
+        * Author: Thuy Tien Vo
+        */
         private function supprimerCategories($idCategorie) 
         {   
             $oCategorie = new MCategories('', '', '');
@@ -902,6 +937,92 @@ class Controler
             $oVue->afficheHeaderAdmin();
             $oVue->afficheListeSupprimerCategories($aCategories);
             $oVue->afficheFooter();
+        }
+    
+        /* Vérifie la connexion utilisateur
+         * @author: Gautier Piatek
+        */
+
+        private function validerConnexion($login, $pass, $grainSel)
+        {
+            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '');
+            $motDePasseMD5 = $oUtilisateur->MotDePasse($login);
+		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
+
+            if($pass === $motDePassePlusGrainSel)
+            {   
+                $_SESSION["session"] = $login;
+                //rediriger vers la page accueil
+                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+                $aOeuvres = $oOeuvres->listeOeuvres();
+                
+                
+                
+                $oVue = new VueDefaut();
+                $oVue->afficheHeader();
+                $oVue->afficheAccueil($aOeuvres);
+                $oVue->afficheFooter();
+               
+            }
+            else
+            {
+                $nombreAleatoire = rand(1, 1000);
+                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $oVue = new VueDefaut();
+                $oVue->afficheHeader();
+                $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
+                $oVue->afficheFooter();
+                
+            }
+        }
+    
+        /* Vérifie la connexion admin
+         * @author: Gautier Piatek
+        */
+
+        private function validerConnexionAdmin($login, $pass, $grainSel)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $motDePasseMD5 = $oAdmin_moderateur->MotDePasseAdmin($login);
+		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
+
+            if($pass === $motDePassePlusGrainSel)
+            {   
+                $_SESSION["session"] = $login;
+                $_SESSION['admin'] = true;
+                //rediriger vers la page admin
+                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+                $aOeuvres = $oOeuvres->listeOeuvres();
+
+                $oArtistes = new MArtistes('', '', '', '', '', '');
+                $aArtistes = $oArtistes->listeArtistes();
+
+                $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+                $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+
+                $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
+                $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
+
+
+                $oVue = new VueDefaut();
+                $oVue->afficheHeaderAdmin();
+                $oVue->afficheListeModifierOeuvres($aOeuvres);
+                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+                $oVue->afficheListeModifierArtistes($aArtistes);
+                $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+                $oVue->afficheFooter();
+               
+            }
+            else
+            {
+                $nombreAleatoire = rand(1, 1000);
+                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $oVue = new VueDefaut();
+                $oVue->afficheHeaderCnxAdmin();
+                $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
+                $oVue->afficheFooter();
+                
+            }
         }
 }
 ?>

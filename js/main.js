@@ -8,9 +8,13 @@
  *
  */
 
+/**
+ * Vérifie le formulaire ajout admin
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormAjoutAdmin()
 {
-//    var val=true;
     var form = document.getElementById("FormAjoutAdmin");
     var valide=true;
     for (i=0;i<form.elements.length;i++)
@@ -25,51 +29,23 @@ function validerFormAjoutAdmin()
     if(valide==true)
     {
         document.FormAjoutAdmin.submit();
-    }
-    
-    
-    
-    
+    }   
 }
 
-(function(){
+/**
+ * Encrypte le formulaire de connexion
+ * @access public
+ * @author Gautier Piatek
+ */
+function encrypte()
+{
+    //encrypte et envoi le formulaire caché
+    var passwordEncrypte = md5(document.loginForm.motDePasse.value);
+    var grainSel = document.formEncrypte.grainSel.value;
 
-    window.addEventListener('load', function(){
-        var xhr;
-        var lienAjoutOeuvre = document.querySelector("#ajoutOeuvre");
-        
-        if(btnSoumettre)
-        {
-            console.log('clic');
-            lienAjoutOeuvre.addEventListener('click', function(){
-                xhr = new XMLHttpRequest();
-                xhr.open("POST", "ajaxControler.php?requete=ajoutOeuvre");
-                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
-                
-                xhr.send("arrond="+ champ.value);	
-                xhr.onreadystatechange = function(e){
-                    console.log(e);
-                    if(e.target.readyState == 4 && e.target.status == 200)
-                    {
-                        console.log(e.target.responseText);
-                        var affichageAjoutOeuvre = document.querySelector(".administration");
-                        if(affichageAjoutOeuvre)
-                        {
-                            affichageAjoutOeuvre.innerHTML = e.target.responseText;
-                        }
-                    }
-                }
-            
-            
-            });
-        }
-    
-    
-    });
-
-
-
-
-
-
-})();
+    //formule: md5(grainSel . md5(password))
+    var passwordEncryptePlusGrainSel = md5(grainSel + passwordEncrypte);
+    document.formEncrypte.utilisateur.value = document.loginForm.utilisateur.value;
+    document.formEncrypte.motDePasse.value = passwordEncryptePlusGrainSel;
+    document.formEncrypte.submit();
+}

@@ -202,6 +202,27 @@ class MUtilisateurs {
         
     }
     
+    /**
+	 * Fonction Verification password 
+	 * @return md5 boolean
+     * @author Gautier Piatek
+     * @version 1.0
+     */
+    public static function MotDePasse($login)
+    {
+        self::$database->query('SELECT passUtilisateur FROM utilisateur_enregistre WHERE loginUtilisateur = :loginUtil');
+        self::$database->bind(':loginUtil', $login);
+        $ligne = self::$database->uneLigne();
+        
+        if($ligne)
+        {
+            return $ligne["passUtilisateur"];
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 

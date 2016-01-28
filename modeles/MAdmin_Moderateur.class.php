@@ -162,7 +162,27 @@ class MAdmin_Moderateur {
         return(self::$database->execute());
     }
     
-    
+    /*
+	 * @access public static
+     * fonction supprimer un admin/moderateur
+     * @author Gautier Piatek
+	 * @return none
+	 */
+    public static function MotDePasseAdmin($login)
+    {
+       self::$database->query('SELECT pass FROM adminmod WHERE login = :login');
+        self::$database->bind(':login', $login);
+        $ligne = self::$database->uneLigne();
+        
+        if($ligne)
+        {
+            return $ligne["pass"];
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     
     
