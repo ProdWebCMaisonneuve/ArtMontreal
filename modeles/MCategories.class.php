@@ -108,6 +108,40 @@ class MCategories
      	return(self::$database->execute());
      }
     
+    /*
+     * Fonction qui récupère les infos d'une catégorie selon son id
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return array
+	 */
+	public static function getCategorieParId($idCategorie) 
+	{
+		self::$database->query("SELECT * FROM categorie WHERE idCategorie=:idCategorie");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idCategorie', $idCategorie);
+        
+        $ligne = self::$database->uneLigne();
+        
+        return $ligne;
+	}
+    
+    /*
+     * Fonction qui récupère met à jour une categorie
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return none
+	 */
+	public static function modifierCategorie($idCategorie, $nomCategorie, $nomCatAng) 
+	{
+		self::$database->query("UPDATE categorie SET nomCategorie = :nomCategorie, nomCatAng = :nomCatAng WHERE idCategorie = :idCategorie");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idCategorie', $idCategorie);
+        self::$database->bind(':nomCategorie', $nomCategorie);
+        self::$database->bind(':nomCatAng', $nomCatAng);
+        
+        return(self::$database->execute());
+        
+	}
 }
 
 /**

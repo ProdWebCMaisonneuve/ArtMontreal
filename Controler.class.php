@@ -22,7 +22,7 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				case 'accueil':
-                    if($_GET['action'] == 'envoyer')
+                    if($_GET['idOeuvre'])
                     {
                         $this->unOeuvre($_GET['idOeuvre']);    
                     }
@@ -165,8 +165,6 @@ class Controler
                     $this->unUtilisateur($_GET['idUtilisateur']);
                     break;
 
-               
-
                 case 'oeuvresParCat':
                     $this->oeuvresParCat();
                     break;
@@ -177,8 +175,6 @@ class Controler
                 case 'ajoutOeuvre':
                     $this->ajoutOeuvre();
                     break;
-
-              //ajouterUnArtiste était duplique...
                     
                 case 'profilUtilisateur':
                     $this->profilUtilisateur();
@@ -455,6 +451,38 @@ class Controler
             $oVue->afficheFooter();   
         }
     
+        private function modifierCategories($idCat)
+        {   
+            $oCategorie = new MCategories('', '', '');
+            $aCategorie = $oCategorie->getCategorieParId($idCat);
+            $aCategories = $oCategorie->listeCategories();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['idCategorie'] && $_GET['action'] == 'valider') {
+                
+                try
+                {
+                $oCategorie->modifierCategorie($_GET['idCategorie'], $_POST['nomCategorie'], $_POST['nomCatAng']);
+                
+                $oVue = new VueDefaut();
+                $aCategories = $oCategorie->listeCategories();
+                $oVue->afficheListeModifierCategories($aCategories); 
+                    
+                }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();     
+                } 
+                
+    
+            } else {
+                $oVue->modifierUneCategorie($aCategorie);
+            }     
+            $oVue->afficheFooter();   
+        }
+    
         private function supprimerArtistes($idArtiste)
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
@@ -592,7 +620,6 @@ class Controler
                        
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
-            
             
             if($_GET['idOeuvre'] && $_GET['action'] == 'valider') {
                                     
@@ -806,7 +833,7 @@ class Controler
 
 
             $oVue = new VueDefaut();
-            $oVue->afficheHeader();
+            $oVue->afficheHeaderAdmin();
             //$oVue->ajouterUnArtiste();
             $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
@@ -826,12 +853,13 @@ class Controler
              
             $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
-             
+            
+            $message = '';
              
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             $oVue->afficheListeModifierOeuvres($aOeuvres);
-            $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+            $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
             $oVue->afficheListeModifierArtistes($aArtistes);
             $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
             $oVue->afficheFooter();
@@ -1003,11 +1031,11 @@ class Controler
                 $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
                 $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
 
-
+                $message = '';
                 $oVue = new VueDefaut();
                 $oVue->afficheHeaderAdmin();
                 $oVue->afficheListeModifierOeuvres($aOeuvres);
-                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
                 $oVue->afficheListeModifierArtistes($aArtistes);
                 $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
                 $oVue->afficheFooter();

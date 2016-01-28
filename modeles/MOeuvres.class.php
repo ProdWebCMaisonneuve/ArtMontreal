@@ -319,22 +319,22 @@ class MOeuvres {
 	}
     
     
-     /**
+    /**
 	 * @access public static
      * @author German Mahecha
 	 * @return Array Tableau contenant la liste de tout
 	 */
 	public static function listeUnOeuvre($idcon) {
-		self::$database->query('
-		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, oeuvre.titreVariante,oeuvre.technique,oeuvre.techniqueAng,oeuvre.noInterne,oeuvre.description,oeuvre.validationOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie, categorie.nomCatAng, souscategorie.nomSousCat, souscategorie.nomSousCatAng, oeuvre.nomMateriaux,oeuvre.nomMateriauxAng  
+		self::$database->query('SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, oeuvre.titreVariante,oeuvre.technique,oeuvre.techniqueAng,oeuvre.noInterne,oeuvre.description,oeuvre.validationOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, adresse.adresseCiv, adresse.batiment, adresse.parc, adresse.latitude, adresse.longitude, categorie.nomCategorie, categorie.nomCatAng, souscategorie.nomSousCat, souscategorie.nomSousCatAng, oeuvre.nomMateriaux,oeuvre.nomMateriauxAng  
 		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
 		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
+        JOIN adresse ON oeuvre.idAdresse = adresse.idAdresse
 		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie
         JOIN souscategorie ON oeuvre.idSousCategorie = souscategorie.idSousCategorie
         WHERE oeuvre.idOeuvre = :idcon');
 		self::$database->bind(':idcon', $idcon);
         $ligne = self::$database->uneLigne();
-		$oeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],$ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],$ligne['nomCatAng'],$ligne['nomSousCat'],$ligne['nomSousCatAng'],$ligne['nomMateriaux'],$ligne['nomMateriauxAng']);
+		$oeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],$ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['nomArrondissement'],$ligne['adresseCiv'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude'],$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],$ligne['nomCatAng'],$ligne['nomSousCat'],$ligne['nomSousCatAng'],$ligne['nomMateriaux'],$ligne['nomMateriauxAng']);
         return $oeuvre;
 	}
     
