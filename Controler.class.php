@@ -330,12 +330,13 @@ class Controler
     
         private function listeModifierUtilisateurs()
 		{
+            $message='';
             $oUtilisateurs = new MUtilisateurs('','','','','','');
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
               
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
             $oVue->afficheFooter();
     
 		}
@@ -468,6 +469,9 @@ class Controler
         
         private function modifierUtilisateur($idUtil)
         {   
+            
+             $erreurTitre ='';
+             $message ='';
              $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
              $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
              $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
@@ -481,8 +485,10 @@ class Controler
                 {
                     $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
                     $oVue = new VueDefaut();
-                   //$aUtilisateurs = $oUtilisateur->listeUtilisateurs();
-                    $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+                   $message = 'Utilistaeur modifie';
+
+                    $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+                   
                }
                 catch (Exception $e)
                 {

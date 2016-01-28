@@ -8,6 +8,29 @@
  *
  */
 
+/**
+ * Vérifie le formulaire ajout admin
+ * @access public
+ * @author Jorge Blanco
+ */
+function validerFormAjoutAdmin()
+{
+    var form = document.getElementById("FormAjoutAdmin");
+    var valide=true;
+    for (i=0;i<form.elements.length;i++)
+    {
+        if(form.elements[i].value == "")
+        {
+            valide=false;
+            document.getElementById('erreurPrenom').innerHTML = 'remplir ce champ';     
+        }
+    }
+    
+    if(valide==true)
+    {
+        document.FormAjoutAdmin.submit();
+    }   
+}
 
 /**
  * Encrypte le formulaire de connexion
