@@ -1091,7 +1091,7 @@ class VueDefaut
      * @version 1.0
      */
     
-    public function afficheListeModifierUtilisateurs($aUtilisateurs){
+    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message){
         ?>
             <h2 id='titreA'>Modifier nos utilisateurs</h2>
             <section class='contenu container'>
@@ -1112,7 +1112,9 @@ class VueDefaut
                         echo "<td><a href='index.php?requete=modifierUtilisateur&idUtilisateur=$idUtilisateur'><span class='icon-edit'></span></a></td>";
                         echo "</tr>";
                 }
+       
                 echo "</table>";
+                echo '<span>'.$message.'</span>';
                 echo "</div>";
             echo "</section> ";
        echo "</div>";
@@ -1746,6 +1748,7 @@ class VueDefaut
             <input type="text" name="photoUtilisateur" value="<?php echo $photoUtilisateur; ?>">
             <br><br>
             <input type="submit" value="Envoyer" id="button">
+
             <fieldset>
         </form>  
         </fieldset>
@@ -1771,26 +1774,30 @@ class VueDefaut
         
         ?>
         <div>
-        <h2 id="titreA">Modifier un admin/moderateur</h2>
-        
-        <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
-            <fieldset>
-                role:<br>
-                <input type="text" name="role" value="<?php echo $role; ?>"><br>
-<!--
-                <select>
-                    <option value='nonChoisi'>choisissez une option</option>
-                    <option value="">Administrateur</option>
-                    <option value="">Moderateur</option>
-                </select><br>
--->
-                login:<br>
-                <input type="text" name="login" value="<?php echo $login; ?>"><br>
-                Mot de pass:<br>
-                <input type="text" name="pass" value="<?php echo $pass; ?>"><br>
-                <input type="submit" value="Envoyer" id="button">           
-            </fieldset>        
-        </form>                    
+            <h2 id="titreA">Modifier un admin/moderateur</h2>
+
+            <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
+                <fieldset>
+                    login:<br>
+                    <input type="text" name="login" value="<?php echo $login; ?>"><br>
+                    Mot de pass:<br>
+                    <input type="text" name="pass" value="<?php echo $pass; ?>"><br>
+                    role:
+                    <select name='role'>
+                        <?php
+                            echo "<option value='".'1'."'";
+                            if($role==1){echo "selected";}
+                            echo ">".'Administrateur'."</option>";
+                        ?>
+                        <?php
+                            echo "<option value='".'0'."'";
+                            if($role==0){echo "selected";}
+                            echo ">".'Moderateur'."</option>";
+                        ?>
+                        <input type="submit" value="Envoyer" id="button">
+                    </select> 
+                </fieldset>        
+            </form>                    
         </div>
                     
         <?php
@@ -1809,14 +1816,18 @@ class VueDefaut
     {
         ?>
         <div>
+
+        
+
         <h2 id="titreAdm">Ajouter un admin/moderateur</h2>
 
         <div class="formulaireAd1"> 
-        <form  action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST'> 
+        <form  action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST' name='FormAjoutAdmin' id="FormAjoutAdmin"> 
+
             <fieldset>
                 
                 login:<br>
-                <input type="text" name="login"><br>
+                <input type="text" name="login"><br><span id="erreurPrenom"></span>
                 Mot de pass:<br>
                 <input type="password" name="pass"><br>
                 role:<br>
@@ -1825,7 +1836,7 @@ class VueDefaut
                     <option value="1">Administrateur</option>
                     <option value="0">Moderateur</option>
                 </select><br>
-                <input type="submit" value="Envoyer" id="button"> 
+                <input type="button"  onclick="validerFormAjoutAdmin()" value="Envoyer" id="button"> 
                 
             </fieldset>        
         </form>                    

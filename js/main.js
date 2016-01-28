@@ -8,6 +8,30 @@
  *
  */
 
+function validerFormAjoutAdmin()
+{
+//    var val=true;
+    var form = document.getElementById("FormAjoutAdmin");
+    var valide=true;
+    for (i=0;i<form.elements.length;i++)
+    {
+        if(form.elements[i].value == "")
+        {
+            valide=false;
+            document.getElementById('erreurPrenom').innerHTML = 'remplir ce champ';     
+        }
+    }
+    
+    if(valide==true)
+    {
+        document.FormAjoutAdmin.submit();
+    }
+    
+    
+    
+    
+}
+
 (function(){
 
     window.addEventListener('load', function(){
