@@ -19,11 +19,13 @@ class VueDefaut
      * @access public
      *
      */
-    public function afficheHeader($session) 
+    public function afficheHeader() 
 
     {
-        session_start();
-        $_SESSION["session"] = $session;
+        if(!isset($_SESSION['session'])) {
+            $_SESSION['session'] = '';
+        }
+        
         print_r($_SESSION);
         ?>
         <!DOCTYPE html>
@@ -53,22 +55,21 @@ class VueDefaut
                         <div class="conteneurNav">
 
 
-                        <a href="index.php?requete=accueil"><img src="images/logo.png" alt="logo"></a>
-
+                            <a href="index.php?requete=accueil"><img src="images/logo.png" alt="logo"></a>
 
                             <div class="conteneurMenu">
 
-                                <div class="langue">
+                                <div class="session">
                                     
-                                <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
-                                <?php
-                                    if($_SESSION["session"]) {
-                                        echo "<span class='icon-user' class='connexion'></span> " . $_SESSION["session"];
-                                    } else {
-                                        echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
-                                    }
-                                ?>
-                                <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->
+                                    <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
+                                    <?php
+                                        if($_SESSION["session"]) {
+                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " (DECONNEXION) </a>";
+                                        } else {
+                                            echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
+                                        }
+                                    ?>
+                                    <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->
          
                                 </div>
 
@@ -90,7 +91,7 @@ class VueDefaut
                                         <a href="index.php?requete=arrondissements" class="arrondisement"><span class='icon-map'></span> ARRONDISSEMENT</a>
                                         <a href="index.php?requete=categories" class="categorie"><span class='icon-list'></span> CATEGORIE</a>
                                     </nav>
-                                </div><br><br>
+                                </div>
 
 
                             </div>
@@ -202,6 +203,41 @@ class VueDefaut
     }
     
     /**
+     * Affiche la page de connexion admin
+     * @access public
+     * @author Gautier Piatek
+     */
+    public function afficheConnexionAdmin($nombreAleatoire, $erreurConnexion) 
+    {
+        $_SESSION["grainSel"] = $nombreAleatoire;
+       
+        ?>
+        <div>
+            <h2 id="titre1">Connexion</h2>
+            <form method ="post" name="loginForm" class="formulaire1">
+                <span><?php echo $erreurConnexion;?></span>
+                <fieldset>
+                    Nom d'utilisateur:<br> 
+                    <input type="text" name="utilisateur" >
+                    <br>
+                    Mot de passe:<br>
+                    <input type="password" name="motDePasse" >
+                    <br> <br>
+                    <input type="button" value="Connexion" id="button" onclick="encrypte();">
+                </fieldset>
+            </form>
+
+            <form method="POST" name="formEncrypte" action="index.php?requete=admin&action=envoyer">
+                <input type="hidden" name="utilisateur"/><br/>
+                <input type="hidden" name="motDePasse"/><br/>
+                <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
+            </form>
+        </div>            
+        <?php
+
+    }
+    
+    /**
      * Affiche le pied de page
      * @access public
      *
@@ -287,7 +323,7 @@ class VueDefaut
 
                    echo "<figure>";
                    echo "<a href='index.php?requete=accueil&idOeuvre=".$idOeuvre."'><img src='images/img_2.jpg' alt=''></a>";
-                   echo "<figcaption>".$idOeuvre."</figcaption>";
+                   echo "<figcaption>".$titre."</figcaption>";
                    echo "</figure>";
 
                    if($collectif =="") {
@@ -610,19 +646,16 @@ class VueDefaut
             }
         }    //FIN FUNCTION afficheOeuvreParCat
     
-
-
     /**
-     * Affiche le header de la partie Admin
+     * Affiche le header de la connexion Admin
      * @access public
      * @author Gautier Piatek
      * @version 1.0
      * 
      */
-    public function afficheHeaderAdmin() 
+    public function afficheHeaderCnxAdmin() 
 
     {
-        session_start();
         ?>
          <!DOCTYPE html>
         <html lang="fr">
@@ -656,10 +689,74 @@ class VueDefaut
 
                             <div class="langue">
 
-                                <a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>
+                                <!--<a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>-->
                                <!-- <a href="#">FR/EN</a>-->
                                 <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
          
+                            </div>
+
+                        </div>
+    <?php
+    }
+
+    /**
+     * Affiche le header de la partie Admin
+     * @access public
+     * @author Gautier Piatek
+     * @version 1.0
+     * 
+     */
+    public function afficheHeaderAdmin() 
+
+    {
+        if (!$_SESSION['admin']) {
+            header('Location: index.php');
+            exit;
+        }
+        
+        ?>
+         <!DOCTYPE html>
+        <html lang="fr">
+            <head>
+                <title>Chass'Oeuvres - Administration</title>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                <meta name="description" content="">
+                <meta name="viewport" content="width=device-width">
+
+                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
+                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
+                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
+                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
+                <link rel="stylesheet" href="fonts/style.css" type="text/css">
+
+                <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+                <script src="./js/plugins.js"></script>
+                <script src="./js/main.js"></script>
+                <script type="text/javascript" src="./js/md5.js"></script>
+            </head>
+
+            <body>    
+                <div id="wrapper">
+                <header>
+                    <div class="conteneurNav">
+
+                        <a href="index.php"><img src="images/logo.png" alt="logo"></a>
+
+                        <div class="conteneurMenu">
+
+                            <div class="session">
+
+                                <!--<a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>-->
+                               <!-- <a href="#">FR/EN</a>-->
+                                <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
+                                <?php
+                                        if($_SESSION["session"]) {
+                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " (DECONNEXION) </a>";
+                                        } else {
+                                            echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
+                                        }
+                                    ?>
                             </div>
 
                         </div>
@@ -718,7 +815,7 @@ class VueDefaut
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                       <!-- <li>
                             MODERATION
                             <ul>
                                 <li><a href="#">Photos</a></li>
@@ -727,9 +824,9 @@ class VueDefaut
                         </li>
                         <br>
                         <li>
-                            <a href="#">MISE A JOUR BDD</a>
+                            <a href="#">MISE A JOUR BDD</a>-->
                          <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
-                        </li> 
+                        <!--</li> -->
 
                     </ul>
 

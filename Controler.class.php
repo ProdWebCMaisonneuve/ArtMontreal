@@ -213,7 +213,19 @@ class Controler
                     break;                
                 
                 case 'admin':
-                    $this->admin();
+                    
+                    if($_GET['action'] == 'envoyer')
+                    {
+                        $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }
+                    else
+                    {
+                        $this->admin();
+                    }
+                    break;
+                
+                case 'adminPanel':
+                    $this->adminPanel();
                     break;
 
                     
@@ -275,7 +287,7 @@ class Controler
             $aArtistes = $oArtistes::listeArtistes();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeader($_SESSION["session"]);
+            $oVue->afficheHeader();
 			$oVue->afficheArtistes($aArtistes, $oOeuvres);
             $oVue->afficheFooter();
     
@@ -794,7 +806,7 @@ class Controler
             $oVue->afficheFooter();
         }
 
-         private function admin()
+         private function adminPanel()
         {
              
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -819,7 +831,15 @@ class Controler
             $oVue->afficheFooter();
         }
     
-    
+         private function admin()
+        {
+            $erreurConnexion = '';
+            $nombreAleatoire = rand(1, 1000); 
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderCnxAdmin();
+            $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
+            $oVue->afficheFooter();
+        }
     
         private function ajouterAdmin_moderateur()
         {
@@ -913,8 +933,8 @@ class Controler
             $oVue->afficheFooter();
         }
     
-        /* Vérifie la connexion 
-        * Author: Gautier Piatek
+        /* Vérifie la connexion utilisateur
+         * @author: Gautier Piatek
         */
 
         private function validerConnexion($login, $pass, $grainSel)
@@ -933,7 +953,7 @@ class Controler
                 
                 
                 $oVue = new VueDefaut();
-                $oVue->afficheHeader($_SESSION["session"]);
+                $oVue->afficheHeader();
                 $oVue->afficheAccueil($aOeuvres);
                 $oVue->afficheFooter();
                
@@ -941,10 +961,59 @@ class Controler
             else
             {
                 $nombreAleatoire = rand(1, 1000);
-                $messageErreur = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
                 $oVue = new VueDefaut();
                 $oVue->afficheHeader();
                 $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
+                $oVue->afficheFooter();
+                
+            }
+        }
+    
+        /* Vérifie la connexion admin
+         * @author: Gautier Piatek
+        */
+
+        private function validerConnexionAdmin($login, $pass, $grainSel)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $motDePasseMD5 = $oAdmin_moderateur->MotDePasseAdmin($login);
+		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
+
+            if($pass === $motDePassePlusGrainSel)
+            {   
+                $_SESSION["session"] = $login;
+                $_SESSION['admin'] = true;
+                //rediriger vers la page admin
+                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+                $aOeuvres = $oOeuvres->listeOeuvres();
+
+                $oArtistes = new MArtistes('', '', '', '', '', '');
+                $aArtistes = $oArtistes->listeArtistes();
+
+                $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+                $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+
+                $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
+                $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
+
+
+                $oVue = new VueDefaut();
+                $oVue->afficheHeaderAdmin();
+                $oVue->afficheListeModifierOeuvres($aOeuvres);
+                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs);
+                $oVue->afficheListeModifierArtistes($aArtistes);
+                $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+                $oVue->afficheFooter();
+               
+            }
+            else
+            {
+                $nombreAleatoire = rand(1, 1000);
+                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $oVue = new VueDefaut();
+                $oVue->afficheHeaderCnxAdmin();
+                $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
                 $oVue->afficheFooter();
                 
             }

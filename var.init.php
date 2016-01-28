@@ -72,9 +72,5 @@
     if(empty($erreurConnexion)) {
         $erreurConnexion = '';
     }
-    
-    if(empty($_SESSION['session']))
-    {
-		$_SESSION['session'] = '';
-	}
+
 ?>
