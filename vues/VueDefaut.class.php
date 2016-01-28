@@ -26,7 +26,10 @@ class VueDefaut
             $_SESSION['session'] = '';
         }
         
-        print_r($_SESSION);
+        if(!isset($_SESSION['admin'])) {
+            $_SESSION['admin'] = '';
+        }
+        
         ?>
         <!DOCTYPE html>
         <html lang="fr">
@@ -63,8 +66,12 @@ class VueDefaut
                                     
                                     <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
                                     <?php
+                                        if($_SESSION["admin"]) {
+                                            echo "<a href='index.php?requete=adminPanel'><span class='icon-gauge' class='connexion'></span> PANEL ADMIN </a>";
+                                        }
+        
                                         if($_SESSION["session"]) {
-                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " (DECONNEXION) </a>";
+                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " <span class='icon-log-out'></span> DECONNEXION </a>";
                                         } else {
                                             echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
                                         }
@@ -73,18 +80,7 @@ class VueDefaut
          
                                 </div>
 
-                            </div>
-
-                                <div id="recherche" >
-                                    <form name='recherche' action="index.php?requete=recherche"   method="POST" >
-                                        <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
-                                        <input type="submit" id="buttonRecherche" value="OK">
-                                    </form>
-                                </div>
-
-
-
-                                <div class="menu">
+                               <div class="menu">
                                     <nav>
                                         <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
                                         <a href="index.php?requete=artistes" class="artiste"><span class='icon-man'></span> ARTISTE</a>
@@ -93,6 +89,12 @@ class VueDefaut
                                     </nav>
                                 </div>
 
+                                <div id="recherche" >
+                                    <form name='recherche' action="index.php?requete=recherche"   method="POST" >
+                                        <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
+                                        <input type="submit" id="buttonRecherche" value="OK">
+                                    </form>
+                                </div>
 
                             </div>
 
@@ -290,7 +292,7 @@ class VueDefaut
      * @access public
      * @auteur: German Mahecha
      */
-    public function afficheAccueil($oeuvres) 
+public function afficheAccueil($oeuvres) 
     {
         
         ?>
@@ -331,7 +333,7 @@ class VueDefaut
                    } else {
                        echo "<p>Collectif: " . $collectif . "</p>";
                    }
-                   echo "<p>Arondissement: ". $arrondissement ."</p>";
+                   echo "<p>Arrondissement: ". $arrondissement ."</p>";
                    echo "<p>Categorie: ". $categorie ."</p>";
                echo "</div>";            
                if  ($compteur == 4){
@@ -687,7 +689,7 @@ class VueDefaut
 
                         <div class="conteneurMenu">
 
-                            <div class="langue">
+                            <div class="session">
 
                                 <!--<a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>-->
                                <!-- <a href="#">FR/EN</a>-->
@@ -752,7 +754,7 @@ class VueDefaut
                                 <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
                                 <?php
                                         if($_SESSION["session"]) {
-                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " (DECONNEXION) </a>";
+                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " <span class='icon-log-out'></span> DECONNEXION </a>";
                                         } else {
                                             echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
                                         }
@@ -767,7 +769,7 @@ class VueDefaut
                     <ul>
                          
                         <li>
-                            GESTION
+                            <a href="index.php?requete=adminPanel">GESTION</a>
                             <ul>
                                 <li>
                                     <a href="#">OEUVRES</a>
@@ -971,12 +973,12 @@ class VueDefaut
         $nomMateriauxAng = $aOeuvre['nomMateriauxAng'];
         $idArtiste = $aOeuvre['idArtiste'];
         ?>
-        <div class="administration">
-                   <div class="twelvecol">
+        <!--<div class="administration">
+                   <div class="twelvecol">-->
                        <h3>Modifier une oeuvre</h3>
 
-                       <form method="POST" action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
-                           
+                       <form method="POST" class='formulaire' action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
+                            <fieldset>
                             <label>Titre : </label> <input type="text" name="titre" value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?><br>
                             <label>Titre (Variante) : </label> <input type="text" name="titreVariante" value="<?php echo $titreVariante; ?>"><br>
                             <label>Technique : </label> <input type="text" name="technique" value="<?php echo $technique; ?>"><br>
@@ -1051,17 +1053,14 @@ class VueDefaut
                                <label>Matériaux : </label> <input type="text" name="materiaux" value="<?php echo $nomMateriaux; ?>"><br>
                                <label>Matériaux (anglais) : </label> <input type="text" name="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><br><br>
                             
-                            <input type="submit" name="sauvegarder" value="Valider"> <span><?php echo $message; ?></span>
+                            <input type="submit" name="sauvegarder" value="Valider" id='button'> <span><?php echo $message; ?></span>
+                            </fieldset>
                        </form>
 
-                   </div>
-
-                </div> 
-                <?
+                </div>
+                <?php
     }
-    
-    
-       
+ 
     /**
      * Affiche Liste Artistes
      * @access public
@@ -1070,11 +1069,11 @@ class VueDefaut
      */
     
     public function afficheListeSupprimerArtistes($aArtistes){
-        ?>
+            ?>
             <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1100,7 +1099,7 @@ class VueDefaut
                 echo "</table>";
                 echo "</div>";
             echo "</section> ";
-       echo "</div>";
+            echo "</div>"; 
     } 
     
      /**
@@ -1318,7 +1317,7 @@ class VueDefaut
                         $idCategorie = $categorie->getIdCategorie();
                         echo "<td><span class='icon-list'></span>";
                         echo "<td>".$categorie->getNomCategorie()."</td>" ;
-                        echo "<td><a href='index.php?requete=modifierCategorie&idCategorie=$idCategorie'><span class='icon-edit'></span></a></td>";
+                        echo "<td><a href='index.php?requete=modifierCategories&idCategorie=$idCategorie'><span class='icon-edit'></span></a></td>";
                         echo "</tr>";
                     }
                 echo "</table>";
@@ -1519,7 +1518,38 @@ class VueDefaut
         <?php
 
     }
+    
+    /**
+     * Affiche la page pour modifier une catégorie
+     * @access public
+     * @author: Gautier Piatek
+     */
+    public function modifierUneCategorie($aCategories) 
+    {   
+        $idCategorie = $aCategories["idCategorie"];
+        $nomCategorie = $aCategories["nomCategorie"];
+        $nomCatAng = $aCategories["nomCatAng"];
+        ?>
+        <div>
+        <h2 id="titre">Modifier une catégorie</h2>
+        <form class="formulaire" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider" method='POST'>
+            <fieldset>
+            Nom catégorie:<br>
+        <input type="text" name="nomCategorie" value="<?php echo $nomCategorie; ?>">
+            <br> <br>
+            Nom catégorie en anglais:<br>
+            <input type="text" name="nomCatAng" value="<?php echo $nomCatAng; ?>">
+            <br> <br>
+            
+            <input type="submit" value="Envoyer" id="button">
+            <fieldset>
+        </form>  
+        </fieldset>
+        </div>          
+        <?php
 
+    }
+    
     /**
      * Affiche la page d'inscription - admin
      * @access public
@@ -1839,11 +1869,11 @@ class VueDefaut
 
             <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
                 <fieldset>
-                    login:<br>
-                    <input type="text" name="login" value="<?php echo $login; ?>"><br>
-                    Mot de pass:<br>
-                    <input type="text" name="pass" value="<?php echo $pass; ?>"><br>
-                    role:
+                    Utilisateur:<br>
+                    <input type="text" name="login" value="<?php echo $login; ?>"><br><br>
+                    Mot de passe:<br>
+                    <input type="text" name="pass" placeholder='Nouveau mot de passe'><br><br>
+                    Rôle:
                     <select name='role'>
                         <?php
                             echo "<option value='".'1'."'";
@@ -1855,8 +1885,10 @@ class VueDefaut
                             if($role==0){echo "selected";}
                             echo ">".'Moderateur'."</option>";
                         ?>
-                        <input type="submit" value="Envoyer" id="button">
+                                              
                     </select> 
+                     <br>
+                    <input type="submit" value="Envoyer" id="button">
                 </fieldset>        
             </form>                    
         </div>
