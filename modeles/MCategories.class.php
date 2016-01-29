@@ -91,7 +91,7 @@ class MCategories
             //On lie les paramètres aux valeurs
             self::$database->bind(':nomCategorie', $nomCategorie);
             self::$database->bind(':nomCatAng', $nomCatAng);
-            self::$database->execute();
+            //self::$database->execute();
             return(self::$database->execute());
         } 
     
@@ -101,8 +101,9 @@ class MCategories
  	 */
  
  	public static function supprimerCategories($idCategorie)
-     {
-     	self::$database->query("DELETE FROM categorie WHERE idCategoCAterie=:idCategorie");
+     {  self::$database->query("DELETE FROM oeuvre WHERE idCategorie=:idCategorie");
+     	self::$database->query("DELETE FROM souscategorie WHERE idCategorie=:idCategorie");
+     	self::$database->query("DELETE FROM categorie WHERE idCategorie=:idCategorie");
      	self::$database->bind(':idCategorie', $idCategorie);
  
      	return(self::$database->execute());
