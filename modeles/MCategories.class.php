@@ -81,7 +81,7 @@ class MCategories
     
     /**
 	 * @author Thuy Tien Vo
-	 * @return none 
+	 * @return aJOUTER UN CATÉGORIE
 	 */
 
     public function ajoutCategorie($nomCategorie,$nomCatAng)
@@ -97,7 +97,7 @@ class MCategories
     
     /**
  	 * @author Thuy Tien Vo
- 	 * @return none Supprimer un catégorie
+ 	 * @return  Supprimer un catégorie
  	 */
  
  	public static function supprimerCategories($idCategorie)
