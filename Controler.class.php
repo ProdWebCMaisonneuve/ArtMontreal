@@ -232,16 +232,6 @@ class Controler
             
 		}
 
-       // private function afficheContenuAdmin()
-        //{
-
-          //  $oVue = new VueDefaut();
-           // $oVue->afficheHeader();
-           // $oVue->afficheContenuAdmin();
-           // $oVue->afficheFooter();
-            
-       // } 
-
 		/*PAGE ACCUEIL*/
 
         private function accueil()
@@ -327,7 +317,7 @@ class Controler
         } 
 
 
-            /* Vérifie la connexion admin
+        /* Vérifie la connexion admin
          * @author: Gautier Piatek
         */
 
@@ -1097,10 +1087,6 @@ class Controler
             $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateurs);
             $oVue->afficheFooter();
         }
-    
-   
-    
-       
 
 }
 

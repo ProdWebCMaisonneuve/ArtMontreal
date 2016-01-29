@@ -17,7 +17,7 @@ class VueDefaut
     /**
      * Affiche l'entete
      * @access public
-     *
+     * @author German Mahecha
      */
     public function afficheHeader() 
 
@@ -31,41 +31,42 @@ class VueDefaut
         }
         
         ?>
-        <!DOCTYPE html>
-        <html lang="fr">
-            <head>
-                <title>Chass'Oeuvres</title>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <meta name="description" content="">
-                <meta name="viewport" content="width=device-width">
+    <!DOCTYPE html>
+    <html lang="fr">
 
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="fonts/style.css" type="text/css">
+    <head>
+        <title>Chass'Oeuvres</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
 
-                <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-                <script src="./js/plugins.js"></script>
-                <script src="./js/main.js"></script>
-                <script type="text/javascript" src="./js/md5.js"></script>
-            </head>
+        <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="fonts/style.css" type="text/css">
 
-            <body>
-                <div id="wrapper">
-                    <header>
-                        <div class="conteneurNav">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="./js/plugins.js"></script>
+        <script src="./js/main.js"></script>
+        <script type="text/javascript" src="./js/md5.js"></script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <header>
+                <div class="conteneurNav">
 
 
-                            <a href="index.php?requete=accueil"><img src="images/logo.png" alt="logo"></a>
+                    <a href="index.php?requete=accueil"><img src="images/logo.png" alt="logo"></a>
 
-                            <div class="conteneurMenu">
+                    <div class="conteneurMenu">
 
-                                <div class="session">
-                                    
-                                    <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
-                                    <?php
+                        <div class="session">
+
+                            <a href="index.php?requete=inscription" class='inscription'><span class='icon-add-user'></span> S'INSCRIRE</a>
+                            <?php
                                         if($_SESSION["admin"]) {
                                             echo "<a href='index.php?requete=adminPanel'><span class='icon-gauge' class='connexion'></span> PANEL ADMIN </a>";
                                         }
@@ -76,32 +77,32 @@ class VueDefaut
                                             echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
                                         }
                                     ?>
-                                    <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->
-         
-                                </div>
-
-                               <div class="menu">
-                                    <nav>
-                                        <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
-                                        <a href="index.php?requete=artistes" class="artiste"><span class='icon-man'></span> ARTISTE</a>
-                                        <a href="index.php?requete=arrondissements" class="arrondisement"><span class='icon-map'></span> ARRONDISSEMENT</a>
-                                        <a href="index.php?requete=categories" class="categorie"><span class='icon-list'></span> CATEGORIE</a>
-                                    </nav>
-                                </div>
-
-                                <div id="recherche" >
-                                    <form name='recherche' action="index.php?requete=recherche"   method="POST" >
-                                        <input type="text"  name="mot"  value="" placeholder=' Recherche...'> 
-                                        <input type="submit" id="buttonRecherche" value="OK">
-                                    </form>
-                                </div>
-
-                            </div>
+                                <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->
 
                         </div>
 
-                    </header>
-                </div> 
+                        <div class="menu">
+                            <nav>
+                                <a href="index.php?requete=accueil" class="accueil"><span class='icon-home'></span> ACCUEIL</a>
+                                <a href="index.php?requete=artistes" class="artiste"><span class='icon-man'></span> ARTISTE</a>
+                                <a href="index.php?requete=arrondissements" class="arrondisement"><span class='icon-map'></span> ARRONDISSEMENT</a>
+                                <a href="index.php?requete=categories" class="categorie"><span class='icon-list'></span> CATEGORIE</a>
+                            </nav>
+                        </div>
+
+                        <div id="recherche">
+                            <form name='recherche' action="index.php?requete=recherche" method="POST">
+                                <input type="text" name="mot" value="" placeholder=' Recherche...'>
+                                <input type="submit" id="buttonRecherche" value="OK">
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+        </div>
 
         <?php
        
@@ -119,13 +120,13 @@ class VueDefaut
     public function afficheInscription() 
     {
         ?>
-        <div>
-        <h2 id="titre">Formulaire d'inscription</h2>
-        <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur">
-        
-            <fieldset>
-                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-            <!-- Prénom:<br>
+            <div>
+                <h2 id="titre">Formulaire d'inscription</h2>
+                <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur">
+
+                    <fieldset>
+                        <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
+                        <!-- Prénom:<br>
             <input type="text" name="prenom" >
             <br> <br>
             Nom:<br>
@@ -140,31 +141,38 @@ class VueDefaut
             Courriel:<br>
             <input type="text" name="courriel" placeholder="exemple@domaine.com" >
             <br> <br> -->
-            Biographie:<br>
-            <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
-            <br><br>
-             Nom d'utilisateur:<br> 
-            <input type="text" name="utilisateur" >
-            <br><br>
-            Mot de passe:<br>
-            <input type="password" name="motDePasse" >
-            <br><br>
-            Confirmer le mot de passe:<br>
-            <input type="password" name="motDePasse" value="">
-            <br><br>
-            score:<br>
-            <input type="text" name="score" value="">
-            <br><br>
-            photo:<br>
-            <input type="text" name="photoUtilisateur" value="">
-            <br><br>
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
-        <?php
+                        Biographie:
+                        <br>
+                        <textarea rows="8" cols="60" name="bio" placeholder="Entrer un text ici..."></textarea>
+                        <br>
+                        <br> Nom d'utilisateur:
+                        <br>
+                        <input type="text" name="utilisateur">
+                        <br>
+                        <br> Mot de passe:
+                        <br>
+                        <input type="password" name="motDePasse">
+                        <br>
+                        <br> Confirmer le mot de passe:
+                        <br>
+                        <input type="password" name="motDePasse" value="">
+                        <br>
+                        <br> score:
+                        <br>
+                        <input type="text" name="score" value="">
+                        <br>
+                        <br> photo:
+                        <br>
+                        <input type="text" name="photoUtilisateur" value="">
+                        <br>
+                        <br>
+                        <input type="submit" value="Envoyer" id="button">
+                        <fieldset>
+                </form>
+                </fieldset>
+                </fieldset>
+            </div>
+            <?php
 
     }
 
@@ -179,28 +187,32 @@ class VueDefaut
         $_SESSION["grainSel"] = $nombreAleatoire;
        
         ?>
-        <div>
-            <h2 id="titre1">Connexion</h2>
-            <form method ="post" name="loginForm" class="formulaire1">
-                <span><?php echo $erreurConnexion;?></span>
-                <fieldset>
-                    Nom d'utilisateur:<br> 
-                    <input type="text" name="utilisateur" >
-                    <br>
-                    Mot de passe:<br>
-                    <input type="password" name="motDePasse" >
-                    <br> <br>
-                    <input type="button" value="Connexion" id="button" onclick="encrypte();">
-                </fieldset>
-            </form>
+                <div>
+                    <h2 id="titre1">Connexion</h2>
+                    <form method="post" name="loginForm" class="formulaire1">
+                        <span><?php echo $erreurConnexion;?></span>
+                        <fieldset>
+                            Nom d'utilisateur:
+                            <br>
+                            <input type="text" name="utilisateur">
+                            <br> Mot de passe:
+                            <br>
+                            <input type="password" name="motDePasse">
+                            <br>
+                            <br>
+                            <input type="button" value="Connexion" id="button" onclick="encrypte();">
+                        </fieldset>
+                    </form>
 
-            <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
-                <input type="hidden" name="utilisateur"/><br/>
-                <input type="hidden" name="motDePasse"/><br/>
-                <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
-            </form>
-        </div>            
-        <?php
+                    <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
+                        <input type="hidden" name="utilisateur" />
+                        <br/>
+                        <input type="hidden" name="motDePasse" />
+                        <br/>
+                        <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
+                    </form>
+                </div>
+                <?php
 
     }
     
@@ -214,94 +226,100 @@ class VueDefaut
         $_SESSION["grainSel"] = $nombreAleatoire;
        
         ?>
-        <div>
-            <h2 id="titre1">Connexion</h2>
-            <form method ="post" name="loginForm" class="formulaire1">
-                <span><?php echo $erreurConnexion;?></span>
-                <fieldset>
-                    Nom d'utilisateur:<br> 
-                    <input type="text" name="utilisateur" >
-                    <br>
-                    Mot de passe:<br>
-                    <input type="password" name="motDePasse" >
-                    <br> <br>
-                    <input type="button" value="Connexion" id="button" onclick="encrypte();">
-                </fieldset>
-            </form>
+                    <div>
+                        <h2 id="titre1">Connexion</h2>
+                        <form method="post" name="loginForm" class="formulaire1">
+                            <span><?php echo $erreurConnexion;?></span>
+                            <fieldset>
+                                Nom d'utilisateur:
+                                <br>
+                                <input type="text" name="utilisateur">
+                                <br> Mot de passe:
+                                <br>
+                                <input type="password" name="motDePasse">
+                                <br>
+                                <br>
+                                <input type="button" value="Connexion" id="button" onclick="encrypte();">
+                            </fieldset>
+                        </form>
 
-            <form method="POST" name="formEncrypte" action="index.php?requete=admin&action=envoyer">
-                <input type="hidden" name="utilisateur"/><br/>
-                <input type="hidden" name="motDePasse"/><br/>
-                <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
-            </form>
-        </div>            
-        <?php
+                        <form method="POST" name="formEncrypte" action="index.php?requete=admin&action=envoyer">
+                            <input type="hidden" name="utilisateur" />
+                            <br/>
+                            <input type="hidden" name="motDePasse" />
+                            <br/>
+                            <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
+                        </form>
+                    </div>
+                    <?php
 
     }
     
     /**
      * Affiche le pied de page
      * @access public
-     *
+     * @author Jorge Blanco
+     * @author German Mahecha
      */
     public function afficheFooter() 
     {
         ?>
-                   <footer >
-                       Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
-                        <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
-                        Sous licence Creative Commons (BY-NC 3.0)</span> 
-                    </footer>
+                        <footer>
+                            Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien
+                            <br>
+                            <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
+                        Sous licence Creative Commons (BY-NC 3.0)</span>
+                        </footer>
 
-                    </div>
-                    <script src='js/jquery.js'></script>
-                    <script src='js/jquery.slides.js'></script>
-                    
-                    <script >
-                        $(function(){
-                            $('.slides').slidesjs({
-                               play: {
-                                      active: true,
+                        </div>
+                        <script src='js/jquery.js'></script>
+                        <script src='js/jquery.slides.js'></script>
+
+                        <script>
+                            $(function () {
+                                $('.slides').slidesjs({
+                                    play: {
+                                        active: true,
                                         // [boolean] Generate the play and stop buttons.
                                         // You cannot use your own buttons. Sorry.
-                                      effect: "slide",
+                                        effect: "slide",
                                         // [string] Can be either "slide" or "fade".
-                                      interval: 3000,
+                                        interval: 3000,
                                         // [number] Time spent on each slide in milliseconds.
-                                      auto: true,
+                                        auto: true,
                                         // [boolean] Start playing the slideshow on load.
-                                      swap: false,
+                                        swap: false,
                                         // [boolean] show/hide stop and play buttons
-                                      pauseOnHover: false,
+                                        pauseOnHover: false,
                                         // [boolean] pause a playing slideshow on hover
-                                      restartDelay: 2500
-                                        // [number] restart delay on inactive slideshow
-                                    } 
+                                        restartDelay: 2500
+                                            // [number] restart delay on inactive slideshow
+                                    }
+                                });
                             });
-                        });
+                        </script>
+    </body>
 
-                   </script>
-                </body>
-            </html>
-        <?php
+    </html>
+    <?php
     }
 
 
     /**
      * Affiche la page d'accueil
      * @access public
-     * @auteur: German Mahecha
+     * @author German Mahecha
      */
 public function afficheAccueil($oeuvres) 
     {
         
         ?>
-            <div class="slides">
-                <img src="images/img1.jpg" alt=''>
-                <img src="images/img2.jpg" alt=''>
-                <img src="images/img3.jpg" alt=''>
-            </div>
-            
+        <div class="slides">
+            <img src="images/img1.jpg" alt=''>
+            <img src="images/img2.jpg" alt=''>
+            <img src="images/img3.jpg" alt=''>
+        </div>
+
         <?php
            $compteur = 1;
            echo "<section class='contenu container'>";
@@ -347,17 +365,17 @@ public function afficheAccueil($oeuvres)
     /**
      * Affiche un Oeuvre
      * @access public
-     * @auteur: German Mahecha
+     * @author German Mahecha
      */
     public function afficheUnOeuvre($oeuvre) 
     {
          ?>
-        <section class='contenu container'>
-            <div class= 'fourcol '>
-                <img src='images/img_2.jpg' alt="">
-            </div>
-            <div class= 'sixcol'>
-                <?php
+            <section class='contenu container'>
+                <div class='fourcol '>
+                    <img src='images/img_2.jpg' alt="">
+                </div>
+                <div class='sixcol'>
+                    <?php
                     
                    $idOeuvre= $oeuvre->getIdOeuvre();
                    $titre = $oeuvre->getTitreOeuvre();
@@ -374,41 +392,57 @@ public function afficheAccueil($oeuvres)
                         echo "<p>Artiste: ".$collectif."</p>";
                     }
                  ?>
-                
-                <p>Nom de l'oeuvre: <?php echo $oeuvre->getTitreOeuvre(); ?></p>
-                <p>Categorie: <?php echo $oeuvre->getNomCategorie(); ?></p>
-                <p>Souscategorie: <?php echo $oeuvre->getNomSousCat(); ?></p>
-                <p>Technique: <?php echo $oeuvre->getTechnique(); ?></p>
-                <p>Materiaux: <?php echo $oeuvre->getNomMateriaux(); ?></p>
-                <p>Arrondissement: <?php echo $oeuvre ->getNomArrondissement(); ?></p>
-                <p>Parc: <?php echo $oeuvre ->getParc(); ?></p>
-                <p>Batiment: <?php echo $oeuvre ->getBatiment(); ?></p>
-                <p>adresse: <?php echo $oeuvre ->getAdresse(); ?></p>
-                <p>Description:<?php echo  $oeuvre->getDescription(); ?></p>
-                <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
-            </div>
-        
-        </section>
-    
-    <?php
+
+                        <p>Nom de l'oeuvre:
+                            <?php echo $oeuvre->getTitreOeuvre(); ?>
+                        </p>
+                        <p>Categorie:
+                            <?php echo $oeuvre->getNomCategorie(); ?>
+                        </p>
+                        <p>Souscategorie:
+                            <?php echo $oeuvre->getNomSousCat(); ?>
+                        </p>
+                        <p>Technique:
+                            <?php echo $oeuvre->getTechnique(); ?>
+                        </p>
+                        <p>Materiaux:
+                            <?php echo $oeuvre->getNomMateriaux(); ?>
+                        </p>
+                        <p>Arrondissement:
+                            <?php echo $oeuvre ->getNomArrondissement(); ?>
+                        </p>
+                        <p>Parc:
+                            <?php echo $oeuvre ->getParc(); ?>
+                        </p>
+                        <p>Batiment:
+                            <?php echo $oeuvre ->getBatiment(); ?>
+                        </p>
+                        <p>adresse:
+                            <?php echo $oeuvre ->getAdresse(); ?>
+                        </p>
+                        <p>Description:
+                            <?php echo  $oeuvre->getDescription(); ?>
+                        </p>
+                        <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
+                </div>
+
+            </section>
+
+            <?php
        
     }
 
-    
-    
-    
-    
     /**
      * Affiche les oeuvres par artistes
      * @access public
-     *
+     * @author Gautier Piatek
      */
     public function afficheArtistes($aArtistes, $oOeuvres) 
     {
         ?>
-            <h2>Découvrez nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
+                <h2>Découvrez nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
 
-        <?php
+                <?php
         $compteur = 1;
         
         echo "<section class='contenu container'>";
@@ -451,9 +485,9 @@ public function afficheAccueil($oeuvres)
             }
             echo "<i></i>"
         ?>
-            <div class="accordion-contenu">
-               
-        <?php
+                    <div class="accordion-contenu">
+
+                        <?php
             
             $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
             //var_dump($idArtiste);
@@ -483,11 +517,11 @@ public function afficheAccueil($oeuvres)
                 
                 $compteurContenu = $compteurContenu+1;
             }
-        ?>            
-                    </ul>
-                </div>
-                
-        <?php
+        ?>
+                            </ul>
+                    </div>
+
+                    <?php
             echo "</figure>";
             echo "</div>";
 
@@ -499,7 +533,7 @@ public function afficheAccueil($oeuvres)
     
     
    
-/**
+    /**
      * Affiche les arrondissements 
      * @access public
      * @author Jorge Blanco
@@ -511,8 +545,8 @@ public function afficheAccueil($oeuvres)
     {
         ?>
 
-        <h2>Arrondissements</h2>
-        <?php
+                        <h2>Arrondissements</h2>
+                        <?php
         $compteur = 1;
         
         echo "<section class='contenu container'>";
@@ -549,8 +583,6 @@ public function afficheAccueil($oeuvres)
         
     } //FIN FUNCTION afficheArrondissements
 
-
-
     /**
      * Affiche les oeuvres par arrondissement
      * @access public
@@ -563,8 +595,8 @@ public function afficheAccueil($oeuvres)
     {
         ?>
 
-        <h2>Oeuvres par Arrondissements</h2>
-        <?php
+                            <h2>Oeuvres par Arrondissements</h2>
+                            <?php
         if($aOevuresParArr == "")
         {
             echo "il n'y a pas d'oeuvres dans ce arrondisement";
@@ -595,8 +627,8 @@ public function afficheAccueil($oeuvres)
     {
         ?>
 
-        <h2>Catégories</h2>
-        <?php
+                                <h2>Catégories</h2>
+                                <?php
         $compteur = 1;
         
         echo "<section class='contenu container'>";
@@ -637,8 +669,8 @@ public function afficheAccueil($oeuvres)
 
         {
             ?>
-            <h2>Oeuvre Par Catégorie</h2>
-            <?php
+                                    <h2>Oeuvre Par Catégorie</h2>
+                                    <?php
 
             foreach($aOeuvreParCat as $OeuvresParCat)
             {    
@@ -659,29 +691,30 @@ public function afficheAccueil($oeuvres)
 
     {
         ?>
-         <!DOCTYPE html>
+        <!DOCTYPE html>
         <html lang="fr">
-            <head>
-                <title>Chass'Oeuvres - Administration</title>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <meta name="description" content="">
-                <meta name="viewport" content="width=device-width">
 
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="fonts/style.css" type="text/css">
+        <head>
+            <title>Chass'Oeuvres - Administration</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width">
 
-                <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-                <script src="./js/plugins.js"></script>
-                <script src="./js/main.js"></script>
-                <script type="text/javascript" src="./js/md5.js"></script>
-            </head>
+            <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="fonts/style.css" type="text/css">
 
-            <body>
-                <div id="wrapper">
+            <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+            <script src="./js/plugins.js"></script>
+            <script src="./js/main.js"></script>
+            <script type="text/javascript" src="./js/md5.js"></script>
+        </head>
+
+        <body>
+            <div id="wrapper">
                 <header>
                     <div class="conteneurNav">
 
@@ -692,13 +725,13 @@ public function afficheAccueil($oeuvres)
                             <div class="session">
 
                                 <!--<a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>-->
-                               <!-- <a href="#">FR/EN</a>-->
+                                <!-- <a href="#">FR/EN</a>-->
                                 <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
-         
+
                             </div>
 
                         </div>
-    <?php
+                        <?php
     }
 
     /**
@@ -716,30 +749,31 @@ public function afficheAccueil($oeuvres)
             exit;
         }
         
-        ?>
-         <!DOCTYPE html>
+?>
+        <!DOCTYPE html>
         <html lang="fr">
-            <head>
-                <title>Chass'Oeuvres - Administration</title>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <meta name="description" content="">
-                <meta name="viewport" content="width=device-width">
 
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="fonts/style.css" type="text/css">
+        <head>
+            <title>Chass'Oeuvres - Administration</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width">
 
-                <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-                <script src="./js/plugins.js"></script>
-                <script src="./js/main.js"></script>
-                <script type="text/javascript" src="./js/md5.js"></script>
-            </head>
+            <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
+            <link rel="stylesheet" href="fonts/style.css" type="text/css">
 
-            <body>    
-                <div id="wrapper">
+            <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+            <script src="./js/plugins.js"></script>
+            <script src="./js/main.js"></script>
+            <script type="text/javascript" src="./js/md5.js"></script>
+        </head>
+
+        <body>
+            <div id="wrapper">
                 <header>
                     <div class="conteneurNav">
 
@@ -750,110 +784,110 @@ public function afficheAccueil($oeuvres)
                             <div class="session">
 
                                 <!--<a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>-->
-                               <!-- <a href="#">FR/EN</a>-->
+                                <!-- <a href="#">FR/EN</a>-->
                                 <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
                                 <?php
-                                        if($_SESSION["session"]) {
-                                            echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " <span class='icon-log-out'></span> DECONNEXION </a>";
-                                        } else {
-                                            echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
-                                        }
-                                    ?>
+        if($_SESSION["session"]) {
+        echo "<a href='deconnexion.php'><span class='icon-user' class='connexion'></span> " . $_SESSION["session"] . " <span class='icon-log-out'></span> DECONNEXION </a>";
+        } else {
+        echo "<a href='index.php?requete=connexion' class='connexion'><span class='icon-login'></span> SE CONNECTER</a>";
+        }
+        ?>
                             </div>
 
                         </div>
 
-                               <div class="admin2">
-           <div class="menuAdmin2">
-                <nav>
-                    <ul>
-                         
-                        <li>
-                            <a href="index.php?requete=adminPanel">GESTION</a>
-                            <ul>
-                                <li>
-                                    <a href="#">OEUVRES</a>
-                                       <ul>
-                                            <li><a href="index.php?requete=ajoutOeuvre">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierOeuvres">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerOeuvres">Supprimer</a></li>
-                                        </ul>
-                                </li>
+                        <div class="admin2">
+                            <div class="menuAdmin2">
+                                <nav>
+                                    <ul>
 
-                                <li>
-                                    <a href="#">ARTISTES</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=ajouterUnArtiste">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierArtistes">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerArtistes">Supprimer</a></li>
-                                        </ul>
-                                </li>
+                                        <li>
+                                            <a href="index.php?requete=adminPanel">GESTION</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">OEUVRES</a>
+                                                    <ul>
+                                                        <li><a href="index.php?requete=ajoutOeuvre">Ajouter</a></li>
+                                                        <li><a href="index.php?requete=listeModifierOeuvres">Modifier</a></li>
+                                                        <li><a href="index.php?requete=listeSupprimerOeuvres">Supprimer</a></li>
+                                                    </ul>
+                                                </li>
 
-                                <li>
-                                    <a href="#">CATEGORIES</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=ajouterUnCategorie">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
-                                        </ul>
-                                </li>
+                                                <li>
+                                                    <a href="#">ARTISTES</a>
+                                                    <ul>
+                                                        <li><a href="index.php?requete=ajouterUnArtiste">Ajouter</a></li>
+                                                        <li><a href="index.php?requete=listeModifierArtistes">Modifier</a></li>
+                                                        <li><a href="index.php?requete=listeSupprimerArtistes">Supprimer</a></li>
+                                                    </ul>
+                                                </li>
 
-                                <li>
-                                    <a href="index.php?requete=listerUtilisateurs">UTILISATEURS</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=afficheInscriptionAdmin">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierUtilisateurs">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
-                                        </ul>
-                                </li>
-                                
-                                                                <li>
-                                    <a href="index.php?requete=listerUtilisateurs">ADMIN/MODERATEUR</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=ajouterAdmin_moderateur">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierAdmin_moderateur">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerAdmin_moderateur">Supprimer</a></li>
-                                        </ul>
-                                </li>
-                            </ul>
-                        </li>
-                       <!-- <li>
-                            MODERATION
-                            <ul>
-                                <li><a href="#">Photos</a></li>
-                                <li><a href="#">Commentaires</a></li>
-                            </ul>
-                        </li>
-                        <br>
-                        <li>
-                            <a href="#">MISE A JOUR BDD</a>-->
-                         <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
-                        <!--</li> -->
+                                                <li>
+                                                    <a href="#">CATEGORIES</a>
+                                                    <ul>
+                                                        <li><a href="index.php?requete=ajouterUnCategorie">Ajouter</a></li>
+                                                        <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
+                                                        <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
+                                                    </ul>
+                                                </li>
 
-                    </ul>
+                                                <li>
+                                                    <a href="index.php?requete=listerUtilisateurs">UTILISATEURS</a>
+                                                    <ul>
+                                                        <li><a href="index.php?requete=afficheInscriptionAdmin">Ajouter</a></li>
+                                                        <li><a href="index.php?requete=listeModifierUtilisateurs">Modifier</a></li>
+                                                        <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
+                                                    </ul>
+                                                </li>
 
-                </nav>
-            </div>
-            
-            <section class="contenu container">
-        
-                <!-- <h2>Gestion</h2> -->
+                                                <li>
+                                                    <a href="index.php?requete=listerUtilisateurs">ADMIN/MODERATEUR</a>
+                                                    <ul>
+                                                        <li><a href="index.php?requete=ajouterAdmin_moderateur">Ajouter</a></li>
+                                                        <li><a href="index.php?requete=listeModifierAdmin_moderateur">Modifier</a></li>
+                                                        <li><a href="index.php?requete=listeSupprimerAdmin_moderateur">Supprimer</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <!-- <li>
+                                                MODERATION
+                                                <ul>
+                                                <li><a href="#">Photos</a></li>
+                                                <li><a href="#">Commentaires</a></li>
+                                                </ul>
+                                                </li>
+                                                <br>
+                                                <li>
+                                                <a href="#">MISE A JOUR BDD</a>-->
+                                        <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
+                                        <!--</li> -->
 
-                <div class="administration">
-                   <div class="twelvecol">
-                       
-                    
-                     
-                   </div>
+                                    </ul>
 
-                </div>
-            </section>
-        </div>
+                                </nav>
+                            </div>
+
+                            <section class="contenu container">
+
+                                <!-- <h2>Gestion</h2> -->
+
+                                <div class="administration">
+                                    <div class="twelvecol">
+
+
+
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
                     </div>
 
 
                 </header>
-        <?php
+                <?php
         
         
     }
@@ -869,79 +903,82 @@ public function afficheAccueil($oeuvres)
 
     {   
         
-        ?>            
+        ?>
             <section class="contenu container">
-        
+
                 <h2 id='titreAdm'>Ajouter une oeuvre</h2>
                 <div class="formulaireAd1">
-                
-                       <form method="POST" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
-                           
-                            <label>Titre : <br></label> <input type="text" name="titre"><span><?php echo $erreurTitre;?><br><br>
-                            <label>Titre (Variante) : <br></label> <input type="text" name="titreVariante"><br><br>
-                            <label>Technique : <br></label> <input type="text" name="technique"><br><br>
-                            <label>Technique (anglais) :<br> </label> <input type="text" name="techniqueAng"><br><br>
-                            <label>Description : <br></label> <input type="text" name="description"><br><br>
-                            <label>Validation :<br> </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br><br>
-                            
-                            <label>Adresse Civique : <br></label> <input type="text" name="adresse"><br><br>
-                            <label>Batiment : <br></label> <input type="text" name="batiment"><br><br>
-                            <label>Parc :<br> </label> <input type="text" name="parc"><br><br>
-                            <label>Latitude :<br> </label> <input type="text" name="latitude"><br><br>
-                            <label>Longitude :<br> </label> <input type="text" name="longitude"><br><br>
-                            <label>Arrondissement :<br> </label> <select name="arrondissement"><br>
-                                <option value="nonChoisi">Choisir un Arrondissement</option><br>
-                            <?php
-                                foreach ($aArrondissements as $arrondissement) {
-                                    echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Artiste/Collectif : </label> <br><select name="artiste">
-                                <option value="nonChoisi">Choisir un Artiste/Collectif</option>
-                            <?php
-                                foreach ($aArtistes as $artiste) {
-                                    
-                                    if($artiste->getNom() == "") {
-                                        
-                                         echo "<option value='".$artiste->getIdArtiste()."'>".$artiste->getCollectif()."</option>"; 
-                                    } else {                                    
-                                       
-                                        echo "<option value='".$artiste->getIdArtiste()."'>". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
-                                    }
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Catégorie : </label><br> <select name="categorie"><br><br>
-                                <option value="nonChoisi">Choisir une Catégorie</option>
-                            <?php 
-                                foreach ($aCategories as $categorie) {
-                                    echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Sous-Catégorie : </label><br> <select name="sousCategorie"><br><br>
-                                <option value="nonChoisi">Choisir une Sous-Catégorie</option>
-                            <?php
-                                foreach ($aSousCategories as $sousCategorie) {
-                                    echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
-                                }
-                            ?>    
-                           </select><br><br>
-                               <label>Matériaux : </label><br> <input type="text" name="materiaux"><br><br>
-                               <label>Matériaux (anglais) : </label> <br><input type="text" name="materiauxAng"><br><br>
-                            
-                            <input type="submit" name="sauvegarder" id="button" value="Valider"> <span><?php echo $message; ?></span>
-                       </form>
 
-                   </div>
+                    <form method="POST" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
 
-                </div>
-            </section>
-        </div>
-        
-        
-        <?php
+                        <label>Titre :
+                            <br>
+                        </label>
+                        <input type="text" name="titre"><span><?php echo $erreurTitre;?><br><br>
+                        <label>Titre (Variante) : <br></label> <input type="text" name="titreVariante"><br><br>
+                        <label>Technique : <br></label> <input type="text" name="technique"><br><br>
+                        <label>Technique (anglais) :<br> </label> <input type="text" name="techniqueAng"><br><br>
+                        <label>Description : <br></label> <input type="text" name="description"><br><br>
+                        <label>Validation :<br> </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br><br>
+
+                        <label>Adresse Civique : <br></label> <input type="text" name="adresse"><br><br>
+                        <label>Batiment : <br></label> <input type="text" name="batiment"><br><br>
+                        <label>Parc :<br> </label> <input type="text" name="parc"><br><br>
+                        <label>Latitude :<br> </label> <input type="text" name="latitude"><br><br>
+                        <label>Longitude :<br> </label> <input type="text" name="longitude"><br><br>
+                        <label>Arrondissement :<br> </label> <select name="arrondissement"><br>
+                            <option value="nonChoisi">Choisir un Arrondissement</option><br>
+                        <?php
+                            foreach ($aArrondissements as $arrondissement) {
+                                echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
+                            }
+                        ?>
+                       </select><br><br>
+                           <label>Artiste/Collectif : </label> <br><select name="artiste">
+                            <option value="nonChoisi">Choisir un Artiste/Collectif</option>
+                        <?php
+                            foreach ($aArtistes as $artiste) {
+
+                                if($artiste->getNom() == "") {
+
+                                     echo "<option value='".$artiste->getIdArtiste()."'>".$artiste->getCollectif()."</option>"; 
+                                } else {                                    
+
+                                    echo "<option value='".$artiste->getIdArtiste()."'>". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
+                                }
+                            }
+                        ?>
+                       </select><br><br>
+                           <label>Catégorie : </label><br> <select name="categorie"><br><br>
+                            <option value="nonChoisi">Choisir une Catégorie</option>
+                        <?php 
+                            foreach ($aCategories as $categorie) {
+                                echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
+                            }
+                        ?>
+                       </select><br><br>
+                           <label>Sous-Catégorie : </label><br> <select name="sousCategorie"><br><br>
+                            <option value="nonChoisi">Choisir une Sous-Catégorie</option>
+                        <?php
+                            foreach ($aSousCategories as $sousCategorie) {
+                                echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
+                            }
+                        ?>    
+                       </select><br><br>
+                           <label>Matériaux : </label><br> <input type="text" name="materiaux"><br><br>
+                           <label>Matériaux (anglais) : </label> <br><input type="text" name="materiauxAng"><br><br>
+
+                        <input type="submit" name="sauvegarder" id="button" value="Valider"> <span><?php echo $message; ?></span>
+                                                                            </form>
+
+                                                                        </div>
+
+                                                            </div>
+                                                            </section>
+                                                </div>
+
+
+                                                <?php
         
     }
     
@@ -973,92 +1010,92 @@ public function afficheAccueil($oeuvres)
         $nomMateriauxAng = $aOeuvre['nomMateriauxAng'];
         $idArtiste = $aOeuvre['idArtiste'];
         ?>
-        <!--<div class="administration">
-                   <div class="twelvecol">-->
-                       <h3>Modifier une oeuvre</h3>
+            <!--<div class="administration">
+            <div class="twelvecol">-->
+            <h3>Modifier une oeuvre</h3>
+            <form method="POST" class='formulaire' action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
+                <fieldset>
+                    <label>Titre : </label>
+                    <input type="text" name="titre" value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?><br>
+            <label>Titre (Variante) : </label> <input type="text" name="titreVariante" value="<?php echo $titreVariante; ?>"><br>
+            <label>Technique : </label> <input type="text" name="technique" value="<?php echo $technique; ?>"><br>
+            <label>Technique (anglais) : </label> <input type="text" name="techniqueAng" value="<?php echo $techniqueAng; ?>"><br>
+            <label>Description : </label> <input type="text" name="description" value="<?php echo $description; ?>"><br>
+            <label>Validation : </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br>
 
-                       <form method="POST" class='formulaire' action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
-                            <fieldset>
-                            <label>Titre : </label> <input type="text" name="titre" value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?><br>
-                            <label>Titre (Variante) : </label> <input type="text" name="titreVariante" value="<?php echo $titreVariante; ?>"><br>
-                            <label>Technique : </label> <input type="text" name="technique" value="<?php echo $technique; ?>"><br>
-                            <label>Technique (anglais) : </label> <input type="text" name="techniqueAng" value="<?php echo $techniqueAng; ?>"><br>
-                            <label>Description : </label> <input type="text" name="description" value="<?php echo $description; ?>"><br>
-                            <label>Validation : </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br>
-                            
-                            <label>Adresse Civique : </label> <input type="text" name="adresse" value="<?php echo $adresseCiv; ?>"><br>
-                            <label>Batiment : </label> <input type="text" name="batiment" value="<?php echo $batiment; ?>"><br>
-                            <label>Parc : </label> <input type="text" name="parc" value="<?php echo $parc; ?>"><br>
-                            <label>Latitude : </label> <input type="text" name="latitude" value="<?php echo $latitude; ?>"><br>
-                            <label>Longitude : </label> <input type="text" name="longitude" value="<?php echo $longitude; ?>"><br>
-                            <label>Arrondissement : </label> <select name="arrondissement" >
-                                <option value="nonChoisi">Choisir un Arrondissement</option>
-                            <?php
-                                foreach ($aArrondissements as $arrondissement) {
-                                    echo "<option value='". $arrondissement->getidArrondissement() . "'";
-                                    if($arrondissement->getidArrondissement() == $idArrondissement){
-                                        echo " selected";
-                                    }  
-                                    echo ">".$arrondissement->getnomArrondissement()."</option>"; 
-                                }
-                            ?>
-                           </select><br>
-                               <label>Artiste/Collectif : </label> <select name="artiste">
-                                <option value="nonChoisi">Choisir un Artiste/Collectif</option>
-                            <?php
-                                foreach ($aArtistes as $artiste) {
-                                    
-                                    if($artiste->getNom() == "") {
-                                        
-                                        echo "<option value='".$artiste->getIdArtiste()."'";
-                                        if($artiste->getIdArtiste() == $idArtiste){
-                                            echo " selected";
-                                        } 
-                                        echo ">".$artiste->getCollectif()."</option>"; 
-                                    } else {                                    
-                                       
-                                        echo "<option value='".$artiste->getIdArtiste()."'";
-                                        if($artiste->getIdArtiste() == $idArtiste){
-                                            echo " selected";
-                                        }
-                                        echo ">". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
-                                    }
-                                }
-                            ?>
-                           </select><br>
-                               <label>Catégorie : </label> <select name="categorie">
-                                <option value="nonChoisi">Choisir une Catégorie</option>
-                            <?php 
-                                foreach ($aCategories as $categorie) {
-                                    echo "<option value='".$categorie->getidCategorie()."'";
-                                    if($categorie->getidCategorie() == $idCategorie){
-                                        echo " selected";
-                                    }
-                                    echo">".$categorie->getnomCategorie()."</option>"; 
-                                }
-                            ?>
-                           </select><br>
-                               <label>Sous-Catégorie : </label> <select name="sousCategorie">
-                                <option value="nonChoisi">Choisir une Sous-Catégorie</option>
-                            <?php
-                                foreach ($aSousCategories as $sousCategorie) {
-                                    echo "<option value='".$sousCategorie->getidSousCategorie()."'";
-                                    if($sousCategorie->getidSousCategorie() == $idSousCategorie){
-                                        echo " selected";
-                                    }
-                                    echo ">".$sousCategorie->getnomSousCategorie()."</option>"; 
-                                }
-                            ?>    
-                           </select><br>
-                               <label>Matériaux : </label> <input type="text" name="materiaux" value="<?php echo $nomMateriaux; ?>"><br>
-                               <label>Matériaux (anglais) : </label> <input type="text" name="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><br><br>
-                            
-                            <input type="submit" name="sauvegarder" value="Valider" id='button'> <span><?php echo $message; ?></span>
-                            </fieldset>
-                       </form>
+            <label>Adresse Civique : </label> <input type="text" name="adresse" value="<?php echo $adresseCiv; ?>"><br>
+            <label>Batiment : </label> <input type="text" name="batiment" value="<?php echo $batiment; ?>"><br>
+            <label>Parc : </label> <input type="text" name="parc" value="<?php echo $parc; ?>"><br>
+            <label>Latitude : </label> <input type="text" name="latitude" value="<?php echo $latitude; ?>"><br>
+            <label>Longitude : </label> <input type="text" name="longitude" value="<?php echo $longitude; ?>"><br>
+            <label>Arrondissement : </label> <select name="arrondissement" >
+            <option value="nonChoisi">Choisir un Arrondissement</option>
+            <?php
+            foreach ($aArrondissements as $arrondissement) {
+            echo "<option value='". $arrondissement->getidArrondissement() . "'";
+            if($arrondissement->getidArrondissement() == $idArrondissement){
+            echo " selected";
+            }  
+            echo ">".$arrondissement->getnomArrondissement()."</option>"; 
+            }
+            ?>
+            </select><br>
+            <label>Artiste/Collectif : </label> <select name="artiste">
+            <option value="nonChoisi">Choisir un Artiste/Collectif</option>
+            <?php
+            foreach ($aArtistes as $artiste) {
 
-                </div>
-                <?php
+            if($artiste->getNom() == "") {
+
+            echo "<option value='".$artiste->getIdArtiste()."'";
+            if($artiste->getIdArtiste() == $idArtiste){
+            echo " selected";
+            } 
+            echo ">".$artiste->getCollectif()."</option>"; 
+            } else {                                    
+
+            echo "<option value='".$artiste->getIdArtiste()."'";
+            if($artiste->getIdArtiste() == $idArtiste){
+            echo " selected";
+            }
+            echo ">". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
+            }
+            }
+            ?>
+            </select><br>
+            <label>Catégorie : </label> <select name="categorie">
+            <option value="nonChoisi">Choisir une Catégorie</option>
+            <?php 
+            foreach ($aCategories as $categorie) {
+            echo "<option value='".$categorie->getidCategorie()."'";
+            if($categorie->getidCategorie() == $idCategorie){
+            echo " selected";
+            }
+            echo">".$categorie->getnomCategorie()."</option>"; 
+            }
+            ?>
+            </select><br>
+            <label>Sous-Catégorie : </label> <select name="sousCategorie">
+            <option value="nonChoisi">Choisir une Sous-Catégorie</option>
+            <?php
+            foreach ($aSousCategories as $sousCategorie) {
+            echo "<option value='".$sousCategorie->getidSousCategorie()."'";
+            if($sousCategorie->getidSousCategorie() == $idSousCategorie){
+            echo " selected";
+            }
+            echo ">".$sousCategorie->getnomSousCategorie()."</option>"; 
+            }
+            ?>    
+            </select><br>
+            <label>Matériaux : </label> <input type="text" name="materiaux" value="<?php echo $nomMateriaux; ?>"><br>
+            <label>Matériaux (anglais) : </label> <input type="text" name="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><br><br>
+
+            <input type="submit" name="sauvegarder" value="Valider" id='button'> <span><?php echo $message; ?></span>
+                </fieldset>
+            </form>
+
+            </div>
+                                            <?php
     }
  
     /**
@@ -1070,10 +1107,10 @@ public function afficheAccueil($oeuvres)
     
     public function afficheListeSupprimerArtistes($aArtistes){
             ?>
-            <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-    <?php
+                <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
+                <section class='contenu container'>
+                    <div class='tableArtistes'>
+                        <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1113,7 +1150,7 @@ public function afficheAccueil($oeuvres)
             <h2 id='titreA'>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1156,7 +1193,7 @@ public function afficheAccueil($oeuvres)
             <h2 id='titreA'>Modifier nos utilisateurs</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+                    <?php
                 echo "<section class='formulaire2'>"; 
                 echo "<table>";
                 echo "<tr>";
@@ -1181,20 +1218,20 @@ public function afficheAccueil($oeuvres)
     }
     
     
-        /**
+    /**
      * Afficher un liste d'admin/moderateur
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      */
     
     public function afficheListeModifierAdmin_moderater($aAdmin_moderateur)
     {
         ?>
-             <h2 id='titreA'>Modifier nos admins/moderateurs</h2>
+            <h2 id='titreA'>Modifier nos admins/moderateurs</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-                    
-        <?php
+
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1219,16 +1256,16 @@ public function afficheAccueil($oeuvres)
     /**
      * Afficher un liste d'admin/moderateur
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      */
     public function afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur)
     {
         ?>
-            
+
             <h2 id='titreA'>Supprimer nos admins/moderateurs</h2>
             <section class='contenu container'>
-            <div class='tableArtistes'>                                      
-        <?php
+                <div class='tableArtistes'>
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1266,7 +1303,7 @@ public function afficheAccueil($oeuvres)
             <h2 id='titreA'>Supprimer nos utilisateurs</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1304,7 +1341,7 @@ public function afficheAccueil($oeuvres)
             <h2 id='titreA'>Modifier nos categories</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1338,7 +1375,7 @@ public function afficheAccueil($oeuvres)
             <h2 id='titreA'>Supprimer nos categories</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1360,14 +1397,19 @@ public function afficheAccueil($oeuvres)
        echo "</div>";
     }
     
-    
+    /**
+     * Affiche Liste des oeuvres à modifier
+     * @access public
+     * @author German Mahecha
+     * @version 1.0
+     */
     
     public function afficheListeModifierOeuvres($aOeuvres){
-        ?>
-            <h2 id='titreA'>Modifier nos Oeuvres</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
+    ?>
+                <h2 id='titreA'>Modifier nos Oeuvres</h2>
+                <section class='contenu container'>
+                    <div class='tableArtistes'>
+                        <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1411,7 +1453,7 @@ public function afficheAccueil($oeuvres)
             <h2 id='titreA'>Supprimer une oeuvre</h2>
             <section class='contenu container'>
                 <div class='tableArtistes'>
-        <?php
+                    <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1443,10 +1485,10 @@ public function afficheAccueil($oeuvres)
     }
 
 
-        /**
+    /**
      * Affiche la page pour ajouter un artiste
      * @access public
-     * @auteure: Jorge Blanco
+     * @author: Jorge Blanco
      */
     public function formulaireAjouterArtiste() 
     {
@@ -1454,27 +1496,33 @@ public function afficheAccueil($oeuvres)
         <div>
         <h2 id="titreAdm">Ajouter un artiste</h2>
         <div class="formulaireAd1">
-        <form method="POST"action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
-            <fieldset>
-            Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Collectif:<br>
-            <input  type="text" name="collectif" >
-             <br> <br>
-            Prendre une photo:<br><br>
-            <input type="button" name="photoArtiste" value = "prendre une photo" >
-            <br> <br>
-            
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
+        <form method="POST" action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
+        <fieldset>
+        Prénom:
+        <br>
+        <input type="text" name="prenom">
+        <br>
+        <br> Nom:
+        <br>
+        <input type="text" name="nom">
+        <br>
+        <br> Collectif:
+        <br>
+        <input type="text" name="collectif">
+        <br>
+        <br> Prendre une photo:
+        <br>
+        <br>
+        <input type="button" name="photoArtiste" value="prendre une photo">
+        <br>
+        <br>
+
+        <input type="submit" value="Envoyer" id="button">
+        <fieldset>
+        </form>
         </fieldset>
         </fieldset>
-        </div>          
+        </div>
         <?php
 
     }
@@ -1492,30 +1540,36 @@ public function afficheAccueil($oeuvres)
         $collectif = $aArtiste['collectif'];
         $photoArtiste = $aArtiste['photoArtiste'];
         ?>
-        <div>
-        <h2 id="titre">Modifier un artiste</h2>
-        <form class="formulaire" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider" method='POST'>
+            <div>
+            <h2 id="titre">Modifier un artiste</h2>
+            <form class="formulaire" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider" method='POST'>
             <fieldset>
-            Prénom:<br>
+            Prénom:
+            <br>
             <input type="text" name="prenom" value="<?php echo $prenom; ?>">
-            <br> <br>
-            Nom:<br>
+            <br>
+            <br> Nom:
+            <br>
             <input type="text" name="nom" value="<?php echo $nom; ?>">
-            <br> <br>
-            Collectif:<br>
-            <input  type="text" name="collectif" value="<?php echo $collectif; ?>">
-             <br> <br>
-            Photo:<br><br>
+            <br>
+            <br> Collectif:
+            <br>
+            <input type="text" name="collectif" value="<?php echo $collectif; ?>">
+            <br>
+            <br> Photo:
+            <br>
+            <br>
             <input type="text" name="photoArtiste" value="<?php echo $photoArtiste; ?>">
-            <br> <br>
-            
+            <br>
+            <br>
+
             <input type="submit" value="Envoyer" id="button">
             <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
-        <?php
+            </form>
+            </fieldset>
+            </fieldset>
+            </div>
+            <?php
 
     }
     
@@ -1533,19 +1587,22 @@ public function afficheAccueil($oeuvres)
         <div>
         <h2 id="titre">Modifier une catégorie</h2>
         <form class="formulaire" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider" method='POST'>
-            <fieldset>
-            Nom catégorie:<br>
+        <fieldset>
+        Nom catégorie:
+        <br>
         <input type="text" name="nomCategorie" value="<?php echo $nomCategorie; ?>">
-            <br> <br>
-            Nom catégorie en anglais:<br>
-            <input type="text" name="nomCatAng" value="<?php echo $nomCatAng; ?>">
-            <br> <br>
-            
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
+        <br>
+        <br> Nom catégorie en anglais:
+        <br>
+        <input type="text" name="nomCatAng" value="<?php echo $nomCatAng; ?>">
+        <br>
+        <br>
+
+        <input type="submit" value="Envoyer" id="button">
+        <fieldset>
+        </form>
         </fieldset>
-        </div>          
+        </div>
         <?php
 
     }
@@ -1560,12 +1617,12 @@ public function afficheAccueil($oeuvres)
     {
         ?>
         <div>
-        <h2 id="titreAdm">Ajouter un utilisateur</h2>
-        <div class="formulaireAd1">
-            <form method="POST"  action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
+            <h2 id="titreAdm">Ajouter un utilisateur</h2>
+            <div class="formulaireAd1">
+                <form method="POST" action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
 
-                <fieldset>
-                    <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
+                    <fieldset>
+                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
                 <!-- Prénom:<br>
                 <input type="text" name="prenom" >
                 <br> <br>
@@ -1581,29 +1638,36 @@ public function afficheAccueil($oeuvres)
                 Courriel:<br>
                 <input type="text" name="courriel" placeholder="exemple@domaine.com" >
                 <br> <br> -->
-                Biographie:<br>
-                <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
-                <br><br>
-                 Nom d'utilisateur:<br> 
-                <input type="text" name="utilisateur" >
-                <br><br>
-                Mot de passe:<br>
-                <input type="password" name="motDePasse" >
-                <br><br>
-                Confirmer le mot de passe:<br>
+                Biographie:
+                <br>
+                <textarea rows="8" cols="60" name="bio" placeholder="Entrer un text ici..."></textarea>
+                <br>
+                <br> Nom d'utilisateur:
+                <br>
+                <input type="text" name="utilisateur">
+                <br>
+                <br> Mot de passe:
+                <br>
+                <input type="password" name="motDePasse">
+                <br>
+                <br> Confirmer le mot de passe:
+                <br>
                 <input type="password" name="motDePasse" value="">
-                <br><br>
-                score:<br>
+                <br>
+                <br> score:
+                <br>
                 <input type="text" name="score" value="">
-                <br><br>
-                photo:<br>
+                <br>
+                <br> photo:
+                <br>
                 <input type="text" name="photoUtilisateur" value="">
-                <br><br>
+                <br>
+                <br>
                 <input type="submit" value="Envoyer" id="button">
                 </fieldset>
-                </form>  
-        </div>           
-        <?php
+                </form>
+                </div>
+                <?php
 
     }
 
@@ -1616,10 +1680,10 @@ public function afficheAccueil($oeuvres)
     public function listerUtilisateurs($aUtilisateurs)
     {
         ?>
-            <h2>Utilisateurs</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
+        <h2>Utilisateurs</h2>
+        <section class='contenu container'>
+            <div class='tableArtistes'>
+                <?php
                 echo "<section class='formulaire2'>";
                 echo "<table>";
                 echo "<tr>";
@@ -1660,122 +1724,124 @@ public function afficheAccueil($oeuvres)
         
         ?>
         <div class="admin">
-           <div class="menuAdmin">
-                <nav>
-                    <ul>
-                         
-                        <li>
-                            GESTION
-                            <ul>
-                                <li>
-                                    <a href="#">OEUVRES</a>
-                                       <ul>
-                                            <li><a href="index.php?requete=ajoutOeuvre">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierOeuvres">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerOeuvres">Supprimer</a></li>
-                                        </ul>
-                                </li>
+        <div class="menuAdmin">
+        <nav>
+        <ul>
 
-                                <li>
-                                    <a href="#">ARTISTES</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=ajouterUnArtiste">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierArtistes">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerArtistes">Supprimer</a></li>
-                                        </ul>
-                                </li>
+            <li>
+            GESTION
+                <ul>
+                    <li>
+                    <a href="#">OEUVRES</a>
+                <ul>
+                    <li><a href="index.php?requete=ajoutOeuvre">Ajouter</a></li>
+                    <li><a href="index.php?requete=listeModifierOeuvres">Modifier</a></li>
+                    <li><a href="index.php?requete=listeSupprimerOeuvres">Supprimer</a></li>
+                </ul>
+            </li>
 
-                                <li>
-                                    <a href="#">CATEGORIES</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=ajouterUnCategorie">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
-                                        </ul>
-                                </li>
+            <li>
+                <a href="#">ARTISTES</a>
+                <ul>
+                    <li><a href="index.php?requete=ajouterUnArtiste">Ajouter</a></li>
+                    <li><a href="index.php?requete=listeModifierArtistes">Modifier</a></li>
+                    <li><a href="index.php?requete=listeSupprimerArtistes">Supprimer</a></li>
+                </ul>
+            </li>
 
-                                <li>
-                                    <a href="index.php?requete=listerUtilisateurs">UTILISATEURS</a>
-                                        <ul>
-                                            <li><a href="index.php?requete=afficheInscription">Ajouter</a></li>
-                                            <li><a href="index.php?requete=listeModifierUtilisateurs">Modifier</a></li>
-                                            <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
-                                        </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            MODERATION
-                            <ul>
-                                <li><a href="#">Photos</a></li>
-                                <li><a href="#">Commentaires</a></li>
-                            </ul>
-                        </li>
-                        <br>
-                        <li>
-                            <a href="#">MISE A JOUR BDD</a>
-                         <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
-                        </li> 
+            <li>
+                <a href="#">CATEGORIES</a>
+            <ul>
+                <li><a href="index.php?requete=ajouterUnCategorie">Ajouter</a></li>
+                <li><a href="index.php?requete=listeModifierCategories">Modifier</a></li>
+                <li><a href="index.php?requete=listeSupprimerCategories">Supprimer</a></li>
+            </ul>
+            </li>
 
-                    </ul>
+            <li>
+                <a href="index.php?requete=listerUtilisateurs">UTILISATEURS</a>
+                <ul>
+                    <li><a href="index.php?requete=afficheInscription">Ajouter</a></li>
+                    <li><a href="index.php?requete=listeModifierUtilisateurs">Modifier</a></li>
+                    <li><a href="index.php?requete=listeSupprimerUtilisateurs">Supprimer</a></li>
+                </ul>
+            </li>
+                </ul>
+            </li>
+            <li>
+                MODERATION
+                <ul>
+                    <li><a href="#">Photos</a></li>
+                    <li><a href="#">Commentaires</a></li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                <a href="#">MISE A JOUR BDD</a>
+                <!--   http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json  -->
+            </li>
 
-                </nav>
-            </div>
-            
-            <section class="contenu container">
-        
-                <h2>Gestion</h2>
+            </ul>
 
-                <div class="administration">
-                   <div class="twelvecol">
-                       
-                    
-                     
-                   </div>
-
-                </div>
-            </section>
+        </nav>
         </div>
-        
-        
+
+        <section class="contenu container">
+
+        <h2>Gestion</h2>
+
+        <div class="administration">
+        <div class="twelvecol">
+
+
+
+        </div>
+
+        </div>
+        </section>
+        </div>
+
+
         <?php
 
-        
-    }
 
-    /**
-     * Fonction qui affiche un utilisateur 
-     * @access public
-     * @auteure: Jorge Blanco
-     * @version 1.0
-     */
+        }
 
-    public function afficherUnUtilisateur($aUtilisateur)
-    {
+        /**
+        * Fonction qui affiche un utilisateur 
+        * @access public
+        * @author Jorge Blanco
+        * @version 1.0
+        */
+
+        public function afficherUnUtilisateur($aUtilisateur)
+        {
         ?>
         <section class='contenu container'>
-            <div class= 'fourcol '>
-                <img src='images/util_1.png' alt="">
-            </div>
-            <div class= 'sixcol'>
-                <?php
-                    //var_dump($aUtilisateur);
-                   //$idUtilisateur= $aUtilisateur->getIdUtilisateur();
+        <div class='fourcol '>
+        <img src='images/util_1.png' alt="">
+        </div>
+        <div class='sixcol'>
+        <?php
+        //var_dump($aUtilisateur);
+        //$idUtilisateur= $aUtilisateur->getIdUtilisateur();
 
+        ?>
 
+        <p>Nom utilisateur:
+        <?php echo $aUtilisateur->getloginUtilisateur(); ?>
+        </p>
+        <p>bio:
+        <?php echo $aUtilisateur->getbio(); ?>
+        </p>
 
-                 ?>
-                
-                <p>Nom utilisateur: <?php echo $aUtilisateur->getloginUtilisateur(); ?></p>
-                <p>bio: <?php echo $aUtilisateur->getbio(); ?></p>
+        <a href='index.php?requete=profilUtilisateur'><span class='icon-reply'></span> Retourner</a>
+        </div>
 
-                <a href='index.php?requete=profilUtilisateur'><span class='icon-reply'></span> Retourner</a>
-            </div>
-        
         </section>
 
         <?php
-    }
+        }
 
 
     /**
@@ -1799,53 +1865,62 @@ public function afficheAccueil($oeuvres)
         ?>
         <div>
         <h2 id="titreAdm">Modifier Utilisateur</h2>
-    
-        <form class="formulaire" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" method='POST'>
-        
-            <fieldset>
-                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-            <!-- Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Date de naissance:<br>
-            <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
-             <br> <br>
-            Sexe:<br><br>
-            <input type="radio" name="sex" value="male" checked> Male
-            <input type="radio" name="sex" value="female"> Female<br><br>
-            Courriel:<br>
-            <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-            <br> <br> -->
-            Biographie:<br>
-            <textarea rows="8" cols="60" name="bio"><?php echo $bio; ?></textarea>
-            <br><br>
-             Nom d'utilisateur:<br> 
-            <input type="text" name="utilisateur" value="<?php echo $utilisateur; ?>">
-            <br><br>
-            Mot de passe:<br>
-            <input type="text" name="motDePasse" placeholder="Nouveau mot de passe" value="">
-            <br><br>
-<!--
-            Confirmer le mot de passe:<br>
-            <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
-            <br><br>
--->
-            score:<br>
-            <input type="text" name="score" value="<?php echo $score; ?>">
-            <br><br>
-            photo:<br>
-            <input type="text" name="photoUtilisateur" value="<?php echo $photoUtilisateur; ?>">
-            <br><br>
-            <input type="submit" value="Envoyer" id="button">
 
-            <fieldset>
-        </form>  
+        <form class="formulaire" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" method='POST'>
+
+        <fieldset>
+        <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
+        <!-- Prénom:<br>
+        <input type="text" name="prenom" >
+        <br> <br>
+        Nom:<br>
+        <input type="text" name="nom" >
+        <br> <br>
+        Date de naissance:<br>
+        <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
+        <br> <br>
+        Sexe:<br><br>
+        <input type="radio" name="sex" value="male" checked> Male
+        <input type="radio" name="sex" value="female"> Female<br><br>
+        Courriel:<br>
+        <input type="text" name="courriel" placeholder="exemple@domaine.com" >
+        <br> <br> -->
+        Biographie:
+        <br>
+        <textarea rows="8" cols="60" name="bio">
+        <?php echo $bio; ?>
+        </textarea>
+        <br>
+        <br> Nom d'utilisateur:
+        <br>
+        <input type="text" name="utilisateur" value="<?php echo $utilisateur; ?>">
+        <br>
+        <br> Mot de passe:
+        <br>
+        <input type="text" name="motDePasse" placeholder="Nouveau mot de passe" value="">
+        <br>
+        <br>
+        <!--
+        Confirmer le mot de passe:<br>
+        <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
+        <br><br>
+        -->
+        score:
+        <br>
+        <input type="text" name="score" value="<?php echo $score; ?>">
+        <br>
+        <br> photo:
+        <br>
+        <input type="text" name="photoUtilisateur" value="<?php echo $photoUtilisateur; ?>">
+        <br>
+        <br>
+        <input type="submit" value="Envoyer" id="button">
+
+        <fieldset>
+        </form>
         </fieldset>
         </fieldset>
-        </div>          
+        </div>
         <?php
 
     }
@@ -1866,76 +1941,84 @@ public function afficheAccueil($oeuvres)
         
         ?>
         <div>
-            <h2 id="titreA">Modifier un admin/moderateur</h2>
+        <h2 id="titreA">Modifier un admin/moderateur</h2>
 
-            <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
-                <fieldset>
-                    Utilisateur:<br>
-                    <input type="text" name="login" value="<?php echo $login; ?>"><br><br>
-                    Mot de passe:<br>
-                    <input type="text" name="pass" placeholder='Nouveau mot de passe'><br><br>
-                    Rôle:
-                    <select name='role'>
-                        <?php
-                            echo "<option value='".'1'."'";
-                            if($role==1){echo "selected";}
-                            echo ">".'Administrateur'."</option>";
-                        ?>
-                        <?php
-                            echo "<option value='".'0'."'";
-                            if($role==0){echo "selected";}
-                            echo ">".'Moderateur'."</option>";
-                        ?>
-                                              
-                    </select> 
-                     <br>
-                    <input type="submit" value="Envoyer" id="button">
-                </fieldset>        
-            </form>                    
-        </div>
-                    
+        <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'>
+        <fieldset>
+        Utilisateur:
+        <br>
+        <input type="text" name="login" value="<?php echo $login; ?>">
+        <br>
+        <br> Mot de passe:
+        <br>
+        <input type="text" name="pass" placeholder='Nouveau mot de passe'>
+        <br>
+        <br> Rôle:
+        <select name='role'>
         <?php
-        
-    }
-    
-    
-    /**
-     * Fonction qui montre le formaulaire pour ajouter admin/moderateur 
-     * @access public
-     * @auteure: Jorge Blanco
-     * @version 1.0
-     */
-    
-    public function formulaireAjouterAdmin_moderateur()
-    {
+        echo "<option value='".'1'."'";
+        if($role==1){echo "selected";}
+        echo ">".'Administrateur'."</option>";
+        ?>
+        <?php
+        echo "<option value='".'0'."'";
+        if($role==0){echo "selected";}
+        echo ">".'Moderateur'."</option>";
+        ?>
+
+        </select>
+        <br>
+        <input type="submit" value="Envoyer" id="button">
+        </fieldset>
+        </form>
+        </div>
+
+        <?php
+
+        }
+
+
+        /**
+        * Fonction qui montre le formaulaire pour ajouter admin/moderateur 
+        * @access public
+        * @auteure: Jorge Blanco
+        * @version 1.0
+        */
+
+        public function formulaireAjouterAdmin_moderateur()
+        {
         ?>
         <div>
 
-        
+
 
         <h2 id="titreAdm">Ajouter un admin/moderateur</h2>
 
-        <div class="formulaireAd1"> 
-        <form  action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST' name='FormAjoutAdmin' id="FormAjoutAdmin"> 
+        <div class="formulaireAd1">
+        <form action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST' name='FormAjoutAdmin' id="FormAjoutAdmin">
 
-            <fieldset>
-                
-                login:<br>
-                <input type="text" name="login"><br><span id="erreurPrenom"></span>
-                Mot de pass:<br>
-                <input type="password" name="pass"><br>
-                role:<br>
-                <select name="role">
-                    <option value='nonChoisi'>choisissez une option</option>
-                    <option value="1">Administrateur</option>
-                    <option value="0">Moderateur</option>
-                </select><br>
-                <input type="button"  onclick="validerFormAjoutAdmin()" value="Envoyer" id="button"> 
-                
-            </fieldset>        
-        </form>                    
+        <fieldset>
+
+        login:
+        <br>
+        <input type="text" name="login">
+        <br><span id="erreurPrenom"></span> Mot de pass:
+        <br>
+        <input type="password" name="pass">
+        <br> role:
+        <br>
+        <select name="role">
+        <option value='nonChoisi'>choisissez une option</option>
+        <option value="1">Administrateur</option>
+        <option value="0">Moderateur</option>
+        </select>
+        <br>
+        <input type="button" onclick="validerFormAjoutAdmin()" value="Envoyer" id="button">
+
+        </fieldset>
+        </form>
         </div>
-        
+
         <?php
     }
     
@@ -1950,11 +2033,11 @@ public function afficheAccueil($oeuvres)
      */
     
      public function afficheOeuvresMot($aOeuvres){
-        ?>
-            <h2>Resultats de la recherche</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
+    ?>
+    <h2>Resultats de la recherche</h2>
+    <section class='contenu container'>
+        <div class='tableArtistes'>
+            <?php
         if($aOeuvres!='Aucune')
         {
             echo "<table>";
@@ -1997,24 +2080,27 @@ public function afficheAccueil($oeuvres)
     {   
        
          ?>
-     
-         <h2 id="titreAdm">Ajouter un categorie</h2>
-           <div class="formulaireAd1">
-       
-         <form method="POST" action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
-             <fieldset>
-              Nom catégorie:<br>
-             <input type="text" name="nomCategorie" >
-             <br> <br>
-              Nom catégorie en Anglais:<br>
-             <input  type="text" name="nomCatAng" >
-              <br> <br>    
-             <input type="submit" value="Envoyer" id="button">
-             </fieldset>
-         </form>  
-       
-         </div>        
-         <?php        
+
+        <h2 id="titreAdm">Ajouter un categorie</h2>
+        <div class="formulaireAd1">
+
+        <form method="POST" action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
+        <fieldset>
+        Nom catégorie:
+        <br>
+        <input type="text" name="nomCategorie">
+        <br>
+        <br> Nom catégorie en Anglais:
+        <br>
+        <input type="text" name="nomCatAng">
+        <br>
+        <br>
+        <input type="submit" value="Envoyer" id="button">
+        </fieldset>
+        </form>
+
+        </div>
+        <?php        
     }
         
 
