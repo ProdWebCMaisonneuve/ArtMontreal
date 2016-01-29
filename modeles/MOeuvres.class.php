@@ -10,17 +10,15 @@
  * 
  */
 class MOeuvres {
-	
-    /**
-	 *
-	 * @var int Identifiant Artiste
+	/**
+	* @var int Identifiant Artiste
 	**/
     
-    public $idOeuvre;
-    public $titreOeuvre;
+    	public $idOeuvre;
+    	public $titreOeuvre;
 	public $titreVariante;
 	public $technique;
-    public $techniqueAng;
+    	public $techniqueAng;
 	public $noInternetOeuvre;
 	public $description;
 	public $validationOeuvre;
@@ -53,11 +51,11 @@ class MOeuvres {
 		if (!isset(self::$database))
 			self::$database = new PdoBDD();
 
-    	$this->idOeuvre = $idOeuvre;
+    		$this->idOeuvre = $idOeuvre;
    		$this-> titreOeuvre = $titreOeuvre;
 		$this-> titreVariante =  $titreVariante;
 		$this-> technique =  $technique;
-        $this-> techniqueAng =  $techniqueAng;
+        	$this-> techniqueAng =  $techniqueAng;
 		$this-> noInternetOeuvre =  $noInternetOeuvre;
 		$this-> description =  $description;
 		$this-> validationOeuvre =  $validationOeuvre;
@@ -80,229 +78,96 @@ class MOeuvres {
 		$this-> nomMateriauxAng =  $nomMateriauxAng;
 	}
 	
-	function __destruct ()
-	{
-		
-	}
+	function __destruct (){}
 	
-    
 	/** Getters
 	 * @access public
 	 * @return 
 	 */
 	
-    public function getIdOeuvre() 
-	{
+    	public function getIdOeuvre(){
 		return $this->idOeuvre;		
 	}
-    public function getTitreOeuvre() 
-	{
+    	public function getTitreOeuvre(){
 		return $this->titreOeuvre;		
 	}
-	public function getTitreVariante() 
-	{
+	public function getTitreVariante(){
 		return $this->titreVariante;		
 	}
-	public function getTechnique() 
-	{
+	public function getTechnique() {
 		return $this->technique;		
 	}
-    public function getTechniqueAng() 
-	{
+    	public function getTechniqueAng() {
 		return $this->technique;		
 	}
-	public function getNoInternetOeuvre() 
-	{
+	public function getNoInternetOeuvre(){
 		return $this->noInternetOeuvre;		
 	}
-	public function getDescription() 
-	{
+	public function getDescription() {
 		return $this->description;		
 	}
-	public function getValidationOeuvre() 
-	{
+	public function getValidationOeuvre(){
 		return $this->validationOeuvre;		
 	}
-	public function getNomArrondissement() 
-	{
+	public function getNomArrondissement()	{
 		return $this->nomArrondissement;		
 	}
-	public function getAdresse() 
-	{
+	public function getAdresse() {
 		return $this->adresse;		
 	}
-	public function getBatiment() 
-	{
+	public function getBatiment(){
 		return $this->batiment;		
 	}
-	public function getParc() 
-	{
+	public function getParc() {
 		return $this->parc;		
 	}
-	public function getLatitude() 
-	{
+	public function getLatitude(){
 		return $this->latitude;		
 	}
-	public function getLongitude() 
-	{
+	public function getLongitude(){
 		return $this->longitude;		
 	}
-	public function getPrenomArtiste() 
-	{
+	public function getPrenomArtiste(){
 		return $this->prenomArtiste;		
 	}
-	public function getNomArtiste() 
-	{
+	public function getNomArtiste() {
 		return $this->nomArtiste;		
 	}
-	public function getCollectif() 
-	{
+	public function getCollectif() {
 		return $this->collectif;		
 	}
-	public function getNoInterneArtiste() 
-	{
+	public function getNoInterneArtiste(){
 		return $this->noInterneArtiste;		
 	}
-	public function getPhotoArtiste() 
-	{
+	public function getPhotoArtiste() {
 		return $this->photoArtiste;		
 	}
-	public function getNomCategorie() 
-	{
+	public function getNomCategorie(){
 		return $this->nomCategorie;		
 	}
-	public function getNomCategorieAng() 
-	{
+	public function getNomCategorieAng(){
 		return $this->nomCategorieAng;		
 	}
-	public function getNomSousCat() 
-	{
+	public function getNomSousCat(){
 		return $this->nomSousCat;		
 	}
-	public function getNomSousCatAng() 
-	{
+	public function getNomSousCatAng(){
 		return $this->nomSousCatAng;		
 	}
-	public function getNomMateriaux() 
-	{
+	public function getNomMateriaux(){
 		return $this->nomMateriaux;		
 	}
-	public function getNomMateriauxAng() 
-	{
+	public function getNomMateriauxAng(){
 		return $this->nomMateriauxAng;		
 	}
     
 	/*****************************************/
 	
-/*
-	public function setIdOeuvre($valeur) 
-	{
-		$this->idOeuvre = $valeur;	
-	}
-    public function setTitreOeuvre($valeur) 
-	{
-		$this->titreOeuvre = $valeur;	
-	}
-	public function setTitreVariante($valeur) 
-	{
-		$this->titreVariante = $valeur;	
-	}
-	public function setTechnique($valeur) 
-	{
-		$this->technique = $valeur;	
-	}
-    public function setTechniqueAng($valeur) 
-	{
-		$this->techniqueAng = $valeur;	
-	}
-	public function setNoInternetOeuvre($valeur) 
-	{
-		$this->noInternetOeuvre = $valeur;	
-	}
-	public function setDescription($valeur) 
-	{
-		$this->description = $valeur;	
-	}
-	public function setValidationOeuvre($valeur) 
-	{
-		$this->validationOeuvre = $valeur;	
-	}
-	public function setNomArrondissement($valeur) 
-	{
-		$this->nomArrondissement = $valeur;		
-	}
-	public function setAdresse($valeur) 
-	{
-		$this->adresse = $valeur;
-	}
-	public function setBatiment($valeur) 
-	{
-		$this->batiment = $valeur;
-	}
-	public function setParc($valeur) 
-	{
-		$this->parc = $valeur;
-	}
-	public function setLatitude($valeur) 
-	{
-		$this->latitude = $valeur;	
-	}
-	public function setLongitude($valeur) 
-	{
-		$this->longitude = $valeur;		
-	}
-	public function setPrenomArtiste($valeur) 
-	{
-		$this->prenomArtiste = $valeur;	
-	}
-	public function setNomArtiste($valeur) 
-	{
-		$this->nomArtiste = $valeur;	
-	}
-	public function setCollectif($valeur) 
-	{
-		$this->collectif = $valeur;	
-	}
-	public function setNoInterneArtiste($valeur) 
-	{
-		$this->noInterneArtiste = $valeur;
-	}
-	public function setPhotoArtiste($valeur) 
-	{
-		$this->photoArtiste = $valeur;	
-	}
-	public function setNomCategorie($valeur) 
-	{
-		$this->nomCategorie = $valeur;
-	}
-	public function setNomCategorieAng($valeur) 
-	{
-		$this->nomCategorieAng = $valeur;	
-	}
-	public function setNomSousCat($valeur) 
-	{
-		$this->nomSousCat = $valeur;	
-	}
-	public function setNomSousCatAng($valeur) 
-	{
-		$this->nomSousCatAng = $valeur;		
-	}
-	public function setNomMateriaux($valeur) 
-	{
-		$this->nomMateriaux = $valeur;	
-	}
-	public function setNomMateriauxAng($valeur) 
-	{
-		$this->nomMateriauxAng = $valeur;	
-	}
-	
-*/	
-			
-    /**
-	 * @access public static
-     * @author German Mahecha
-	 * @return Array Tableau contenant la liste de tout
-	 */
+    	/**
+	* @access public static
+     	* @author German Mahecha
+	* @return Array Tableau contenant la liste de tout les oeuvres
+	*/
 	public static function listeOeuvres() {
 		self::$database->query('
 		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie 
@@ -319,23 +184,23 @@ class MOeuvres {
 	}
     
     
-    /**
-	 * @access public static
-     * @author German Mahecha
-	 * @return Array Tableau contenant la liste de tout
-	 */
+    	/**
+	* @access public static
+     	* @author German Mahecha
+	* @return un oeuvre
+	*/
 	public static function listeUnOeuvre($idcon) {
 		self::$database->query('SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, oeuvre.titreVariante,oeuvre.technique,oeuvre.techniqueAng,oeuvre.noInterne,oeuvre.description,oeuvre.validationOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, adresse.adresseCiv, adresse.batiment, adresse.parc, adresse.latitude, adresse.longitude, categorie.nomCategorie, categorie.nomCatAng, souscategorie.nomSousCat, souscategorie.nomSousCatAng, oeuvre.nomMateriaux,oeuvre.nomMateriauxAng  
 		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
 		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
-        JOIN adresse ON oeuvre.idAdresse = adresse.idAdresse
+        	JOIN adresse ON oeuvre.idAdresse = adresse.idAdresse
 		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie
-        JOIN souscategorie ON oeuvre.idSousCategorie = souscategorie.idSousCategorie
-        WHERE oeuvre.idOeuvre = :idcon');
+        	JOIN souscategorie ON oeuvre.idSousCategorie = souscategorie.idSousCategorie
+		WHERE oeuvre.idOeuvre = :idcon');
 		self::$database->bind(':idcon', $idcon);
         $ligne = self::$database->uneLigne();
 		$oeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],$ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['nomArrondissement'],$ligne['adresseCiv'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude'],$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],$ligne['nomCatAng'],$ligne['nomSousCat'],$ligne['nomSousCatAng'],$ligne['nomMateriaux'],$ligne['nomMateriauxAng']);
-        return $oeuvre;
+        	return $oeuvre;
 	}
     
  
