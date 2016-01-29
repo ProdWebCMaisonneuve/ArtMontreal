@@ -180,17 +180,8 @@ class Controler
             
 	}
 
-       // private function afficheContenuAdmin()
-        //{
 
-          //  $oVue = new VueDefaut();
-           // $oVue->afficheHeader();
-           // $oVue->afficheContenuAdmin();
-           // $oVue->afficheFooter();
-            
-       // } 
-
-	/*Vue page d'accueil
+	   /*Vue page d'accueil
         * @author: German Mahecha
         */
         private function accueil()

@@ -496,28 +496,6 @@ class MOeuvres {
             return 'Aucune';
 	}
     
-    /**
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return Array Tableau contenant les détails d'une oeuvre
-	 */
-	/*public static function detailsOeuvreParId($idOeuvre) {
-		self::$database->query('
-		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, arrondissement.nomArrondissement, categorie.nomCategorie, artiste.prenom, artiste.nom, artiste.collectif, photo.nomPhoto 
-		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
-		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
-		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie 
-		JOIN est_identifie_par ON oeuvre.idOeuvre = est_identifie_par.idOeuvre 
-		JOIN photo ON photo.idPhoto = est_identifie_par.idPhoto 
-        WHERE oeuvre.idOeuvre = :idOeuvre'); 
-        self::$database->bind(':idOeuvre', $idOeuvre);
-		$lignes = self::$database->resultset();
-		foreach ($lignes as $ligne) {
-			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','',$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'',$ligne['photoArtiste'],$ligne['nomCategorie'],'','','','','');
-			$oeuvres[] = $uneOeuvre;
-		}
-		return $oeuvres;
-	}*/
     
 }
 
