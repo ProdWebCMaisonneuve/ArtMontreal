@@ -1627,7 +1627,8 @@ public function afficheAccueil($oeuvres)
                 echo "<th>Utilisateur</th>";
                 echo "</tr>";
                 
-                foreach($aUtilisateurs as $utilisateur) {
+                foreach($aUtilisateurs as $utilisateur) 
+                {
                         echo "<tr>";
                         $idUtilisateur = $utilisateur->getIdUtilisateur();
                         $loginUtilisateur = $utilisateur->getloginUtilisateur();
@@ -2015,34 +2016,7 @@ public function afficheAccueil($oeuvres)
          </div>        
          <?php        
     }
-        //private function rechercheOeuvreParCat()
-       // {
-            
-           // $erreur = '';
-            //$aOeuvre = Array();
-            
-            //if($_GET['action'] == 'rechercher')
-           // {
-               // $oOeuvre = new Oeuvre();
-                //try
-               // {
-                     
-                  //  $aOeuvre = $oOeuvre->rechercheOeuvreParCat($_POST['categorie']);
-               // }
-               // catch (Exception $e)
-                //{
-               //     $erreur = $e->getMessage();     
-                //}
-                //$oVue->AfficheChampRechercheCategorie($_POST['categorie'], $erreur); 
-               // $oVue->AfficheOeuvre($aOeuvre);
-            //}
-           // else
-           // {
-              //  $oVue->AfficheChampRechercheCategorie($_POST['categorie'], $erreur); 
-            //}
-              
-            
-        //}
+        
 
 }
 ?>
