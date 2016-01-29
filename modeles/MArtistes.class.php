@@ -118,7 +118,7 @@ class MArtistes {
             self::$database->bind(':nom', $nom);
             self::$database->bind(':collectif', $collectif);
             self::$database->bind(':photoArtiste', $photoArtiste);
-            self::$database->execute();
+            //self::$database->execute();
             return(self::$database->execute());
         }  
 
