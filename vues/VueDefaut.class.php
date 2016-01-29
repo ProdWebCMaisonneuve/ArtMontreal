@@ -291,7 +291,7 @@ class VueDefaut
     /**
      * Affiche la page d'ACCUEIL
      * @access public
-     * @auteur: German Mahecha
+     * @author: German Mahecha
      */
     public function afficheAccueil($oeuvres) 
         {
@@ -348,7 +348,7 @@ class VueDefaut
     /**
      * Affiche un Oeuvre
      * @access public
-     * @auteur: German Mahecha
+     * @author German Mahecha
      */
     public function afficheUnOeuvre($oeuvre) 
     {
@@ -1121,7 +1121,7 @@ class VueDefaut
       /**
      * Afficher un liste MODIFIER DES OEUVRES
      * @access public
-     * @auteure: 
+     * @author German Mahecha
      */
     
     public function afficheListeModifierOeuvres($aOeuvres)
@@ -1333,7 +1333,7 @@ class VueDefaut
     /**
      * Affiche lE FORMULAIRE pour AJOUTER ARTISTE
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      */
     public function formulaireAjouterArtiste() 
     {
@@ -1457,7 +1457,7 @@ class VueDefaut
     /**
      * FUNCTION MODIFIER UN ARTISTE
      * @access public
-     * @author: Gautier Piatek
+     * @author Gautier Piatek
      */
     public function modifierUnArtiste($aArtiste) 
     {   
@@ -1506,7 +1506,7 @@ class VueDefaut
     /**
     * Affiche la page pour ajouter un CATÉGORIE
     * @access public
-    * @auteure: Thuy Tien Vo
+    * @author Thuy Tien Vo
     */
     public function formulaireAjouterCategorie() 
     {   
@@ -1608,7 +1608,7 @@ class VueDefaut
         /**
      * Affiche la page pour modifier une CATÉGORIE
      * @access public
-     * @author: Gautier Piatek
+     * @author Gautier Piatek
      */
     public function modifierUneCategorie($aCategories) 
     {   
@@ -1646,7 +1646,7 @@ class VueDefaut
         /**
      * Fonction qui affiche un utilisateur 
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      * @version 1.0
      */
 
@@ -1682,7 +1682,7 @@ class VueDefaut
     /**
      * Afficher un liste d'UTILISATEUR
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      */
     public function listerUtilisateurs($aUtilisateurs)
     {
@@ -1724,8 +1724,8 @@ class VueDefaut
     /**
      * Affiche la page d'inscription UTILISATEUR
      * @access public
-     * @auteure: Thuy Tien Vo(formulaire/CSS)
-     * @modifie: Jorge Blanco
+     * @author Thuy Tien Vo(formulaire/CSS)
+     * @author  Jorge Blanco
      */
     public function afficheInscriptionAdmin() 
     {
@@ -1858,7 +1858,7 @@ class VueDefaut
     /*
      * Fonction qui modifie un UTILISATEUR 
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      * @version 1.0
      */
 
@@ -1941,7 +1941,7 @@ class VueDefaut
     /**
      * Fonction qui montre le FORMULAIRE pour ajouter ADMIN/MODERATEUR
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      * @version 1.0
      */
     
@@ -1984,7 +1984,7 @@ class VueDefaut
     /**
      * Afficher un liste dE MODIFIER ADMIN/MODERATEUR
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      */
     
     public function afficheListeModifierAdmin_moderater($aAdmin_moderateur)
@@ -2019,7 +2019,7 @@ class VueDefaut
     /**
      * Afficher un liste dE SUPPRIMER ADMIN/MODERATEUR
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      */
     public function afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur)
     {
@@ -2053,7 +2053,7 @@ class VueDefaut
       /**
      * Fonction qui modifie un ADMIN/MODERATEUR
      * @access public
-     * @auteure: Jorge Blanco
+     * @author Jorge Blanco
      * @version 1.0
      */
     
