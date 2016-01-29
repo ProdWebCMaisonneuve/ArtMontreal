@@ -13,14 +13,12 @@
 class VueDefaut 
 {
 
-
     /**
      * Affiche l'entete
      * @access public
      *
      */
     public function afficheHeader() 
-
     {
         if(!isset($_SESSION['session'])) 
         {
@@ -1166,7 +1164,7 @@ class VueDefaut
 
 
     /**
-     * Affiche Liste  SUPPRIMER des OEUVRES
+     * Affiche Liste  pour supprimer des OEUVRES
      * @access public
      * @author German Mahecha
      * @version 1.0
@@ -1329,15 +1327,9 @@ class VueDefaut
 
 
 
-
-
  
      /**-------------------------------------------------------------------ARTISTE---------------------------------------------------------------------------- **/
     
-
-
-
-
     /**
      * Affiche lE FORMULAIRE pour AJOUTER ARTISTE
      * @access public
@@ -1377,10 +1369,10 @@ class VueDefaut
 
 
      /**
-     * AFFICHE LISTE DE MODIFIER DES ARTISTES
-     * @access public
-     * @author German Mahecha
-     * @version 1.0
+     * Affiche une liste pour modifier les artistes
+     *@access public
+     *@author German Mahecha
+     *@version 1.0
      */
     public function afficheListeModifierArtistes($aArtistes)
     {
@@ -1420,7 +1412,7 @@ class VueDefaut
     }
 
      /**
-     * AFFICHE LISTE  DE SUPPRIMER DES  ARTISTES
+     * Affiche une liste pour supprimer les artistes
      * @access public
      * @author German Mahecha
      * @version 1.0
@@ -1542,7 +1534,7 @@ class VueDefaut
 
    
     /**
-     * Affiche Liste MODIFIER DES CATÉGORIES
+     * Affiche une liste pour modifier les categories
      * @access public
      * @author German Mahecha
      * @version 1.0
@@ -1579,7 +1571,7 @@ class VueDefaut
 
     
     /**
-     * Affiche Liste SUPPRIMER DES CATÉGORIES
+     * Affiche une liste pour suprimer les categories
      * @access public
      * @author German Mahecha
      * @version 1.0
@@ -1789,7 +1781,7 @@ class VueDefaut
 
 
      /**
-     * Affiche Liste MODIFIER DES -UTILISATEURS
+     * Affiche une liste pour modifier les utilisateurs
      * @access public
      * @author German Mahecha
      * @version 1.0
@@ -1827,7 +1819,7 @@ class VueDefaut
 
 
     /**
-     * Affiche Liste SUPPRIMER DES UTILISATEURS
+     * Affiche une liste pour supprimer les utilisateurs
      * @access public
      * @author German Mahecha
      * @version 1.0
