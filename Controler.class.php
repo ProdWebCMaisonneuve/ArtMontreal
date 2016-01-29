@@ -22,215 +22,163 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				case 'accueil':
-                    if($_GET['idOeuvre'])
-                    {
-                        $this->unOeuvre($_GET['idOeuvre']);    
-                    }
-                    else
-                    {
-                        $this->accueil();
-                    }
-					break;
+	                    if($_GET['idOeuvre']){
+	                        $this->unOeuvre($_GET['idOeuvre']);    
+	                    }else{
+	                        $this->accueil();
+	                    }
+			break;
                 
-                case 'artistes':
-                    if($_GET['idOeuvre'] != '')
-                    {
-                        $this->unOeuvre($_GET['idOeuvre']);    
-                    }
-                    else
-                    {
-                        $this->artistes();
-                    }
-
-                    break;
-                    
-                case 'listeModifierArtistes':
-                        $this->listeModifierArtistes();
-                    break;
-                case 'listeSupprimerArtistes':
-                        $this->listeSupprimerArtistes();
-                    break;
-                
-                case 'listeModifierUtilisateurs':
-                        $this->listeModifierUtilisateurs();
-                    break;
-                case 'listeSupprimerUtilisateurs':
-                        $this->listeSupprimerUtilisateurs();
-                    break;
-                case 'listeModifierCategories':
-                        $this->listeModifierCategories();
-                    break;
-                case 'listeSupprimerCategories':
-                        $this->listeSupprimerCategories();
-                    break;  
-                case 'listeModifierOeuvres':
-                        $this->listeModifierOeuvres();
-                    break;
-                case 'listeSupprimerOeuvres':
-                        $this->listeSupprimerOeuvres();
-                    break;
-                case 'listeModifierAdmin_moderateur':
-                        $this->listeModifierAdmin_moderateur();
-                    break;
-                case 'listeSupprimerAdmin_moderateur':
-                    $this->listeSupprimerAdmin_moderateur();
-                    break;
-                    
-                case 'modifierArtiste':
-                        $this->modifierArtiste($_GET['idArtiste']);
-                    break;
-                case 'supprimerArtistes':
-                        $this->supprimerArtistes($_GET['idArtiste']);
-                    break;
-
-                case 'modifierUtilisateur':
-                        $this->modifierUtilisateur($_GET['idUtilisateur']);
-                    break;
-
-                case 'supprimerUtilisateurs':
-                        $this->supprimerUtilisateurs($_GET['idUtilisateur']);
-                    break;
-                    
-                case 'supprimerAdmin_moderateur':
-                    $this->supprimerAdmin_moderateur($_GET['idAdMod']);
-                    break;
-                case 'modifierCategories':
-                        $this->modifierCategories($_GET['idCategorie']);
-                    break;
-                case 'supprimerCategories':
-                        $this->supprimerCategories($_GET['idCategorie']);
-                    break;
-                case 'supprimerOeuvres':
-                        $this->supprimerOeuvres($_GET['idOeuvre']);
-                    break; 
-                case 'modifierOeuvre':
-                        $this->modifierOeuvre($_GET['idOeuvre']);
-                    break; 
-                    
-                case 'modifierAdmin_moderateur':
-                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
-                    break;
-                    
-                    
-                case 'inscription':
-                    $this->inscription();
-                    break;
-
-                case 'afficheInscriptionAdmin':
-                    $this->afficheInscriptionAdmin();
-                    break;
-
-            
-                case 'connexion':
-                    if($_GET['action'] == 'envoyer')
-                    {
-                        $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                    }
-                    else
-                    {
-                        
-                        $this->connexion();
-                    }
-                    
-                    break;
-                
-                case 'arrondissements':
-                    if($_GET['idArrondissement'] !='')
-                    {
-                        $this->oeuvresParArr($_GET['idArrondissement']);
-                    }
-                    else
-                    {
-                        $this->arrondissements();
-                    } 
-                    break;
-
-                case 'categories':
-                   if($_GET['idCategorie'] !='')
-                    {
-                        $this->oeuvresParCat($_GET['idCategorie']);
-                    }
-                    else
-                    {
-                        $this->categories();
-                    } 
-                    break;
-
-                case 'unOeuvre':
-                    $this->unOeuvre($_GET['idOeuvre']);
-                    break;
-
-                    
-                case 'unUtilisateur':
-                    $this->unUtilisateur($_GET['idUtilisateur']);
-                    break;
-
-                case 'oeuvresParCat':
-                    $this->oeuvresParCat();
-                    break;
-                case 'oeuvresParArr';
-                 	$this->oeuvresParArr();
-                 	break;
-
-                case 'ajoutOeuvre':
-                    $this->ajoutOeuvre();
-                    break;
-                    
-                case 'profilUtilisateur':
-                    $this->profilUtilisateur();
-                    break;
-
-                case 'listerUtilisateurs':
-                    $this->listerUtilisateurs();
-                    break;
-                
-                case 'ajouterUnArtiste':
-                    $this->ajouterUnArtiste();
-                    break;
-                
-                case 'formulaireAjouterArtiste':
-                    $this->afficheAjouterUnArtiste();
-                    break;
-                
-                case 'ajouterUnCategorie':
-                    $this->ajouterUnCategorie();
-                    break;
-                    
-                case 'formulaireAjouterCategorie':
-                   $this->afficheAjouterUnCategorie();
-                    break;
-                    
-                case 'ajouterAdmin_moderateur':
-                    $this->ajouterAdmin_moderateur();
-                    break;
-                    
-                case 'recherche':
-                    $this->rechercheOeuvresMot();
-                    break;                
-                
-                case 'admin':
-                    
-                    if($_GET['action'] == 'envoyer')
-                    {
-                        $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                    }
-                    else
-                    {
-                        $this->admin();
-                    }
-                    break;
-                
-                case 'adminPanel':
-                    $this->adminPanel();
-                    break;
-
-                    
-                default:
-			    $this->accueil();
+	                case 'artistes':
+	                    if($_GET['idOeuvre'] != '') {
+	                        $this->unOeuvre($_GET['idOeuvre']);    
+	                    }else{
+	                        $this->artistes();
+	                    }
 				break;
-			}
-            
+	                    
+	                case 'listeModifierArtistes':
+	                        $this->listeModifierArtistes();
+	                	break;
+	                case 'listeSupprimerArtistes':
+	                        $this->listeSupprimerArtistes();
+	                	break;
+	                
+	                case 'listeModifierUtilisateurs':
+	                        $this->listeModifierUtilisateurs();
+	                    	break;
+	                case 'listeSupprimerUtilisateurs':
+	                        $this->listeSupprimerUtilisateurs();
+	                    	break;
+	                case 'listeModifierCategories':
+	                        $this->listeModifierCategories();
+	                    	break;
+	                case 'listeSupprimerCategories':
+	                        $this->listeSupprimerCategories();
+	                    	break;  
+	                case 'listeModifierOeuvres':
+	                        $this->listeModifierOeuvres();
+	                    	break;
+	                case 'listeSupprimerOeuvres':
+	                        $this->listeSupprimerOeuvres();
+	                    	break;
+	                case 'listeModifierAdmin_moderateur':
+	                        $this->listeModifierAdmin_moderateur();
+	                    	break;
+	                case 'listeSupprimerAdmin_moderateur':
+	                    	$this->listeSupprimerAdmin_moderateur();
+	                    	break;
+	                case 'modifierArtiste':
+	                        $this->modifierArtiste($_GET['idArtiste']);
+	                	break;
+	                case 'supprimerArtistes':
+	                        $this->supprimerArtistes($_GET['idArtiste']);
+	                    	break;
+			case 'modifierUtilisateur':
+	                        $this->modifierUtilisateur($_GET['idUtilisateur']);
+	                    	break;
+			case 'supprimerUtilisateurs':
+	                        $this->supprimerUtilisateurs($_GET['idUtilisateur']);
+	                    	break;
+	                case 'supprimerAdmin_moderateur':
+	                    	$this->supprimerAdmin_moderateur($_GET['idAdMod']);
+	                    	break;
+	                case 'modifierCategories':
+	                        $this->modifierCategories($_GET['idCategorie']);
+	                    	break;
+	                case 'supprimerCategories':
+	                        $this->supprimerCategories($_GET['idCategorie']);
+	                    	break;
+	                case 'supprimerOeuvres':
+	                        $this->supprimerOeuvres($_GET['idOeuvre']);
+	                    	break; 
+	                case 'modifierOeuvre':
+	                        $this->modifierOeuvre($_GET['idOeuvre']);
+	                    	break; 
+	                case 'modifierAdmin_moderateur':
+	                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
+	                    	break;
+	                case 'inscription':
+	                    	$this->inscription();
+	                    	break;
+			case 'afficheInscriptionAdmin':
+	                	$this->afficheInscriptionAdmin();
+	                    	break;
+			case 'connexion':
+	                    	if($_GET['action'] == 'envoyer'){
+	                        	$this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+	                    	}else{
+	                        	$this->connexion();
+	                    	}
+	                        break;
+	                case 'arrondissements':
+	                    	if($_GET['idArrondissement'] !=''){
+	                        	$this->oeuvresParArr($_GET['idArrondissement']);
+	                    	}else{
+	                        	$this->arrondissements();
+	                    	} 
+	                    break;
+			case 'categories':
+	                   	if($_GET['idCategorie'] !=''){
+	                        	$this->oeuvresParCat($_GET['idCategorie']);
+	                    	}else{
+	                        	$this->categories();
+	                    	} 
+	                    	break;
+			case 'unOeuvre':
+	                    	$this->unOeuvre($_GET['idOeuvre']);
+	                    	break;
+			case 'unUtilisateur':
+	                    	$this->unUtilisateur($_GET['idUtilisateur']);
+	                    	break;
+			case 'oeuvresParCat':
+	                    	$this->oeuvresParCat();
+	                    	break;
+	                case 'oeuvresParArr';
+	                 	$this->oeuvresParArr();
+	                 	break;
+			case 'ajoutOeuvre':
+	                    	$this->ajoutOeuvre();
+	                    	break;
+	                case 'profilUtilisateur':
+	                    	$this->profilUtilisateur();
+	                    	break;
+			case 'listerUtilisateurs':
+	                    	$this->listerUtilisateurs();
+	                    	break;
+	                case 'ajouterUnArtiste':
+	                    	$this->ajouterUnArtiste();
+	                    	break;
+	               	case 'formulaireAjouterArtiste':
+	                    	$this->afficheAjouterUnArtiste();
+	                	break;
+	                case 'ajouterUnCategorie':
+	                    	$this->ajouterUnCategorie();
+	                    	break;
+	                case 'formulaireAjouterCategorie':
+	                   	$this->afficheAjouterUnCategorie();
+	                    	break;
+	                case 'ajouterAdmin_moderateur':
+	                    	$this->ajouterAdmin_moderateur();
+	                    	break;
+	                case 'recherche':
+	                    	$this->rechercheOeuvresMot();
+	                    	break;                
+	                case 'admin':
+	                        if($_GET['action'] == 'envoyer'){
+	                        	$this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+	                    	}else{
+	                        	$this->admin();
+	                    	}
+	                    	break;
+	                case 'adminPanel':
+	                    	$this->adminPanel();
+	                    	break;
+			default:    $this->accueil();
+				break;
 		}
+            
+	}
 
        // private function afficheContenuAdmin()
         //{
@@ -242,8 +190,9 @@ class Controler
             
        // } 
 
-		/*PAGE ACCUEIL*/
-
+	/*Vue page d'accueil
+        * @author: German Mahecha
+        */
         private function accueil()
 		{
             $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -252,7 +201,6 @@ class Controler
 			$oVue->afficheHeader();
 			$oVue->afficheAccueil($aOeuvres);
 			$oVue->afficheFooter();
-			
 		} 
 
         /*ONGLET ARRONDISSEMENT*/  
@@ -417,7 +365,9 @@ class Controler
         }
  
 
-        /*MOTEUR DE RECHERCHE*/
+        /*Vue recherche
+        * @author: German Mahecha
+        */
 
         private function rechercheOeuvresMot()
         {
@@ -464,7 +414,9 @@ class Controler
 
 
         /* OEUVRE*/
-
+	/*Vue page d'un oeuvre
+        * @author: German Mahecha
+        */
         private function unOeuvre($idget)
 		{
             $oOeuvre = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -475,7 +427,10 @@ class Controler
 			$oVue->afficheFooter();
 			
 		}
-
+	
+	/*Vue liste pour modifier oeuvres
+        * @author: German Mahecha
+        */
            private function listeModifierOeuvres()
         {
             $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -487,7 +442,9 @@ class Controler
             $oVue->afficheFooter();
     
         }
-
+	/*Vue liste pour supprimer oeuvres
+        * @author: German Mahecha
+        */
         private function listeSupprimerOeuvres()
         {
             $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -600,7 +557,10 @@ class Controler
             }     
             $oVue->afficheFooter();  
         }
-    
+    	
+    	/*Vue liste pour supprimer oeuvres
+        * @author: German Mahecha
+        */
         private function supprimerOeuvres($idOeuvre) 
         {   
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
@@ -642,7 +602,9 @@ class Controler
             $oVue->afficheFooter();
         }
 
-    
+    	/*Vue liste pour modifier artistes
+        * @author: German Mahecha
+        */
         private function listeModifierArtistes()
         {
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
@@ -654,6 +616,10 @@ class Controler
             $oVue->afficheFooter();
     
         }
+        
+        /*Vue liste pour supprimer artistes
+        * @author: German Mahecha
+        */
         private function listeSupprimerArtistes()
         {
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
@@ -739,7 +705,9 @@ class Controler
 
 
         /*CATÉGORIE*/
-
+	/*Vue liste pour modifier categories
+        * @author: German Mahecha
+        */
         private function listeModifierCategories()
         {
             $oCategories = new MCategories('','','');
@@ -751,7 +719,9 @@ class Controler
             $oVue->afficheFooter();
     
         }
-        
+        /*Vue liste pour supprimer categories
+        * @author: German Mahecha
+        */
         private function listeSupprimerCategories()
         {
             $oCategories = new MCategories('','','');
@@ -851,7 +821,9 @@ class Controler
             $oVue->afficheFooter();
         }
 		
-
+	/*Vue liste des utilisateurs
+        * @author: German Mahecha
+        */
         private function listerUtilisateurs()
         {
             $oUtilisateurs = new MUtilisateurs('','','','','','');
@@ -863,7 +835,9 @@ class Controler
             $oVue->afficheFooter();
         }
 
-    
+    	/*Vue liste pour modifier utilisateurs
+        * @author: German Mahecha
+        */
         private function listeModifierUtilisateurs()
 		{
             $message='';
@@ -876,6 +850,10 @@ class Controler
             $oVue->afficheFooter();
     
 		}
+	
+	/*Vue liste pour supprimer utilisateurs
+        * @author: German Mahecha
+        */
         private function listeSupprimerUtilisateurs()
 		{
             $oUtilisateurs = new MUtilisateurs('', '', '' ,'', '', '');
