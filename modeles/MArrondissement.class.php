@@ -71,20 +71,6 @@ class MArrondissement {
 		return $arrondissement;
 	} //FIN FUNCTION listeArrondissement
 
-// 	   /**
-// 	 *
-// 	 * @return Array Tableau contenant la liste de toutes les categories
-// 	 */
-// 	public static function listerOueuvresParArr() {
-// 		self::$database->query('SELECT oeuvre.titreOeuvre FROM oeuvre JOIN arrondissement on arrondissement.idArrondissement=oeuvre.idArrondissement WHERE oeuvre.idArrondissement="1"');
-// 		$lignes = self::$database->resultset();
-// 		foreach ($lignes as $ligne) {
-// 			$unArrondissement = new MArrondissement('', $ligne['nomArrondissement']);
-// 			$arrondissement[] = $unArrondissement;
-// 		}
-// 		return $arrondissement;
-
-// }
 }
 
 ?>
