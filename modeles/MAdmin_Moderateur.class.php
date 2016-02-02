@@ -37,41 +37,29 @@ class MAdmin_Moderateur {
         $this->role = $role;
         $this->login = $login;
         $this->pass = $pass;
-
     }
     
-    function __destruct ()
-	{
-		
+    function __destruct (){}
+    
+    /** Getters
+	* @access public
+	* @return 
+	*/
+    
+    public function getIdAdMod(){
+		return $this->idAdMod;				
 	}
     
-    	/** Getters
-	 * @access public
-	 * @return 
-	 */
-    
-        public function getIdAdMod() 
-	{
-		return $this->idAdMod;		
-			
+    public function getRole() {
+		return $this->role;				
 	}
     
-        public function getRole() 
-	{
-		return $this->role;		
-			
+    public function getLogin() {
+		return $this->login;			
 	}
     
-        public function getLogin() 
-	{
-		return $this->login;		
-			
-	}
-    
-        public function getPass() 
-	{
-		return $this->pass;		
-			
+    public function getPass() {
+		return $this->pass;				
 	}
     
     
