@@ -54,40 +54,28 @@ class MUtilisateurs {
 	 * @return 
 	 */
     
-    public function getIdUtilisateur() 
-	{
+    public function getIdUtilisateur(){
 		return $this->idUtilisateur;		
-			
 	}
     
-	public function getLoginUtilisateur() 
-	{
+	public function getLoginUtilisateur(){
 		return $this->loginUtilisateur;		
-			
 	}
     
-    public function getPassUtilisateur() 
-	{
-		return $this->passUtilisateur;		
-			
+    public function getPassUtilisateur(){
+		return $this->passUtilisateur;	
 	}
     
-    public function getBio() 
-	{
-		return $this->bio;		
-			
+    public function getBio(){
+		return $this->bio;	
 	}
     
-    public function getScore() 
-	{
-		return $this->score;		
-			
+    public function getScore(){
+		return $this->score;	
 	}
     
-    public function getPhotoUtilisateur() 
-	{
+    public function getPhotoUtilisateur(){
 		return $this->photoUtilisateur;		
-			
 	}
     
     /*
@@ -105,28 +93,7 @@ class MUtilisateurs {
 		}
 		return $utilisateurs;
 	}
-
-    /**
-	 * Fonction d'ajout d'un utilisateur enregistre
-	 * @return none
-     * @author Jorge Blanco
-     * @version 1.0
-     * 
-     */
-
-	    public static function ajoutUtilisateur($loginUtilisateur, $passUtilisateur, $bio, $score, $photoUtilisateur)
-    {
-    	self::$database->query("INSERT INTO utilisateur_enregistre VALUES ('', :loginUtilisateur, :passUtilisateur, :bio, :score, :photoUtilisateur)");
-
-    	self:: $database->bind(':loginUtilisateur', $loginUtilisateur);
-    	self:: $database->bind(':passUtilisateur', $passUtilisateur);
-    	self:: $database->bind(':bio', $bio);
-    	self:: $database->bind(':score', $score);
-    	self:: $database->bind(':photoUtilisateur', $photoUtilisateur);
-
-    	return(self::$database->execute());
-    }
-
+    
      /**
 	 * Fonction pour recuperer l'info d'un utilisateur par son id
 	 * @return none
@@ -140,36 +107,38 @@ class MUtilisateurs {
      	self::$database->query("SELECT * FROM utilisateur_enregistre WHERE idUtilisateur=:idUtilisateur");
         //On lie les paramètres auxvaleurs
         self::$database->bind(':idUtilisateur', $idUtilisateur);
-        
-        $ligne = self::$database->uneLigne();
-        
-        return $ligne;
+        return (self::$database->uneLigne());
      }
+    
 
-
-     /**
-	 * Fonction pour supprimer un utilisateur 
+    /**
+	 * Fonction d'ajout d'un utilisateur enregistre
 	 * @return none
      * @author Jorge Blanco
      * @version 1.0
      * 
      */
-    public static function supprimerUtilisateurs($idUtilisateur)
-    {
-    	self::$database->query("DELETE FROM utilisateur_enregistre WHERE idUtilisateur=:idUtilisateur");
-    	self::$database->bind(':idUtilisateur', $idUtilisateur);
 
+	 public static function ajoutUtilisateur($loginUtilisateur, $passUtilisateur, $bio, $score, $photoUtilisateur)
+     {
+    	self::$database->query("INSERT INTO utilisateur_enregistre VALUES ('', :loginUtilisateur, :passUtilisateur, :bio, :score, :photoUtilisateur)");
+    	self:: $database->bind(':loginUtilisateur', $loginUtilisateur);
+    	self:: $database->bind(':passUtilisateur', $passUtilisateur);
+    	self:: $database->bind(':bio', $bio);
+    	self:: $database->bind(':score', $score);
+    	self:: $database->bind(':photoUtilisateur', $photoUtilisateur);
     	return(self::$database->execute());
     }
 
-     /**
+    
+       /**
 	 * Fonction modiffier un utilisateur enregistre
 	 * @return none
      * @author Jorge Blanco
      * @version 1.0
      * 
      */
-
+    
     public static function modifierUtilisateur($idUtilisateur, $loginUtilisateur, $passUtilisateur, $bio, $score, $photoUtilisateur)
     {
     	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, bio = :bio, score = :score, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur");
@@ -180,28 +149,25 @@ class MUtilisateurs {
     	self::$database->bind('bio', $bio);
     	self::$database->bind('score', $score);
     	self::$database->bind('photoUtilisateur', $photoUtilisateur);
-
     	return(self::$database->execute());
 
     }
     
-    
     /**
-	 * Fonction tableau contenant l'information des utilisateurs 
-	 * @return tableau contenant l'information des utilisateurs 
-     * @author Jorge Blanco
-     * @version 1.2
-     */
-    public static function listeUnUtilisateur($idUtil)
+	* Fonction pour supprimer un utilisateur 
+	* @return none
+    * @author Jorge Blanco
+    * @version 1.0
+    * 
+    */
+    public static function supprimerUtilisateurs($idUtilisateur)
     {
-        self::$database->query('SELECT idUtilisateur, loginUtilisateur, bio, photoUtilisateur FROM utilisateur_enregistre WHERE idUtilisateur = :idUtil');
-        self::$database->bind(':idUtil', $idUtil);
-        $ligne = self::$database->uneLigne();
-        $oUtilisateur = new MUtilisateurs($ligne['idUtilisateur'],$ligne['loginUtilisateur'],'', $ligne['bio'],'',$ligne['photoUtilisateur']);
-        return $oUtilisateur;
-        
+    	self::$database->query("DELETE FROM utilisateur_enregistre WHERE idUtilisateur=:idUtilisateur");
+    	self::$database->bind(':idUtilisateur', $idUtilisateur);
+    	return(self::$database->execute());
     }
-    
+
+  
     /**
 	 * Fonction Verification password 
 	 * @return md5 boolean
@@ -213,21 +179,12 @@ class MUtilisateurs {
         self::$database->query('SELECT passUtilisateur FROM utilisateur_enregistre WHERE loginUtilisateur = :loginUtil');
         self::$database->bind(':loginUtil', $login);
         $ligne = self::$database->uneLigne();
-        
-        if($ligne)
-        {
+        if($ligne){
             return $ligne["passUtilisateur"];
-        }
-        else
-        {
+        }else{
             return false;
         }
     }
-}
 
 
-
-
-
-
-?>
+}?>
