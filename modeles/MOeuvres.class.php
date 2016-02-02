@@ -10,35 +10,30 @@
  * 
  */
 class MOeuvres {
-	/**
-	* @var int Identifiant Artiste
+	
+    /**
+	 *
+	 * @var int Identifiant Artiste
 	**/
     
-    	public $idOeuvre;
-    	public $titreOeuvre;
+    public $idOeuvre;
+    public $titreOeuvre;
 	public $titreVariante;
 	public $technique;
-    	public $techniqueAng;
+    public $techniqueAng;
 	public $noInternetOeuvre;
 	public $description;
 	public $validationOeuvre;
-	public $nomArrondissement;
-	public $adresse;
-	public $batiment;
-	public $parc;
-	public $latitude;
-	public $longitude;
-	public $prenomArtiste;
-	public $nomArtiste;
-	public $collectif;
-	public $noInterneArtiste;
-	public $photoArtiste;
-	public $nomCategorie;
-	public $nomCategorieAng;
-	public $nomSousCat;
-	public $nomSousCatAng;
-	public $nomMateriaux;
+	public $idArrondissement;
+    public $nomMateriaux;
 	public $nomMateriauxAng;
+	public $idCategorie;
+	public $idSousCat;
+    public $adresse;
+    public $batiment;
+    public $parc;
+    public $latitude;
+    public $longitude;
 	
     
 	  /**
@@ -46,161 +41,139 @@ class MOeuvres {
 	 */
 	static $database;
         
-	function __construct ($idOeuvre,$titreOeuvre,$titreVariante,$technique,$techniqueAng,$noInternetOeuvre,$description,$validationOeuvre,$nomArrondissement,$adresse,$batiment,$parc, $latitude, $longitude, $prenomArtiste, $nomArtiste, $collectif, $noInterneArtiste, $photoArtiste, $nomCategorie, $nomCategorieAng, $nomSousCat, $nomSousCatAng, $nomMateriaux, $nomMateriauxAng)
+	function __construct ($idOeuvre,$titreOeuvre,$titreVariante,$technique,$techniqueAng,$noInternetOeuvre,$description,$validationOeuvre,$idArrondissement,$nomMateriaux, $nomMateriauxAng,$idCategorie, $idSousCat,$adresse,$batiment,$parc,$latitude,$longitude)
 	{
 		if (!isset(self::$database))
 			self::$database = new PdoBDD();
 
-    		$this->idOeuvre = $idOeuvre;
-   		$this-> titreOeuvre = $titreOeuvre;
-		$this-> titreVariante =  $titreVariante;
-		$this-> technique =  $technique;
-        	$this-> techniqueAng =  $techniqueAng;
-		$this-> noInternetOeuvre =  $noInternetOeuvre;
-		$this-> description =  $description;
-		$this-> validationOeuvre =  $validationOeuvre;
-		$this-> nomArrondissement =  $nomArrondissement;
-		$this-> adresse =  $adresse;
-		$this-> batiment =  $batiment;
-		$this-> parc =  $parc;
-		$this-> latitude =  $latitude;
-		$this-> longitude =  $longitude;
-		$this-> prenomArtiste =  $prenomArtiste;
-		$this-> nomArtiste =  $nomArtiste;
-		$this-> collectif =  $collectif;
-		$this-> noInterneArtiste =  $noInterneArtiste;
-		$this-> photoArtiste =  $photoArtiste;
-		$this-> nomCategorie =  $nomCategorie;
-		$this-> nomCategorieAng =  $nomCategorieAng;
-		$this-> nomSousCat =  $nomSousCat;
-		$this-> nomSousCatAng =  $nomSousCatAng;
-		$this-> nomMateriaux =  $nomMateriaux;
-		$this-> nomMateriauxAng =  $nomMateriauxAng;
+    	$this->idOeuvre = $idOeuvre;
+   		$this->titreOeuvre = $titreOeuvre;
+		$this->titreVariante =  $titreVariante;
+		$this->technique =  $technique;
+        $this->techniqueAng =  $techniqueAng;
+		$this->noInternetOeuvre =  $noInternetOeuvre;
+		$this->description =  $description;
+		$this->validationOeuvre =  $validationOeuvre;
+		$this->idArrondissement =  $idArrondissement;
+		$this->nomMateriaux =  $nomMateriaux;
+		$this->nomMateriauxAng =  $nomMateriauxAng;
+        $this->idCategorie =  $idCategorie;
+		$this->idSousCat =  $idSousCat;
+        $this->adresse=$adresse;
+        $this->batiment=$batiment;
+        $this->parc=$parc;
+        $this->latitude=$latitude;
+        $this->longitude=$longitude;
+	}	
+	function __destruct ()
+	{
+		
 	}
 	
-	function __destruct (){}
-	
+    
 	/** Getters
 	 * @access public
 	 * @return 
 	 */
 	
-    	public function getIdOeuvre(){
+    public function getIdOeuvre() 
+	{
 		return $this->idOeuvre;		
 	}
-    	public function getTitreOeuvre(){
+    public function getTitreOeuvre() 
+	{
 		return $this->titreOeuvre;		
 	}
-	public function getTitreVariante(){
+	public function getTitreVariante() 
+	{
 		return $this->titreVariante;		
 	}
-	public function getTechnique() {
+	public function getTechnique() 
+	{
 		return $this->technique;		
 	}
-    	public function getTechniqueAng() {
+    public function getTechniqueAng() 
+	{
 		return $this->technique;		
 	}
-	public function getNoInternetOeuvre(){
+	public function getNoInternetOeuvre() 
+	{
 		return $this->noInternetOeuvre;		
 	}
-	public function getDescription() {
+	public function getDescription() 
+	{
 		return $this->description;		
 	}
-	public function getValidationOeuvre(){
+	public function getValidationOeuvre() 
+	{
 		return $this->validationOeuvre;		
 	}
-	public function getNomArrondissement()	{
-		return $this->nomArrondissement;		
+	public function getIdArrondissement() 
+	{
+		return $this->idArrondissement;		
 	}
-	public function getAdresse() {
-		return $this->adresse;		
-	}
-	public function getBatiment(){
-		return $this->batiment;		
-	}
-	public function getParc() {
-		return $this->parc;		
-	}
-	public function getLatitude(){
-		return $this->latitude;		
-	}
-	public function getLongitude(){
-		return $this->longitude;		
-	}
-	public function getPrenomArtiste(){
-		return $this->prenomArtiste;		
-	}
-	public function getNomArtiste() {
-		return $this->nomArtiste;		
-	}
-	public function getCollectif() {
-		return $this->collectif;		
-	}
-	public function getNoInterneArtiste(){
-		return $this->noInterneArtiste;		
-	}
-	public function getPhotoArtiste() {
-		return $this->photoArtiste;		
-	}
-	public function getNomCategorie(){
-		return $this->nomCategorie;		
-	}
-	public function getNomCategorieAng(){
-		return $this->nomCategorieAng;		
-	}
-	public function getNomSousCat(){
-		return $this->nomSousCat;		
-	}
-	public function getNomSousCatAng(){
-		return $this->nomSousCatAng;		
-	}
-	public function getNomMateriaux(){
+	public function getNomMateriaux() 
+	{
 		return $this->nomMateriaux;		
 	}
-	public function getNomMateriauxAng(){
+	public function getNomMateriauxAng() 
+	{
 		return $this->nomMateriauxAng;		
+	}
+    
+    public function getIdCategorie() 
+	{
+		return $this->idCategorie;		
+	}
+	
+    public function getIdSousCat() 
+	{
+		return $this->idSousCat;		
+	}
+	
+    public function getAdresse() 
+	{
+		return $this->adresse;		
+	}
+        
+    public function getBatiment() 
+	{
+		return $this->batiment;		
+	}
+    
+    public function getParc() 
+	{
+		return $this->parc;		
+	}
+     
+    public function getLatitude() 
+	{
+		return $this->latitude;		
+	}
+    
+    public function getLongitude() 
+	{
+		return $this->longitude;		
 	}
     
 	/*****************************************/
 	
-    	/**
-	* @access public static
-     	* @author German Mahecha
-	* @return Array Tableau contenant la liste de tout les oeuvres
-	*/
+
+    /**
+	 * @access public static
+     * @author German Mahecha
+	 * @return Array Tableau contenant la liste de tout
+	 */
 	public static function listeOeuvres() {
-		self::$database->query('
-		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie 
-		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
-		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
-		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie ');
+		self::$database->query('SELECT * FROM oeuvre');
 		
         $lignes = self::$database->resultset();
-		foreach ($lignes as $ligne) {
-			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','',$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],'','','','','');
+		foreach ($lignes as $ligne) {	
+            $uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],
+                                    $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
 			$oeuvres[] = $uneOeuvre;
 		}
 		return $oeuvres;
-	}
-    
-    
-    	/**
-	* @access public static
-     	* @author German Mahecha
-	* @return un oeuvre
-	*/
-	public static function listeUnOeuvre($idcon) {
-		self::$database->query('SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, oeuvre.titreVariante,oeuvre.technique,oeuvre.techniqueAng,oeuvre.noInterne,oeuvre.description,oeuvre.validationOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, adresse.adresseCiv, adresse.batiment, adresse.parc, adresse.latitude, adresse.longitude, categorie.nomCategorie, categorie.nomCatAng, souscategorie.nomSousCat, souscategorie.nomSousCatAng, oeuvre.nomMateriaux,oeuvre.nomMateriauxAng  
-		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
-		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
-        	JOIN adresse ON oeuvre.idAdresse = adresse.idAdresse
-		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie
-        	JOIN souscategorie ON oeuvre.idSousCategorie = souscategorie.idSousCategorie
-		WHERE oeuvre.idOeuvre = :idcon');
-		self::$database->bind(':idcon', $idcon);
-        $ligne = self::$database->uneLigne();
-		$oeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],$ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['nomArrondissement'],$ligne['adresseCiv'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude'],$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],$ligne['nomCatAng'],$ligne['nomSousCat'],$ligne['nomSousCatAng'],$ligne['nomMateriaux'],$ligne['nomMateriauxAng']);
-        	return $oeuvre;
 	}
     
  
@@ -215,10 +188,7 @@ class MOeuvres {
 		self::$database->query("SELECT * FROM oeuvre WHERE idOeuvre=:idOeuvre");
         //On lie les paramètres auxvaleurs
         self::$database->bind(':idOeuvre', $idOeuvre);
-        
-        $ligne = self::$database->uneLigne();
-        
-        return $ligne;
+        return (self::$database->uneLigne());
 	}
     
     
@@ -228,11 +198,12 @@ class MOeuvres {
 	 * @return Array Tableau contenant la liste de tous les objets oeuvres selon un id d'artiste
 	 */
 	public static function listeOeuvresParArtiste($idArtiste) {
-		self::$database->query('SELECT * FROM oeuvre WHERE idArtiste = :idArtiste ORDER BY oeuvre.idOeuvre ASC');
+		self::$database->query('SELECT * FROM oeuvre JOIN oeuvre_artiste ON oeuvre.idOeuvre=oeuvre_artiste.idOeuvre WHERE oeuvre_artiste.idArtiste = :idArtiste ORDER BY oeuvre.idOeuvre ASC');
         self::$database->bind(':idArtiste', $idArtiste);
 		$lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
-			$uneOeuvre = new MOeuvres($ligne['idOeuvre'], $ligne['titreOeuvre'], '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],
+                                    $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
 			$oeuvres[] = $uneOeuvre;
 		}
 		return $oeuvres;
@@ -242,28 +213,25 @@ class MOeuvres {
 	 *
 	 * @return Array Tableau contenant la liste de toutes les oueuvres par arrondissement
      * @author Jorge Blanco
+     * @author German Mahecha
      * @version 1.1
      * 
      */
 	public static function listerOeuvresParArr($idArrondissement) {
-		self::$database->query('SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre FROM oeuvre JOIN arrondissement on arrondissement.idArrondissement=oeuvre.idArrondissement WHERE oeuvre.idArrondissement=:idArrondissement');
+		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idArrondissement=:idArrondissement');
 		self::$database->bind(':idArrondissement', $idArrondissement);
-
 		$lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
-			$unOeuvreParArr = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','','','','','','','','','','','','','','','','','','');
-			$OuvresParArr[] = $unOeuvreParArr;
+			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],
+                                    $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
+			$ouvres[] = $uneOeuvre;
 		}
-		//var_dump($OuvresParArr);
-		if(isset($OuvresParArr))
-		{
-			return $OuvresParArr;
-		}
+		
+		if(isset($ouvres))
+			return $ouvres;
 		else
-		{
 			echo "";
-		}
-
+        
     }//FIN FUNCTION listerOeuvresParArr
 
 
@@ -271,63 +239,59 @@ class MOeuvres {
 	 *
 	 * @return Array Tableau contenant la liste de toutes les oeuvres par CATEGORIE
      * @author Thuy Tien Vo
+     * @author German Mahecha
      * @version 1.1
      * 
      */
 
 
-	public static function listeOeuvresParCat($idCategorie) 
-    {
-       
-    	 self::$database->query('SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre FROM oeuvre JOIN categorie ON categorie.idCategorie= oeuvre.idCategorie WHERE  categorie.idCategorie = :idCategorie');
-    
-        self::$database->bind(':idCategorie', $idCategorie);
-    
-        $lignes = self::$database->resultset();
-        foreach ($lignes as $ligne) 
-        {   $unOeuvreParCat = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','','','','','','','','','','','','','','','','','','');
-            $OeuvresParCat[] = $unOeuvreParCat;
-        }
-        if(isset($OeuvresParCat))
-        {
-        	return $OeuvresParCat;
-        }
+	public static function listeOeuvresParCat($idCategorie) {
+		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idCategorie=:idCategorie');
+		self::$database->bind(':idCategorie', $idCategorie);
+		$lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'], $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
+			$oeuvres[] = $uneOeuvre;
+		}
+		if(isset($oeuvres))
+        	return $oeuvres;
         else
-        {
-        	echo "il n'y a pas d'oeuvres dans ce catégorie";
-        }
+            echo "il n'y a pas d'oeuvres dans ce catégorie";            
     }
 
 
-
-
-    
     /**
 	 * Fonction d'ajout d'oeuvre
 	 * @return none
      * @author Gautier Piatek
+     * @author German Mahecha
      * @version 1.0
      * 
      */
-    public static function ajouterOeuvre($titre, $titreVariante, $technique, $techniqueAng, $description, $validationOeuvre, $idArrondissement, $idAdresse, $idArtiste, $idCategorie, $idSousCategorie, $nomMateriaux, $nomMateriauxAng) {
+    public static function ajouterOeuvre($titre, $titreVariante, $technique, $techniqueAng,$noInternetOeuvre, $description, $validationOeuvre, $idArrondissement, $nomMateriaux, $nomMateriauxAng,$idCategorie, $idSousCategorie,$adresse,$batiment,$parc,$latitude,$longitude) {
         
-        self::$database->query("INSERT INTO oeuvre VALUES ('', :titre, :titreVariante, :technique, :techniqueAng, '', :description, :validationOeuvre, :idArrondissement, :idAdresse, :idArtiste, :nomMateriaux, :nomMateriauxAng, :idCategorie, :idSousCategorie)");
+        self::$database->query("INSERT INTO oeuvre VALUES ('', :titre, :titreVariante, :technique, :techniqueAng, noInternetOeuvre, :description, :validationOeuvre, :idArrondissement, :nomMateriaux, :nomMateriauxAng, :idCategorie, :idSousCategorie,:adresse,:batiment,:parc,:latitude,:longitude)");
         //On lie les paramètres auxvaleurs
         
         self::$database->bind(':titre', $titre);
         self::$database->bind(':titreVariante', $titreVariante);
         self::$database->bind(':technique', $technique);
         self::$database->bind(':techniqueAng', $techniqueAng);
+        self::$database->bind(':noInternetOeuvre', $noInternetOeuvre);
         self::$database->bind(':description', $description);
         self::$database->bind(':validationOeuvre', $validationOeuvre);
         self::$database->bind(':idArrondissement', $idArrondissement);
-        self::$database->bind(':idAdresse', $idAdresse);
-        self::$database->bind(':idArtiste', $idArtiste);
-        self::$database->bind(':idCategorie', $idCategorie);
-        self::$database->bind(':idSousCategorie', $idSousCategorie);
         self::$database->bind(':nomMateriaux', $nomMateriaux);
         self::$database->bind(':nomMateriauxAng', $nomMateriauxAng);
-       
+        self::$database->bind(':idCategorie', $idCategorie);
+        self::$database->bind(':idSousCategorie', $idSousCategorie);
+         self::$database->bind(':adresse', $adresse);
+         self::$database->bind(':batiment', $batiment);
+         self::$database->bind(':parc', $parc);
+         self::$database->bind(':latitude', $latitude);
+         self::$database->bind(':longitude', $longitude);
+        
+        
         return(self::$database->execute());
         
     }
@@ -336,12 +300,13 @@ class MOeuvres {
 	 * Fonction de modification d'oeuvre
 	 * @return none
      * @author Gautier Piatek
+     * @author German Mahecha
      * @version 1.0
      * 
      */
-    public static function modifierOeuvre($idOeuvre, $titre, $titreVariante, $technique, $techniqueAng, $description, $validationOeuvre, $idArrondissement, $idAdresse, $idArtiste, $idCategorie, $idSousCategorie, $nomMateriaux, $nomMateriauxAng) {
+    public static function modifierOeuvre($idOeuvre, $titre, $titreVariante, $technique, $techniqueAng, $noInternetOeuvre, $description, $validationOeuvre, $idArrondissement, $idCategorie, $idSousCategorie, $nomMateriaux, $nomMateriauxAng,$adresse,$batiment,$parc,$latitude,$longitude) {
         
-        self::$database->query("UPDATE oeuvre SET titreOeuvre = :titre, titreVariante = :titreVariante, technique = :technique, techniqueAng = :techniqueAng,  description = :description, validationOeuvre = :validationOeuvre, idArrondissement = :idArrondissement, idAdresse = :idAdresse, idArtiste = :idArtiste, nomMateriaux = :nomMateriaux, nomMateriauxAng = :nomMateriauxAng, idCategorie = :idCategorie, idSousCategorie = :idSousCategorie WHERE idOeuvre = :idOeuvre");
+        self::$database->query("UPDATE oeuvre SET titreOeuvre = :titre, titreVariante = :titreVariante, technique = :technique, techniqueAng = :techniqueAng, noInternet = noInternetOeuvre, description = :description, validationOeuvre = :validationOeuvre, idArrondissement = :idArrondissement, nomMateriaux = :nomMateriaux, nomMateriauxAng = :nomMateriauxAng, idCategorie = :idCategorie, idSousCategorie = :idSousCategorie,adresseCivic=:adresse,batiment=:batiment,parc=:parc,latitude=:latitude, longitude=:longitude WHERE idOeuvre = :idOeuvre");
         //On lie les paramètres auxvaleurs
         
         self::$database->bind(':idOeuvre', $idOeuvre);
@@ -349,93 +314,22 @@ class MOeuvres {
         self::$database->bind(':titreVariante', $titreVariante);
         self::$database->bind(':technique', $technique);
         self::$database->bind(':techniqueAng', $techniqueAng);
+        self::$database->bind(':noInternetOeuvre', $noInternetOeuvre);
         self::$database->bind(':description', $description);
         self::$database->bind(':validationOeuvre', $validationOeuvre);
         self::$database->bind(':idArrondissement', $idArrondissement);
-        self::$database->bind(':idAdresse', $idAdresse);
-        self::$database->bind(':idArtiste', $idArtiste);
-        self::$database->bind(':idCategorie', $idCategorie);
-        self::$database->bind(':idSousCategorie', $idSousCategorie);
         self::$database->bind(':nomMateriaux', $nomMateriaux);
         self::$database->bind(':nomMateriauxAng', $nomMateriauxAng);
-       
-        return(self::$database->execute());
-        
-    }
-    
-    /**
-     * Fonction d'ajout d'adresse
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return none
-	 */
-    public static function ajouterAdresse($adresse, $batiment, $parc, $latitude, $longitude) {
-        self::$database->query("INSERT INTO adresse VALUES ('', :adresse, :batiment, :parc, :latitude, :longitude)");
-        //On lie les paramètres auxvaleurs
-        
+        self::$database->bind(':idCategorie', $idCategorie);
+        self::$database->bind(':idSousCategorie', $idSousCategorie);
         self::$database->bind(':adresse', $adresse);
-        self::$database->bind(':batiment', $batiment);
-        self::$database->bind(':parc', $parc);
-        self::$database->bind(':latitude', $latitude);
-        self::$database->bind(':longitude', $longitude);
-       
+         self::$database->bind(':batiment', $batiment);
+         self::$database->bind(':parc', $parc);
+         self::$database->bind(':latitude', $latitude);
+         self::$database->bind(':longitude', $longitude);
         return(self::$database->execute());
+        
     }
-    
-    /**
-     * Fonction de modification d'adresse
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return none
-	 */
-    public static function modifierAdresse($idAdresse, $adresse, $batiment, $parc, $latitude, $longitude) {
-        self::$database->query("UPDATE adresse SET adresseCiv = :adresse, batiment = :batiment, parc = :parc, latitude = :latitude, longitude = :longitude WHERE idAdresse = :idAdresse");
-        //On lie les paramètres auxvaleurs
-        
-        self::$database->bind(':idAdresse', $idAdresse);
-        self::$database->bind(':adresse', $adresse);
-        self::$database->bind(':batiment', $batiment);
-        self::$database->bind(':parc', $parc);
-        self::$database->bind(':latitude', $latitude);
-        self::$database->bind(':longitude', $longitude);
-       
-        return(self::$database->execute());
-    }
-    
-    /*
-     * Fonction qui récupère les infos d'une adresse selon son id
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return array
-	 */
-	public static function getAdresseParId($idAdresse) 
-	{
-		self::$database->query("SELECT * FROM adresse WHERE idAdresse=:idAdresse");
-        //On lie les paramètres auxvaleurs
-        self::$database->bind(':idAdresse', $idAdresse);
-        
-        $ligne = self::$database->uneLigne();
-        
-        return $ligne;
-	}
-    
-    /*
-     * Fonction qui récupère l'id de l'adresse d'une oeuvre selon son id
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return int
-	 */
-	public static function recupererIdAdresse($idOeuvre) 
-	{
-		self::$database->query("SELECT adresse.idAdresse FROM adresse JOIN oeuvre ON oeuvre.idAdresse = adresse.idAdresse WHERE oeuvre.idOeuvre = :idOeuvre");
-        
-        //On lie les paramètres auxvaleurs
-        self::$database->bind(':idOeuvre', $idOeuvre);
-        
-        $ligne = self::$database->uneLigne();
-        
-        return $ligne['idAdresse'];
-	}
     
     
     /**
@@ -445,7 +339,6 @@ class MOeuvres {
 	 * @return int
 	 */
     public static function recupererDernierId() {
-
         return(self::$database->dernierId());
     }
 
@@ -456,19 +349,12 @@ class MOeuvres {
 	 * @return none
 	 */
     public static function supprimerOeuvre($idOeuvre) {
-
         self::$database->query("DELETE FROM oeuvre WHERE idOeuvre=:idOeuvre");
         //On lie les paramètres auxvaleurs
         self::$database->bind(':idOeuvre', $idOeuvre);
-
         return(self::$database->execute());
     }
-    
-    
-    
-    
-    
-    
+        
     /**
      * Fonction qui récupère la recherche des oeuvres par mot
 	 * @access public static
@@ -477,24 +363,15 @@ class MOeuvres {
 	 */
     
     public static function listeOeuvresparMot($mot) {
-		
-        
-       self::$database->query("
-		SELECT oeuvre.idOeuvre, oeuvre.titreOeuvre, arrondissement.nomArrondissement, artiste.prenom,artiste.nom, artiste.collectif, categorie.nomCategorie 
-		FROM oeuvre JOIN artiste ON oeuvre.idArtiste = artiste.idArtiste 
-		JOIN arrondissement ON oeuvre.idArrondissement = arrondissement.idArrondissement 
-		JOIN categorie ON oeuvre.idCategorie = categorie.idCategorie 
-        WHERE oeuvre.titreOeuvre LIKE '%$mot%'");
+       self::$database->query("SELECT * FROM oeuvre WHERE oeuvre.titreOeuvre LIKE '%$mot%'");
 		$lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
-			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],'','','','','','',$ligne['nomArrondissement'],'','','','','',$ligne['prenom'],$ligne['nom'],$ligne['collectif'],'','',$ligne['nomCategorie'],'','','','','');
+			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],
+                                    $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
 			$oeuvres[] = $uneOeuvre;
 		}
-        if($oeuvres)
-		  return $oeuvres;
-        else
-            return 'Aucune';
-	}
+        return $oeuvres;
+    }
     
     /**
      * Fonction qui compte le nombre d'oeuvres dans la BDD
@@ -509,9 +386,22 @@ class MOeuvres {
         
         return $resultat["COUNT(idOeuvre)"];
     }
+
+     /**
+     * Function qui valide s'il existe un oeuvre dasn la table oeuvres
+	 * @author German Mahecha
+	 * @return idOeuvre ou false
+	 */
+
+
+    public function validerOeuvre()
+    {
+        self::$database->query("SELECT * FROM oeuvre WHERE noInterne = :noInterne");
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':noInterne', $this->noInternetOeuvre);
+        $ligne=self::$database->uneLigne();
+        return $ligne['idOeuvre'];
+    } 
+ 
 }
-
-
-
-
 ?>

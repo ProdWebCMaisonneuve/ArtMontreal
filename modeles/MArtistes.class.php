@@ -12,7 +12,6 @@
 class MArtistes {
 	
     /**
-	 *
 	 * @var int Identifiant Artiste
 	**/
     
@@ -42,45 +41,31 @@ class MArtistes {
 	
 	}
 	
-	function __destruct ()
-	{
-		
-	}
-	
-    
+	function __destruct () {}
+	    
 	/** Getters
 	 * @access public
 	 * @return 
 	 */
     
-    public function getIdArtiste() 
-	{
-		return $this->idArtiste;		
-			
+    public function getIdArtiste(){
+		return $this->idArtiste;	
 	}
     
-	public function getPrenom() 
-	{
+	public function getPrenom() {
 		return $this->prenom;		
-			
 	}
     
-    public function getNom() 
-	{
+    public function getNom() {
 		return $this->nom;		
-			
 	}
     
-    public function getCollectif() 
-	{
+    public function getCollectif()	{
 		return $this->collectif;		
-			
 	}
     
-    public function getPhoto() 
-	{
-		return $this->photoArtiste;		
-			
+    public function getPhoto() {
+		return $this->photoArtiste;	
 	}
     
     /*
@@ -100,47 +85,7 @@ class MArtistes {
 		return $artistes;
 	}
 
-
      /*
-     * Fonction qui ajouter une artiste
-	 * @access public static
-     * @author Thuy Tien Vo
-	 * @return none
-	 */
-
-     
-    public function ajoutArtiste( $prenom, $nom, $collectif, $photoArtiste)
-
-        {
-            self::$database->query(" INSERT INTO artiste VALUES ('', :prenom, :nom, :collectif, '', :photoArtiste)") ;
-            //On lie les paramètres aux valeurs
-            self::$database->bind(':prenom', $prenom);
-            self::$database->bind(':nom', $nom);
-            self::$database->bind(':collectif', $collectif);
-            self::$database->bind(':photoArtiste', $photoArtiste);
-            //self::$database->execute();
-            return(self::$database->execute());
-        }  
-
-
-
-    
-    /*
-     * Fonction qui supprime un artiste
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return none
-	 */
-	public static function supprimerArtiste($idArtiste) 
-	{
-		self::$database->query("DELETE FROM artiste WHERE idArtiste=:idArtiste");
-        //On lie les paramètres auxvaleurs
-        self::$database->bind(':idArtiste', $idArtiste);
-
-        return(self::$database->execute());
-	}
-    
-    /*
      * Fonction qui récupère les infos d'un artiste selon son id
 	 * @access public static
      * @author Gautier Piatek
@@ -151,11 +96,31 @@ class MArtistes {
 		self::$database->query("SELECT * FROM artiste WHERE idArtiste=:idArtiste");
         //On lie les paramètres auxvaleurs
         self::$database->bind(':idArtiste', $idArtiste);
-        
-        $ligne = self::$database->uneLigne();
-        
-        return $ligne;
+        return(self::$database->uneLigne());
 	}
+    
+     /*
+     * Fonction qui ajouter une artiste
+	 * @access public static
+     * @author Thuy Tien Vo
+     * @author German Mahecha
+	 * @return none
+	 */
+    public function ajoutArtiste( $prenom, $nom, $collectif, $noInterne, $photoArtiste)
+
+        {
+            self::$database->query(" INSERT INTO artiste VALUES ('', :prenom, :nom, :collectif, :noInterne, :photoArtiste)") ;
+            //On lie les paramètres aux valeurs
+            self::$database->bind(':prenom', $prenom);
+            self::$database->bind(':nom', $nom);
+            self::$database->bind(':collectif', $collectif);
+            self::$database->bind(':noInterne', $noInterne);
+            self::$database->bind(':photoArtiste', $photoArtiste);
+            return(self::$database->execute());
+        }  
+    
+    
+    
     
     /*
      * Fonction qui récupère met à jour un artiste
@@ -172,11 +137,25 @@ class MArtistes {
         self::$database->bind(':nom', $nom);
         self::$database->bind(':collectif', $collectif);
         self::$database->bind(':photoArtiste', $photoArtiste);
-        
         return(self::$database->execute());
         
 	}
     
+    /*
+     * Fonction qui supprime un artiste
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return none
+	 */
+	public static function supprimerArtiste($idArtiste) 
+	{
+		self::$database->query("DELETE FROM artiste WHERE idArtiste=:idArtiste");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idArtiste', $idArtiste);
+        return(self::$database->execute());
+	}
+    
+
     /**
      * Fonction qui compte le nombre d'artistes dans la BDD
 	 * @access public static
@@ -190,9 +169,55 @@ class MArtistes {
         
         return $resultat["COUNT(idArtiste)"];
     }
+
+    
+     /**
+     * Fonction qui valide s'il existe un artiste dans la table artiste
+	 * @author German Mahecha
+	 * @return idArtiste ou false
+	 */
+
+
+    public function validerArtiste()
+    {
+        self::$database->query("SELECT * FROM artiste WHERE noInterne = :noInterne");
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':noInterne', $this->noInterne);
+        $ligne = self::$database->uneLigne();
+        return $ligne['idArtiste'];
+    } 
+    
+    
+     /**
+     * Fonction qui valide s'il existe une relation entre un oeuvre et un artiste dans la table oeuvre_artiste
+	 * @author German Mahecha
+	 * @return idOeuvre ou false
+	 */
+    
+    public function validerOeuvreArtiste($idO,$idA)
+    {
+        self::$database->query("SELECT * FROM oeuvre_artiste WHERE idOeuvre = :idOeuvre AND idArtiste = :idArtiste");
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':idOeuvre', $idO);
+        self::$database->bind(':idArtiste', $idA);
+        $ligne = self::$database->uneLigne();
+        return $ligne['idOeuvre'];
+    } 
+    
+     /**
+     * Fonction pour enregistrer la relation entre un oeuvre et un artiste dans la table artiste
+	 * @author German Mahecha
+	 * @return true ou false
+	 */
+    public function enregistrerOeuvreArtiste($idO,$idA)
+    {
+        self::$database->query(" INSERT INTO oeuvre_artiste VALUES (:idOeuvre,:idArtiste)") ;
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':idOeuvre', $idO);
+        self::$database->bind(':idArtiste', $idA);
+        return(self::$database->execute());
+    } 
+       
 }
-
-
-
 
 ?>

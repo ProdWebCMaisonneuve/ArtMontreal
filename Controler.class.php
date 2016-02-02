@@ -22,480 +22,589 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				case 'accueil':
-	                    if($_GET['idOeuvre']){
-	                        $this->unOeuvre($_GET['idOeuvre']);    
-	                    }else{
-	                        $this->accueil();
-	                    }
-			break;
+                    if($_GET['idOeuvre'])
+                    {
+                        $this->unOeuvre($_GET['idOeuvre']);    
+                    }
+                    else
+                    {
+                        $this->accueil();
+                    }
+					break;
                 
-	                case 'artistes':
-	                    if($_GET['idOeuvre'] != '') {
-	                        $this->unOeuvre($_GET['idOeuvre']);    
-	                    }else{
-	                        $this->artistes();
-	                    }
-				break;
-	                    
-	                case 'listeModifierArtistes':
-	                        $this->listeModifierArtistes();
-	                	break;
-	                case 'listeSupprimerArtistes':
-	                        $this->listeSupprimerArtistes();
-	                	break;
-	                
-	                case 'listeModifierUtilisateurs':
-	                        $this->listeModifierUtilisateurs();
-	                    	break;
-	                case 'listeSupprimerUtilisateurs':
-	                        $this->listeSupprimerUtilisateurs();
-	                    	break;
-	                case 'listeModifierCategories':
-	                        $this->listeModifierCategories();
-	                    	break;
-	                case 'listeSupprimerCategories':
-	                        $this->listeSupprimerCategories();
-	                    	break;  
-	                case 'listeModifierOeuvres':
-	                        $this->listeModifierOeuvres();
-	                    	break;
-	                case 'listeSupprimerOeuvres':
-	                        $this->listeSupprimerOeuvres();
-	                    	break;
-	                case 'listeModifierAdmin_moderateur':
-	                        $this->listeModifierAdmin_moderateur();
-	                    	break;
-	                case 'listeSupprimerAdmin_moderateur':
-	                    	$this->listeSupprimerAdmin_moderateur();
-	                    	break;
-	                case 'modifierArtiste':
-	                        $this->modifierArtiste($_GET['idArtiste']);
-	                	break;
-	                case 'supprimerArtistes':
-	                        $this->supprimerArtistes($_GET['idArtiste']);
-	                    	break;
-			case 'modifierUtilisateur':
-	                        $this->modifierUtilisateur($_GET['idUtilisateur']);
-	                    	break;
-			case 'supprimerUtilisateurs':
-	                        $this->supprimerUtilisateurs($_GET['idUtilisateur']);
-	                    	break;
-	                case 'supprimerAdmin_moderateur':
-	                    	$this->supprimerAdmin_moderateur($_GET['idAdMod']);
-	                    	break;
-	                case 'modifierCategories':
-	                        $this->modifierCategories($_GET['idCategorie']);
-	                    	break;
-	                case 'supprimerCategories':
-	                        $this->supprimerCategories($_GET['idCategorie']);
-	                    	break;
-	                case 'supprimerOeuvres':
-	                        $this->supprimerOeuvres($_GET['idOeuvre']);
-	                    	break; 
-	                case 'modifierOeuvre':
-	                        $this->modifierOeuvre($_GET['idOeuvre']);
-	                    	break; 
-	                case 'modifierAdmin_moderateur':
-	                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
-	                    	break;
-	                case 'inscription':
-	                    	$this->inscription();
-	                    	break;
-			case 'afficheInscriptionAdmin':
-	                	$this->afficheInscriptionAdmin();
-	                    	break;
-			case 'connexion':
-	                    	if($_GET['action'] == 'envoyer'){
-	                        	$this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-	                    	}else{
-	                        	$this->connexion();
-	                    	}
-	                        break;
-	                case 'arrondissements':
-	                    	if($_GET['idArrondissement'] !=''){
-	                        	$this->oeuvresParArr($_GET['idArrondissement']);
-	                    	}else{
-	                        	$this->arrondissements();
-	                    	} 
-	                    break;
-			case 'categories':
-	                   	if($_GET['idCategorie'] !=''){
-	                        	$this->oeuvresParCat($_GET['idCategorie']);
-	                    	}else{
-	                        	$this->categories();
-	                    	} 
-	                    	break;
-			case 'unOeuvre':
-	                    	$this->unOeuvre($_GET['idOeuvre']);
-	                    	break;
-			case 'unUtilisateur':
-	                    	$this->unUtilisateur($_GET['idUtilisateur']);
-	                    	break;
-			case 'oeuvresParCat':
-	                    	$this->oeuvresParCat();
-	                    	break;
-	                case 'oeuvresParArr';
-	                 	$this->oeuvresParArr();
-	                 	break;
-			case 'ajoutOeuvre':
-	                    	$this->ajoutOeuvre();
-	                    	break;
-	                case 'profilUtilisateur':
-	                    	$this->profilUtilisateur();
-	                    	break;
-			case 'listerUtilisateurs':
-	                    	$this->listerUtilisateurs();
-	                    	break;
-	                case 'ajouterUnArtiste':
-	                    	$this->ajouterUnArtiste();
-	                    	break;
-	               	case 'formulaireAjouterArtiste':
-	                    	$this->afficheAjouterUnArtiste();
-	                	break;
-	                case 'ajouterUnCategorie':
-	                    	$this->ajouterUnCategorie();
-	                    	break;
-	                case 'formulaireAjouterCategorie':
-	                   	$this->afficheAjouterUnCategorie();
-	                    	break;
-	                case 'ajouterAdmin_moderateur':
-	                    	$this->ajouterAdmin_moderateur();
-	                    	break;
-	                case 'recherche':
-	                    	$this->rechercheOeuvresMot();
-	                    	break;                
-	                case 'admin':
-	                        if($_GET['action'] == 'envoyer'){
-	                        	$this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-	                    	}else{
-	                        	$this->admin();
-	                    	}
-	                    	break;
-	                case 'adminPanel':
-	                    	$this->adminPanel();
-	                    	break;
-			default:    $this->accueil();
-				break;
-		}
+                case 'artistes':
+                    if($_GET['idOeuvre'] != '')
+                    {
+                        $this->unOeuvre($_GET['idOeuvre']);    
+                    }
+                    else
+                    {
+                        $this->artistes();
+                    }
+
+                    break;
+                    
+                case 'listeModifierArtistes':
+                        $this->listeModifierArtistes();
+                    break;
+                case 'listeSupprimerArtistes':
+                        $this->listeSupprimerArtistes();
+                    break;
+                
+                case 'listeModifierUtilisateurs':
+                        $this->listeModifierUtilisateurs();
+                    break;
+                case 'listeSupprimerUtilisateurs':
+                        $this->listeSupprimerUtilisateurs();
+                    break;
+                case 'listeModifierCategories':
+                        $this->listeModifierCategories();
+                    break;
+                case 'listeSupprimerCategories':
+                        $this->listeSupprimerCategories();
+                    break;  
+                case 'listeModifierOeuvres':
+                        $this->listeModifierOeuvres();
+                    break;
+                case 'listeSupprimerOeuvres':
+                        $this->listeSupprimerOeuvres();
+                    break;
+                case 'listeModifierAdmin_moderateur':
+                        $this->listeModifierAdmin_moderateur();
+                    break;
+                case 'listeSupprimerAdmin_moderateur':
+                    $this->listeSupprimerAdmin_moderateur();
+                    break;
+                    
+                case 'modifierArtiste':
+                        $this->modifierArtiste($_GET['idArtiste']);
+                    break;
+                case 'supprimerArtistes':
+                        $this->supprimerArtistes($_GET['idArtiste']);
+                    break;
+
+                case 'modifierUtilisateur':
+                        $this->modifierUtilisateur($_GET['idUtilisateur']);
+                    break;
+
+                case 'supprimerUtilisateurs':
+                        $this->supprimerUtilisateurs($_GET['idUtilisateur']);
+                    break;
+                    
+                case 'supprimerAdmin_moderateur':
+                    $this->supprimerAdmin_moderateur($_GET['idAdMod']);
+                    break;
+                case 'modifierCategories':
+                        $this->modifierCategories($_GET['idCategorie']);
+                    break;
+                case 'supprimerCategories':
+                        $this->supprimerCategories($_GET['idCategorie']);
+                    break;
+                case 'supprimerOeuvres':
+                        $this->supprimerOeuvres($_GET['idOeuvre']);
+                    break; 
+                case 'modifierOeuvre':
+                        $this->modifierOeuvre($_GET['idOeuvre']);
+                    break; 
+                    
+                case 'modifierAdmin_moderateur':
+                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
+                    break;
+                    
+                    
+                case 'inscription':
+                    $this->inscription();
+                    break;
+
+                case 'afficheInscriptionAdmin':
+                    $this->afficheInscriptionAdmin();
+                    break;
+
             
-	}
+                case 'connexion':
+                    if($_GET['action'] == 'envoyer')
+                    {
+                        $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }
+                    else
+                    {
+                        
+                        $this->connexion();
+                    }
+                    
+                    break;
+                
+                case 'arrondissements':
+                    if($_GET['idArrondissement'] !='')
+                    {
+                        $this->oeuvresParArr($_GET['idArrondissement']);
+                    }
+                    else
+                    {
+                        $this->arrondissements();
+                    } 
+                    break;
 
+                case 'categories':
+                   if($_GET['idCategorie'] !='')
+                    {
+                        $this->oeuvresParCat($_GET['idCategorie']);
+                    }
+                    else
+                    {
+                        $this->categories();
+                    } 
+                    break;
 
-	   /*Vue page d'accueil
-        * @author: German Mahecha
-        */
+                case 'unOeuvre':
+                    $this->unOeuvre($_GET['idOeuvre']);
+                    break;
+
+                    
+                case 'unUtilisateur':
+                    $this->unUtilisateur($_GET['idUtilisateur']);
+                    break;
+
+                case 'oeuvresParCat':
+                    $this->oeuvresParCat();
+                    break;
+                case 'oeuvresParArr';
+                 	$this->oeuvresParArr();
+                 	break;
+
+                case 'ajoutOeuvre':
+                    $this->ajoutOeuvre();
+                    break;
+                    
+                case 'profilUtilisateur':
+                    $this->profilUtilisateur();
+                    break;
+
+                case 'listerUtilisateurs':
+                    $this->listerUtilisateurs();
+                    break;
+                
+                case 'ajouterUnArtiste':
+                    $this->ajouterUnArtiste();
+                    break;
+                
+                case 'formulaireAjouterArtiste':
+                    $this->afficheAjouterUnArtiste();
+                    break;
+                
+                case 'ajouterUnCategorie':
+                    $this->ajouterUnCategorie();
+                    break;
+                    
+                case 'formulaireAjouterCategorie':
+                   $this->afficheAjouterUnCategorie();
+                    break;
+                    
+                case 'ajouterAdmin_moderateur':
+                    $this->ajouterAdmin_moderateur();
+                    break;
+                    
+                case 'recherche':
+                    $this->rechercheOeuvresMot();
+                    break;                
+                
+                case 'admin':
+                    
+                    if($_GET['action'] == 'envoyer')
+                    {
+                        $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }
+                    else
+                    {
+                        $this->admin();
+                    }
+                    break;
+                
+                case 'adminPanel':
+                    $this->adminPanel();
+                    break;
+                case 'miseajourjson':
+                    $this->miseajourjson();
+                    break;
+
+                    
+                default:
+			    $this->accueil();
+				break;
+			}
+            
+		}
+
+        private function afficheContenuAdmin()
+        {
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheContenuAdmin();
+            $oVue->afficheFooter();
+            
+        } 
+		
         private function accueil()
 		{
-            $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $aOeuvres = $oOeuvres::listeOeuvres();
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
 			$oVue->afficheAccueil($aOeuvres);
 			$oVue->afficheFooter();
+			
 		} 
 
-        /*ONGLET ARRONDISSEMENT*/  
-
-        private function arrondissements()
-        {
-
-            $oArrondisement = new MArrondissement('', '');
-            //$aArrondissements = $oArrondisement::listeArrondissement($id_Arrondissement);
-            $aArrondissements = $oArrondisement::listeArrondissement();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheArrondissements($aArrondissements);
-            $oVue->afficheFooter();
-    
-        }
-
-        private function oeuvresParArr($getIdArr)
-        {   
-            $oOeuvreParArr = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvreParArr = $oOeuvreParArr::listerOeuvresParArr($getIdArr);
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr);
-            $oVue->afficheFooter();
-        }
-
-        /*ONGLET CATÉGORIE*/  
-
-        private function categories()
-        {
-            $oCategories = new MCategories('', '', '' ,'', '','');
-            $aCategories = $oCategories::listeCategories();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheCategories($aCategories);
-            $oVue->afficheFooter();
-    
-        }
-
-
-        private function oeuvresParCat($id_cat)
-        {   
-         
-            $oOeuvreParCat = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvreParCat = $oOeuvreParCat::listeOeuvresParCat($id_cat);
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
-            $oVue->afficheFooter();
-    
-        }
-
-
-
-       /*CONNEXION*/ 
-
-        private function connexion()
-        {   
-            $nombreAleatoire = rand(1, 1000);
-            $erreurConnexion = '';
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
-            $oVue->afficheFooter();
-            
-        } 
-
-
-            /* Vérifie la connexion admin
-         * @author: Gautier Piatek
-        */
-
-        private function validerConnexionAdmin($login, $pass, $grainSel)
-        {
-            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $motDePasseMD5 = $oAdmin_moderateur->MotDePasseAdmin($login);
-            $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
-
-            if($pass === $motDePassePlusGrainSel)
-            {   
-                $_SESSION["session"] = $login;
-                $_SESSION['admin'] = true;
-                //rediriger vers la page admin
-                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-                $aOeuvres = $oOeuvres->listeOeuvres();
-
-                $oArtistes = new MArtistes('', '', '', '', '', '');
-                $aArtistes = $oArtistes->listeArtistes();
-
-                $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
-                $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-
-                $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
-                $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
-
-                $message = '';
-                $oVue = new VueDefaut();
-                $oVue->afficheHeaderAdmin();
-                $oVue->afficheListeModifierOeuvres($aOeuvres);
-                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-                $oVue->afficheListeModifierArtistes($aArtistes);
-                $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
-                $oVue->afficheFooter();
-               
-            }
-            else
-            {
-                $nombreAleatoire = rand(1, 1000);
-                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
-                $oVue = new VueDefaut();
-                $oVue->afficheHeaderCnxAdmin();
-                $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
-                $oVue->afficheFooter();
-                
-            }
-        }
-
-
-
-
-        /* Vérifie la connexion utilisateur
-         * @author: Gautier Piatek
-        */
-
-        private function validerConnexion($login, $pass, $grainSel)
-        {
-            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '');
-            $motDePasseMD5 = $oUtilisateur->MotDePasse($login);
-            $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
-
-            if($pass === $motDePassePlusGrainSel)
-            {   
-                $_SESSION["session"] = $login;
-                //rediriger vers la page accueil
-                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-                $aOeuvres = $oOeuvres->listeOeuvres();
-                
-                
-                
-                $oVue = new VueDefaut();
-                $oVue->afficheHeader();
-                $oVue->afficheAccueil($aOeuvres);
-                $oVue->afficheFooter();
-               
-            }
-            else
-            {
-                $nombreAleatoire = rand(1, 1000);
-                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
-                $oVue = new VueDefaut();
-                $oVue->afficheHeader();
-                $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
-                $oVue->afficheFooter();
-                
-            }
-        }
- 
-
-        /*Vue recherche
-        * @author: German Mahecha
-        */
-
-        private function rechercheOeuvresMot()
-        {
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            
-            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvres=$oOeuvre::listeOeuvresparMot($_POST['mot']);
-            $oVue->afficheOeuvresMot($aOeuvres);
-            $oVue->afficheFooter();
-                
-        }
-    
-
-
-     /*PANEL ADMIN*/
-
-         private function adminPanel()
-        {
-             
-            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvres = $oOeuvres->listeOeuvres();
-             
-            $oArtistes = new MArtistes('', '', '', '', '', '');
-            $aArtistes = $oArtistes->listeArtistes();
-             
-            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
-            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-             
-            $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
-            
-            $message = '';
-             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeModifierOeuvres($aOeuvres);
-            $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-            $oVue->afficheListeModifierArtistes($aArtistes);
-            $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
-            $oVue->afficheFooter();
-        }
-
-
-
-        /* OEUVRE*/
-	/*Vue page d'un oeuvre
-        * @author: German Mahecha
-        */
         private function unOeuvre($idget)
 		{
-            $oOeuvre = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $oeuvre = $oOeuvre::listeUnOeuvre($idget);
+            
+            $oArrondissement = new MArrondissement('','');
+            $arrondissement = $oArrondissement::getArrondissementParId($oeuvre['idArrondissement']);
+                       
+            $oCategorie = new MCategories('','','');
+            $categorie = $oCategorie::getCategorieParId($oeuvre['idCategorie']);
+            
+            $oSousCategorie = new MSousCategories('','','','');
+            $sousCategorie = $oSousCategorie::getSousCategorieParId($oeuvre['idSousCategorie']);
+            
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
-			$oVue->afficheUnOeuvre($oeuvre);
+			$oVue->afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie);
 			$oVue->afficheFooter();
 			
 		}
-	
-	/*Vue liste pour modifier oeuvres
-        * @author: German Mahecha
-        */
-           private function listeModifierOeuvres()
+
+        private function unUtilisateur($idGetUtilisateur)
         {
-            $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvres = $oOeuvres::listeOeuvres();
+            $oUtilisateur = new MUtilisateurs('','','','','','');
+            $outilisateur = $oUtilisateur::listeUnUtilisateur($idGetUtilisateur);
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficherUnUtilisateur($outilisateur);
+            $oVue->afficheFooter();
+        }
+		
+		
+         private function artistes()
+		{
+            $oArtistes = new MArtistes('', '', '' ,'', '', '');
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+              
+            $aArtistes = $oArtistes::listeArtistes();
               
             $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeModifierOeuvres($aOeuvres);
+            $oVue->afficheHeader();
+			$oVue->afficheArtistes($aArtistes, $oOeuvres);
             $oVue->afficheFooter();
     
-        }
-	/*Vue liste pour supprimer oeuvres
-        * @author: German Mahecha
-        */
-        private function listeSupprimerOeuvres()
-        {
-            $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-            $aOeuvres = $oOeuvres::listeOeuvres();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerOeuvres($aOeuvres);
-            $oVue->afficheFooter();
+		}
     
-        }
-
-        private function ajoutOeuvre()
-
-        {
-            $erreurTitre ='';
-            $message ='';
-            
+        private function listeModifierArtistes()
+		{
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
             $aArtistes = $oArtistes::listeArtistes();
-            
-            $oCategories = new MCategories('', '', '' ,'', '','');
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeModifierArtistes($aArtistes);
+            $oVue->afficheFooter();
+    
+		}
+        private function listeSupprimerArtistes()
+		{
+            $oArtistes = new MArtistes('', '', '' ,'', '', '');
+            $aArtistes = $oArtistes::listeArtistes();
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeSupprimerArtistes($aArtistes);
+            $oVue->afficheFooter();
+    
+		}
+
+
+        private function listerUtilisateurs()
+        {
+            $oUtilisateurs = new MUtilisateurs('','','','','','');
+            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->listerUtilisateurs($aUtilisateurs);
+            $oVue->afficheFooter();
+        }
+    
+        private function listeModifierUtilisateurs()
+		{
+            $message='';
+            $oUtilisateurs = new MUtilisateurs('','','','','','');
+            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+            $oVue->afficheFooter();
+    
+		}
+        private function listeSupprimerUtilisateurs()
+		{
+            $oUtilisateurs = new MUtilisateurs('', '', '' ,'', '', '');
+            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
+            $oVue->afficheFooter();
+    
+		}
+    
+        private function listeModifierCategories()
+		{
+            $oCategories = new MCategories('','','');
             $aCategories = $oCategories::listeCategories();
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeModifierCategories($aCategories);
+            $oVue->afficheFooter();
+    
+		}
+        
+        private function listeSupprimerCategories()
+		{
+            $oCategories = new MCategories('','','');
+            $aCategories = $oCategories->listeCategories();
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeSupprimerCategories($aCategories);
+            $oVue->afficheFooter();
+    
+		}
+    
+        private function listeModifierOeuvres()
+		{
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeModifierOeuvres($aOeuvres);
+            $oVue->afficheFooter();
+    
+		}
+        private function listeSupprimerOeuvres()
+		{
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $aOeuvres = $oOeuvres::listeOeuvres();
+              
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeSupprimerOeuvres($aOeuvres);
+            $oVue->afficheFooter();
+    
+		}
+    
+        private function listeModifierAdmin_moderateur()
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
             
-            $oSousCategories = new MSousCategories('', '', '', '');
-            $aSousCategories = $oSousCategories::listeSousCategories();
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+			$oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateur);
+            $oVue->afficheFooter();
+        }
+    
+        private function listeSupprimerAdmin_moderateur()
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
             
-            $oArrondissements = new MArrondissement('', '');
-            $aArrondissements = $oArrondissements::listeArrondissement();
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur);
+            $oVue->afficheFooter();
+        }
+    
+    
+    
+        private function modifierArtiste($idArt)
+        {   
+            $oArtiste = new MArtistes('', '', '', '', '', '');
+            $aArtiste = $oArtiste->getArtisteParId($idArt);
+            $aArtistes = $oArtiste->listeArtistes();
             
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             
-            if($_GET['action'] == 'ajoutOeuvre') {
-                $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            if($_GET['idArtiste'] && $_GET['action'] == 'valider') {
                 
-                $oOeuvre->ajouterAdresse($_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
-                $idAdresse = $oOeuvre->recupererDernierId();
-                                         
                 try
                 {
-                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $idAdresse, $_POST['artiste'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['materiaux'], $_POST['materiauxAng']);
+                $oArtiste->modifierArtiste($_GET['idArtiste'], $_POST['prenom'], $_POST['nom'], $_POST['collectif'], $_POST['photoArtiste']);
                 
-                $message = "Oeuvre ajoutée.";
+                $oVue = new VueDefaut();
+                $aArtistes = $oArtiste->listeArtistes();
+                $oVue->afficheListeModifierArtistes($aArtistes); 
                     
                 }
                 catch (Exception $e)
                 {
                     $message = $e->getMessage();     
-                }
+                } 
                 
-            }
+    
+            } else {
+                $oVue->modifierUnArtiste($aArtiste);
+            }     
+            $oVue->afficheFooter();   
+        }
+    
+        private function modifierCategories($idCat)
+        {   
+            $oCategorie = new MCategories('', '', '');
+            $aCategorie = $oCategorie->getCategorieParId($idCat);
+            $aCategories = $oCategorie->listeCategories();
             
-            $oVue->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message);
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['idCategorie'] && $_GET['action'] == 'valider') {
+                
+                try
+                {
+                $oCategorie->modifierCategorie($_GET['idCategorie'], $_POST['nomCategorie'], $_POST['nomCatAng']);
+                
+                $oVue = new VueDefaut();
+                $aCategories = $oCategorie->listeCategories();
+                $oVue->afficheListeModifierCategories($aCategories); 
+                    
+                }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();     
+                } 
+                
+    
+            } else {
+                $oVue->modifierUneCategorie($aCategorie);
+            }     
+            $oVue->afficheFooter();   
+        }
+    
+        private function supprimerArtistes($idArtiste)
+        {   
+            $oArtiste = new MArtistes('', '', '', '', '', '');
+            $oArtiste->supprimerArtiste($idArtiste);
+            $aArtistes = $oArtiste::listeArtistes();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerArtistes($aArtistes);
+            $oVue->afficheFooter();
+        }
+        
+        private function modifierUtilisateur($idUtil)
+        {   
+            
+             $erreurTitre ='';
+             $message ='';
+             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+             $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+             $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+
+            if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
+            {
+               try
+                {
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                    $oVue = new VueDefaut();
+                   $message = 'Utilistaeur modifie';
+
+                    $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+                   
+               }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();
+                }
+            }
+            else
+            {
+                $oVue->modifierUnUtilisateur($aUtilisateur);
+            }
+           // $oVue = afficheListeModifierUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
 
+
         }
+    
+        private function modifierAdmin_moderateur($idAmin_moderateur)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateur = $oAdmin_moderateur->getAdmin_moderateurParId($idAmin_moderateur);
+            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['idAdMod'] && $_GET['action'] == 'valider')
+            {
+                try
+                {
+                    $oAdmin_moderateur->modifierAdmin_moderateur($_GET['idAdMod'], $_POST['role'], $_POST['login'], $_POST['pass']);
+                
+                    $oVue = new VueDefaut();
+                    $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+               }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();
+                }
+            
+            }
+            else
+            {
+               $oVue->modifierUnAdmin_moderateur($aAdmin_moderateur);
+            }
 
+            
+            
+            
+            $oVue->afficheFooter();
+        }
+    
+        private function supprimerUtilisateurs($idUtil)
+        {   
+            $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+            $oUtilisateur->supprimerUtilisateurs($idUtil);
+            $aUtilisateurs=$oUtilisateur->listeUtilisateurs();
 
-
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
+            $oVue->afficheFooter();
+        }
+    
+    
+        private function supprimerAdmin_moderateur($idAmin_moderateur)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $oAdmin_moderateur->supprimerAdmin_moderateur($idAmin_moderateur);
+            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateurs);
+            $oVue->afficheFooter();
+        }
+    
         private function modifierOeuvre($idOeuvre)
         {   
             $erreurTitre ='';
@@ -513,7 +622,7 @@ class Controler
             $oArrondissements = new MArrondissement('', '');
             $aArrondissements = $oArrondissements::listeArrondissement();
             
-            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             
             $aOeuvre = $oOeuvre->getOeuvreParId($idOeuvre);
             $aOeuvres = $oOeuvre->listeOeuvres();
@@ -548,13 +657,10 @@ class Controler
             }     
             $oVue->afficheFooter();  
         }
-    	
-    	/*Vue liste pour supprimer oeuvres
-        * @author: German Mahecha
-        */
+    
         private function supprimerOeuvres($idOeuvre) 
         {   
-            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $oOeuvre->supprimerOeuvre($idOeuvre);
             $aOeuvres = $oOeuvre->listeOeuvres();
             
@@ -564,71 +670,248 @@ class Controler
             $oVue->afficheFooter();
         }
     
+        
+		private function arrondissements()
+		{
 
-         
-        /*ARTISTE*/
+			$oArrondisement = new MArrondissement('', '');
+			//$aArrondissements = $oArrondisement::listeArrondissement($id_Arrondissement);
+			$aArrondissements = $oArrondisement::listeArrondissement();
 
-          private function artistes()
-        {
-            $oArtistes = new MArtistes('', '', '' ,'', '', '');
-            $oOeuvres = new MOeuvres ('', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-              
-            $aArtistes = $oArtistes::listeArtistes();
-              
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficheArtistes($aArtistes, $oOeuvres);
+			$oVue->afficheArrondissements($aArrondissements);
+            $oVue->afficheFooter();
+    
+		}
+
+		private function oeuvresParArr($getIdArr)
+        {   
+            $oOeuvreParArr = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $aOeuvreParArr = $oOeuvreParArr::listerOeuvresParArr($getIdArr);
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr);
+            $oVue->afficheFooter();
+        }
+
+        private function categories()
+        {
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories::listeCategories();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheCategories($aCategories);
             $oVue->afficheFooter();
     
         }
 
-        private function listeArtistes()
-        {
-            $oArtistes = new MArtistes('', '', '' ,'', '', '');
-            $aArtistes = $oArtistes::listeArtistes();
+
+        private function oeuvresParCat($id_cat)
+        {   
+         
+            $oOeuvreParCat = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $aOeuvreParCat = $oOeuvreParCat::listeOeuvresParCat($id_cat);
 
             $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->listeArtistes($aArtistes);
-            $oVue->afficheFooter();
-        }
-
-    	/*Vue liste pour modifier artistes
-        * @author: German Mahecha
-        */
-        private function listeModifierArtistes()
-        {
-            $oArtistes = new MArtistes('', '', '' ,'', '', '');
-            $aArtistes = $oArtistes::listeArtistes();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeModifierArtistes($aArtistes);
+            $oVue->afficheHeader();
+            $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
             $oVue->afficheFooter();
     
         }
+
+
+    
+        private function inscription()
+        {
+            $erreurTitre ='';
+            $message ='';
+          
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+
+            if($_GET['action'] == 'ajoutUtilisateur') 
+            {
+                
+                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                $message = "Utilisateur ajoutée.";
+            }
+
+            $oVue->afficheInscription();
+            $oVue->afficheFooter();    
+        } 
+
+        private function connexion()
+        {   
+            $nombreAleatoire = rand(1, 1000);
+            $erreurConnexion = '';
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
+            $oVue->afficheFooter();
+            
+        } 
+
+        private function rechercheOeuvresMot()
+        {
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $aOeuvres=$oOeuvre::listeOeuvresparMot($_POST['mot']);
+            $oVue->afficheOeuvresMot($aOeuvres);
+            $oVue->afficheFooter();
+                
+        }
+    
+        private function ajoutOeuvre()
+        {
+            $erreurTitre ='';
+            $message ='';
+            
+            $oArtistes = new MArtistes('', '', '' ,'', '', '');
+            $aArtistes = $oArtistes::listeArtistes();
+            
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories::listeCategories();
+            
+            $oSousCategories = new MSousCategories('', '', '', '');
+            $aSousCategories = $oSousCategories::listeSousCategories();
+            
+            $oArrondissements = new MArrondissement('', '');
+            $aArrondissements = $oArrondissements::listeArrondissement();
+            
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['action'] == 'ajoutOeuvre') {
+                $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+                
+                $oOeuvre->ajouterAdresse($_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
+                $idAdresse = $oOeuvre->recupererDernierId();
+                                         
+                try
+                {
+                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $idAdresse, $_POST['artiste'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['materiaux'], $_POST['materiauxAng']);
+                
+                $message = "Oeuvre ajoutée.";
+                    
+                }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();     
+                }
+                
+            }
+            
+            $oVue->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message);
+            $oVue->afficheFooter();
+
+        }
+
+        private function afficheInscriptionAdmin()
+        {
+          
+            $erreurTitre ='';
+            $message ='';
+          
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+
+            if($_GET['action'] == 'ajoutUtilisateur') 
+            {
+                
+                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                $message = "Utilisateur ajoutée.";
+            }
+
+            $oVue->afficheInscriptionAdmin();
+            $oVue->afficheFooter();    
+        } 
+         
+
         
-        /*Vue liste pour supprimer artistes
-        * @author: German Mahecha
-        */
-        private function listeSupprimerArtistes()
+
+        private function profilUtilisateur()
         {
-            $oArtistes = new MArtistes('', '', '' ,'', '', '');
-            $aArtistes = $oArtistes::listeArtistes();
-              
+
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+
+
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerArtistes($aArtistes);
+            //$oVue->ajouterUnArtiste();
+            $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter();
-    
         }
+
+         private function adminPanel()
+        {
+             
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $aOeuvres = $oOeuvres->listeOeuvres();
+             
+            $oArtistes = new MArtistes('', '', '', '', '', '');
+            $aArtistes = $oArtistes->listeArtistes();
+             
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+             
+            $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
+            $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
+            
+            $message = '';
+             
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            $oVue->afficheListeModifierOeuvres($aOeuvres);
+            $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+            $oVue->afficheListeModifierArtistes($aArtistes);
+            $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+            $oVue->afficheFooter();
+        }
+    
+         private function admin()
+        {
+            $erreurConnexion = '';
+            $nombreAleatoire = rand(1, 1000); 
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderCnxAdmin();
+            $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
+            $oVue->afficheFooter();
+        }
+    
+        private function ajouterAdmin_moderateur()
+        {
+            $erreurTitre ='';
+            $message ='';
+          
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            
+            if($_GET['action'] == 'ajoutAdmin_moderateur')
+            {
+                $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+                $oAdmin_moderateur->ajoutAdmin_moderateur($_POST['role'], $_POST['login'], $mdp=MD5($_POST['pass']));
+            }
+            
+            $oVue->formulaireAjouterAdmin_moderateur();
+            $oVue->afficheFooter();
+        }
+
+
+
 
         /* Ajouter  une ARTISTE
         * Auteure: Thuy Tien Vo
         */
 
-
-       
         private function ajouterUnArtiste()
         {     
             $oVue = new VueDefaut();
@@ -648,84 +931,16 @@ class Controler
             $oVue->afficheFooter();
         }
 
-
-        private function modifierArtiste($idArt)
-        {   
-            $oArtiste = new MArtistes('', '', '', '', '', '');
-            $aArtiste = $oArtiste->getArtisteParId($idArt);
-            $aArtistes = $oArtiste->listeArtistes();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            
-            if($_GET['idArtiste'] && $_GET['action'] == 'valider') {
-                
-                try
-                {
-                $oArtiste->modifierArtiste($_GET['idArtiste'], $_POST['prenom'], $_POST['nom'], $_POST['collectif'], $_POST['photoArtiste']);
-                
-                $oVue = new VueDefaut();
-                $aArtistes = $oArtiste->listeArtistes();
-                $oVue->afficheListeModifierArtistes($aArtistes); 
-                    
-                }
-                catch (Exception $e)
-                {
-                    $message = $e->getMessage();     
-                } 
-                
-    
-            } else {
-                $oVue->modifierUnArtiste($aArtiste);
-            }     
-            $oVue->afficheFooter();   
-        }
-
-
-        private function supprimerArtistes($idArtiste)
-        {   
-            $oArtiste = new MArtistes('', '', '', '', '', '');
-            $oArtiste->supprimerArtiste($idArtiste);
-            $aArtistes = $oArtiste::listeArtistes();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerArtistes($aArtistes);
-            $oVue->afficheFooter();
-        }
-
-
-        /*CATÉGORIE*/
-	/*Vue liste pour modifier categories
-        * @author: German Mahecha
-        */
-        private function listeModifierCategories()
+        private function afficheAjouterUnArtiste()
         {
-            $oCategories = new MCategories('','','');
-            $aCategories = $oCategories::listeCategories();
-              
+          
             $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeModifierCategories($aCategories);
+            $oVue->afficheHeader();
+            $oVue->afficheAjouterUnArtiste();
             $oVue->afficheFooter();
-    
-        }
-        /*Vue liste pour supprimer categories
-        * @author: German Mahecha
-        */
-        private function listeSupprimerCategories()
-        {
-            $oCategories = new MCategories('','','');
-            $aCategories = $oCategories->listeCategories();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerCategories($aCategories);
-            $oVue->afficheFooter();
-    
-        }
-
-
+            
+        } 
+        
         /* Ajouter une Catégorie
         * Auteure: Thuy Tien Vo
         */
@@ -763,314 +978,172 @@ class Controler
             $oVue->afficheListeSupprimerCategories($aCategories);
             $oVue->afficheFooter();
         }
+    
+        /* Vérifie la connexion utilisateur
+         * @author: Gautier Piatek
+        */
 
+        private function validerConnexion($login, $pass, $grainSel)
+        {
+            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '');
+            $motDePasseMD5 = $oUtilisateur->MotDePasse($login);
+		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
 
-        private function modifierCategories($idCat)
-        {   
-            $oCategorie = new MCategories('', '', '');
-            $aCategorie = $oCategorie->getCategorieParId($idCat);
-            $aCategories = $oCategorie->listeCategories();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            
-            if($_GET['idCategorie'] && $_GET['action'] == 'valider') {
+            if($pass === $motDePassePlusGrainSel)
+            {   
+                $_SESSION["session"] = $login;
+                //rediriger vers la page accueil
+                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+                $aOeuvres = $oOeuvres->listeOeuvres();
                 
-                try
-                {
-                $oCategorie->modifierCategorie($_GET['idCategorie'], $_POST['nomCategorie'], $_POST['nomCatAng']);
+                
                 
                 $oVue = new VueDefaut();
-                $aCategories = $oCategorie->listeCategories();
-                $oVue->afficheListeModifierCategories($aCategories); 
-                    
-                }
-                catch (Exception $e)
-                {
-                    $message = $e->getMessage();     
-                } 
-                
-    
-            } else {
-                $oVue->modifierUneCategorie($aCategorie);
-            }     
-            $oVue->afficheFooter();   
-        }
-    
-    
-
-
-        /*UTILISATEUR*/
-
-        private function unUtilisateur($idGetUtilisateur)
-        {
-            $oUtilisateur = new MUtilisateurs('','','','','','');
-            $outilisateur = $oUtilisateur::listeUnUtilisateur($idGetUtilisateur);
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficherUnUtilisateur($outilisateur);
-            $oVue->afficheFooter();
-        }
-		
-	/*Vue liste des utilisateurs
-        * @author: German Mahecha
-        */
-        private function listerUtilisateurs()
-        {
-            $oUtilisateurs = new MUtilisateurs('','','','','','');
-            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->listerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
-        }
-
-    	/*Vue liste pour modifier utilisateurs
-        * @author: German Mahecha
-        */
-        private function listeModifierUtilisateurs()
-		{
-            $message='';
-            $oUtilisateurs = new MUtilisateurs('','','','','','');
-            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-            $oVue->afficheFooter();
-    
-		}
-	
-	/*Vue liste pour supprimer utilisateurs
-        * @author: German Mahecha
-        */
-        private function listeSupprimerUtilisateurs()
-		{
-            $oUtilisateurs = new MUtilisateurs('', '', '' ,'', '', '');
-            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
-    
-		}
-
-        private function inscription()
-        {
-            $erreurTitre ='';
-            $message ='';
-          
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-
-            if($_GET['action'] == 'ajoutUtilisateur') 
-            {
-                
-                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
-                $message = "Utilisateur ajoutée.";
+                $oVue->afficheHeader();
+                $oVue->afficheAccueil($aOeuvres);
+                $oVue->afficheFooter();
             }
-
-            $oVue->afficheInscription();
-            $oVue->afficheFooter();    
-        } 
-
-
-        private function profilUtilisateur()
-        {
-
-            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
-            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            //$oVue->ajouterUnArtiste();
-            $oVue->listerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
-        }
-
-          private function modifierUtilisateur($idUtil)
-        {   
-            
-             $erreurTitre ='';
-             $message ='';
-             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-             $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
-             $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-
-            if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
+            else
             {
-               try
-                {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
-                    $oVue = new VueDefaut();
-                   $message = 'Utilistaeur modifie';
+                $nombreAleatoire = rand(1, 1000);
+                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $oVue = new VueDefaut();
+                $oVue->afficheHeader();
+                $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
+                $oVue->afficheFooter();
+                
+            }
+        }
+    
+        /* Vérifie la connexion admin
+         * @author: Gautier Piatek
+        */
 
-                    $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+        private function validerConnexionAdmin($login, $pass, $grainSel)
+        {
+            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+            $motDePasseMD5 = $oAdmin_moderateur->MotDePasseAdmin($login);
+		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
+
+            if($pass === $motDePassePlusGrainSel)
+            {   
+                $_SESSION["session"] = $login;
+                $_SESSION['admin'] = true;
+                //rediriger vers la page admin
+                $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+                $aOeuvres = $oOeuvres ->listeOeuvres();
+
+                $oArtistes = new MArtistes('', '', '', '', '', '');
+                $aArtistes = $oArtistes->listeArtistes();
+
+                $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+                $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+
+                $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
+                $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
+
+                $message = '';
+                $oVue = new VueDefaut();
+                $oVue->afficheHeaderAdmin();
+                $oVue->afficheListeModifierOeuvres($aOeuvres);
+                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+                $oVue->afficheListeModifierArtistes($aArtistes);
+                $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+                $oVue->afficheFooter();
+               
+            }
+            else
+            {
+                $nombreAleatoire = rand(1, 1000);
+                $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
+                $oVue = new VueDefaut();
+                $oVue->afficheHeaderCnxAdmin();
+                $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
+                $oVue->afficheFooter();
+                
+            }
+        }
+    
+    
+        private function miseajourjson()
+        {
+            $contenuJSON = file_get_contents("http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json");
+            $oeuvres = json_decode($contenuJSON, true);
+
+            //var_dump($oeuvres[0]['CategorieObjet']);
+            foreach ($oeuvres as $oeuvre) {
+                                
+                //Validation et insertion d'une categorie
+                $categorie = new MCategories('',$oeuvre["CategorieObjet"],"");
+                if (!empty($oeuvre["CategorieObjet"])&&!$categorie->validerCategorie())
+                {
+                   $categorie->ajoutCategorie($oeuvre["CategorieObjet"],$oeuvre["CategorieObjetAng"]);
+                }
+                $idcat=$categorie->validerCategorie();
+                //echo $idcat."-Cat<br/>";
+                
+                //Validation et insertion d'une sousCategorie
+                $souscategorie = new MSousCategories('',$oeuvre["SousCategorieObjet"],"","");
+                if (!empty($oeuvre["SousCategorieObjet"])&&!$souscategorie->validerSousCategorie())
+                {
+                   $souscategorie->ajoutSousCategorie($oeuvre["SousCategorieObjet"],$oeuvre["SousCategorieObjetAng"],$idcat);
+                }
+                $idsouscat=$souscategorie->validerSousCategorie();
+                //echo $idsouscat."-SousCat<br/>";
+                                
+                //Validation et insertion d'un arrondissement
+                $arrondissement = new MArrondissement('',$oeuvre["Arrondissement"]);
+                if (!empty($oeuvre["Arrondissement"])&&!$arrondissement->validerArrondissement())
+                {
+                   $arrondissement->enregistrerArrondissement();
+                }
+                
+                $idarrond=$arrondissement->validerArrondissement();
+               // echo $idarrond."-Arrondissement<br/>";
+                
+                //Validation et insertion d'un oeuvre
+                $unOeuvre =new MOeuvres('','','','','',$oeuvre["NoInterne"],'','','','','','','','','','','','');
+                
+                if (!empty($oeuvre["NoInterne"])&&!$unOeuvre->validerOeuvre())
+                {
+                   $unOeuvre->ajouterOeuvre($oeuvre["Titre"],$oeuvre["TitreVariante"],$oeuvre["Technique"],$oeuvre["TechniqueAng"],$oeuvre["NoInterne"],'',1,$idarrond,$oeuvre["Materiaux"],$oeuvre["MateriauxAng"],$idcat,$idsouscat,$oeuvre["AdresseCivique"],$oeuvre["Batiment"],$oeuvre["Parc"],$oeuvre["CoordonneeLatitude"],$oeuvre["CoordonneeLongitude"]);
+                }
+                
+                $idoeuvre=$unOeuvre->validerOeuvre();
+                //echo $obra."-Oeuvre<br/>";
+                
+                
+                 //Validation et insertion des artistes
+                $artistes = $oeuvre["Artistes"];
+                foreach ($artistes as $artiste) {
                    
-               }
-                catch (Exception $e)
-                {
-                    $message = $e->getMessage();
+                                
+                    $unArtiste = new MArtistes("","","","",$artiste["NoInterne"],"");
+                    //Validation s'il y a deja un artiste
+                    if (!$unArtiste->validerArtiste())
+                       $unArtiste->ajoutArtiste($artiste["Prenom"],$artiste["Nom"],$artiste["NomCollectif"],$artiste["NoInterne"],'');
+                    
+                    $idArt=$unArtiste->validerArtiste();
+                    
+                   
+                    // Validation s'il y a une relation entre un oeuvre et un artiste
+                    if (!$unArtiste->validerOeuvreArtiste($idoeuvre,$idArt))
+                    {
+                        $unArtiste->enregistrerOeuvreArtiste($idoeuvre,$idArt);
+                    }
+                   
                 }
-            }
-            else
-            {
-                $oVue->modifierUnUtilisateur($aUtilisateur);
-            }
-           // $oVue = afficheListeModifierUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
-        }
-
-
-          private function supprimerUtilisateurs($idUtil)
-        {   
-            $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-            $oUtilisateur->supprimerUtilisateurs($idUtil);
-            $aUtilisateurs=$oUtilisateur->listeUtilisateurs();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
-        }
-
-
-    
-
-    /*ADMIN/MODERATEUR*/
-
-        private function admin()
-        {
-            $erreurConnexion = '';
-            $nombreAleatoire = rand(1, 1000); 
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderCnxAdmin();
-            $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
-            $oVue->afficheFooter();
-        }
-    
-        private function listeModifierAdmin_moderateur()
-        {
-            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateur);
-            $oVue->afficheFooter();
-        }
-    
-        private function listeSupprimerAdmin_moderateur()
-        {
-            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur);
-            $oVue->afficheFooter();
-        }
-
-
-
-        private function afficheInscriptionAdmin()
-        {
-          
-            $erreurTitre ='';
-            $message ='';
-          
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-
-            if($_GET['action'] == 'ajoutUtilisateur') 
-            {
                 
-                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
-                $message = "Utilisateur ajoutée.";
-            }
-
-            $oVue->afficheInscriptionAdmin();
-            $oVue->afficheFooter();    
-        } 
-         
-
-        private function ajouterAdmin_moderateur()
-        {
-            $erreurTitre ='';
-            $message ='';
-          
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
             
-            if($_GET['action'] == 'ajoutAdmin_moderateur')
-            {
-                $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-                $oAdmin_moderateur->ajoutAdmin_moderateur($_POST['role'], $_POST['login'], $mdp=MD5($_POST['pass']));
-            }
-            
-            $oVue->formulaireAjouterAdmin_moderateur();
-            $oVue->afficheFooter();
-        }
-    
-     
-        private function modifierAdmin_moderateur($idAmin_moderateur)
-        {
-            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateur = $oAdmin_moderateur->getAdmin_moderateurParId($idAmin_moderateur);
-            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            
-            if($_GET['idAdMod'] && $_GET['action'] == 'valider')
-            {
-                try
-                {
-                    $oAdmin_moderateur->modifierAdmin_moderateur($_GET['idAdMod'], $_POST['role'], $_POST['login'], $_POST['pass']);
                 
-                    $oVue = new VueDefaut();
-                    $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
-               }
-                catch (Exception $e)
-                {
-                    $message = $e->getMessage();
-                }
+                
             
             }
-            else
-            {
-               $oVue->modifierUnAdmin_moderateur($aAdmin_moderateur);
-            }
-      
-            
-            $oVue->afficheFooter();
+        
         }
-    
-          
-        private function supprimerAdmin_moderateur($idAmin_moderateur)
-        {
-            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $oAdmin_moderateur->supprimerAdmin_moderateur($idAmin_moderateur);
-            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateurs);
-            $oVue->afficheFooter();
-        }
-    
-   
-    
-       
 
-}
 
-?>
+
+
+
+}?>
