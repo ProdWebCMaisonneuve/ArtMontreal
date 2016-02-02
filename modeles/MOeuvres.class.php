@@ -176,19 +176,6 @@ class MOeuvres {
 		return $oeuvres;
 	}
     
-    
-    /**
-	 * @access public static
-     * @author German Mahecha
-	 * @return Array Tableau contenant la liste de tout
-	 */
-	public static function listeUnOeuvre($idOeuvre) {
-		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idOeuvre = :idOeuvre');
-		self::$database->bind(':idOeuvre', $idOeuvre);
-        return (self::$database->uneLigne());
-       
-	}
-    
  
     /*
      * Fonction qui récupère les infos d'une oeuvre selon son id
@@ -386,12 +373,26 @@ class MOeuvres {
         return $oeuvres;
     }
     
+    /**
+     * Fonction qui compte le nombre d'oeuvres dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
     
+    public static function nbreOeuvres() {
+        self::$database->query("SELECT COUNT(idOeuvre) FROM oeuvre;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idOeuvre)"];
+    }
+
      /**
      * Function qui valide s'il existe un oeuvre dasn la table oeuvres
 	 * @author German Mahecha
 	 * @return idOeuvre ou false
 	 */
+
 
     public function validerOeuvre()
     {
@@ -401,7 +402,6 @@ class MOeuvres {
         $ligne=self::$database->uneLigne();
         return $ligne['idOeuvre'];
     } 
-    
-    
-   
-}?>
+ 
+}
+?>

@@ -155,12 +155,28 @@ class MArtistes {
         return(self::$database->execute());
 	}
     
+
+    /**
+     * Fonction qui compte le nombre d'artistes dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    
+    public static function nbreArtistes() {
+        self::$database->query("SELECT COUNT(idArtiste) FROM artiste;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idArtiste)"];
+    }
+
     
      /**
      * Fonction qui valide s'il existe un artiste dans la table artiste
 	 * @author German Mahecha
 	 * @return idArtiste ou false
 	 */
+
 
     public function validerArtiste()
     {
@@ -173,7 +189,7 @@ class MArtistes {
     
     
      /**
-     * Fonction qui valide s'il existe une relarion entre un oeuvre et un artiste dans la table oeuvre_artiste
+     * Fonction qui valide s'il existe une relation entre un oeuvre et un artiste dans la table oeuvre_artiste
 	 * @author German Mahecha
 	 * @return idOeuvre ou false
 	 */
@@ -201,7 +217,7 @@ class MArtistes {
         self::$database->bind(':idArtiste', $idA);
         return(self::$database->execute());
     } 
-    
-    
        
-}?>
+}
+
+?>

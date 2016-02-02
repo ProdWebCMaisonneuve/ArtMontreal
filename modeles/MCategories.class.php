@@ -70,10 +70,6 @@ class MCategories
 		return $categories;
 	}
     
-    /**
-	 * @author Thuy Tien Vo
-	 * @return none 
-	 */
 
      /*
      * Fonction qui récupère les infos d'une catégorie selon son id
@@ -91,7 +87,12 @@ class MCategories
     
     
     
-    
+    /*
+     * Fonction qui ajoute une catégorie
+	 * @access public static
+     * @author Thuy Vo
+	 * @return array
+	 */
     public function ajoutCategorie($nomCategorie,$nomCatAng)
 
         {
@@ -118,6 +119,21 @@ class MCategories
         return(self::$database->execute());
         
 	}
+
+    
+    /**
+     * Fonction qui compte le nombre de catégories dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    
+    public static function nbreCategories() {
+        self::$database->query("SELECT COUNT(idCategorie) FROM categorie;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idCategorie)"];
+    }
     
     
     /**
@@ -127,7 +143,7 @@ class MCategories
  
  	public static function supprimerCategories($idCategorie)
      {
-     	self::$database->query("DELETE FROM categorie WHERE idCategoCAterie=:idCategorie");
+     	self::$database->query("DELETE FROM categorie WHERE idCategorie=:idCategorie");
      	self::$database->bind(':idCategorie', $idCategorie);
       	return(self::$database->execute());
      }
@@ -149,12 +165,7 @@ class MCategories
         return $ligne['idCategorie'];
         
     } 
-    
-    
+      
 }
-
-
-    
-    
-    
+ 
 ?>

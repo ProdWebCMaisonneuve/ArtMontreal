@@ -1,7 +1,6 @@
 <?php
 /**
- * Class Vue
- * Template de classe Vue. Dupliquer et modifier pour votre usage.
+ * Class Vue Defaut
  *
  * @author Jonathan Martel
  * @version 1.0
@@ -277,6 +276,7 @@ class VueDefaut
             </html>
         <?php
     }
+
 
 
     /**
