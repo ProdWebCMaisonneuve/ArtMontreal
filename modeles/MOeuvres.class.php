@@ -496,7 +496,19 @@ class MOeuvres {
             return 'Aucune';
 	}
     
+    /**
+     * Fonction qui compte le nombre d'oeuvres dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
     
+    public static function nbreOeuvres() {
+        self::$database->query("SELECT COUNT(idOeuvre) FROM oeuvre;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idOeuvre)"];
+    }
 }
 
 

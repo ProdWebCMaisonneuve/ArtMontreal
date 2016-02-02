@@ -143,6 +143,20 @@ class MCategories
         return(self::$database->execute());
         
 	}
+    
+    /**
+     * Fonction qui compte le nombre de catégories dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    
+    public static function nbreCategories() {
+        self::$database->query("SELECT COUNT(idCategorie) FROM categorie;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idCategorie)"];
+    }
 }
 
 /**
@@ -224,6 +238,20 @@ class MSousCategories extends MCategories {
 			}
 			return $SousCategories;
 		}
+    
+    /**
+     * Fonction qui compte le nombre de sous-catégories dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    
+    public static function nbreSousCat() {
+        self::$database->query("SELECT COUNT(idSousCat) FROM souscategorie;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idSousCat)"];
+    }
 }
  
 

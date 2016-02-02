@@ -1,7 +1,6 @@
 <?php
 /**
- * Class Vue
- * Template de classe Vue. Dupliquer et modifier pour votre usage.
+ * Class Vue Defaut
  *
  * @author Jonathan Martel
  * @version 1.0
@@ -281,6 +280,22 @@ class VueDefaut
                             });
 
                        </script>
+                       <!--Pour le panel Admin-->
+                       <script src="lib/SBAdmin2/bower_components/jquery/dist/jquery.min.js"></script>
+
+                        <!-- Bootstrap Core JavaScript -->
+                        <script src="lib/SBAdmin2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+                        <!-- Metis Menu Plugin JavaScript -->
+                        <script src="lib/SBAdmin2/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+                        <!-- Morris Charts JavaScript -->
+                        <script src="lib/SBAdmin2/bower_components/raphael/raphael-min.js"></script>
+                        <script src="lib/SBAdmin2/bower_components/morrisjs/morris.min.js"></script>
+                        <script src="lib/SBAdmin2/js/morris-data.js"></script>
+
+                        <!-- Custom Theme JavaScript -->
+                        <script src="lib/SBAdmin2/dist/js/sb-admin-2.js"></script>
                     </body>
                 </html>
             <?php

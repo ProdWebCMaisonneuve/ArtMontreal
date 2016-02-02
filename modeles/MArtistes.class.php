@@ -176,6 +176,20 @@ class MArtistes {
         return(self::$database->execute());
         
 	}
+    
+    /**
+     * Fonction qui compte le nombre d'artistes dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    
+    public static function nbreArtistes() {
+        self::$database->query("SELECT COUNT(idArtiste) FROM artiste;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idArtiste)"];
+    }
 }
 
 
