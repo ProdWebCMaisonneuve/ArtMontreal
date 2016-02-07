@@ -402,6 +402,6 @@ class MOeuvres {
         $ligne=self::$database->uneLigne();
         return $ligne['idOeuvre'];
     } 
- 
+    
 }
 ?>

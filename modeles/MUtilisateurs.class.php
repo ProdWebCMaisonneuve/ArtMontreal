@@ -186,5 +186,19 @@ class MUtilisateurs {
         }
     }
 
-
+    
+    /**
+     * Fonction qui compte le nombre d'utilisateurs dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    
+    public static function nbreUtilisateurs() {
+        self::$database->query("SELECT COUNT(idUtilisateur) FROM utilisateur_enregistre;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idUtilisateur)"];
+    }
+    
 }?>

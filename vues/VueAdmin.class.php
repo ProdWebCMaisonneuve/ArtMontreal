@@ -9,6 +9,7 @@
  * @license http://creativecommons.org/licenses/by-nc/3.0/deed.fr
  *
  */
+
 class VueAdmin
 {
     
@@ -116,58 +117,6 @@ class VueAdmin
 
             }
     
-    /**
-     * Affiche le header de la connexion Admin
-     * @access public
-     * @author Gautier Piatek
-     * @version 1.0
-     * 
-     */
-    public function afficheHeaderCnxAdmin() 
-
-    {
-        ?>
-         <!DOCTYPE html>
-        <html lang="fr">
-            <head>
-                <title>Chass'Oeuvres - Administration</title>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <meta name="description" content="">
-                <meta name="viewport" content="width=device-width">
-
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="fonts/style.css" type="text/css">
-
-                <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-                <script src="./js/plugins.js"></script>
-                <script src="./js/main.js"></script>
-                <script type="text/javascript" src="./js/md5.js"></script>
-            </head>
-
-            <body>
-                <div id="wrapper">
-                <header>
-                    <div class="conteneurNav">
-
-                        <img src="images/logo.png" alt="logo">
-
-                        <div class="conteneurMenu">
-
-                            <div class="session">
-
-                                <!--<a href="index.php?requete=connexion" class="connexion">SE CONNECTER</a>-->
-                               <!-- <a href="#">FR/EN</a>-->
-                                <a href="index.php?requete=accueil" class="accueil"><span class="icon-home"></span> ACCUEIL</a>
-         
-                            </div>
-
-                        </div>
-    <?php
-    }
     
     /**
      * Affiche le header de la partie Admin
@@ -194,21 +143,26 @@ class VueAdmin
                 <meta name="description" content="">
                 <meta name="viewport" content="width=device-width">
                 <link rel="stylesheet" href="css/main.css">
+                
                 <!-- Bootstrap Core CSS -->
                 <link href="lib/SBAdmin2/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
                 <!-- MetisMenu CSS -->
                 <link href="lib/SBAdmin2/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-                <!-- Custom CSS -->
-                <link href="lib/SBAdmin2/dist/css/sb-admin-2.css" rel="stylesheet">
-
+                <!-- DataTables CSS -->
+                <link href="lib/SBAdmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+                <!-- DataTables Responsive CSS -->
+                <link href="lib/SBAdmin2/bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet">
+                
                 <!-- Morris Charts CSS -->
                 <link href="lib/SBAdmin2/bower_components/morrisjs/morris.css" rel="stylesheet">
-
+                
+                <!-- Custom CSS -->
+                <link href="lib/SBAdmin2/dist/css/sb-admin-2.css" rel="stylesheet">
                 <!-- Custom Fonts -->
                 <link href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-                
+                <!-- Barre de chargement Pace-->
                 <script src="js/pace.min.js"></script>
                 <link rel="stylesheet" href="css/pace.css">
 
@@ -228,12 +182,12 @@ class VueAdmin
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">Basculer la navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Chass'Oeuvre</a>
+                <a class="navbar-brand" href="index.php">Chass'Oeuvres</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -308,7 +262,7 @@ class VueAdmin
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Déconnexion</a>
+                        <li><a href="deconnexion.php"><i class="fa fa-sign-out fa-fw"></i> Déconnexion</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -335,7 +289,7 @@ class VueAdmin
                             <a href="index.php?requete=adminPanel"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                         </li>
                         <li>
-                            <a href="index.php?requete=afficheListeModifierOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
+                            <a href="index.php?requete=afficheOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
                         </li>
                         <li>
                             <a href="tables.html"><i class="fa fa-users fa-fw"></i> Artistes</a>
@@ -388,7 +342,7 @@ class VueAdmin
      * @version 1.0
      * 
      */
-    public function afficheGestion($nbreOeuvres, $nbreArtistes, $nbreSousCat) {
+    public function afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs) {
     
     ?>
     
@@ -414,7 +368,7 @@ class VueAdmin
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="index.php?requete=afficheOeuvres">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -450,11 +404,11 @@ class VueAdmin
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-list fa-5x"></i>
+                                    <i class="fa fa-user fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $nbreSousCat; ?></div>
-                                    <div>Catégories</div>
+                                    <div class="huge"><?php echo $nbreUtilisateurs; ?></div>
+                                    <div>Utilisateurs</div>
                                 </div>
                             </div>
                         </div>
@@ -595,26 +549,106 @@ class VueAdmin
     /**------------------------------------------------------------------------OEUVRE---------------------------------------------------------------------------- **/
     
     /**
-     * Affiche la page admin oeuvre
+     * Affiche la page admin oeuvres
      * @access public
      * @author Gautier Piatek
      * @version 1.0
      * 
      */
-    public function afficheOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message) 
+    public function afficheOeuvres($aOeuvres, $nbreOeuvres) 
     { 
+        /*var_dump($aOeuvres);*/
     ?>
     <div id="page-wrapper">
+            
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12"> 
                     <h1 class="page-header">Oeuvres</h1>
-                </div>
+                </div>    
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
             <div class="row">
+                <div class="col-lg-4 col-lg-offset-2"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <a href="index.php?requete=ajoutOeuvre">
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                                                   
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"> Ajouter une oeuvre</div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                           
+                              
+                                              
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-paint-brush fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $nbreOeuvres; ?> Oeuvres</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
             </div>
-    </div>
+            
+            
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste des oeuvres
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
+                                    <thead>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Titre (Variante)</th>
+                                            <th>Supprimer</th>
+                                            <th>Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach($aOeuvres as $oeuvre) {
+                                        echo '<tr>';
+                                        echo "<td>".$oeuvre->getTitreOeuvre()."</td>";
+                                        echo "<td>".$oeuvre->getTitreVariante()."</td>";
+                                        echo '<td class="text-center"><a href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
     <?php
     }
 

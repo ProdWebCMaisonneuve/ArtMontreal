@@ -121,20 +121,6 @@ class MCategories
 	}
 
     
-    /**
-     * Fonction qui compte le nombre de catégories dans la BDD
-	 * @access public static
-     * @author Gautier Piatek
-	 * @return int
-	 */
-    
-    public static function nbreCategories() {
-        self::$database->query("SELECT COUNT(idCategorie) FROM categorie;");
-        $resultat = self::$database->uneLigne();
-        
-        return $resultat["COUNT(idCategorie)"];
-    }
-    
     
     /**
  	 * @author Thuy Tien Vo
