@@ -256,14 +256,14 @@ class Controler
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
 			$oVue->afficheAccueil($aOeuvres);
-			$oVue->afficheFooter();
+			$oVue->afficheFooter(true, false, false, false);
 			
 		} 
 
         private function unOeuvre($idget)
 		{
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $oeuvre = $oOeuvre::listeUnOeuvre($idget);
+            $oeuvre = $oOeuvre::getOeuvreParId($idget);
             
             $oArrondissement = new MArrondissement('','');
             $arrondissement = $oArrondissement::getArrondissementParId($oeuvre['idArrondissement']);
@@ -688,7 +688,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
 			$oVue->afficheArrondissements($aArrondissements);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false, true, false, true);
     
 		}
 
@@ -696,11 +696,14 @@ class Controler
         {   
             $oOeuvreParArr = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $aOeuvreParArr = $oOeuvreParArr::listerOeuvresParArr($getIdArr);
+            
+            $oArrondisement = new MArrondissement('', '');
+            $aArrondissements = $oArrondisement::getArrondissementParId($getIdArr);
 
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr);
-            $oVue->afficheFooter();
+            $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr, $aArrondissements);
+            $oVue->afficheFooter(false, true, false, true);
         }
 
         private function categories()
