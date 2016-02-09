@@ -259,7 +259,7 @@ class Controler
         private function unOeuvre($idget)
 		{
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $oeuvre = $oOeuvre::listeUnOeuvre($idget);
+            $oeuvre = $oOeuvre::getOeuvreParId($idget);
             
             $oArrondissement = new MArrondissement('','');
             $arrondissement = $oArrondissement::getArrondissementParId($oeuvre['idArrondissement']);
@@ -689,10 +689,13 @@ class Controler
         {   
             $oOeuvreParArr = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $aOeuvreParArr = $oOeuvreParArr::listerOeuvresParArr($getIdArr);
+            
+            $oArrondisement = new MArrondissement('', '');
+            $aArrondissements = $oArrondisement::getArrondissementParId($getIdArr);
 
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
-            $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr);
+            $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr, $aArrondissements);
             $oVue->afficheFooter();
         }
 
