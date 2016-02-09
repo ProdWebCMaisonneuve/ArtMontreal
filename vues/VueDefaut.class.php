@@ -308,10 +308,10 @@ class VueDefaut
      * @access public
      *
      */
-    public function afficheFooter() 
+    public function afficheFooter($slider, $admin, $charts, $table) 
     {
         ?>
-                   <footer class="container-fuid">
+                   <footer class="container-fluid">
                              <div >
                                  <div class="row">
                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="color_footer">
@@ -323,12 +323,16 @@ class VueDefaut
                              </div>
                         </footer>
 
-                    
+
+                    <?php
+                    if($slider) {
+                    ?>
+
                     <script src='js/jquery.js'></script>
                     <script src='js/jquery.slides.js'></script>
                     <script src="js/bootstrap.min.js"></script>
                     
-                    <script >
+                    <script>
                         $(function(){
                             $('.slides').slidesjs({
                                play: {
@@ -343,7 +347,87 @@ class VueDefaut
                             });
                         });
 
-                   </script>
+                    </script>
+                    <?php
+                    }
+                   
+                    if($admin) {
+                    ?>
+                    <!-- jQuery -->
+                    <script src="lib/SBAdmin2/bower_components/jquery/dist/jquery.min.js"></script>
+
+                    <!-- Bootstrap Core JavaScript -->
+                    <script src="lib/SBAdmin2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+                    <!-- Metis Menu Plugin JavaScript -->
+                    <script src="lib/SBAdmin2/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+                    
+                    <!-- Custom Theme JavaScript -->
+                    <script src="lib/SBAdmin2/dist/js/sb-admin-2.js"></script>
+                    
+                    <?php 
+                    }
+                    
+                    if($charts) {
+                    ?>
+                    <!-- Morris Charts JavaScript -->
+                    <script src="lib/SBAdmin2/bower_components/raphael/raphael-min.js"></script>
+                    <script src="lib/SBAdmin2/bower_components/morrisjs/morris.min.js"></script>
+                    <script src="lib/SBAdmin2/js/morris-data.js"></script>
+                    <?php    
+                    }
+                    
+                    if($table) {
+                    ?>
+                    <!-- DataTables JavaScript -->
+                    <script src="lib/SBAdmin2/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+                    <script src="lib/SBAdmin2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+                    
+                    <!-- dataTables -->
+                    <script>
+                    $(document).ready(function() {
+                        $('#dataTables-liste').DataTable({
+                            responsive: true,
+                            paging: false,
+                            scrollY: "50vh",
+                            scrollCollapse: true,
+                            columns: [
+                                null,
+                                null,
+                                { "orderable": false },
+                                { "orderable": false }
+                            ],
+                            info: false,
+                            language: {
+                                "sProcessing":     "Traitement en cours...",
+                                "sSearch":         "Rechercher&nbsp;:",
+                                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                                "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                                "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                                "sInfoPostFix":    "",
+                                "sLoadingRecords": "Chargement en cours...",
+                                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                                "oPaginate": {
+                                    "sFirst":      "Premier",
+                                    "sPrevious":   "Pr&eacute;c&eacute;dent",
+                                    "sNext":       "Suivant",
+                                    "sLast":       "Dernier"
+                                },
+                                "oAria": {
+                                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                                }
+                            }
+                        });
+                    });
+                    </script>
+                    
+                    <?php
+                    }
+                    ?>
+                                       
                 </body>
             </html>
         <?php
@@ -1693,7 +1777,7 @@ public function afficheAccueil($oeuvres)
                         echo "<td><span class='icon-blackboard'></span>";
                         echo "<td>".$oeuvre->getTitreOeuvre()."</td>" ;
                                                
-                       if($oeuvre->getCollectif() =="") {
+                       if($oeuvre->getCollectif() == "") {
                           echo "<td>".$oeuvre->getNomArtiste()." ".$oeuvre->getPrenomArtiste()."</td>" ;
                        } else {
                            echo "<td>".$oeuvre->getCollectif()."</td>" ;
@@ -1709,7 +1793,7 @@ public function afficheAccueil($oeuvres)
     }
 
 
-        /**
+    /**
      * Affiche la page pour ajouter un artiste
      * @access public
      * @auteure: Jorge Blanco

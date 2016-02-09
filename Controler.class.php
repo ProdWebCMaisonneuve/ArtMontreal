@@ -223,10 +223,14 @@ class Controler
                 case 'adminPanel':
                     $this->adminPanel();
                     break;
+                
                 case 'miseajourjson':
                     $this->miseajourjson();
                     break;
 
+                case 'afficheOeuvres':
+                    $this->afficheOeuvres();
+                    break;
                     
                 default:
 			    $this->accueil();
@@ -252,7 +256,7 @@ class Controler
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
 			$oVue->afficheAccueil($aOeuvres);
-			$oVue->afficheFooter();
+			$oVue->afficheFooter(true, false, false, false);
 			
 		} 
 
@@ -385,14 +389,17 @@ class Controler
     
 		}
     
-        private function listeModifierOeuvres()
+        private function afficheOeuvres()
 		{
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierOeuvres($aOeuvres);
-            $oVue->afficheFooter();
+            $aOeuvres = $oOeuvres->listeOeuvres();
+            $nbreOeuvres = $oOeuvres->nbreOeuvres();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+			$oVueAdmin->afficheOeuvres($aOeuvres, $nbreOeuvres);
+            $oVueDefaut->afficheFooter(false, true, false, true);
     
 		}
         private function listeSupprimerOeuvres()
@@ -681,7 +688,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
 			$oVue->afficheArrondissements($aArrondissements);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false, true, false, true);
     
 		}
 
@@ -696,7 +703,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr, $aArrondissements);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false, true, false, true);
         }
 
         private function categories()
@@ -859,35 +866,35 @@ class Controler
              
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $aOeuvres = $oOeuvres->listeOeuvres();
+            $nbreOeuvres = $oOeuvres->nbreOeuvres();
              
             $oArtistes = new MArtistes('', '', '', '', '', '');
             $aArtistes = $oArtistes->listeArtistes();
+            $nbreArtistes = $oArtistes->nbreArtistes();
              
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
             $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+            $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
              
             $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
             
             $message = '';
              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeModifierOeuvres($aOeuvres);
-            $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-            $oVue->afficheListeModifierArtistes($aArtistes);
-            $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
-            $oVue->afficheFooter();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
+            $oVueDefaut->afficheFooter(false, true, true, false);
         }
     
          private function admin()
         {
             $erreurConnexion = '';
             $nombreAleatoire = rand(1, 1000); 
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderCnxAdmin();
+            $oVue = new VueAdmin();
             $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
-            $oVue->afficheFooter();
+            
         }
     
         private function ajouterAdmin_moderateur()
@@ -1035,34 +1042,35 @@ class Controler
                 //rediriger vers la page admin
                 $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
                 $aOeuvres = $oOeuvres ->listeOeuvres();
-
+                $nbreOeuvres = $oOeuvres->nbreOeuvres();
+                
                 $oArtistes = new MArtistes('', '', '', '', '', '');
                 $aArtistes = $oArtistes->listeArtistes();
-
+                $nbreArtistes = $oArtistes->nbreArtistes();
+                
                 $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
                 $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-
+                $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+                
                 $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
                 $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
-
+                
                 $message = '';
-                $oVue = new VueDefaut();
-                $oVue->afficheHeaderAdmin();
-                $oVue->afficheListeModifierOeuvres($aOeuvres);
-                $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-                $oVue->afficheListeModifierArtistes($aArtistes);
-                $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
-                $oVue->afficheFooter();
+                $oVueAdmin = new VueAdmin();
+                $oVueDefaut = new VueDefaut();
+                $oVueAdmin->afficheHeaderAdmin();
+                $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
+                $oVueDefaut->afficheFooter();
                
             }
             else
             {
                 $nombreAleatoire = rand(1, 1000);
                 $erreurConnexion = "Combinaison nom d'utilisateur et mot de passe invalide.";
-                $oVue = new VueDefaut();
-                $oVue->afficheHeaderCnxAdmin();
+                $oVue = new VueAdmin();
+                
                 $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
-                $oVue->afficheFooter();
+                
                 
             }
         }
