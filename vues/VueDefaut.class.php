@@ -86,7 +86,7 @@ class VueDefaut
 
                                <div class=" collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                     <ul class="nav navbar-nav col-mid-offset-2">
-                                        <li class="active"><a href="index.php?requete=accueil" id="accueil"><span class="glyphicon glyphicon-home"></span> ACCUEIL</a>
+                                        <li><a href="index.php?requete=accueil" id="accueil"><span class="glyphicon glyphicon-home"></span> ACCUEIL</a>
                                         </li>
                                         <li>
                                             <a href="index.php?requete=artistes" class="artiste" id="artiste"><span class="glyphicon glyphicon-user"></span> ARTISTE</a>
@@ -110,17 +110,19 @@ class VueDefaut
                                    
                                    <ul class="nav navbar-nav navbar-right">
                                     
-                                    <li><a href="index.php?requete=inscription" ><span class="glyphicon glyphicon-user"></span> S'INSCRIRE</a>
+                                    
                                     </li>
                                     <?php
                                         if($_SESSION["admin"]) {
-                                            echo "<li>"."<a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a>" . "</li>";
+                                            echo "<li><a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a></li>";
                                         }
         
                                         if($_SESSION["session"]) {
-                                            echo "<li>" ."<a href='deconnexion.php'><span class='glyphicon glyphicon-log-in'></span> " . $_SESSION["session"] . " <span class='glyphicon glyphicon-log-out'></span> DECONNEXION </a>" . "</li>";
+                                            echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
+                                                echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
                                         } else {
-                                            echo "<li>". "<a href='index.php?requete=connexion'><span class='glyphicon glyphicon-log-in'></span> SE CONNECTER</a>" . "</li>";
+                                            echo "<li><a href='index.php?requete=inscription'><span class='glyphicon glyphicon-user'></span> S'INSCRIRE</a>";
+                                            echo "<li><a href='index.php?requete=connexion'><span class='glyphicon glyphicon-log-in'></span> SE CONNECTER</a></li>";
                                         }
                                     ?>
                                     <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->   
@@ -141,102 +143,81 @@ class VueDefaut
      * @access public
      * @author Thuy Tien Vo
      * @author Jorge Blanco
+     * @author German Mahecha
      */
     public function afficheInscription() 
     {
         ?>
         <div class="container">
                     <div class='row'>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <h1>Formulaire d'inscription</h1>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                            <h1>Formulaire d'inscription</h1>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+                    </div>
                 
-
-        
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 
                 <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur" name="formInscription" id="formInscription">
         
             <fieldset>
-                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-            <!-- Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Date de naissance:<br>
-            <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
-             <br> <br>
-            Sexe:<br><br>
-            <input type="radio" name="sex" value="male" checked> Male
-            <input type="radio" name="sex" value="female"> Female<br><br>
-            Courriel:<br>
-            <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-            <br> <br> -->
-            <div class="form-group">
-                <label for="bio">Biographie:</label> 
-                <textarea class="form-control" rows="8" cols="60" name="bio"placeholder="Entrer un text ici..." id="bio"></textarea>
-<!--                <div id="msjBio" class="erreurs" style="display:none">Il faut remplir ce champ</div>-->
-            <span id="msjBio" style="display:none">Remplir bio</span>
-            </div>
-              
-            <div class="form-group">
-                <label for="utilisateur">Nom d'utilisateur:</label>  
-                <input class="form-control" type="text" name="utilisateur" id="utilisateur">
-                <span id="erreurPrenom"></span>
-            </div>
-            
-            <div class="form-group">
-                <label for="motDePasse">Mot de passe:</label> 
-                <input class="form-control" type="password" name="motDePasse" id="motDePasse">
-                <span id="erreurMotPass"></span>
-            </div>
-                
-            <div class="form-group">    
-                <label for="motDePasse">Confirmer le mot de passe:</label>
-                <input class="form-control" type="password" name="motDePasse" value="" id="motDePasse">
-                <span id="erreurMotPass2"></span>
-            </div>  
-                
-                
 
-<!--
-                score:
-                <input class="form-control" type="text" name="score" value="">
--->
+                <div class="form-group">
+                    <label for="utilisateur" class="control-label">Nom d'utilisateur:</label>  
+                    <input type="text" name="utilisateur" class="form-control" id="utilisateur"/>
+                    <span id="msjUtilisateur1" style="display:none">Veuillez saisir votre nom d'utilisateur</span>
+                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
+                </div>
+                <div class="form-group">
+                    <label for="motDePasse" class="control-label">Mot de passe:</label> 
+                    <input type="password" name="motDePasse" class="form-control" id="motDePasse1"/>
+                    <span id="msjMotDePasse1" style="display:none">Veuillez mettre votre mot de pass</span>
+                </div>    
+                <div class="form-group">    
+                    <label for="motDePasse">Confirmer le mot de passe:</label>
+                    <input type="password" name="motDePasse" class="form-control" id="motDePasse2"/>
+                    <span id="msjMotDePasse2" style="display:none">Veuillez confirmer votre mot de pass</span>
+                </div>
+                <div class="form-group">
+                    <label for="prenom"  class="control-label">Prénom:</label>
+                    <input type="text" name="prenom" id="prenom" class="form-control"/>
+                    <span id="msjPrenom" style="display:none">Veuillez confirmer votre prenom</span>
+                </div>
+                <div class="form-group">
+                    <label for="nom" class="control-label">Nom:</label>
+                    <input type="text" name="nom" id="nom" class="form-control"/>
+                    <span id="msjNom" style="display:none">Veuillez confirmer votre nom</span>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="control-label">Email:</label>
+                    <input type="text" name="email" id="email" class="form-control"/>
+                    <span id="msjEmail" style="display:none">Veuillez confirmer votre email</span>
+                </div>
+                <div class="form-group">
+                    <label for="telephone" class="control-label">Téléphone:</label>
+                    <input type="text" name="telephone" id="telephone" class="form-control"/>
+                    <span id="msjTelephone" style="display:none">Veuillez confirmer votre téléphone</span>
+                </div>    
+                <div class="form-group">
+                    <label for="bio" class="control-label">Biographie:</label> 
+                    <textarea name="bio" placeholder="Entrer un text ici..." class="form-control" rows="8" cols="60" id="bio"></textarea>
+                     <span id="msjBio" style="display:none">Remplir bio</span>
+                </div>
 
-            
-            <div class="form-group">
-                <label for="fichier">photo:</label> 
-                <input type="file" name="fichier" >
-                <p class="help-block">maximun 50Mb</p>
-            </div>
-                
-            
-            
-<!--            <input type="submit" value="Envoyer" id="button">-->
+                <div class="form-group">
+                    <label for="fichier" class="control-label">Photo:</label> 
+                    <input type="file" name="photo" >
+                    <p class="help-block">maximun 50Mb</p>
+                </div>
                 <input type="button"  onclick="validerFormAInscription()" value="Envoyer" id="button"> 
             </fieldset>
         </form> 
             </div>
-            
-            
+          </div> 
+        </div>
 
-                
-                
-        
-                
-                </div> 
-                
-                
-                
-        </div>         
         <?php
 
     }
@@ -246,33 +227,45 @@ class VueDefaut
      * @access public
      * @author Thuy Tien Vo
      * @author Gautier Piatek
+     * @author German Mahecha
      */
     public function afficheConnexion($nombreAleatoire, $erreurConnexion) 
     {
         $_SESSION["grainSel"] = $nombreAleatoire;
        
         ?>
-        <div>
-            <h2 id="titre1">Connexion</h2>
-            <form method ="post" name="loginForm" class="formulaire1">
-                <span><?php echo $erreurConnexion;?></span>
-                <fieldset>
-                    Nom d'utilisateur:<br> 
-                    <input type="text" name="utilisateur" >
-                    <br>
-                    Mot de passe:<br>
-                    <input type="password" name="motDePasse" >
-                    <br> <br>
-                    <input type="button" value="Connexion" id="button" onclick="encrypte();">
-                </fieldset>
-            </form>
-
-            <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
-                <input type="hidden" name="utilisateur"/><br/>
-                <input type="hidden" name="motDePasse"/><br/>
-                <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
-            </form>
-        </div>            
+            
+        <div class="container">
+            <div class='row'>
+                <div class="col-lg-12 text-center">
+                    <h1>Connexion Utilisateur</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <form method ="post" name="loginForm" >
+                            <span><?php echo $erreurConnexion;?></span>
+                            <div class="form-group">
+                                <label for="utilisateur" class="control-label">Nom d'utilisateur:</label>  
+                                <input type="text" name="utilisateur" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="motDePasse" class="control-label">Mot de passe:</label>  
+                                <input type="password" name="motDePasse" class="form-control" class="form-control">
+                            </div>
+                            <input type="button" value="Connexion" id="button" onclick="encrypte();">
+                        </form>
+                        <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
+                            <input type="hidden" name="utilisateur"/><br/>
+                            <input type="hidden" name="motDePasse"/><br/>
+                            <input type="hidden" name="grainSel" value="<?php echo $_SESSION['grainSel']; ?>">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php
 
     }
@@ -449,31 +442,17 @@ class VueDefaut
      * Affiche la page d'accueil
      * @access public
      * @auteur: German Mahecha
+     * @auteur: Jorge Blanco
      */
-public function afficheAccueil($oeuvres) 
+public function afficheSliderAccueil($oeuvres) 
     {
         
         ?>
-<!--
-            <div class='row' id="slide_">
-                <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                    <div class="slides">
-                    <img src="images/img1.jpg" alt=''>
-                    <img src="images/img2.jpg" alt=''>
-                    <img src="images/img3.jpg" alt=''>
-            </div>
-                
-                </div>
-
-            </div>
--->
-
-        <!-- Jumbotron Header -->
         <header class="jumbotron" id="slide_">
             
                 <div class='row'>
                 <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
                   <!-- Indicators -->
                   <ol class="carousel-indicators">
                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -522,21 +501,7 @@ public function afficheAccueil($oeuvres)
                 </div>
 
             </div>
-            <div class='row' id="message_bienvenue">
-                <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1'></div>
-                <div class='col-xs-10 col-sm-10 col-md-10 col-lg-10'>
-                    
-                    <h1>Bienvenue à CHASS’OEUVRES Montréal
-</h1>
-                    <p>Aide-nous à trouver les photos de toutes les œuvres de la ville de Montréal, vous pouvez recevoir de points sur chaque photo que vous prenez et être le meilleur photographe de notre site.
-.</p>
-                    <p><a href="index.php?requete=inscription" class="btn btn-primary btn-large">S'inscrire</a>
-            </p>
-                
-                </div>
-
             
-            </div>
           
         </header>
             
@@ -545,7 +510,51 @@ public function afficheAccueil($oeuvres)
 
 
         <?php
-           foreach($oeuvres as $oeuvre) {
+            
+
+    }
+    
+    /**
+     * Affiche la page d'accueil
+     * @access public
+     * @auteur: German Mahecha
+     * @auteur: Jorge Blanco
+     */
+    public function afficheJumbotronAccueil() 
+    {
+         if(!($_SESSION['session'])) {
+          ?>
+            <!-- Jumbotron Header -->
+            <header class="jumbotron" id="slide_">
+                <div class='row'>
+                    <div class='col-lg-12'>
+                        <div class='row' id="message_bienvenue">
+                            <div class='col-lg-1'></div>
+                                <div class='col-lg-10'>
+                                    <h1>Bienvenue à CHASS’OEUVRES Montréal</h1>
+                                    <p>Aide-nous à trouver les photos de toutes les œuvres de la ville de Montréal, vous pouvez recevoir de points sur chaque photo que vous prenez et être le meilleur photographe de notre site.</p>
+                                    <p><a href="index.php?requete=inscription" class="btn btn-primary btn-large">S'inscrire</a></p>
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </header>  
+        <?php
+        }
+    } 
+    
+    
+    /**
+     * Affiche la page d'accueil
+     * @access public
+     * @auteur: German Mahecha
+     * @auteur: Jorge Blanco
+     */
+    public function afficheOeuvresAccueil($oeuvres) 
+    {
+        
+        foreach($oeuvres as $oeuvre) {
                if($oeuvre->getValidationOeuvre()==1)
                {   
                     echo '<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 hero-feature">';
@@ -556,24 +565,20 @@ public function afficheAccueil($oeuvres)
                                 echo '<div class="overlay">';
                                     echo '<h2>'.$titre .'</h2>';
                                     echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a>';
-                                    echo '<p class="info">likes</p>';
-                                    
+                                    echo '<p class="info"><span class="glyphicon glyphicon-thumbs-up"></span> 30 likes</p>';
+                                    if ($_SESSION['session']){
+                                        echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "Proposer Photo " .'</a>';
+                                        echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "<span class='glyphicon glyphicon-thumbs-up'></span> J'aime" .'</a>';
+                                    }
                                 echo '</div>';
                             echo '</div>';
                     echo '</div>';
-                    
-                   
-               }
-    
-            }  
 
-    }
-    
-    
-    
+               }   
+        } 
+    } 
 
 
-    
     /**
      * Affiche un Oeuvre
      * @access public
@@ -679,11 +684,7 @@ public function afficheAccueil($oeuvres)
     <?php
        
     }
-
-    
-    
-    
-    
+   
     /**
      * Affiche les oeuvres par artistes
      * @access public
@@ -782,9 +783,6 @@ public function afficheAccueil($oeuvres)
         }
         echo "</section> ";
     }
-    
-    
-    
    
 /**
      * Affiche les arrondissements 
@@ -794,7 +792,6 @@ public function afficheAccueil($oeuvres)
      * 
      */
     public function afficheArrondissements($aArrondissements)
-
     {
         ?>
         <div class="row">

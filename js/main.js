@@ -37,26 +37,109 @@ function validerFormAInscription()
 {
     
     var valide=true;
+    var valide_valide=false;
     
-    var bio=$("#bio").val().length;
+    $utilisateur= $("#utilisateur");
+    $motDePasse1 = $("#motDePasse1");
+    $motDePasse2 = $("#motDePasse2");
+    $prenom = $("#prenom");
+    $nom = $("#nom");
+    $email = $("#email");
+    $telephone = $("#telephone");
+    $bio= $("#bio");
+   
+    if(valide_valide==false)
+    {
+        if($utilisateur.val().length < 4){
+        $( "#msjUtilisateur1" ).css("display", "block");
+        valide=false;
+        }
+//        http://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
+        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/)){
+            $("#msjUtilisateur2" ).css("display", "block");
+            $( "#msjUtilisateur1" ).css("display", "none");
+            valide=false;
+        }else{
+            $("#msjUtilisateur1" ).css("display", "none");
+            $("#msjUtilisateur2" ).css("display", "none");
+        }
+        
 
-    if( bio < 1){
-      $( "#msjBio" ).css("display", "block");
-      valide=false;
-    }else{
-      $( "#msjBio" ).css("display", "none");
+        if($motDePasse1.val().length < 1 ){
+        $( "#msjMotDePasse1" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjMotDePasse1" ).css("display", "none");
+        }
+
+        if($motDePasse2.val() != $motDePasse1.val()){
+        $( "#msjMotDePasse2" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjMotDePasse2" ).css("display", "none");
+        }
+
+        
+        
+//        http://www.godsavethegeek.com/autre/regex-caracteres-accentues-prenom-nom
+        if(!$prenom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
+        $( "#msjPrenom" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjPrenom" ).css("display", "none");
+        }
+
+        
+        
+        if(!$nom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
+        $( "#msjNom" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjNom" ).css("display", "none");
+        }
+
+        
+//      http://web.ontuts.com/tutoriales/como-validar-un-formulario-con-php-y-javascript-jquery/        
+        if(!$email.val().match(/^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i)){
+        $( "#msjEmail" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjEmail" ).css("display", "none");
+        }
+
+        
+        
+//      http://www.regexplanet.com/advanced/javascript/index.html
+        if(!$telephone.val().match(/D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})/)){
+        $( "#msjTelephone" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjTelephone" ).css("display", "none");
+        }
+
+        if(!$("#bio").val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/)){
+            $( "#msjBio" ).css("display", "block");
+            valide=false;
+        }else{
+            $( "#msjBio" ).css("display", "none");
+        }
+        
+    }
+    else
+    {
+        valide=true;
+        valide_valide=false;
     }
     
     
-    if(bio > 1){    
+    
+    
+    if(valide==true && valide_valide==false){    
       
-      valide=true;
-    }
-
-    if(valide==true){
-
       document.formInscription.submit();
     }
+
+
 }
 
 
