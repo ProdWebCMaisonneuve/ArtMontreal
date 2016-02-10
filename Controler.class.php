@@ -21,29 +21,21 @@ class Controler
 		public function gerer()
 		{
 			switch ($_GET['requete']) {
-				case 'accueil':
-                    if($_GET['idOeuvre'])
-                    {
+				
+                case 'accueil':
+                    if($_GET['idOeuvre']){
                         $this->unOeuvre($_GET['idOeuvre']);    
-                    }
-                    else
-                    {
+                    }else{
                         $this->accueil();
                     }
 					break;
-                
                 case 'artistes':
-                    if($_GET['idOeuvre'] != '')
-                    {
+                    if($_GET['idOeuvre'] != ''){
                         $this->unOeuvre($_GET['idOeuvre']);    
-                    }
-                    else
-                    {
+                    }else{
                         $this->artistes();
                     }
-
                     break;
-                    
                 case 'listeModifierArtistes':
                         $this->listeModifierArtistes();
                     break;
@@ -74,15 +66,13 @@ class Controler
                     break;
                 case 'listeSupprimerAdmin_moderateur':
                     $this->listeSupprimerAdmin_moderateur();
-                    break;
-                    
+                    break;    
                 case 'modifierArtiste':
                         $this->modifierArtiste($_GET['idArtiste']);
                     break;
                 case 'supprimerArtistes':
                         $this->supprimerArtistes($_GET['idArtiste']);
                     break;
-
                 case 'modifierUtilisateur':
                         $this->modifierUtilisateur($_GET['idUtilisateur']);
                     break;
@@ -106,116 +96,81 @@ class Controler
                 case 'modifierOeuvre':
                         $this->modifierOeuvre($_GET['idOeuvre']);
                     break; 
-                    
                 case 'modifierAdmin_moderateur':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
                     break;
-                    
-                    
                 case 'inscription':
                     $this->inscription();
                     break;
-
                 case 'afficheInscriptionAdmin':
                     $this->afficheInscriptionAdmin();
                     break;
 
             
                 case 'connexion':
-                    if($_GET['action'] == 'envoyer')
-                    {
+                    if($_GET['action'] == 'envoyer')                    {
                         $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                    }
-                    else
-                    {
-                        
+                    }else{
                         $this->connexion();
                     }
-                    
                     break;
-                
                 case 'arrondissements':
-                    if($_GET['idArrondissement'] !='')
-                    {
+                    if($_GET['idArrondissement'] !=''){
                         $this->oeuvresParArr($_GET['idArrondissement']);
-                    }
-                    else
-                    {
+                    }else{
                         $this->arrondissements();
                     } 
                     break;
-
-                case 'categories':
-                   if($_GET['idCategorie'] !='')
-                    {
+case 'categories':
+                   if($_GET['idCategorie'] !=''){
                         $this->oeuvresParCat($_GET['idCategorie']);
-                    }
-                    else
-                    {
+                    }else{
                         $this->categories();
                     } 
                     break;
-
                 case 'unOeuvre':
                     $this->unOeuvre($_GET['idOeuvre']);
                     break;
-
-                    
                 case 'unUtilisateur':
                     $this->unUtilisateur($_GET['idUtilisateur']);
                     break;
-
                 case 'oeuvresParCat':
                     $this->oeuvresParCat();
                     break;
                 case 'oeuvresParArr';
                  	$this->oeuvresParArr();
                  	break;
-
                 case 'ajoutOeuvre':
                     $this->ajoutOeuvre();
-                    break;
-                    
+                    break; 
                 case 'profilUtilisateur':
                     $this->profilUtilisateur();
                     break;
-
                 case 'listerUtilisateurs':
                     $this->listerUtilisateurs();
                     break;
-                
                 case 'ajouterUnArtiste':
                     $this->ajouterUnArtiste();
                     break;
-                
                 case 'formulaireAjouterArtiste':
                     $this->afficheAjouterUnArtiste();
                     break;
-                
                 case 'ajouterUnCategorie':
                     $this->ajouterUnCategorie();
                     break;
-                    
                 case 'formulaireAjouterCategorie':
                    $this->afficheAjouterUnCategorie();
                     break;
-                    
                 case 'ajouterAdmin_moderateur':
                     $this->ajouterAdmin_moderateur();
                     break;
-                    
                 case 'recherche':
                     $this->rechercheOeuvresMot();
                     break;                
-                
-                case 'admin':
-                    
-                    if($_GET['action'] == 'envoyer')
-                    {
+                case 'admin':           
+                    if($_GET['action'] == 'envoyer'){
                         $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                    }
-                    else
-                    {
+                    }else{
                         $this->admin();
                     }
                     break;
@@ -231,7 +186,16 @@ class Controler
                 case 'afficheOeuvres':
                     $this->afficheOeuvres();
                     break;
-                    
+                 case 'profilUtilisateurConnexion':
+                    $this->profilUtilisateurConnexion();
+                    break;
+                case 'propositionPhotoUtilisateur':
+                    $this->propositionPhotoUtilisateur();
+                    break;
+                case 'modifierProfilUtilisateur':
+                    $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
+                    break;
+                
                 default:
 			    $this->accueil();
 				break;
@@ -255,7 +219,9 @@ class Controler
             $aOeuvres = $oOeuvres::listeOeuvres();
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
-			$oVue->afficheAccueil($aOeuvres);
+            $oVue->afficheSliderAccueil($aOeuvres);
+            $oVue->afficheJumbotronAccueil();
+			$oVue->afficheOeuvresAccueil($aOeuvres);
 			$oVue->afficheFooter(true, false, false, false);
 			
 		} 
@@ -277,7 +243,7 @@ class Controler
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
 			$oVue->afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie);
-			$oVue->afficheFooter();
+			$oVue->afficheFooter(false,false, false, false);
 			
 		}
 
@@ -288,7 +254,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficherUnUtilisateur($outilisateur);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
         }
 		
 		
@@ -302,7 +268,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
 			$oVue->afficheArtistes($aArtistes, $oOeuvres);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
     
@@ -314,7 +280,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierArtistes($aArtistes);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
         private function listeSupprimerArtistes()
@@ -325,43 +291,43 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerArtistes($aArtistes);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
 
 
         private function listerUtilisateurs()
         {
-            $oUtilisateurs = new MUtilisateurs('','','','','','');
+            $oUtilisateurs = new MUtilisateurs('','','','','','','','','');
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
 
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             $oVue->listerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
         }
     
         private function listeModifierUtilisateurs()
 		{
             $message='';
-            $oUtilisateurs = new MUtilisateurs('','','','','','');
+            $oUtilisateurs = new MUtilisateurs('','','','','','','','','');
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
               
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
         private function listeSupprimerUtilisateurs()
 		{
-            $oUtilisateurs = new MUtilisateurs('', '', '' ,'', '', '');
+            $oUtilisateurs = new MUtilisateurs('', '', '' ,'', '', '','','','');
             $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
               
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
     
@@ -373,7 +339,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeModifierCategories($aCategories);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
         
@@ -385,7 +351,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerCategories($aCategories);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
     
@@ -410,7 +376,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
 			$oVue->afficheListeSupprimerOeuvres($aOeuvres);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false, false, false);
     
 		}
     
@@ -519,7 +485,7 @@ class Controler
             
              $erreurTitre ='';
              $message ='';
-             $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+             $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
              $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
              $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
 
@@ -530,12 +496,10 @@ class Controler
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['prenom'], $_POST['nom'], $_POST['email'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
                     $oVue = new VueDefaut();
                    $message = 'Utilistaeur modifie';
-
                     $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-                   
                }
                 catch (Exception $e)
                 {
@@ -589,7 +553,7 @@ class Controler
     
         private function supprimerUtilisateurs($idUtil)
         {   
-            $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
             $oUtilisateur->supprimerUtilisateurs($idUtil);
             $aUtilisateurs=$oUtilisateur->listeUtilisateurs();
 
@@ -714,7 +678,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficheCategories($aCategories);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
     
         }
 
@@ -728,7 +692,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
     
         }
 
@@ -745,13 +709,13 @@ class Controler
             if($_GET['action'] == 'ajoutUtilisateur') 
             {
                 
-                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo ']);
                 $message = "Utilisateur ajoutée.";
             }
 
             $oVue->afficheInscription();
-            $oVue->afficheFooter();    
+            $oVue->afficheFooter(false,false,false,false);    
         } 
 
         private function connexion()
@@ -762,7 +726,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
             
         } 
 
@@ -774,7 +738,7 @@ class Controler
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $aOeuvres=$oOeuvre::listeOeuvresparMot($_POST['mot']);
             $oVue->afficheOeuvresMot($aOeuvres);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
                 
         }
     
@@ -819,7 +783,7 @@ class Controler
             }
             
             $oVue->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
 
         }
 
@@ -835,13 +799,13 @@ class Controler
             if($_GET['action'] == 'ajoutUtilisateur') 
             {
                 
-                $oUtilisateur = new MUtilisateurs('', '', '','', '', '');
+                $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
                 $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
                 $message = "Utilisateur ajoutée.";
             }
 
             $oVue->afficheInscriptionAdmin();
-            $oVue->afficheFooter();    
+            $oVue->afficheFooter(false,false,false,false);    
         } 
          
 
@@ -850,7 +814,7 @@ class Controler
         private function profilUtilisateur()
         {
 
-            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
             $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
 
 
@@ -858,7 +822,7 @@ class Controler
             $oVue->afficheHeaderAdmin();
             //$oVue->ajouterUnArtiste();
             $oVue->listerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
         }
 
          private function adminPanel()
@@ -872,7 +836,7 @@ class Controler
             $aArtistes = $oArtistes->listeArtistes();
             $nbreArtistes = $oArtistes->nbreArtistes();
              
-            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
             $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
             $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
              
@@ -912,7 +876,7 @@ class Controler
             }
             
             $oVue->formulaireAjouterAdmin_moderateur();
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
         }
 
 
@@ -938,7 +902,7 @@ class Controler
                 }
        
             $oVue->formulaireAjouterArtiste();
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
         }
 
         private function afficheAjouterUnArtiste()
@@ -947,7 +911,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficheAjouterUnArtiste();
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
             
         } 
         
@@ -970,7 +934,7 @@ class Controler
                 }
         
             $oVue->formulaireAjouterCategorie();
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
              
         } 
         
@@ -986,7 +950,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             $oVue->afficheListeSupprimerCategories($aCategories);
-            $oVue->afficheFooter();
+            $oVue->afficheFooter(false,false,false,false);
         }
     
         /* Vérifie la connexion utilisateur
@@ -995,7 +959,7 @@ class Controler
 
         private function validerConnexion($login, $pass, $grainSel)
         {
-            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '');
+            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '','','','');
             $motDePasseMD5 = $oUtilisateur->MotDePasse($login);
 		    $motDePassePlusGrainSel = md5($grainSel . $motDePasseMD5);
 
@@ -1010,8 +974,10 @@ class Controler
                 
                 $oVue = new VueDefaut();
                 $oVue->afficheHeader();
-                $oVue->afficheAccueil($aOeuvres);
-                $oVue->afficheFooter();
+                $oVue->afficheSliderAccueil($aOeuvres);
+                $oVue->afficheJumbotronAccueil();
+                $oVue->afficheOeuvresAccueil($aOeuvres);
+                $oVue->afficheFooter(false,false,false,false);
             }
             else
             {
@@ -1020,7 +986,7 @@ class Controler
                 $oVue = new VueDefaut();
                 $oVue->afficheHeader();
                 $oVue->afficheConnexion($nombreAleatoire, $erreurConnexion);
-                $oVue->afficheFooter();
+                $oVue->afficheFooter(false,false,false,false);
                 
             }
         }
@@ -1060,7 +1026,7 @@ class Controler
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin->afficheHeaderAdmin();
                 $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
-                $oVueDefaut->afficheFooter();
+                $oVueDefaut->afficheFooter(false,false,false,false);
                
             }
             else
@@ -1152,6 +1118,115 @@ class Controler
             }
         
         }
+        /**
+     * function profilUtilisateurConnexion
+     * @access public
+     * @auteur: German Mahecha
+     */
+         private function profilUtilisateurConnexion()
+        {
+
+           $oUtilisateur = new MUtilisateurs('','','','','','','','','');
+           $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+           $oVue = new VueDefaut();
+           $oVue->afficheHeader();
+           $uVue = new VueUtilisateur();    
+           $uVue->afficherProfilUtilisateur($unUtilisateur);
+           $uVue->afficherPhotosUtilisateur();
+           $oVue->afficheFooter(false,false,false,false);
+            
+        }
+    /**
+     * function propositionPhotoUtilisateur
+     * @access public
+     * @auteur: German Mahecha
+     */
+        private function propositionPhotoUtilisateur()
+        {
+
+           $oUtilisateur = new MUtilisateurs('','','','','','','','','');
+           $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+
+
+           $oVue = new VueDefaut();
+           $oVue->afficheHeader();
+            $uVue = new VueUtilisateur();    
+           $uVue->afficherProfilUtilisateur($unUtilisateur);
+           $uVue->afficherPropositionPhotosUtilisateur();
+           $oVue->afficheFooter(false,false,false,false);
+        }
+      /**
+     * function  modifierProfilUtilisateur
+     * @access public
+     * @auteur: German Mahecha
+     */  
+        private function  modifierProfilUtilisateur($idUtil)
+        {
+            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','', '', '');
+            $unUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+             
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $uVue = new VueUtilisateur();
+            $uVue->afficherProfilUtilisateur($unUtilisateur);
+           
+            if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
+            {
+               try
+                {
+                   $oUtilisateur->modifierProfilUtilisateur($_GET['idUtilisateur'],$_POST['nom'], $_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio']);
+                   $message = 'Utilistaeur modifie';
+                   $uVue->afficherModifierProfilUtilisateur($unUtilisateur/*, $message*/);
+                   
+               }
+               catch (Exception $e)
+               {
+                   $message = $e->getMessage();
+               }
+            }else
+            {
+                $uVue->afficherModifierProfilUtilisateur($unUtilisateur);
+            }
+            $oVue->afficheFooter(false,false,false,false);
+        }
+
+        
+        private function  modifierPhotoUtilisateur($idUtil)
+        {
+            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','', '', '');
+            $unUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+             
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $uVue = new VueUtilisateur();
+            $uVue->afficherProfilUtilisateur($unUtilisateur);
+           
+            if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
+            {
+               try
+                {
+                   $oUtilisateur->modifierProfilUtilisateur($_GET['idUtilisateur'],$_POST['nom'], $_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio']);
+                   $message = 'Utilistaeur modifie';
+                   profilUtilisateurConnexion();
+                   
+               }
+               catch (Exception $e)
+               {
+                   $message = $e->getMessage();
+               }
+            }else
+            {
+                $uVue->afficherModifierProfilUtilisateur($unUtilisateur);
+            }
+            $oVue->afficheFooter(false,false,false,false);
+        }
+
+     
+            
+            
+            
+            
+       
 
 
 
