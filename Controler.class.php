@@ -568,6 +568,7 @@ case 'categories':
             
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
             $aArtistes = $oArtistes::listeArtistes();
+            $idArtiste = $oArtistes::getIdArtisteParOeuvre($idOeuvre);
             
             $oCategories = new MCategories('', '', '' ,'', '','');
             $aCategories = $oCategories::listeCategories();
@@ -582,24 +583,26 @@ case 'categories':
             
             $aOeuvre = $oOeuvre->getOeuvreParId($idOeuvre);
             $aOeuvres = $oOeuvre->listeOeuvres();
-            
-            $idAdresse = $oOeuvre->recupererIdAdresse($idOeuvre);
-            $aAdresse = $oOeuvre->getAdresseParId($idAdresse);
                        
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
             
             if($_GET['idOeuvre'] && $_GET['action'] == 'valider') {
                                     
                 try
-                {
-                    $oOeuvre->modifierAdresse($idAdresse, $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
+                {     
                     
-                    $oOeuvre->modifierOeuvre($_GET['idOeuvre'], $_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $idAdresse, $_POST['artiste'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['materiaux'], $_POST['materiauxAng']);
+                    $oOeuvre->modifierOeuvre($_GET['idOeuvre'], $_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], $_POST['description'], $_POST['validation'], $_POST['arrondissement'],  $_POST['categorie'], $_POST['sousCategorie'], $_POST['materiaux'], $_POST['materiauxAng'], $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
                 
-                $oVue = new VueDefaut();
+                $oArtistes->modifierArtisteOeuvre($idOeuvre, $_POST['artiste']);               
+                  
+                $oVueDefaut = new VueDefaut();
+                $oVueAdmin = new VueAdmin();
                 $aOeuvres = $oOeuvre->listeOeuvres();
-                $oVue->afficheListeModifierOeuvres($aOeuvres);
+                $nbreOeuvres = $oOeuvre->nbreOeuvres();
+                    
+                $oVueAdmin->afficheOeuvres($aOeuvres, $nbreOeuvres);
                     
                 $message = "Oeuvre modifiée.";
                     
@@ -607,11 +610,12 @@ case 'categories':
                 catch (Exception $e)
                 {
                     $message = $e->getMessage();     
+    
                 }
             } else {
-                $oVue->modifierOeuvre($aOeuvre, $aAdresse, $aArrondissements, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message);
+                $oVueAdmin->modifierOeuvre($aOeuvre, $aArrondissements, $idArtiste, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message);
             }     
-            $oVue->afficheFooter();  
+            $oVueDefaut->afficheFooter(false, true, false, true);  
         }
     
         private function supprimerOeuvres($idOeuvre) 
