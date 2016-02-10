@@ -32,6 +32,70 @@ function validerFormAjoutAdmin()
     }   
 }
 
+
+function validerFormAInscription()
+{
+    
+    var valide=true;
+    
+    var bio=$("#bio").val().length;
+
+    if( bio < 1){
+      $( "#msjBio" ).css("display", "block");
+      valide=false;
+    }else{
+      $( "#msjBio" ).css("display", "none");
+    }
+    
+    
+    if(bio > 1){    
+      
+      valide=true;
+    }
+
+    if(valide==true){
+
+      document.formInscription.submit();
+    }
+}
+
+
+
+
+//    
+//    $(document).ready(function() {
+//    $("#ok").hide();
+//
+//    $("#formInscription").validate({
+//        rules: {
+//            bio: { required: true, minlength: 2},
+//            utilisateur: { required: true, minlength: 2},
+//            motDePasse : { required: true, minlength: 2},
+//
+//        },
+//        messages: {
+//            bio: "Debe introducir su nombre.",
+//            utilisateur: "Debe introducir su apellido.",
+//            motDePasse : "Debe introducir un email válido.",
+//
+//        submitHandler: function(form){
+//            var dataString = 'bio='+$('#bio').val()+'&utilisateur='+$('#utilisateur').val()+'...';
+//            $.ajax({
+//                type: "POST",
+//                url:"send.php",
+//                data: dataString,
+//                success: function(data){
+//                    $("#ok").html(data);
+//                    $("#ok").show();
+//                    $("#formid").hide();
+//                }
+//            });
+//        }
+//    });
+//});
+//    
+
+
 /**
  * Encrypte le formulaire de connexion
  * @access public

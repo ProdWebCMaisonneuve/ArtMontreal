@@ -52,7 +52,7 @@ class VueDefaut
                 
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
-                
+                <script src='js/ jquery.validate.js'></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
                 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
                 
@@ -159,7 +159,8 @@ class VueDefaut
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur">
+                
+                <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur" name="formInscription" id="formInscription">
         
             <fieldset>
                 <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
@@ -180,23 +181,31 @@ class VueDefaut
             <br> <br> -->
             <div class="form-group">
                 <label for="bio">Biographie:</label> 
-                <textarea class="form-control" rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
+                <textarea class="form-control" rows="8" cols="60" name="bio"placeholder="Entrer un text ici..." id="bio"></textarea>
+<!--                <div id="msjBio" class="erreurs" style="display:none">Il faut remplir ce champ</div>-->
+            <span id="msjBio" style="display:none">Remplir bio</span>
             </div>
               
             <div class="form-group">
                 <label for="utilisateur">Nom d'utilisateur:</label>  
-                <input class="form-control" type="text" name="utilisateur" >
+                <input class="form-control" type="text" name="utilisateur" id="utilisateur">
+                <span id="erreurPrenom"></span>
             </div>
             
             <div class="form-group">
                 <label for="motDePasse">Mot de passe:</label> 
-                <input class="form-control" type="password" name="motDePasse" >
+                <input class="form-control" type="password" name="motDePasse" id="motDePasse">
+                <span id="erreurMotPass"></span>
             </div>
                 
             <div class="form-group">    
                 <label for="motDePasse">Confirmer le mot de passe:</label>
-                <input class="form-control" type="password" name="motDePasse" value="">
-            </div>    
+                <input class="form-control" type="password" name="motDePasse" value="" id="motDePasse">
+                <span id="erreurMotPass2"></span>
+            </div>  
+                
+                
+
 <!--
                 score:
                 <input class="form-control" type="text" name="score" value="">
@@ -211,10 +220,13 @@ class VueDefaut
                 
             
             
-            <input type="submit" value="Envoyer" id="button">
+<!--            <input type="submit" value="Envoyer" id="button">-->
+                <input type="button"  onclick="validerFormAInscription()" value="Envoyer" id="button"> 
             </fieldset>
         </form> 
             </div>
+            
+            
 
                 
                 
@@ -224,10 +236,7 @@ class VueDefaut
                 
                 
                 
-        </div>
-                
-
-         
+        </div>         
         <?php
 
     }
@@ -329,6 +338,7 @@ class VueDefaut
                     ?>
 
                     <script src='js/jquery.js'></script>
+                    
                     <script src='js/jquery.slides.js'></script>
                     <script src="js/bootstrap.min.js"></script>
                     
@@ -561,27 +571,7 @@ public function afficheAccueil($oeuvres)
     
     
     
-//    
-//    echo "<div class='col-xs-6 col-sm-6 col-md-3 col-lg-3 hero-feature'";
-//                        echo "<div class='hovereffect'>";              
-//                           $idOeuvre= $oeuvre->getIdOeuvre();
-//                           $titre = $oeuvre->getTitreOeuvre();
-//                                echo "<a href='index.php?requete=accueil&idOeuvre=".$idOeuvre."'><img src='images/img_2.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
-//                                    echo "<div class='overlay'>";
-//                                        //echo "<p>" . $titre . "</p>";
-//                                        echo "<p>" .substr($titre, 0, 8) . "</p>";
-//                                        echo "<p>likes</p>";
-//                                    echo "</div>";
-//                                echo "<div>";
-//                                    
-//                            
-//                        echo "</div>"; 
-//              
-//                   
-//                   echo "</div>" ;
-//    
-//    
-    
+
 
     
     /**
@@ -1446,7 +1436,8 @@ public function afficheAccueil($oeuvres)
      * @version 1.0
      */
     
-    public function afficheListeSupprimerArtistes($aArtistes){
+    public function afficheListeSupprimerArtistes($aArtistes)
+    {
             ?>
             <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
             <section class='contenu container'>
@@ -1486,7 +1477,8 @@ public function afficheAccueil($oeuvres)
      * @author German Mahecha
      * @version 1.0
      */
-    public function afficheListeModifierArtistes($aArtistes){
+    public function afficheListeModifierArtistes($aArtistes)
+    {
         ?>
             <h2 id='titreA'>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
             <section class='contenu container'>
@@ -1529,7 +1521,8 @@ public function afficheAccueil($oeuvres)
      * @version 1.0
      */
     
-    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message){
+    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message)
+    {
         ?>
             <h2 id='titreA'>Modifier nos utilisateurs</h2>
             <section class='contenu container'>
@@ -1627,10 +1620,7 @@ public function afficheAccueil($oeuvres)
             echo "</section> ";
        echo "</div>";
     }
-        
-    
-    
-    
+            
     
     /**
      * Affiche Liste des utilisateurs
@@ -1639,7 +1629,8 @@ public function afficheAccueil($oeuvres)
      * @version 1.0
      */
     
-    public function afficheListeSupprimerUtilisateurs($aUtilisateurs){
+    public function afficheListeSupprimerUtilisateurs($aUtilisateurs)
+    {
         ?>
             <h2 id='titreA'>Supprimer nos utilisateurs</h2>
             <section class='contenu container'>
@@ -1677,7 +1668,8 @@ public function afficheAccueil($oeuvres)
      */
     
     
-    public function afficheListeModifierCategories($aCategories){
+    public function afficheListeModifierCategories($aCategories)
+    {
         ?>
             <h2 id='titreA'>Modifier nos categories</h2>
             <section class='contenu container'>
@@ -1711,7 +1703,8 @@ public function afficheAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheListeSupprimerCategories($aCategories){
+     public function afficheListeSupprimerCategories($aCategories)
+     {
         ?>
             <h2 id='titreA'>Supprimer nos categories</h2>
             <section class='contenu container'>
@@ -1740,7 +1733,8 @@ public function afficheAccueil($oeuvres)
     
     
     
-    public function afficheListeModifierOeuvres($aOeuvres){
+    public function afficheListeModifierOeuvres($aOeuvres)
+    {
         ?>
             <h2 id='titreA'>Modifier nos Oeuvres</h2>
             <section class='contenu container'>
@@ -1756,7 +1750,8 @@ public function afficheAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheListeSupprimerOeuvres($aOeuvres){
+     public function afficheListeSupprimerOeuvres($aOeuvres)
+     {
         ?>
             <h2 id='titreA'>Supprimer une oeuvre</h2>
             <section class='contenu container'>
@@ -2288,8 +2283,7 @@ public function afficheAccueil($oeuvres)
         <?php
     }
     
-    
-    
+       
     
     /**
      * Affiche Liste des categories
@@ -2298,7 +2292,8 @@ public function afficheAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheOeuvresMot($aOeuvres){
+     public function afficheOeuvresMot($aOeuvres)
+     {
         ?>
             <h2>Resultats de la recherche</h2>
             <section class='contenu container'>

@@ -738,6 +738,8 @@ class Controler
         {
             $erreurTitre ='';
             $message ='';
+            
+
           
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
@@ -751,7 +753,7 @@ class Controler
             }
 
             $oVue->afficheInscription();
-            $oVue->afficheFooter();    
+            $oVue->afficheFooter(false, false, false, false);    
         } 
 
         private function connexion()
