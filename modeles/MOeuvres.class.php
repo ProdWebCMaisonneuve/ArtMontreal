@@ -270,7 +270,7 @@ class MOeuvres {
      */
     public static function ajouterOeuvre($titre, $titreVariante, $technique, $techniqueAng,$noInternetOeuvre, $description, $validationOeuvre, $idArrondissement, $nomMateriaux, $nomMateriauxAng,$idCategorie, $idSousCategorie,$adresse,$batiment,$parc,$latitude,$longitude) {
         
-        self::$database->query("INSERT INTO oeuvre VALUES ('', :titre, :titreVariante, :technique, :techniqueAng, noInternetOeuvre, :description, :validationOeuvre, :idArrondissement, :nomMateriaux, :nomMateriauxAng, :idCategorie, :idSousCategorie,:adresse,:batiment,:parc,:latitude,:longitude)");
+        self::$database->query("INSERT INTO oeuvre VALUES ('', :titre, :titreVariante, :technique, :techniqueAng, :noInternetOeuvre, :description, :validationOeuvre, :idArrondissement, :nomMateriaux, :nomMateriauxAng, :idCategorie, :idSousCategorie,:adresse,:batiment,:parc,:latitude,:longitude)");
         //On lie les paramètres auxvaleurs
         
         self::$database->bind(':titre', $titre);

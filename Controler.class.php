@@ -55,12 +55,7 @@ class Controler
                 case 'listeSupprimerCategories':
                         $this->listeSupprimerCategories();
                     break;  
-                case 'listeModifierOeuvres':
-                        $this->listeModifierOeuvres();
-                    break;
-                case 'listeSupprimerOeuvres':
-                        $this->listeSupprimerOeuvres();
-                    break;
+
                 case 'listeModifierAdmin_moderateur':
                         $this->listeModifierAdmin_moderateur();
                     break;
@@ -368,17 +363,7 @@ case 'categories':
             $oVueDefaut->afficheFooter(false, true, false, true);
     
 		}
-        private function listeSupprimerOeuvres()
-		{
-            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvres = $oOeuvres::listeOeuvres();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeSupprimerOeuvres($aOeuvres);
-            $oVue->afficheFooter(false,false, false, false);
-    
-		}
+       
     
         private function listeModifierAdmin_moderateur()
         {
@@ -634,11 +619,12 @@ case 'categories':
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $oOeuvre->supprimerOeuvre($idOeuvre);
             $aOeuvres = $oOeuvre->listeOeuvres();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerOeuvres($aOeuvres);
-            $oVue->afficheFooter();
+            $nbreOeuvres = $oOeuvre->nbreOeuvres();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();      
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheOeuvres($aOeuvres, $nbreOeuvres);
+            $oVueDefaut->afficheFooter(false, true, false, true);
         }
     
         
@@ -759,18 +745,21 @@ case 'categories':
             $oArrondissements = new MArrondissement('', '');
             $aArrondissements = $oArrondissements::listeArrondissement();
             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
             
             if($_GET['action'] == 'ajoutOeuvre') {
                 $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-                
-                $oOeuvre->ajouterAdresse($_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
-                $idAdresse = $oOeuvre->recupererDernierId();
+                $oArtiste = new MArtistes('', '', '', '', '', '');
                                          
                 try
                 {
-                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $idAdresse, $_POST['artiste'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['materiaux'], $_POST['materiauxAng']);
+                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], null, $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $_POST['materiaux'], $_POST['materiauxAng'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
+                    
+                    $idOeuvre = $oOeuvre->recupererDernierId();
+                    
+                    $oArtiste->enregistrerOeuvreArtiste($idOeuvre,$_POST['artiste']);
                 
                 $message = "Oeuvre ajoutée.";
                     
@@ -782,8 +771,8 @@ case 'categories':
                 
             }
             
-            $oVue->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message);
-            $oVue->afficheFooter(false,false,false,false);
+            $oVueAdmin->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message);
+            $oVueDefaut->afficheFooter(false,true,false,false);
 
         }
 
@@ -1014,7 +1003,7 @@ case 'categories':
                 $aArtistes = $oArtistes->listeArtistes();
                 $nbreArtistes = $oArtistes->nbreArtistes();
                 
-                $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
+                $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '', '' , '', '');
                 $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
                 $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                 
@@ -1026,7 +1015,7 @@ case 'categories':
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin->afficheHeaderAdmin();
                 $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
-                $oVueDefaut->afficheFooter(false,false,false,false);
+                $oVueDefaut->afficheFooter(false,true,true,false);
                
             }
             else

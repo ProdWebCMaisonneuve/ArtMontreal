@@ -142,7 +142,7 @@ class VueAdmin
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
                 <meta name="description" content="">
                 <meta name="viewport" content="width=device-width">
-                <link rel="stylesheet" href="css/main.css">
+                <link rel="stylesheet" href="css/main_bootstrap.css">
                 
                 <!-- Bootstrap Core CSS -->
                 <link href="lib/SBAdmin2/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -390,7 +390,7 @@ class VueAdmin
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="index.php?requete=afficheArtistes">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -412,7 +412,7 @@ class VueAdmin
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="index.php?requete=afficheUtilisateurs">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -557,7 +557,7 @@ class VueAdmin
      */
     public function afficheOeuvres($aOeuvres, $nbreOeuvres) 
     { 
-        /*var_dump($aOeuvres);*/
+        
     ?>
     <div id="page-wrapper">
             
@@ -636,7 +636,7 @@ class VueAdmin
                                         echo '<tr>';
                                         echo "<td>".$oeuvre->getTitreOeuvre()."</td>";
                                         echo "<td>".$oeuvre->getTitreVariante()."</td>";
-                                        echo '<td class="text-center"><a href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
                                         echo '<td class="text-center"><a href="index.php?requete=modifierOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-pencil"></i></a></td>';   
                                         echo '</tr>';
                                     }
@@ -649,6 +649,30 @@ class VueAdmin
                     </div>
                 </div>
             </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer une oeuvre, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
     <?php
     }
 
@@ -664,75 +688,148 @@ class VueAdmin
     {   
         
         ?>            
-            <section class="contenu container">
-        
-                <h2 id='titreAdm'>Ajouter une oeuvre</h2>
-                <div class="formulaireAd1">
-                
-                       <form method="POST" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
-                           
-                            <label>Titre : <br></label> <input type="text" name="titre"><span><?php echo $erreurTitre;?><br><br>
-                            <label>Titre (Variante) : <br></label> <input type="text" name="titreVariante"><br><br>
-                            <label>Technique : <br></label> <input type="text" name="technique"><br><br>
-                            <label>Technique (anglais) :<br> </label> <input type="text" name="techniqueAng"><br><br>
-                            <label>Description : <br></label> <input type="text" name="description"><br><br>
-                            <label>Validation :<br> </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br><br>
-                            
-                            <label>Adresse Civique : <br></label> <input type="text" name="adresse"><br><br>
-                            <label>Batiment : <br></label> <input type="text" name="batiment"><br><br>
-                            <label>Parc :<br> </label> <input type="text" name="parc"><br><br>
-                            <label>Latitude :<br> </label> <input type="text" name="latitude"><br><br>
-                            <label>Longitude :<br> </label> <input type="text" name="longitude"><br><br>
-                            <label>Arrondissement :<br> </label> <select name="arrondissement"><br>
-                                <option value="nonChoisi">Choisir un Arrondissement</option><br>
-                            <?php
-                                foreach ($aArrondissements as $arrondissement) {
-                                    echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Artiste/Collectif : </label> <br><select name="artiste">
-                                <option value="nonChoisi">Choisir un Artiste/Collectif</option>
-                            <?php
-                                foreach ($aArtistes as $artiste) {
-                                    
-                                    if($artiste->getNom() == "") {
-                                        
-                                         echo "<option value='".$artiste->getIdArtiste()."'>".$artiste->getCollectif()."</option>"; 
-                                    } else {                                    
-                                       
-                                        echo "<option value='".$artiste->getIdArtiste()."'>". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
+            <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter une Oeuvre</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'oeuvre
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
+
+                                <div class="form-group">
+                                    <label>Titre :</label>
+                                    <input class="form-control" type="text" name="titre"><span><?php echo $erreurTitre;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Titre (variante) :</label>
+                                    <input class="form-control" type="text" name="titreVariante"><span><?php echo $erreurTitreVariante;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique :</label>
+                                    <input class="form-control" type="text" name="technique"><span><?php echo $erreurTechnique;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique (anglais):</label>
+                                    <input class="form-control" type="text" name="techniqueAng"><span><?php echo $erreurTechniqueAng;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description :</label>
+                                    <textarea class="form-control" rows="3" name="description"></textarea><span><?php echo $erreurDescription;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Validation :</label>
+                                    <label class="radio-inline">
+                                    <input type="radio" checked name="validation" value="1" id="validationOui">Oui
+                                    </label>
+                                    <label class="radio-inline">
+                                    <input type="radio" name="validation" value="0" id="validationNon"> Non
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                <label>Adresse Civique :</label>
+                                    <input class="form-control" type="text" name="adresse"><span><?php echo $erreurAdresse;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Batiment :</label>
+                                    <input class="form-control" type="text" name="batiment"><span><?php echo $erreurBatiment;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Parc :</label>
+                                      <input class="form-control" type="text" name="parc"><span><?php echo $erreurParc;?>
+                                </div>
+                                <div class="form-group">
+                                <label>Latitude :</label>
+                                     <input class="form-control" type="text" name="latitude"><span><?php echo $erreurLatitude;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Longitude :</label>
+                                    <input class="form-control" type="text" name="longitude"><span><?php echo $erreurLongitude;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Arrondissement :</label>
+                                    <select class="form-control" name="arrondissement"><br><span><?php echo $erreurArrondissement;?></span>
+                                    <option value="nonChoisi">Choisir un Arrondissement</option><br>
+                                <?php
+                                    foreach ($aArrondissements as $arrondissement) {
+                                        echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
                                     }
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Catégorie : </label><br> <select name="categorie"><br><br>
-                                <option value="nonChoisi">Choisir une Catégorie</option>
-                            <?php 
-                                foreach ($aCategories as $categorie) {
-                                    echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Sous-Catégorie : </label><br> <select name="sousCategorie"><br><br>
-                                <option value="nonChoisi">Choisir une Sous-Catégorie</option>
-                            <?php
-                                foreach ($aSousCategories as $sousCategorie) {
-                                    echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
-                                }
-                            ?>    
-                           </select><br><br>
-                               <label>Matériaux : </label><br> <input type="text" name="materiaux"><br><br>
-                               <label>Matériaux (anglais) : </label> <br><input type="text" name="materiauxAng"><br><br>
-                            
-                            <input type="submit" name="sauvegarder" id="button" value="Valider"> <span><?php echo $message; ?></span>
-                       </form>
+                                ?>
+                               </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Artiste/Collectif :</label>
+                                   <select class="form-control" name="artiste"><span><?php echo $erreurArtiste;?></span>
+                                    <option value="nonChoisi">Choisir un Artiste/Collectif</option>
+                                <?php
+                                    foreach ($aArtistes as $artiste) {
 
-                   </div>
+                                        if($artiste->getNom() == "") {
 
+                                             echo "<option value='".$artiste->getIdArtiste()."'>".$artiste->getCollectif()."</option>"; 
+                                        } else {                                    
+
+                                            echo "<option value='".$artiste->getIdArtiste()."'>". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
+                                        }
+                                    }
+                                ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Catégorie :</label>
+                                   <select class="form-control" name="categorie"><span><?php echo $erreurCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Catégorie</option>
+                                <?php 
+                                    foreach ($aCategories as $categorie) {
+                                        echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
+                                    }
+                                ?>
+                                   </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Sous-Catégorie :</label>
+                                    <select class="form-control" name="sousCategorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Sous-Catégorie</option>
+                                <?php
+                                    foreach ($aSousCategories as $sousCategorie) {
+                                        echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
+                                    }
+                                ?>    
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Matériaux :</label>
+                                   <input class="form-control" type="text" name="materiaux"><span><?php echo $erreurMateriaux;?></span>
+                                </div>
+                                 <div class="form-group">
+                                   <label>Matériaux (anglais) : </label>
+                                    <input class="form-control" type="text" name="materiauxAng"><span><?php echo $erreurMateriauxAng;?></span>
+                                </div>
+
+                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
         </div>
+    </div>
+              
+            
         
         
         <?php
