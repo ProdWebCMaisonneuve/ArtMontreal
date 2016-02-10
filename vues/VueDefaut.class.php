@@ -52,7 +52,7 @@ class VueDefaut
                 
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
-                
+                <script src='js/ jquery.validate.js'></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
                 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
                 
@@ -159,40 +159,51 @@ class VueDefaut
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur">
+                
+                <form method="POST" class="formulaire" action="index.php?requete=inscription&action=ajoutUtilisateur" name="formInscription" id="formInscription">
         
             <fieldset>
+
                 <div class="form-group">
                     <label for="utilisateur" class="control-label">Nom d'utilisateur:</label>  
-                    <input type="text" name="utilisateur" class="form-control">
+                    <input type="text" name="utilisateur" class="form-control" id="utilisateur"/>
+                    <span id="msjUtilisateur1" style="display:none">Veuillez saisir votre nom d'utilisateur</span>
+                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
                 </div>
                 <div class="form-group">
                     <label for="motDePasse" class="control-label">Mot de passe:</label> 
-                    <input type="password" name="motDePasse" class="form-control">
+                    <input type="password" name="motDePasse" class="form-control" id="motDePasse1"/>
+                    <span id="msjMotDePasse1" style="display:none">Veuillez mettre votre mot de pass</span>
                 </div>    
                 <div class="form-group">    
                     <label for="motDePasse">Confirmer le mot de passe:</label>
-                    <input type="password" name="motDePasse" class="form-control">
+                    <input type="password" name="motDePasse" class="form-control" id="motDePasse2"/>
+                    <span id="msjMotDePasse2" style="display:none">Veuillez confirmer votre mot de pass</span>
                 </div>
                 <div class="form-group">
                     <label for="prenom"  class="control-label">Prénom:</label>
                     <input type="text" name="prenom" id="prenom" class="form-control"/>
+                    <span id="msjPrenom" style="display:none">Veuillez confirmer votre prenom</span>
                 </div>
                 <div class="form-group">
                     <label for="nom" class="control-label">Nom:</label>
                     <input type="text" name="nom" id="nom" class="form-control"/>
+                    <span id="msjNom" style="display:none">Veuillez confirmer votre nom</span>
                 </div>
                 <div class="form-group">
                     <label for="email" class="control-label">Email:</label>
                     <input type="text" name="email" id="email" class="form-control"/>
+                    <span id="msjEmail" style="display:none">Veuillez confirmer votre email</span>
                 </div>
                 <div class="form-group">
                     <label for="telephone" class="control-label">Téléphone:</label>
                     <input type="text" name="telephone" id="telephone" class="form-control"/>
+                    <span id="msjTelephone" style="display:none">Veuillez confirmer votre téléphone</span>
                 </div>    
                 <div class="form-group">
                     <label for="bio" class="control-label">Biographie:</label> 
-                    <textarea name="bio"placeholder="Entrer un text ici..." class="form-control" rows="8" cols="60"></textarea>
+                    <textarea name="bio" placeholder="Entrer un text ici..." class="form-control" rows="8" cols="60" id="bio"></textarea>
+                     <span id="msjBio" style="display:none">Remplir bio</span>
                 </div>
 
                 <div class="form-group">
@@ -200,12 +211,13 @@ class VueDefaut
                     <input type="file" name="photo" >
                     <p class="help-block">maximun 50Mb</p>
                 </div>
-                <input type="submit" value="Envoyer" id="button">
+                <input type="button"  onclick="validerFormAInscription()" value="Envoyer" id="button"> 
             </fieldset>
         </form> 
             </div>
           </div> 
         </div>
+
         <?php
 
     }
@@ -319,6 +331,7 @@ class VueDefaut
                     ?>
 
                     <script src='js/jquery.js'></script>
+                    
                     <script src='js/jquery.slides.js'></script>
                     <script src="js/bootstrap.min.js"></script>
                     
@@ -560,9 +573,11 @@ public function afficheSliderAccueil($oeuvres)
                                 echo '</div>';
                             echo '</div>';
                     echo '</div>';
+
                }   
         } 
     } 
+
 
     /**
      * Affiche un Oeuvre
@@ -1418,7 +1433,8 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-    public function afficheListeSupprimerArtistes($aArtistes){
+    public function afficheListeSupprimerArtistes($aArtistes)
+    {
             ?>
             <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
             <section class='contenu container'>
@@ -1458,7 +1474,8 @@ public function afficheSliderAccueil($oeuvres)
      * @author German Mahecha
      * @version 1.0
      */
-    public function afficheListeModifierArtistes($aArtistes){
+    public function afficheListeModifierArtistes($aArtistes)
+    {
         ?>
             <h2 id='titreA'>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
             <section class='contenu container'>
@@ -1501,7 +1518,8 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message){
+    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message)
+    {
         ?>
             <h2 id='titreA'>Modifier nos utilisateurs</h2>
             <section class='contenu container'>
@@ -1599,10 +1617,7 @@ public function afficheSliderAccueil($oeuvres)
             echo "</section> ";
        echo "</div>";
     }
-        
-    
-    
-    
+            
     
     /**
      * Affiche Liste des utilisateurs
@@ -1611,7 +1626,8 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-    public function afficheListeSupprimerUtilisateurs($aUtilisateurs){
+    public function afficheListeSupprimerUtilisateurs($aUtilisateurs)
+    {
         ?>
             <h2 id='titreA'>Supprimer nos utilisateurs</h2>
             <section class='contenu container'>
@@ -1649,7 +1665,8 @@ public function afficheSliderAccueil($oeuvres)
      */
     
     
-    public function afficheListeModifierCategories($aCategories){
+    public function afficheListeModifierCategories($aCategories)
+    {
         ?>
             <h2 id='titreA'>Modifier nos categories</h2>
             <section class='contenu container'>
@@ -1683,7 +1700,8 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheListeSupprimerCategories($aCategories){
+     public function afficheListeSupprimerCategories($aCategories)
+     {
         ?>
             <h2 id='titreA'>Supprimer nos categories</h2>
             <section class='contenu container'>
@@ -1712,7 +1730,8 @@ public function afficheSliderAccueil($oeuvres)
     
     
     
-    public function afficheListeModifierOeuvres($aOeuvres){
+    public function afficheListeModifierOeuvres($aOeuvres)
+    {
         ?>
             <h2 id='titreA'>Modifier nos Oeuvres</h2>
             <section class='contenu container'>
@@ -1728,7 +1747,8 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheListeSupprimerOeuvres($aOeuvres){
+     public function afficheListeSupprimerOeuvres($aOeuvres)
+     {
         ?>
             <h2 id='titreA'>Supprimer une oeuvre</h2>
             <section class='contenu container'>
@@ -2260,8 +2280,7 @@ public function afficheSliderAccueil($oeuvres)
         <?php
     }
     
-    
-    
+       
     
     /**
      * Affiche Liste des categories
@@ -2270,7 +2289,8 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheOeuvresMot($aOeuvres){
+     public function afficheOeuvresMot($aOeuvres)
+     {
         ?>
             <h2>Resultats de la recherche</h2>
             <section class='contenu container'>

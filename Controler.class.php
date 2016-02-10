@@ -702,6 +702,8 @@ case 'categories':
         {
             $erreurTitre ='';
             $message ='';
+            
+            
           
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
@@ -715,7 +717,10 @@ case 'categories':
             }
 
             $oVue->afficheInscription();
-            $oVue->afficheFooter(false,false,false,false);    
+
+            $oVue->afficheFooter(false, false, false, false);    
+    
+
         } 
 
         private function connexion()
