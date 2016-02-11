@@ -126,11 +126,15 @@ class Controler
                         $this->arrondissements();
                     } 
                     break;
-case 'categories':
+
+                case 'afficheCategories':
+                    $this->afficheCategories();
+                    break;
+                case 'sousCategories':
                    if($_GET['idCategorie'] !=''){
                         $this->oeuvresParCat($_GET['idCategorie']);
                     }else{
-                        $this->categories();
+                        $this->sousCategories();
                     } 
                     break;
                 case 'unOeuvre':
@@ -191,6 +195,11 @@ case 'categories':
                 case 'afficheOeuvres':
                     $this->afficheOeuvres();
                     break;
+
+                case 'afficheCategories':
+                $this->afficheSousCategories();
+                break;
+
                  case 'profilUtilisateurConnexion':
                     $this->profilUtilisateurConnexion();
                     break;
@@ -200,6 +209,11 @@ case 'categories':
                 case 'modifierProfilUtilisateur':
                     $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
                     break;
+
+                case 'afficheCommentaires':
+                    $this->afficheCommentaires();
+                    break;
+                
                 
                 default:
 			    $this->accueil();
@@ -945,28 +959,22 @@ case 'categories':
             
         } 
         
-        /* Ajouter une Catégorie
+        /* Ajouter une Sous_Catégorie
         * Auteure: Thuy Tien Vo
         */
  
-         private function ajouterUnCategorie()
-         {     
-              $oVue = new VueDefaut();
-              $oVue->afficheHeaderAdmin();
-                $erreurTitre ='';
-            $message ='';
-            if($_GET['action'] == 'ajoutCategorie')
 
-                {   $oArtiste=new MCategories('', '', '');
-                    $oArtiste->ajoutCategorie($_POST['nomCategorie'], $_POST['nomCatAng'],'');
-                    $message = "Catégorie ajoutée.";
-                    
-                }
-        
-            $oVue->formulaireAjouterCategorie();
+        private function Souscategories()
+        {
+            $oSousCategories = new MSousCategories('', '', '' ,'', '','');
+            $aSousCategories = $oSousCategories::listeSousCategories();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheSousCategories($aSousCategories);
             $oVue->afficheFooter(false,false,false,false);
-             
-        } 
+    
+        }
         
         /* Supprimer  un Catégorie
         * Author: Thuy Tien Vo
@@ -1250,6 +1258,36 @@ case 'categories':
             }
             $oVue->afficheFooter(false,false,false,false);
         }
+
+
+        private function afficheCategories()
+        {
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories->listeCategories();
+           // $nbreCategories = $oCategories->nbreCategories();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheCategories($aCategories);
+            $oVueDefaut->afficheFooter(false, false, false,false);
+    
+        }
+
+        private function afficheCommentaires()
+        {
+         
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheCommentaires();
+            $oVueDefaut->afficheFooter(false, false, false,false);
+    
+        }
+
+
+        
 
      
             
