@@ -117,7 +117,7 @@ class VueDefaut
                                             echo "<li><a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a></li>";
                                         }
         
-                                        if($_SESSION["session"]) {
+                                        if($_SESSION["session"]&& !($_SESSION["admin"])) {
                                             echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
                                                 echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
                                         } else {
@@ -125,7 +125,7 @@ class VueDefaut
                                             echo "<li><a href='index.php?requete=connexion'><span class='glyphicon glyphicon-log-in'></span> SE CONNECTER</a></li>";
                                         }
                                     ?>
-                                    <!--<a href="#"><span class='icon-language'></span> FR/EN</a>-->   
+                                    
                                 </ul> 
     <!--MOTEUR DE RECHERCHE --></div>
                         

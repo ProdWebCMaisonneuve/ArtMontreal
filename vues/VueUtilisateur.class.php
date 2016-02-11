@@ -64,8 +64,9 @@ class VueUtilisateur
     * @access public
     * @auteure: German Mahecha
     */
-    public function afficherPhotosUtilisateur()
+    public function afficherPhotosUtilisateur($photos)
     {
+        //var_dump($photos);
          ?>
               
               <div class="col-sm-12 col-sm-8 col-md-8 col-lg-9 ">
@@ -73,102 +74,23 @@ class VueUtilisateur
               <div class="panel panel-info">
                   <div class="panel-heading"><h4>Mes Photos</h4></div>
                   <div class="panel-body">
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                           <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
+                      <?php 
+        
+                          foreach($photos as $photo){
 
-                       <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                  </div>
-              </div>
-
-                <div class="panel panel-success">
-                  <div class="panel-heading"><h4>Meilleures Photos</h4></div>
-                  <div class="panel-body">
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-
-                      <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
+                                echo "<div class='col-sm-6 col-lg-3 col-md-4'>";
+                                    echo "<div class='thumbnail'>";
+                                        echo "<img src='images/img_2.jpg' alt=''>";
+                                        echo "<div class='caption'>";
+                                            echo "<p><strong>".$photo->getNomPhoto()."</strong></p>";
+                                            echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>  10 Commentaires</p>";
+                                            echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>  2 Likes</p>";
+                                            echo "<button class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Voir detailles</button>";
+                                        echo "</div>";
+                                    echo "</div>";
+                                echo "</div>";
+                          }
+                       ?> 
                   </div>
               </div>
 

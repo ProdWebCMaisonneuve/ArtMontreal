@@ -111,9 +111,8 @@ class Controler
                     $this->afficheInscriptionAdmin();
                     break;
 
-            
                 case 'connexion':
-                    if($_GET['action'] == 'envoyer')                    {
+                    if($_GET['action'] == 'envoyer'){
                         $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
                     }else{
                         $this->connexion();
@@ -200,6 +199,9 @@ case 'categories':
                 case 'modifierProfilUtilisateur':
                     $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
                     break;
+                case 'listerPhotosUtilisateur':
+                    $this->listerPhotosUtilisateur($_GET['idUtilisateur']);
+                    break;
                 
                 default:
 			    $this->accueil();
@@ -210,12 +212,10 @@ case 'categories':
 
         private function afficheContenuAdmin()
         {
-
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $oVue->afficheContenuAdmin();
             $oVue->afficheFooter();
-            
         } 
 		
         private function accueil()
@@ -1155,14 +1155,17 @@ case 'categories':
      */
          private function profilUtilisateurConnexion()
         {
-
            $oUtilisateur = new MUtilisateurs('','','','','','','','','');
            $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+           
+           //var_dump($unUtilisateur['idUtilisateur']);
            $oVue = new VueDefaut();
            $oVue->afficheHeader();
            $uVue = new VueUtilisateur();    
            $uVue->afficherProfilUtilisateur($unUtilisateur);
-           $uVue->afficherPhotosUtilisateur();
+           $photo= new MPhotos('','','','');
+           $photos= $photo->listerPhotosValidesUtilisateur($unUtilisateur['idUtilisateur']);
+           $uVue->afficherPhotosUtilisateur($photos);
            $oVue->afficheFooter(false,false,false,false);
             
         }
@@ -1251,7 +1254,16 @@ case 'categories':
             $oVue->afficheFooter(false,false,false,false);
         }
 
-     
+        private function listerPhotosUtilisateur(){
+           $oUtilisateur = new MUtilisateurs('','','','','','','','','');
+           $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+           $oVue = new VueDefaut();
+           $oVue->afficheHeader();
+           $uVue = new VueUtilisateur();    
+           $uVue->afficherProfilUtilisateur($unUtilisateur);
+           $uVue->afficherPhotosUtilisateur();
+           $oVue->afficheFooter(false,false,false,false);
+        }
             
             
             
