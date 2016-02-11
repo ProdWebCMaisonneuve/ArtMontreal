@@ -1536,8 +1536,8 @@ class VueAdmin
                                         echo "<td>".$utilisateur->getPrenom()."</td>";
                                         echo "<td>".$utilisateur->getNom()."</td>";
                                         echo "<td>".$utilisateur->getCourriel()."</td>";
-                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerArtistes&idArtiste='.$utilisateur->getIdUtilisateur().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
-                                        echo '<td class="text-center"><a href="index.php?requete=modifierArtiste&idArtiste='.$utilisateur->getIdUtilisateur().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerUtilisateurs&idUtilisateur='.$utilisateur->getIdUtilisateur().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierUtilisateur&idUtilisateur='.$utilisateur->getIdUtilisateur().'"><i class="fa fa-pencil"></i></a></td>';   
                                         echo '</tr>';
                                     }
                                     ?>
@@ -1706,146 +1706,85 @@ class VueAdmin
      * @version 1.0
      */
     
-    public function afficheListeModifierUtilisateurs($aUtilisateurs, $message)
+    public function modifierUtilisateur($aUtilisateur)
     {
-        ?>
-            <h2 id='titreA'>Modifier nos utilisateurs</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>"; 
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Utilisateur</th>";
-                echo "<th>Modifier</th>	";
-                echo "</tr>";
-                foreach($aUtilisateurs as $utilisateur) {
-                        echo "<tr>";
-                        $idUtilisateur = $utilisateur->getIdUtilisateur();
-                        echo "<td><span class='icon-user'></span>";
-                        echo "<td>" .$utilisateur->getLoginUtilisateur()."</td>" ;
-                        echo "<td><a href='index.php?requete=modifierUtilisateur&idUtilisateur=$idUtilisateur'><span class='icon-edit'></span></a></td>";
-                        echo "</tr>";
-                }
-       
-                echo "</table>";
-                echo '<span>'.$message.'</span>';
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-
-
-    /**
-     * Affiche une liste pour supprimer les utilisateurs
-     * @access public
-     * @author German Mahecha
-     * @version 1.0
-     */
-    
-    public function afficheListeSupprimerUtilisateurs($aUtilisateurs)
-    {
-        ?>
-            <h2 id='titreA'>Supprimer nos utilisateurs</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Utilisateur</th>";
-                echo "<th>Supprimer</th>    ";
-                echo "</tr>";
-                
-                foreach($aUtilisateurs as $utilisateur) {
-                        echo "<tr>";
-                        $idUtilisateur = $utilisateur->getIdUtilisateur();
-                        echo "<td><span class='icon-user'></span>";
-                        echo "<td>" .$utilisateur->getLoginUtilisateur()."</td>" ;
-                        echo "<td><a href='index.php?requete=supprimerUtilisateurs&idUtilisateur=$idUtilisateur'><span class='icon-remove-user'></span></a></td>";
-                        echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-
-
-    /*
-     * Fonction qui modifie un UTILISATEUR 
-     * @access public
-     * @author Jorge Blanco
-     * @version 1.0
-     */
-
-    public function modifierUnUtilisateur($aUtilisateur)
-    {
-        
-        $idUtilisateur = $aUtilisateur['idUtilisateur'];
+        $idUtilisateur = $aUtilisateur['idUtilisateur']; 
+        $prenom = $aUtilisateur['prenomUtil']; 
+        $nom = $aUtilisateur['nomUtil'];
+        $login = $aUtilisateur['loginUtilisateur'];
+        $courriel = $aUtilisateur['courrielUtil'];
+        $telephone = $aUtilisateur['telUtil'];
         $bio = $aUtilisateur['bio'];
-        $utilisateur = $aUtilisateur['loginUtilisateur'];
-        $motDePasse = $aUtilisateur['passUtilisateur'];
-        $score = $aUtilisateur['score'];
-        $photoUtilisateur = $aUtilisateur['photoUtilisateur'];
-    
-
+        $photo = $aUtilisateur['photoUtilisateur'];
         ?>
-        <div>
-        <h2 id="titreAdm">Modifier Utilisateur</h2>
-    
-        <form class="formulaire" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" method='POST'>
-        
-            <fieldset>
-                <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-            <!-- Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Date de naissance:<br>
-            <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
-             <br> <br>
-            Sexe:<br><br>
-            <input type="radio" name="sex" value="male" checked> Male
-            <input type="radio" name="sex" value="female"> Female<br><br>
-            Courriel:<br>
-            <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-            <br> <br> -->
-            Biographie:<br>
-            <textarea rows="8" cols="60" name="bio"><?php echo $bio; ?></textarea>
-            <br><br>
-             Nom d'utilisateur:<br> 
-            <input type="text" name="utilisateur" value="<?php echo $utilisateur; ?>">
-            <br><br>
-            Mot de passe:<br>
-            <input type="text" name="motDePasse" placeholder="Nouveau mot de passe" value="">
-            <br><br>
-<!--
-            Confirmer le mot de passe:<br>
-            <input type="password" name="motDePasse" value="<?php echo $motDePasse; ?>">
-            <br><br>
--->
-            score:<br>
-            <input type="text" name="score" value="<?php echo $score; ?>">
-            <br><br>
-            photo:<br>
-            <input type="text" name="photoUtilisateur" value="<?php echo $photoUtilisateur; ?>">
-            <br><br>
-            <input type="submit" value="Envoyer" id="button">
+            <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modifier un Utilisateur</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'utilisateur
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider">
 
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
-        <?php
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Login :</label>
+                                    <input class="form-control" type="text" name="loginUtilisateur" value="<?php echo $login; ?>"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mot de passe :</label>
+                                    <input class="form-control" type="text" name="passUtilisateur" placeholder="Entrez le nouveau mot de passe"><span><?php echo $erreurPassUtilisateur;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Courriel :</label>
+                                    <input class="form-control" type="mail" name="courriel" value="<?php echo $courriel; ?>"><span><?php echo $erreurCourriel;?></span>
+                                </div>
+                                 <div class="form-group">
+                                    <label>Téléphone :</label>
+                                    <input class="form-control" type="phone" name="telephone" value="<?php echo $telephone; ?>"><span><?php echo $erreurTelephone;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bio :</label>
+                                    <textarea class="form-control" name="bio" row="3"><?php echo $bio; ?></textarea><span><?php echo $erreurCourriel;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoUtilisateur" value="<?php echo $photo; ?>"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
     }
-    
+
+
     
 
 

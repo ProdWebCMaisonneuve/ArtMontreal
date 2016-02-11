@@ -37,12 +37,6 @@ class Controler
                     }
                     break;
                             
-                case 'listeModifierUtilisateurs':
-                        $this->listeModifierUtilisateurs();
-                    break;
-                case 'listeSupprimerUtilisateurs':
-                        $this->listeSupprimerUtilisateurs();
-                    break;
                 case 'listeModifierCategories':
                         $this->listeModifierCategories();
                     break;
@@ -483,18 +477,20 @@ case 'categories':
              $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
              $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
              $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
+            $nbreUtilisateurs = $oUtilisateur->nbreUtilisateurs();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
 
             if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['utilisateur'], md5($_POST['motDePasse']), $_POST['prenom'], $_POST['nom'], $_POST['email'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
-                    $oVue = new VueDefaut();
-                   $message = 'Utilistaeur modifie';
-                    $oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
+                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
+                    $oVueAdmin = new VueAdmin();
+                     $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
+                    $message = 'Utilisateur modifié';
+                    $oVueAdmin->afficheUtilisateurs($aUtilisateurs, $nbreUtilisateurs);
                }
                 catch (Exception $e)
                 {
@@ -503,10 +499,10 @@ case 'categories':
             }
             else
             {
-                $oVue->modifierUnUtilisateur($aUtilisateur);
+                $oVueAdmin->modifierUtilisateur($aUtilisateur);
             }
-           // $oVue = afficheListeModifierUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
+        
+            $oVueDefaut->afficheFooter(false,true,false,true);
 
 
         }
@@ -551,11 +547,13 @@ case 'categories':
             $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
             $oUtilisateur->supprimerUtilisateurs($idUtil);
             $aUtilisateurs=$oUtilisateur->listeUtilisateurs();
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter();
+            $nbreUtilisateurs = $oUtilisateur->nbreUtilisateurs();
+            
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheUtilisateurs($aUtilisateurs, $nbreUtilisateurs);
+            $oVueDefaut->afficheFooter(false, true, false, true);
         }
     
     
