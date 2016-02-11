@@ -93,7 +93,7 @@ class VueDefaut
                                         </li>
                                         <li><a href="index.php?requete=arrondissements" class="arrondisement" id="arrondissement"><span class="glyphicon glyphicon-map-marker"></span> ARRONDISSEMENT</a>
                                         </li>
-                                        <li><a href="index.php?requete=categories" class="categorie" id="categorie"><span class="glyphicon glyphicon-list-alt"></span> CATEGORIE</a>
+                                        <li><a href="index.php?requete=sousCategories" class="categorie" id="categorie"><span class="glyphicon glyphicon-list-alt"></span> CATEGORIE</a>
                                         </li>
                                     </ul>
                                    
@@ -1029,13 +1029,13 @@ public function afficheSliderAccueil($oeuvres)
     }    //FIN FUNCTION afficheOeuvre_Par_Arr
     
 
-    /**
+   /**
      * Affiche catégories
      * @access public
      * @author Thuy Tien VO
      * @version 1.0
      */
-    public function afficheCategories($aCategories) 
+    public function afficheSousCategories($aSousCategories) 
 
     {
         ?>
@@ -1046,22 +1046,31 @@ public function afficheSliderAccueil($oeuvres)
         
         echo "<section class='contenu container'>";
 
-        foreach($aCategories as $categorie)
+        foreach($aSousCategories as $sousCategorie)
         {
-            $id_Categorie= $categorie->getIdCategorie();
+            $id_SousCategorie= $sousCategorie->getIdSousCategorie();
             //$categorie->afficher();
-            $nom = $categorie->getNomCategorie();
+            $nom = $sousCategorie->getNomSousCategorie();
 
             echo "<div class=' accordion sixcol ";
 
-             if($compteur%2 == 1){
-                echo "last'>";
-            } else {
-                 echo "first'>";
-            }
+            if($compteur%2 == 1)
+                {
+                    echo "last'>";
+                } 
+            else 
+                {
+                     echo "first'>";
+                }
         
-            echo "<figure class='categorie'>";   
-            echo "<a href = 'index.php?requete=categories&idCategorie=$id_Categorie' class='categorie'> " . $nom. "</a>";
+            echo "<figure class='sousCategorie'>";  
+
+            echo'<div class="container">';
+            echo"<ul class='list-group-item'>"; 
+                 echo "<a href = 'index.php?requete=sousCategories&idSousCategorie=$id_SousCategorie' class='sousCategorie'> " . $nom. "</a>";
+            echo"</ul>";
+            echo'</div>';
+
             echo "</figure>";
             echo "</div>";
             $compteur = $compteur + 1;
@@ -1086,7 +1095,7 @@ public function afficheSliderAccueil($oeuvres)
             <?php
              if($aOeuvreParCat == "")
             {
-                echo "il n'y a pas d'oeuvres dans ce arrondisement";
+                echo "Il n'y a pas d'oeuvres dans ce catégorie";
             }
             else
             {
@@ -1095,7 +1104,16 @@ public function afficheSliderAccueil($oeuvres)
                 {    
                     $idOeuvre= $oeuvre->getIdOeuvre();
                     $titre = $oeuvre->getTitreOeuvre();
-                    echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='categorie'>" .  $titre. "</a>" . '</br>';  
+
+                    echo'<div class="container">';
+
+                        echo"<ul class='list-group-item'>";
+
+                            echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='categorie'>" .  $titre. "</a>" . '</br>'; 
+
+                        echo"</ul>";
+
+                    echo'</div>';
                 }
             }
         }    //FIN FUNCTION afficheOeuvreParCat
@@ -2376,32 +2394,31 @@ public function afficheSliderAccueil($oeuvres)
      * @version 1.0
      */
     
-     public function afficheOeuvresMot($aOeuvres)
-     {
-        ?>
-            <h2>Resultats de la recherche</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                    echo "<table>";
-                    echo "<tr>";
-                    echo "<th></th>";
-                    echo "<th>Titre</th>";
-                    echo "</tr>";
+    public function afficheOeuvresMot($aOeuvres)
 
-                    foreach($aOeuvres as $oeuvre) {
-                        echo "<tr>";
-                        $idOeuvre = $oeuvre->getIdOeuvre();
-                        echo "<td><a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre'><span class='icon-blackboard'></span>";
-                        echo "<td>".$oeuvre->getTitreOeuvre()."</td>" ;
-                       echo "</tr>";
-                    }
+    {
+      
+                echo' <div class="container">';
+                echo' <h2>Resultats de la recherche</h2>';
+                        echo'<div class="panel panel-default">';  
+                            echo'<div class="panel-heading">Titre</div>';
+                        
+                                echo'<div class="panel-body">';
 
-                    echo "</table>";
-                echo "</div>";
-            echo "</section> ";
+                                foreach($aOeuvres as $oeuvre)
+                                    {
+                                       $idOeuvre = $oeuvre->getIdOeuvre();
+                                       echo "<td><a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre'><span class='icon-blackboard'></span>";
+                                       echo "<td>".$oeuvre->getTitreOeuvre()."<br>" ;
+                                       echo "</tr>";
+                                    }
+
+                                echo'</div>';
+                        echo'</div>';
+               
+                echo'</div>';
+            
         }
-           
     
     
     /**
