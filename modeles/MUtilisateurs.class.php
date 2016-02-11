@@ -272,7 +272,7 @@ class MUtilisateurs {
     	self::$database->bind('photoUtilisateur', $photoUtil);
     	return(self::$database->execute());
     }
-    
+     
     /**
      * Fonction qui compte le nombre d'utilisateurs dans la BDD
 	 * @access public static

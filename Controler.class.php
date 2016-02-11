@@ -69,6 +69,15 @@ class Controler
                 case 'supprimerArtistes':
                         $this->supprimerArtistes($_GET['idArtiste']);
                     break;
+                
+                case 'afficheUtilisateurs':
+                        $this->afficheUtilisateurs();
+                    break;
+                
+                case 'ajoutUtilisateur':
+                        $this->ajoutUtilisateur();
+                    break;
+                    
                 case 'modifierUtilisateur':
                         $this->modifierUtilisateur($_GET['idUtilisateur']);
                     break;
@@ -279,29 +288,20 @@ case 'categories':
             $oVue->afficheFooter(false,false, false, false);
         }
     
-        private function listeModifierUtilisateurs()
-		{
-            $message='';
-            $oUtilisateurs = new MUtilisateurs('','','','','','','','','');
-            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierUtilisateurs($aUtilisateurs, $message);
-            $oVue->afficheFooter(false,false, false, false);
-    
-		}
-        private function listeSupprimerUtilisateurs()
-		{
-            $oUtilisateurs = new MUtilisateurs('', '', '' ,'', '', '','','','');
-            $aUtilisateurs = $oUtilisateurs::listeUtilisateurs();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeSupprimerUtilisateurs($aUtilisateurs);
-            $oVue->afficheFooter(false,false, false, false);
-    
-		}
+        private function ajoutUtilisateur()
+        {
+            $oUtilisateur = new MUtilisateurs('', '', '', '', '', '', '', '', '');
+            
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+            
+            if($_GET['action'] == "ajoutUtilisateur"){
+                $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["telephone"], $_POST["bio"], $_POST["photoUtilisateur"]);
+            }
+            $oVueAdmin->ajoutUtilisateur();
+            $oVueDefaut->afficheFooter(false, true, false, false);
+        }
     
         private function listeModifierCategories()
 		{
@@ -337,6 +337,20 @@ case 'categories':
             
             $oVueAdmin->afficheHeaderAdmin();
 			$oVueAdmin->afficheOeuvres($aOeuvres, $nbreOeuvres);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+    
+		}
+    
+        private function afficheUtilisateurs()
+		{
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '', '', '', '');
+            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+            $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+			$oVueAdmin->afficheUtilisateurs($aUtilisateurs, $nbreUtilisateurs);
             $oVueDefaut->afficheFooter(false, true, false, true);
     
 		}

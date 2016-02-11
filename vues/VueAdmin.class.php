@@ -298,7 +298,7 @@ class VueAdmin
                             <a href="forms.html"><i class="fa fa-list fa-fw"></i> Catégories</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Utilisateurs</a>
+                            <a href="index.php?requete=afficheUtilisateurs"><i class="fa fa-user fa-fw"></i> Utilisateurs</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Modération<span class="fa arrow"></span></a>
@@ -1442,41 +1442,140 @@ class VueAdmin
 
     /**--------------------------------------------------------------------UTILISATEUR---------------------------------------------------------------------------- **/
 
-        /**
-     * Fonction qui affiche un utilisateur 
+
+     /**
+     * Affiche la page admin Utilisateur
      * @access public
-     * @author Jorge Blanco
+     * @author Gautier Piatek
+     * @author German Mahecha
      * @version 1.0
+     * 
      */
-
-    public function afficherUnUtilisateur($aUtilisateur)
-    {
-        ?>
-        <section class='contenu container'>
-            <div class= 'fourcol '>
-                <img src='images/util_1.png' alt="">
-            </div>
-            <div class= 'sixcol'>
-                <?php
-                    //var_dump($aUtilisateur);
-                   //$idUtilisateur= $aUtilisateur->getIdUtilisateur();
-
-
-
-                 ?>
-                
-                <p>Nom utilisateur: <?php echo $aUtilisateur->getloginUtilisateur(); ?></p>
-                <p>bio: <?php echo $aUtilisateur->getbio(); ?></p>
-
-                <a href='index.php?requete=profilUtilisateur'><span class='icon-reply'></span> Retourner</a>
-            </div>
+    public function afficheUtilisateurs($aUtilisateurs, $nbreUtilisateurs) 
+    { 
         
-        </section>
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Utilisateurs</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <a href="index.php?requete=ajoutUtilisateur">
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                                                   
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"> Ajouter un utilisateur</div>
 
-        <?php
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                           
+                              
+                                              
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $nbreUtilisateurs; ?> Utilisateurs</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste des Utilisateurs
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-listeUtilisateurs">
+                                    <thead>
+                                        <tr>
+                                            <th>Login</th>
+                                            <th>Prenom</th>
+                                            <th>Nom</th>
+                                            <th>Courriel</th>
+                                            <th>Supprimer</th>
+                                            <th>Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach($aUtilisateurs as $utilisateur) {
+                                        echo '<tr>';
+                                        echo "<td>".$utilisateur->getLoginUtilisateur()."</td>";
+                                        echo "<td>".$utilisateur->getPrenom()."</td>";
+                                        echo "<td>".$utilisateur->getNom()."</td>";
+                                        echo "<td>".$utilisateur->getCourriel()."</td>";
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerArtistes&idArtiste='.$utilisateur->getIdUtilisateur().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierArtiste&idArtiste='.$utilisateur->getIdUtilisateur().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer un utilisateur, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    <?php
     }
-
-
 
     /**
      * Afficher un liste d'UTILISATEUR
@@ -1521,58 +1620,79 @@ class VueAdmin
 
     
     /**
-     * Affiche la page d'inscription UTILISATEUR
+     * Affiche la page ajout UTILISATEUR
      * @access public
-     * @author Thuy Tien Vo(formulaire/CSS)
+     * @author Thuy Tien Vo
      * @author  Jorge Blanco
+     * @author Gautier Piatek
      */
-    public function afficheInscriptionAdmin() 
+    public function ajoutUtilisateur() 
     {
         ?>
-        <div>
-        <h2 id="titreAdm">Ajouter un utilisateur</h2>
-        <div class="formulaireAd1">
-            <form method="POST"  action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
+         <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter un Utilisateur</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'utilisateur
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutUtilisateur&action=ajoutUtilisateur">
 
-                <fieldset>
-                    <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-                <!-- Prénom:<br>
-                <input type="text" name="prenom" >
-                <br> <br>
-                Nom:<br>
-                <input type="text" name="nom" >
-                <br> <br>
-                Date de naissance:<br>
-                <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
-                 <br> <br>
-                Sexe:<br><br>
-                <input type="radio" name="sex" value="male" checked> Male
-                <input type="radio" name="sex" value="female"> Female<br><br>
-                Courriel:<br>
-                <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-                <br> <br> -->
-                Biographie:<br>
-                <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
-                <br><br>
-                 Nom d'utilisateur:<br> 
-                <input type="text" name="utilisateur" >
-                <br><br>
-                Mot de passe:<br>
-                <input type="password" name="motDePasse" >
-                <br><br>
-                Confirmer le mot de passe:<br>
-                <input type="password" name="motDePasse" value="">
-                <br><br>
-                score:<br>
-                <input type="text" name="score" value="">
-                <br><br>
-                photo:<br>
-                <input type="text" name="photoUtilisateur" value="">
-                <br><br>
-                <input type="submit" value="Envoyer" id="button">
-                </fieldset>
-                </form>  
-        </div>           
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Login :</label>
+                                    <input class="form-control" type="text" name="loginUtilisateur"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mot de passe :</label>
+                                    <input class="form-control" type="text" name="passUtilisateur"><span><?php echo $erreurPassUtilisateur;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Courriel :</label>
+                                    <input class="form-control" type="mail" name="courriel"><span><?php echo $erreurCourriel;?></span>
+                                </div>
+                                 <div class="form-group">
+                                    <label>Téléphone :</label>
+                                    <input class="form-control" type="phone" name="telephone"><span><?php echo $erreurTelephone;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bio :</label>
+                                    <textarea class="form-control" name="bio" row="3"></textarea><span><?php echo $erreurCourriel;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoUtilisateur"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <?php
 
     }
