@@ -270,7 +270,7 @@ class MOeuvres {
      */
     public static function ajouterOeuvre($titre, $titreVariante, $technique, $techniqueAng,$noInternetOeuvre, $description, $validationOeuvre, $idArrondissement, $nomMateriaux, $nomMateriauxAng,$idCategorie, $idSousCategorie,$adresse,$batiment,$parc,$latitude,$longitude) {
         
-        self::$database->query("INSERT INTO oeuvre VALUES ('', :titre, :titreVariante, :technique, :techniqueAng, noInternetOeuvre, :description, :validationOeuvre, :idArrondissement, :nomMateriaux, :nomMateriauxAng, :idCategorie, :idSousCategorie,:adresse,:batiment,:parc,:latitude,:longitude)");
+        self::$database->query("INSERT INTO oeuvre VALUES ('', :titre, :titreVariante, :technique, :techniqueAng, :noInternetOeuvre, :description, :validationOeuvre, :idArrondissement, :nomMateriaux, :nomMateriauxAng, :idCategorie, :idSousCategorie,:adresse,:batiment,:parc,:latitude,:longitude)");
         //On lie les paramètres auxvaleurs
         
         self::$database->bind(':titre', $titre);
@@ -304,9 +304,9 @@ class MOeuvres {
      * @version 1.0
      * 
      */
-    public static function modifierOeuvre($idOeuvre, $titre, $titreVariante, $technique, $techniqueAng, $noInternetOeuvre, $description, $validationOeuvre, $idArrondissement, $idCategorie, $idSousCategorie, $nomMateriaux, $nomMateriauxAng,$adresse,$batiment,$parc,$latitude,$longitude) {
+    public static function modifierOeuvre($idOeuvre, $titre, $titreVariante, $technique, $techniqueAng, $description, $validationOeuvre, $idArrondissement, $idCategorie, $idSousCategorie, $nomMateriaux, $nomMateriauxAng, $adresse, $batiment, $parc, $latitude, $longitude) {
         
-        self::$database->query("UPDATE oeuvre SET titreOeuvre = :titre, titreVariante = :titreVariante, technique = :technique, techniqueAng = :techniqueAng, noInternet = noInternetOeuvre, description = :description, validationOeuvre = :validationOeuvre, idArrondissement = :idArrondissement, nomMateriaux = :nomMateriaux, nomMateriauxAng = :nomMateriauxAng, idCategorie = :idCategorie, idSousCategorie = :idSousCategorie,adresseCivic=:adresse,batiment=:batiment,parc=:parc,latitude=:latitude, longitude=:longitude WHERE idOeuvre = :idOeuvre");
+        self::$database->query("UPDATE oeuvre SET titreOeuvre = :titre, titreVariante = :titreVariante, technique = :technique, techniqueAng = :techniqueAng, description = :description, validationOeuvre = :validationOeuvre, idArrondissement = :idArrondissement, nomMateriaux = :nomMateriaux, nomMateriauxAng = :nomMateriauxAng, idCategorie = :idCategorie, idSousCategorie = :idSousCategorie,adresseCivic=:adresse,batiment=:batiment,parc=:parc,latitude=:latitude, longitude=:longitude WHERE idOeuvre = :idOeuvre");
         //On lie les paramètres auxvaleurs
         
         self::$database->bind(':idOeuvre', $idOeuvre);
@@ -314,7 +314,6 @@ class MOeuvres {
         self::$database->bind(':titreVariante', $titreVariante);
         self::$database->bind(':technique', $technique);
         self::$database->bind(':techniqueAng', $techniqueAng);
-        self::$database->bind(':noInternetOeuvre', $noInternetOeuvre);
         self::$database->bind(':description', $description);
         self::$database->bind(':validationOeuvre', $validationOeuvre);
         self::$database->bind(':idArrondissement', $idArrondissement);

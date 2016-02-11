@@ -142,7 +142,7 @@ class VueAdmin
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
                 <meta name="description" content="">
                 <meta name="viewport" content="width=device-width">
-                <link rel="stylesheet" href="css/main.css">
+                <link rel="stylesheet" href="css/main_bootstrap.css">
                 
                 <!-- Bootstrap Core CSS -->
                 <link href="lib/SBAdmin2/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -292,13 +292,13 @@ class VueAdmin
                             <a href="index.php?requete=afficheOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-users fa-fw"></i> Artistes</a>
+                            <a href="index.php?requete=afficheArtistes"><i class="fa fa-users fa-fw"></i> Artistes</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-list fa-fw"></i> Catégories</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Utilisateurs</a>
+                            <a href="index.php?requete=afficheUtilisateurs"><i class="fa fa-user fa-fw"></i> Utilisateurs</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Modération<span class="fa arrow"></span></a>
@@ -390,7 +390,7 @@ class VueAdmin
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="index.php?requete=afficheArtistes">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -412,7 +412,7 @@ class VueAdmin
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="index.php?requete=afficheUtilisateurs">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -557,7 +557,7 @@ class VueAdmin
      */
     public function afficheOeuvres($aOeuvres, $nbreOeuvres) 
     { 
-        /*var_dump($aOeuvres);*/
+        
     ?>
     <div id="page-wrapper">
             
@@ -636,8 +636,8 @@ class VueAdmin
                                         echo '<tr>';
                                         echo "<td>".$oeuvre->getTitreOeuvre()."</td>";
                                         echo "<td>".$oeuvre->getTitreVariante()."</td>";
-                                        echo '<td class="text-center"><a href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-trash"></i></a></td>';    
-                                        echo '<td class="text-center"><a href="index.php?requete=modifierOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre->getIdOeuvre().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierOeuvre&idOeuvre='.$oeuvre->getIdOeuvre().'"><i class="fa fa-pencil"></i></a></td>';   
                                         echo '</tr>';
                                     }
                                     ?>
@@ -649,6 +649,30 @@ class VueAdmin
                     </div>
                 </div>
             </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer une oeuvre, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
     <?php
     }
 
@@ -664,173 +688,154 @@ class VueAdmin
     {   
         
         ?>            
-            <section class="contenu container">
-        
-                <h2 id='titreAdm'>Ajouter une oeuvre</h2>
-                <div class="formulaireAd1">
-                
-                       <form method="POST" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
-                           
-                            <label>Titre : <br></label> <input type="text" name="titre"><span><?php echo $erreurTitre;?><br><br>
-                            <label>Titre (Variante) : <br></label> <input type="text" name="titreVariante"><br><br>
-                            <label>Technique : <br></label> <input type="text" name="technique"><br><br>
-                            <label>Technique (anglais) :<br> </label> <input type="text" name="techniqueAng"><br><br>
-                            <label>Description : <br></label> <input type="text" name="description"><br><br>
-                            <label>Validation :<br> </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br><br>
-                            
-                            <label>Adresse Civique : <br></label> <input type="text" name="adresse"><br><br>
-                            <label>Batiment : <br></label> <input type="text" name="batiment"><br><br>
-                            <label>Parc :<br> </label> <input type="text" name="parc"><br><br>
-                            <label>Latitude :<br> </label> <input type="text" name="latitude"><br><br>
-                            <label>Longitude :<br> </label> <input type="text" name="longitude"><br><br>
-                            <label>Arrondissement :<br> </label> <select name="arrondissement"><br>
-                                <option value="nonChoisi">Choisir un Arrondissement</option><br>
-                            <?php
-                                foreach ($aArrondissements as $arrondissement) {
-                                    echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Artiste/Collectif : </label> <br><select name="artiste">
-                                <option value="nonChoisi">Choisir un Artiste/Collectif</option>
-                            <?php
-                                foreach ($aArtistes as $artiste) {
-                                    
-                                    if($artiste->getNom() == "") {
-                                        
-                                         echo "<option value='".$artiste->getIdArtiste()."'>".$artiste->getCollectif()."</option>"; 
-                                    } else {                                    
-                                       
-                                        echo "<option value='".$artiste->getIdArtiste()."'>". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
+            <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter une Oeuvre</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'oeuvre
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
+
+                                <div class="form-group">
+                                    <label>Titre :</label>
+                                    <input class="form-control" type="text" name="titre"><span><?php echo $erreurTitre;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Titre (variante) :</label>
+                                    <input class="form-control" type="text" name="titreVariante"><span><?php echo $erreurTitreVariante;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique :</label>
+                                    <input class="form-control" type="text" name="technique"><span><?php echo $erreurTechnique;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique (anglais):</label>
+                                    <input class="form-control" type="text" name="techniqueAng"><span><?php echo $erreurTechniqueAng;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description :</label>
+                                    <textarea class="form-control" rows="3" name="description"></textarea><span><?php echo $erreurDescription;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Validation :</label>
+                                    <label class="radio-inline">
+                                    <input type="radio" checked name="validation" value="1" id="validationOui">Oui
+                                    </label>
+                                    <label class="radio-inline">
+                                    <input type="radio" name="validation" value="0" id="validationNon"> Non
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                <label>Adresse Civique :</label>
+                                    <input class="form-control" type="text" name="adresse"><span><?php echo $erreurAdresse;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Batiment :</label>
+                                    <input class="form-control" type="text" name="batiment"><span><?php echo $erreurBatiment;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Parc :</label>
+                                      <input class="form-control" type="text" name="parc"><span><?php echo $erreurParc;?>
+                                </div>
+                                <div class="form-group">
+                                <label>Latitude :</label>
+                                     <input class="form-control" type="text" name="latitude"><span><?php echo $erreurLatitude;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Longitude :</label>
+                                    <input class="form-control" type="text" name="longitude"><span><?php echo $erreurLongitude;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Arrondissement :</label>
+                                    <select class="form-control" name="arrondissement"><br><span><?php echo $erreurArrondissement;?></span>
+                                    <option value="nonChoisi">Choisir un Arrondissement</option><br>
+                                <?php
+                                    foreach ($aArrondissements as $arrondissement) {
+                                        echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
                                     }
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Catégorie : </label><br> <select name="categorie"><br><br>
-                                <option value="nonChoisi">Choisir une Catégorie</option>
-                            <?php 
-                                foreach ($aCategories as $categorie) {
-                                    echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
-                                }
-                            ?>
-                           </select><br><br>
-                               <label>Sous-Catégorie : </label><br> <select name="sousCategorie"><br><br>
-                                <option value="nonChoisi">Choisir une Sous-Catégorie</option>
-                            <?php
-                                foreach ($aSousCategories as $sousCategorie) {
-                                    echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
-                                }
-                            ?>    
-                           </select><br><br>
-                               <label>Matériaux : </label><br> <input type="text" name="materiaux"><br><br>
-                               <label>Matériaux (anglais) : </label> <br><input type="text" name="materiauxAng"><br><br>
-                            
-                            <input type="submit" name="sauvegarder" id="button" value="Valider"> <span><?php echo $message; ?></span>
-                       </form>
+                                ?>
+                               </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Artiste/Collectif :</label>
+                                   <select class="form-control" name="artiste"><span><?php echo $erreurArtiste;?></span>
+                                    <option value="nonChoisi">Choisir un Artiste/Collectif</option>
+                                <?php
+                                    foreach ($aArtistes as $artiste) {
 
-                   </div>
+                                        if($artiste->getNom() == "") {
 
+                                             echo "<option value='".$artiste->getIdArtiste()."'>".$artiste->getCollectif()."</option>"; 
+                                        } else {                                    
+
+                                            echo "<option value='".$artiste->getIdArtiste()."'>". $artiste->getPrenom() . " " . $artiste->getNom()."</option>";
+                                        }
+                                    }
+                                ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Catégorie :</label>
+                                   <select class="form-control" name="categorie"><span><?php echo $erreurCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Catégorie</option>
+                                <?php 
+                                    foreach ($aCategories as $categorie) {
+                                        echo "<option value='".$categorie->getidCategorie()."'>".$categorie->getnomCategorie()."</option>"; 
+                                    }
+                                ?>
+                                   </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Sous-Catégorie :</label>
+                                    <select class="form-control" name="sousCategorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Sous-Catégorie</option>
+                                <?php
+                                    foreach ($aSousCategories as $sousCategorie) {
+                                        echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
+                                    }
+                                ?>    
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Matériaux :</label>
+                                   <input class="form-control" type="text" name="materiaux"><span><?php echo $erreurMateriaux;?></span>
+                                </div>
+                                 <div class="form-group">
+                                   <label>Matériaux (anglais) : </label>
+                                    <input class="form-control" type="text" name="materiauxAng"><span><?php echo $erreurMateriauxAng;?></span>
+                                </div>
+
+                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
         </div>
+    </div>
+              
+            
         
         
         <?php
         
     }
 
-
-      /**
-     * Afficher un liste MODIFIER DES OEUVRES
-     * @access public
-     * @author German Mahecha
-     */
-    
-    public function afficheListeModifierOeuvres($aOeuvres)
-    {
-        ?>
-            <h2 id='titreA'>Modifier nos Oeuvres</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Titre</th>";
-                echo "<th>Artiste</th>";
-                echo "<th>Arrondissement</th>";
-                echo "<th>Modifier</th> ";
-                echo "</tr>";
-                    foreach($aOeuvres as $oeuvre) {
-                        echo "<tr>";
-                        $idOeuvre = $oeuvre->getIdOeuvre();
-                        echo "<td><span class='icon-blackboard'></span>";
-                        echo "<td>".$oeuvre->getTitreOeuvre()."</td>" ;
-                                               
-                       if($oeuvre->getCollectif() =="") {
-                          echo "<td>".$oeuvre->getNomArtiste()." ".$oeuvre->getPrenomArtiste()."</td>" ;
-                       } else {
-                           echo "<td>".$oeuvre->getCollectif()."</td>" ;
-                       }
-                       
-                        echo "<td>".$oeuvre->getNomArrondissement()."</td>" ;
-                        echo "<td><a href='index.php?requete=modifierOeuvre&idOeuvre=$idOeuvre'><span class='icon-edit'></span></a></td>";
-                        echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-
-
-    /**
-     * Affiche Liste  pour supprimer des OEUVRES
-     * @access public
-     * @author German Mahecha
-     * @version 1.0
-     */
-    
-     public function afficheListeSupprimerOeuvres($aOeuvres)
-     {
-        ?>
-            <h2 id='titreA'>Supprimer une oeuvre</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Titre</th>";
-                echo "<th>Artiste</th>";
-                echo "<th>Arrondissement</th>";
-                echo "<th>Supprimer</th>    ";
-                echo "</tr>";
-                    foreach($aOeuvres as $oeuvre) {
-                        echo "<tr>";
-                        $idOeuvre = $oeuvre->getIdOeuvre();
-                        echo "<td><span class='icon-blackboard'></span>";
-                        echo "<td>".$oeuvre->getTitreOeuvre()."</td>" ;
-                                               
-                       if($oeuvre->getCollectif() =="") {
-                          echo "<td>".$oeuvre->getNomArtiste()." ".$oeuvre->getPrenomArtiste()."</td>" ;
-                       } else {
-                           echo "<td>".$oeuvre->getCollectif()."</td>" ;
-                       }
-                       echo "<td>".$oeuvre->getNomArrondissement()."</td>" ;
-                       echo "<td><a href='index.php?requete=supprimerOeuvres&idOeuvre=$idOeuvre'><span class='icon-erase'></span></a></td>";
-                       echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-    
-
-   
     /**
      * Fonction qui MODIFIE une OEUVRE
      * @access public
@@ -838,7 +843,7 @@ class VueAdmin
      * @version 1.0
      */
     
-    public function modifierOeuvre($aOeuvre, $aAdresse, $aArrondissements, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message) {
+    public function modifierOeuvre($aOeuvre, $aArrondissements, $idArtiste, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message) {
         
         $idOeuvre = $aOeuvre['idOeuvre'];
         $titre = $aOeuvre['titreOeuvre'];
@@ -847,39 +852,93 @@ class VueAdmin
         $techniqueAng = $aOeuvre['techniqueAng'];
         $description = $aOeuvre['description'];
         $validation = $aOeuvre['validationOeuvre'];
-        $adresseCiv = $aAdresse['adresseCiv'];
-        $batiment = $aAdresse['batiment'];
-        $parc = $aAdresse['parc'];
-        $latitude = $aAdresse['latitude'];
-        $longitude = $aAdresse['longitude'];
+        $adresse = $aOeuvre['adresseCivic'];
+        $batiment = $aOeuvre['batiment'];
+        $parc = $aOeuvre['parc'];
+        $latitude = $aOeuvre['latitude'];
+        $longitude = $aOeuvre['longitude'];
         $idArrondissement = $aOeuvre['idArrondissement'];
         $idCategorie = $aOeuvre['idCategorie'];
         $idSousCategorie = $aOeuvre['idSousCategorie'];
         $nomMateriaux = $aOeuvre['nomMateriaux'];
         $nomMateriauxAng = $aOeuvre['nomMateriauxAng'];
-        $idArtiste = $aOeuvre['idArtiste'];
+        
         ?>
-        <!--<div class="administration">
-                   <div class="twelvecol">-->
-                       <h3>Modifier une oeuvre</h3>
+       <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter une Oeuvre</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'oeuvre
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                            <form method="POST" role="form" action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
 
-                       <form method="POST" class='formulaire' action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
-                            <fieldset>
-                            <label>Titre : </label> <input type="text" name="titre" value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?><br>
-                            <label>Titre (Variante) : </label> <input type="text" name="titreVariante" value="<?php echo $titreVariante; ?>"><br>
-                            <label>Technique : </label> <input type="text" name="technique" value="<?php echo $technique; ?>"><br>
-                            <label>Technique (anglais) : </label> <input type="text" name="techniqueAng" value="<?php echo $techniqueAng; ?>"><br>
-                            <label>Description : </label> <input type="text" name="description" value="<?php echo $description; ?>"><br>
-                            <label>Validation : </label> <input type="radio" checked name="validation" value="1"> Oui <input type="radio" name="validation" value="0"> Non<br>
-                            
-                            <label>Adresse Civique : </label> <input type="text" name="adresse" value="<?php echo $adresseCiv; ?>"><br>
-                            <label>Batiment : </label> <input type="text" name="batiment" value="<?php echo $batiment; ?>"><br>
-                            <label>Parc : </label> <input type="text" name="parc" value="<?php echo $parc; ?>"><br>
-                            <label>Latitude : </label> <input type="text" name="latitude" value="<?php echo $latitude; ?>"><br>
-                            <label>Longitude : </label> <input type="text" name="longitude" value="<?php echo $longitude; ?>"><br>
-                            <label>Arrondissement : </label> <select name="arrondissement" >
-                                <option value="nonChoisi">Choisir un Arrondissement</option>
-                            <?php
+                                <div class="form-group">
+                                    <label>Titre :</label>
+                                    <input class="form-control" type="text" name="titre" value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Titre (variante) :</label>
+                                    <input class="form-control" type="text" name="titreVariante" value="<?php echo $titreVariante; ?>"><span><?php echo $erreurTitreVariante;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique :</label>
+                                    <input class="form-control" type="text" name="technique" value="<?php echo $technique; ?>"><span><?php echo $erreurTechnique;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique (anglais):</label>
+                                    <input class="form-control" type="text" name="techniqueAng" value="<?php echo $techniqueAng; ?>"><span><?php echo $erreurTechniqueAng;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description :</label>
+                                    <textarea class="form-control" rows="3" name="description"><?php echo $description; ?></textarea><span><?php echo $erreurDescription;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Validation :</label>
+                                    <label class="radio-inline">
+                                    <input type="radio" <?php if($validation == '1'){ echo "checked "; } ?> name="validation" value="1" id="validationOui">Oui
+                                    </label>
+                                    <label class="radio-inline">
+                                    <input type="radio" <?php if($validation == '0'){ echo "checked "; } ?> name="validation" value="0" id="validationNon"> Non
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                <label>Adresse Civique :</label>
+                                    <input class="form-control" type="text" name="adresse" value="<?php echo $adresse; ?>"><span><?php echo $erreurAdresse;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Batiment :</label>
+                                    <input class="form-control" type="text" name="batiment" value="<?php echo $batiment; ?>"><span><?php echo $erreurBatiment;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Parc :</label>
+                                      <input class="form-control" type="text" name="parc" value="<?php echo $parc; ?>"><span><?php echo $erreurParc;?>
+                                </div>
+                                <div class="form-group">
+                                <label>Latitude :</label>
+                                     <input class="form-control" type="text" name="latitude" value="<?php echo $latitude; ?>"><span><?php echo $erreurLatitude;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Longitude :</label>
+                                    <input class="form-control" type="text" name="longitude" value="<?php echo $longitude; ?>"><span><?php echo $erreurLongitude;?></span>
+                                </div>
+                                <div class="form-group">
+                                <label>Arrondissement :</label>
+                                    <select class="form-control" name="arrondissement"><br><span><?php echo $erreurArrondissement;?></span>
+                                    <option value="nonChoisi">Choisir un Arrondissement</option><br>
+                                <?php
                                 foreach ($aArrondissements as $arrondissement) {
                                     echo "<option value='". $arrondissement->getidArrondissement() . "'";
                                     if($arrondissement->getidArrondissement() == $idArrondissement){
@@ -888,10 +947,13 @@ class VueAdmin
                                     echo ">".$arrondissement->getnomArrondissement()."</option>"; 
                                 }
                             ?>
-                           </select><br>
-                               <label>Artiste/Collectif : </label> <select name="artiste">
-                                <option value="nonChoisi">Choisir un Artiste/Collectif</option>
-                            <?php
+                               </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Artiste/Collectif :</label>
+                                   <select class="form-control" name="artiste"><span><?php echo $erreurArtiste;?></span>
+                                    <option value="nonChoisi">Choisir un Artiste/Collectif</option>
+                                <?php
                                 foreach ($aArtistes as $artiste) {
                                     
                                     if($artiste->getNom() == "") {
@@ -911,10 +973,13 @@ class VueAdmin
                                     }
                                 }
                             ?>
-                           </select><br>
-                               <label>Catégorie : </label> <select name="categorie">
-                                <option value="nonChoisi">Choisir une Catégorie</option>
-                            <?php 
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Catégorie :</label>
+                                   <select class="form-control" name="categorie"><span><?php echo $erreurCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Catégorie</option>
+                                <?php 
                                 foreach ($aCategories as $categorie) {
                                     echo "<option value='".$categorie->getidCategorie()."'";
                                     if($categorie->getidCategorie() == $idCategorie){
@@ -922,11 +987,14 @@ class VueAdmin
                                     }
                                     echo">".$categorie->getnomCategorie()."</option>"; 
                                 }
-                            ?>
-                           </select><br>
-                               <label>Sous-Catégorie : </label> <select name="sousCategorie">
-                                <option value="nonChoisi">Choisir une Sous-Catégorie</option>
-                            <?php
+                                ?>
+                                   </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Sous-Catégorie :</label>
+                                    <select class="form-control" name="sousCategorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Sous-Catégorie</option>
+                                <?php
                                 foreach ($aSousCategories as $sousCategorie) {
                                     echo "<option value='".$sousCategorie->getidSousCategorie()."'";
                                     if($sousCategorie->getidSousCategorie() == $idSousCategorie){
@@ -934,16 +1002,30 @@ class VueAdmin
                                     }
                                     echo ">".$sousCategorie->getnomSousCategorie()."</option>"; 
                                 }
-                            ?>    
-                           </select><br>
-                               <label>Matériaux : </label> <input type="text" name="materiaux" value="<?php echo $nomMateriaux; ?>"><br>
-                               <label>Matériaux (anglais) : </label> <input type="text" name="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><br><br>
-                            
-                            <input type="submit" name="sauvegarder" value="Valider" id='button'> <span><?php echo $message; ?></span>
-                            </fieldset>
-                       </form>
+                                ?>     
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label>Matériaux :</label>
+                                   <input class="form-control" type="text" name="materiaux" value="<?php echo $nomMateriaux; ?>"><span><?php echo $erreurMateriaux;?></span>
+                                </div>
+                                 <div class="form-group">
+                                   <label>Matériaux (anglais) : </label>
+                                    <input class="form-control" type="text" name="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><span><?php echo $erreurMateriauxAng;?></span>
+                                </div>
 
+                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+                       
                 <?php
     }
 
@@ -953,127 +1035,197 @@ class VueAdmin
      /**-------------------------------------------------------------------ARTISTE---------------------------------------------------------------------------- **/
     
     /**
+     * Affiche la page admin artistes
+     * @access public
+     * @author Gautier Piatek
+     * @author German Mahecha
+     * @version 1.0
+     * 
+     */
+    public function afficheArtistes($aArtistes, $nbreArtistes) 
+    { 
+        
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Artistes</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <a href="index.php?requete=ajoutArtiste">
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                                                   
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"> Ajouter un artiste</div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                           
+                              
+                                              
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $nbreArtistes; ?> Artistes</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste des Artistes
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-listeArtistes">
+                                    <thead>
+                                        <tr>
+                                            <th>Prenom</th>
+                                            <th>Nom</th>
+                                            <th>Collectif</th>
+                                            <th>Supprimer</th>
+                                            <th>Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach($aArtistes as $artiste) {
+                                        echo '<tr>';
+                                        echo "<td>".$artiste->getPrenom()."</td>";
+                                        echo "<td>".$artiste->getNom()."</td>";
+                                        echo "<td>".$artiste->getCollectif()."</td>";
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerArtistes&idArtiste='.$artiste->getIdArtiste().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierArtiste&idArtiste='.$artiste->getIdArtiste().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer un artiste, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    <?php
+    }
+    
+    /**
      * Affiche lE FORMULAIRE pour AJOUTER ARTISTE
      * @access public
      * @author Jorge Blanco
+     * @author Gautier Piatek
      */
-    public function formulaireAjouterArtiste() 
+    public function AjoutArtiste($message) 
     {
         ?>
-        <div>
-        <h2 id="titreAdm">Ajouter un artiste</h2>
-        <div class="formulaireAd1">
-        <form method="POST"action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
-            <fieldset>
-            Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Collectif:<br>
-            <input  type="text" name="collectif" >
-             <br> <br>
-            Prendre une photo:<br><br>
-            <input type="button" name="photoArtiste" value = "prendre une photo" >
-            <br> <br>
+        <div id="page-wrapper">
             
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter un Artiste</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'artiste
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutArtiste&action=ajoutArtiste">
+
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Collectif :</label>
+                                    <input class="form-control" type="text" name="collectif"><span><?php echo $erreurCollectif;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <?php
 
     }
-
-
-
-     /**
-     * Affiche une liste pour modifier les artistes
-     *@access public
-     *@author German Mahecha
-     *@version 1.0
-     */
-    public function afficheListeModifierArtistes($aArtistes)
-    {
-        ?>
-            <h2 id='titreA'>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Artiste</th>";
-                echo "<th>Modifier</th>	";
-                echo "</tr>";
-                    foreach($aArtistes as $artiste) {
-                        echo "<tr>";
-                        $idArtiste = $artiste->getIdArtiste();
-                        if($artiste->getNom()==NULL) {
-                            echo "<td><span class='icon-users'></span>";
-                            echo "<td>" .$artiste->getCollectif()."</td>" ;
-
-                        }else{
-                            echo "<td><span class='icon-user'></span>";
-                            echo "<td>".$artiste->getPrenom()." ". $artiste->getNom()."</td>" ;
-                        }
-                        echo "<td><a href='index.php?requete=modifierArtiste&idArtiste=$idArtiste'><span class='icon-edit'></span></a></td>";
-                        
-                        //$idArtiste = $artiste->getIdArtiste();
-                         echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    
-    }
-
-     /**
-     * Affiche une liste pour supprimer les artistes
-     * @access public
-     * @author German Mahecha
-     * @version 1.0
-     */
-    
-    public function afficheListeSupprimerArtistes($aArtistes)
-    {
-            ?>
-            <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-    <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Artiste</th>";
-                echo "<th>Supprimer</th>";
-                echo "</tr>";
-                    foreach($aArtistes as $artiste) {
-                        echo "<tr>";
-                        $idArtiste = $artiste->getIdArtiste();
-                        if($artiste->getNom()==NULL) {
-                            echo "<td><span class='icon-users'></span>";
-                            echo "<td>" .$artiste->getCollectif()."</td>" ;
-
-                        }else{
-                            echo "<td><span class='icon-user'></span>";
-                            echo "<td>".$artiste->getPrenom()." ". $artiste->getNom()."</td>" ;
-                        }
-                        echo "<td><a href='index.php?requete=supprimerArtistes&idArtiste=$idArtiste'><span class='icon-remove-user'></span></a></td>";
-                       
-                         echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-            echo "</div>"; 
-    } 
 
 
     /**
@@ -1089,29 +1241,54 @@ class VueAdmin
         $collectif = $aArtiste['collectif'];
         $photoArtiste = $aArtiste['photoArtiste'];
         ?>
-        <div>
-        <h2 id="titre">Modifier un artiste</h2>
-        <form class="formulaire" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider" method='POST'>
-            <fieldset>
-            Prénom:<br>
-            <input type="text" name="prenom" value="<?php echo $prenom; ?>">
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" value="<?php echo $nom; ?>">
-            <br> <br>
-            Collectif:<br>
-            <input  type="text" name="collectif" value="<?php echo $collectif; ?>">
-             <br> <br>
-            Photo:<br><br>
-            <input type="text" name="photoArtiste" value="<?php echo $photoArtiste; ?>">
-            <br> <br>
+        <div id="page-wrapper">
             
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modifier un Artiste</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'artiste
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider">
+
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Collectif :</label>
+                                    <input class="form-control" type="text" name="collectif" value="<?php echo $collectif; ?>"><span><?php echo $erreurCollectif;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
         <?php
 
     }
@@ -1265,41 +1442,140 @@ class VueAdmin
 
     /**--------------------------------------------------------------------UTILISATEUR---------------------------------------------------------------------------- **/
 
-        /**
-     * Fonction qui affiche un utilisateur 
+
+     /**
+     * Affiche la page admin Utilisateur
      * @access public
-     * @author Jorge Blanco
+     * @author Gautier Piatek
+     * @author German Mahecha
      * @version 1.0
+     * 
      */
-
-    public function afficherUnUtilisateur($aUtilisateur)
-    {
-        ?>
-        <section class='contenu container'>
-            <div class= 'fourcol '>
-                <img src='images/util_1.png' alt="">
-            </div>
-            <div class= 'sixcol'>
-                <?php
-                    //var_dump($aUtilisateur);
-                   //$idUtilisateur= $aUtilisateur->getIdUtilisateur();
-
-
-
-                 ?>
-                
-                <p>Nom utilisateur: <?php echo $aUtilisateur->getloginUtilisateur(); ?></p>
-                <p>bio: <?php echo $aUtilisateur->getbio(); ?></p>
-
-                <a href='index.php?requete=profilUtilisateur'><span class='icon-reply'></span> Retourner</a>
-            </div>
+    public function afficheUtilisateurs($aUtilisateurs, $nbreUtilisateurs) 
+    { 
         
-        </section>
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Utilisateurs</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <a href="index.php?requete=ajoutUtilisateur">
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                                                   
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"> Ajouter un utilisateur</div>
 
-        <?php
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                           
+                              
+                                              
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $nbreUtilisateurs; ?> Utilisateurs</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste des Utilisateurs
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-listeUtilisateurs">
+                                    <thead>
+                                        <tr>
+                                            <th>Login</th>
+                                            <th>Prenom</th>
+                                            <th>Nom</th>
+                                            <th>Courriel</th>
+                                            <th>Supprimer</th>
+                                            <th>Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach($aUtilisateurs as $utilisateur) {
+                                        echo '<tr>';
+                                        echo "<td>".$utilisateur->getLoginUtilisateur()."</td>";
+                                        echo "<td>".$utilisateur->getPrenom()."</td>";
+                                        echo "<td>".$utilisateur->getNom()."</td>";
+                                        echo "<td>".$utilisateur->getCourriel()."</td>";
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerArtistes&idArtiste='.$utilisateur->getIdUtilisateur().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierArtiste&idArtiste='.$utilisateur->getIdUtilisateur().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer un utilisateur, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    <?php
     }
-
-
 
     /**
      * Afficher un liste d'UTILISATEUR
@@ -1344,58 +1620,79 @@ class VueAdmin
 
     
     /**
-     * Affiche la page d'inscription UTILISATEUR
+     * Affiche la page ajout UTILISATEUR
      * @access public
-     * @author Thuy Tien Vo(formulaire/CSS)
+     * @author Thuy Tien Vo
      * @author  Jorge Blanco
+     * @author Gautier Piatek
      */
-    public function afficheInscriptionAdmin() 
+    public function ajoutUtilisateur() 
     {
         ?>
-        <div>
-        <h2 id="titreAdm">Ajouter un utilisateur</h2>
-        <div class="formulaireAd1">
-            <form method="POST"  action="index.php?requete=afficheInscriptionAdmin&action=ajoutUtilisateur">
+         <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter un Utilisateur</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'utilisateur
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutUtilisateur&action=ajoutUtilisateur">
 
-                <fieldset>
-                    <!-- MODIFICATION TEMPORAIRE DU FORMULAIRE Jorge -->
-                <!-- Prénom:<br>
-                <input type="text" name="prenom" >
-                <br> <br>
-                Nom:<br>
-                <input type="text" name="nom" >
-                <br> <br>
-                Date de naissance:<br>
-                <input  type="date" name="dateDeNaissance" placeholder="jj/mm/aaaa">
-                 <br> <br>
-                Sexe:<br><br>
-                <input type="radio" name="sex" value="male" checked> Male
-                <input type="radio" name="sex" value="female"> Female<br><br>
-                Courriel:<br>
-                <input type="text" name="courriel" placeholder="exemple@domaine.com" >
-                <br> <br> -->
-                Biographie:<br>
-                <textarea rows="8" cols="60" name="bio"placeholder="Entrer un text ici..."></textarea>
-                <br><br>
-                 Nom d'utilisateur:<br> 
-                <input type="text" name="utilisateur" >
-                <br><br>
-                Mot de passe:<br>
-                <input type="password" name="motDePasse" >
-                <br><br>
-                Confirmer le mot de passe:<br>
-                <input type="password" name="motDePasse" value="">
-                <br><br>
-                score:<br>
-                <input type="text" name="score" value="">
-                <br><br>
-                photo:<br>
-                <input type="text" name="photoUtilisateur" value="">
-                <br><br>
-                <input type="submit" value="Envoyer" id="button">
-                </fieldset>
-                </form>  
-        </div>           
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Login :</label>
+                                    <input class="form-control" type="text" name="loginUtilisateur"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mot de passe :</label>
+                                    <input class="form-control" type="text" name="passUtilisateur"><span><?php echo $erreurPassUtilisateur;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Courriel :</label>
+                                    <input class="form-control" type="mail" name="courriel"><span><?php echo $erreurCourriel;?></span>
+                                </div>
+                                 <div class="form-group">
+                                    <label>Téléphone :</label>
+                                    <input class="form-control" type="phone" name="telephone"><span><?php echo $erreurTelephone;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bio :</label>
+                                    <textarea class="form-control" name="bio" row="3"></textarea><span><?php echo $erreurCourriel;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoUtilisateur"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <?php
 
     }

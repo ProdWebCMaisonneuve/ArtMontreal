@@ -118,9 +118,7 @@ class MArtistes {
             self::$database->bind(':photoArtiste', $photoArtiste);
             return(self::$database->execute());
         }  
-    
-    
-    
+
     
     /*
      * Fonction qui récupère met à jour un artiste
@@ -217,7 +215,38 @@ class MArtistes {
         self::$database->bind(':idArtiste', $idA);
         return(self::$database->execute());
     } 
-       
+    
+     /**
+     * Fonction qui retourne l'id d'un artiste selon l'oeuvre
+	 * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function getIdArtisteParOeuvre($idOeuvre)
+    {
+        self::$database->query("SELECT idArtiste FROM oeuvre_artiste WHERE idOeuvre = :idOeuvre") ;
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':idOeuvre', $idOeuvre);
+        $ligne = self::$database->uneLigne();
+        
+        return $ligne['idArtiste'];
+    } 
+    
+    /*
+     * Fonction qui met à jour le lien artiste oeuvre
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return none
+	 */
+	public static function modifierArtisteOeuvre($idOeuvre, $idArtiste) 
+	{
+		self::$database->query("UPDATE oeuvre_artiste SET idArtiste = :idArtiste WHERE idOeuvre = :idOeuvre");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idArtiste', $idArtiste);
+        self::$database->bind(':idOeuvre', $idOeuvre);
+        
+        return(self::$database->execute());
+        
+	}
 }
 
 ?>
