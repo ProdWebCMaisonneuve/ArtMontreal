@@ -125,10 +125,11 @@ class MOeuvres {
 	{
 		return $this->idCategorie;		
 	}
+
 	
-    public function getIdSousCat() 
+    public function getIdSousCategorie() 
 	{
-		return $this->idSousCat;		
+		return $this->idSousCategorie;		
 	}
 	
     public function getAdresse() 
@@ -245,10 +246,15 @@ class MOeuvres {
      */
 
 
-	public static function listeOeuvresParCat($idCategorie) {
-		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idCategorie=:idCategorie');
-		self::$database->bind(':idCategorie', $idCategorie);
-		$lignes = self::$database->resultset();
+	public static function listeOeuvresParCat($idSousCategorie) 
+	{
+		//self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idCategorie=:idCategorie');
+		//self::$database->bind(':idCategorie', $idCategorie);
+
+		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idSousCategorie=:idSousCategorie');
+		self::$database->bind(':idSousCategorie', $idSousCategorie);
+	
+        $lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
 			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'], $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
 			$oeuvres[] = $uneOeuvre;
@@ -256,7 +262,7 @@ class MOeuvres {
 		if(isset($oeuvres))
         	return $oeuvres;
         else
-            echo "il n'y a pas d'oeuvres dans ce catégorie";            
+            echo "";            
     }
 
 

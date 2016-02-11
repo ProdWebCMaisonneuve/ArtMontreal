@@ -121,13 +121,15 @@ class Controler
                         $this->arrondissements();
                     } 
                     break;
-case 'categories':
-                   if($_GET['idCategorie'] !=''){
-                        $this->oeuvresParCat($_GET['idCategorie']);
+                    
+                case 'sousCategories':
+                   if($_GET['idSousCategorie'] !=''){
+                        $this->oeuvresParCat($_GET['idSousCategorie']);
                     }else{
-                        $this->categories();
+                        $this->sousCategories();
                     } 
                     break;
+
                 case 'unOeuvre':
                     $this->unOeuvre($_GET['idOeuvre']);
                     break;
@@ -186,6 +188,11 @@ case 'categories':
                 case 'afficheOeuvres':
                     $this->afficheOeuvres();
                     break;
+
+                case 'afficheCategories':
+                    $this->afficheCategories();
+                    break;
+
                  case 'profilUtilisateurConnexion':
                     $this->profilUtilisateurConnexion();
                     break;
@@ -194,6 +201,10 @@ case 'categories':
                     break;
                 case 'modifierProfilUtilisateur':
                     $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
+                    break;
+
+                case 'afficheCommentaires':
+                    $this->afficheCommentaires();
                     break;
                 
                 default:
@@ -465,7 +476,7 @@ case 'categories':
             } else {
                 $oVue->modifierUneCategorie($aCategorie);
             }     
-            $oVue->afficheFooter();   
+            $oVue->afficheFooter(false, false, false, false);   
         }
     
         private function supprimerArtistes($idArtiste)
@@ -670,32 +681,21 @@ case 'categories':
             $oVue->afficheFooter(false, true, false, true);
         }
 
-        private function categories()
-        {
-            $oCategories = new MCategories('', '', '' ,'', '','');
-            $aCategories = $oCategories::listeCategories();
+       // private function categories()
+        //{
+            //$oCategories = new MCategories('', '', '' ,'', '','');
+           // $aCategories = $oCategories::listeCategories();
 
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheCategories($aCategories);
-            $oVue->afficheFooter(false,false,false,false);
+           // $oVue = new VueDefaut();
+           // $oVue->afficheHeader();
+           // $oVue->afficheCategories($aCategories);
+           // $oVue->afficheFooter(false,false,false,false);
     
-        }
+       // }
 
+      
 
-        private function oeuvresParCat($id_cat)
-        {   
-         
-            $oOeuvreParCat = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvreParCat = $oOeuvreParCat::listeOeuvresParCat($id_cat);
-
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
-            $oVue->afficheFooter(false,false,false,false);
-    
-        }
-
+        
 
     
         private function inscription()
@@ -838,7 +838,7 @@ case 'categories':
              
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
             $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-            $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+            //$nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
              
             $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
@@ -914,6 +914,49 @@ case 'categories':
             $oVue->afficheFooter(false,false,false,false);
             
         } 
+
+        private function Souscategories()
+        {
+            $oSousCategories = new MSousCategories('', '', '' ,'', '','');
+            $aSousCategories = $oSousCategories::listeSousCategories();
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheSousCategories($aSousCategories);
+            $oVue->afficheFooter(false,false,false,false);
+    
+        }
+
+
+
+        private function oeuvresParCat($id_cat)
+        {   
+         
+            $oOeuvreParCat = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $aOeuvreParCat = $oOeuvreParCat::listeOeuvresParCat($id_cat);
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeader();
+            $oVue->afficheOeuvre_Par_Cat($aOeuvreParCat);
+            $oVue->afficheFooter(false,false,false,false);
+    
+        }
+
+
+
+        private function afficheCategories()
+        {
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories->listeCategories();
+           // $nbreCategories = $oCategories->nbreCategories();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheCategories($aCategories);
+            $oVueDefaut->afficheFooter(false, false, false,false);
+    
+        }
         
         /* Ajouter une Catégorie
         * Auteure: Thuy Tien Vo
@@ -1016,7 +1059,7 @@ case 'categories':
                 
                 $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '');
                 $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-                $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+                //$nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                 
                 $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
                 $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
@@ -1219,6 +1262,19 @@ case 'categories':
                 $uVue->afficherModifierProfilUtilisateur($unUtilisateur);
             }
             $oVue->afficheFooter(false,false,false,false);
+        }
+
+
+        private function afficheCommentaires()
+        {
+         
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheCommentaires();
+            $oVueDefaut->afficheFooter(false, false, false,false);
+    
         }
 
      

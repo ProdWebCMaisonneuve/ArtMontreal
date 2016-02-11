@@ -93,7 +93,7 @@ class VueDefaut
                                         </li>
                                         <li><a href="index.php?requete=arrondissements" class="arrondisement" id="arrondissement"><span class="glyphicon glyphicon-map-marker"></span> ARRONDISSEMENT</a>
                                         </li>
-                                        <li><a href="index.php?requete=categories" class="categorie" id="categorie"><span class="glyphicon glyphicon-list-alt"></span> CATEGORIE</a>
+                                        <li><a href="index.php?requete=sousCategories" class="categorie" id="categorie"><span class="glyphicon glyphicon-list-alt"></span> CATEGORIE</a>
                                         </li>
                                     </ul>
                                    
@@ -625,10 +625,11 @@ public function afficheSliderAccueil($oeuvres)
                 <p>Arrondissement: <?php echo $arrond; ?></p>
                 <p>Parc: <?php echo $parc; ?></p>
                 <p>Batiment: <?php echo $batiment; ?></p>
-                <p>adresse: <?php echo $adres; ?></p>
+                <p>Adresse: <?php echo $adres; ?></p>
                 <p>Description:<?php echo  $description; ?></p>
                 <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
             </div>
+
         </div>
            
             <script>
@@ -933,7 +934,7 @@ public function afficheSliderAccueil($oeuvres)
      * @author Thuy Tien VO
      * @version 1.0
      */
-    public function afficheCategories($aCategories) 
+    public function afficheSousCategories($aSousCategories) 
 
     {
         ?>
@@ -944,22 +945,31 @@ public function afficheSliderAccueil($oeuvres)
         
         echo "<section class='contenu container'>";
 
-        foreach($aCategories as $categorie)
+        foreach($aSousCategories as $sousCategorie)
         {
-            $id_Categorie= $categorie->getIdCategorie();
+            $id_SousCategorie= $sousCategorie->getIdSousCategorie();
             //$categorie->afficher();
-            $nom = $categorie->getNomCategorie();
+            $nom = $sousCategorie->getNomSousCategorie();
 
             echo "<div class=' accordion sixcol ";
 
-             if($compteur%2 == 1){
-                echo "last'>";
-            } else {
-                 echo "first'>";
-            }
+            if($compteur%2 == 1)
+                {
+                    echo "last'>";
+                } 
+            else 
+                {
+                     echo "first'>";
+                }
         
-            echo "<figure class='categorie'>";   
-            echo "<a href = 'index.php?requete=categories&idCategorie=$id_Categorie' class='categorie'> " . $nom. "</a>";
+            echo "<figure class='sousCategorie'>";  
+
+            echo'<div class="container">';
+            echo"<ul class='list-group-item'>"; 
+                 echo "<a href = 'index.php?requete=sousCategories&idSousCategorie=$id_SousCategorie' class='sousCategorie'> " . $nom. "</a>";
+            echo"</ul>";
+            echo'</div>';
+
             echo "</figure>";
             echo "</div>";
             $compteur = $compteur + 1;
@@ -984,7 +994,7 @@ public function afficheSliderAccueil($oeuvres)
             <?php
              if($aOeuvreParCat == "")
             {
-                echo "il n'y a pas d'oeuvres dans ce arrondisement";
+                echo "Il n'y a pas d'oeuvres dans ce catégorie";
             }
             else
             {
@@ -993,7 +1003,16 @@ public function afficheSliderAccueil($oeuvres)
                 {    
                     $idOeuvre= $oeuvre->getIdOeuvre();
                     $titre = $oeuvre->getTitreOeuvre();
-                    echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='categorie'>" .  $titre. "</a>" . '</br>';  
+
+                    echo'<div class="container">';
+
+                        echo"<ul class='list-group-item'>";
+
+                            echo "<a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre' class='categorie'>" .  $titre. "</a>" . '</br>'; 
+
+                        echo"</ul>";
+
+                    echo'</div>';
                 }
             }
         }    //FIN FUNCTION afficheOeuvreParCat
@@ -1274,7 +1293,7 @@ public function afficheSliderAccueil($oeuvres)
                                 <option value="nonChoisi">Choisir une Sous-Catégorie</option>
                             <?php
                                 foreach ($aSousCategories as $sousCategorie) {
-                                    echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
+                                    echo "<option value='".$sousCategorie->getIdSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
                                 }
                             ?>    
                            </select><br><br>
@@ -2269,31 +2288,34 @@ public function afficheSliderAccueil($oeuvres)
      * @author German Mahecha
      * @version 1.0
      */
-    
-     public function afficheOeuvresMot($aOeuvres){
-        ?>
-            <h2>Resultats de la recherche</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                    echo "<table>";
-                    echo "<tr>";
-                    echo "<th></th>";
-                    echo "<th>Titre</th>";
-                    echo "</tr>";
 
-                    foreach($aOeuvres as $oeuvre) {
-                        echo "<tr>";
-                        $idOeuvre = $oeuvre->getIdOeuvre();
-                        echo "<td><a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre'><span class='icon-blackboard'></span>";
-                        echo "<td>".$oeuvre->getTitreOeuvre()."</td>" ;
-                       echo "</tr>";
-                    }
 
-                    echo "</table>";
-                echo "</div>";
-            echo "</section> ";
+    public function afficheOeuvresMot($aOeuvres)
+
+    {
+      
+                echo' <div class="container">';
+                echo' <h2>Resultats de la recherche</h2>';
+                        echo'<div class="panel panel-default">';  
+                            echo'<div class="panel-heading">Titre</div>';
+                        
+                                echo'<div class="panel-body">';
+
+                                foreach($aOeuvres as $oeuvre)
+                                    {
+                                       $idOeuvre = $oeuvre->getIdOeuvre();
+                                       echo "<td><a href = 'index.php?requete=unOeuvre&idOeuvre=$idOeuvre'><span class='icon-blackboard'></span>";
+                                       echo "<td>".$oeuvre->getTitreOeuvre()."<br>" ;
+                                       echo "</tr>";
+                                    }
+
+                                echo'</div>';
+                        echo'</div>';
+               
+                echo'</div>';
+            
         }
+
            
     
     
@@ -2310,21 +2332,34 @@ public function afficheSliderAccueil($oeuvres)
          <h2 id="titreAdm">Ajouter un categorie</h2>
            <div class="formulaireAd1">
        
-         <form method="POST" action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
+         <form method="POST" action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie" >
              <fieldset>
-              Nom catégorie:<br>
+            Nom catégorie:<br>
              <input type="text" name="nomCategorie" >
              <br> <br>
-              Nom catégorie en Anglais:<br>
+
+            Nom catégorie en Anglais:<br>
              <input  type="text" name="nomCatAng" >
-              <br> <br>    
-             <input type="submit" value="Envoyer" id="button">
-             </fieldset>
+              <br> <br>
+
+            <input type="submit" value="Envoyer" id="button"> 
+            </fieldset>
+
          </form>  
        
          </div>        
          <?php        
     }
+
+
+
+
+
+
+
+
+
+
         
 
 }
