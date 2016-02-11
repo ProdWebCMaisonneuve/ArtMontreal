@@ -973,6 +973,29 @@ class Controler
             $oVue->afficheFooter(false,false,false,false);
     
         }
+
+          /* Ajouter une Catégorie
+        * Auteure: Thuy Tien Vo
+        */
+ 
+         private function ajouterUnCategorie()
+         {     
+              $oVue = new VueDefaut();
+              $oVue->afficheHeaderAdmin();
+                $erreurTitre ='';
+            $message ='';
+            if($_GET['action'] == 'ajoutCategorie')
+
+                {   $oArtiste=new MCategories('', '', '');
+                    $oArtiste->ajoutCategorie($_POST['nomCategorie'], $_POST['nomCatAng'],'');
+                    $message = "Catégorie ajoutée.";
+                    
+                }
+        
+            $oVue->formulaireAjouterCategorie();
+            $oVue->afficheFooter(false,false,false,false);
+             
+        } 
         
         /* Supprimer  un Catégorie
         * Author: Thuy Tien Vo
