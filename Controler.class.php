@@ -36,13 +36,7 @@ class Controler
                         $this->artistes();
                     }
                     break;
-                case 'listeModifierArtistes':
-                        $this->listeModifierArtistes();
-                    break;
-                case 'listeSupprimerArtistes':
-                        $this->listeSupprimerArtistes();
-                    break;
-                
+                            
                 case 'listeModifierUtilisateurs':
                         $this->listeModifierUtilisateurs();
                     break;
@@ -65,6 +59,13 @@ class Controler
                 case 'modifierArtiste':
                         $this->modifierArtiste($_GET['idArtiste']);
                     break;
+                case 'afficheArtistes':
+                        $this->afficheArtistes();
+                    break;
+                case 'ajoutArtiste':
+                        $this->ajoutArtiste();
+                    break;   
+                    
                 case 'supprimerArtistes':
                         $this->supprimerArtistes($_GET['idArtiste']);
                     break;
@@ -266,30 +267,6 @@ case 'categories':
             $oVue->afficheFooter(false,false, false, false);
     
 		}
-    
-        private function listeModifierArtistes()
-		{
-            $oArtistes = new MArtistes('', '', '' ,'', '', '');
-            $aArtistes = $oArtistes::listeArtistes();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierArtistes($aArtistes);
-            $oVue->afficheFooter(false,false, false, false);
-    
-		}
-        private function listeSupprimerArtistes()
-		{
-            $oArtistes = new MArtistes('', '', '' ,'', '', '');
-            $aArtistes = $oArtistes::listeArtistes();
-              
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeSupprimerArtistes($aArtistes);
-            $oVue->afficheFooter(false,false, false, false);
-    
-		}
-
 
         private function listerUtilisateurs()
         {
@@ -363,6 +340,21 @@ case 'categories':
             $oVueDefaut->afficheFooter(false, true, false, true);
     
 		}
+    
+        private function afficheArtistes()
+		{
+            $oArtistes = new MArtistes('', '', '','', '', '');
+            $aArtistes = $oArtistes->listeArtistes();
+            $nbreArtistes = $oArtistes->nbreArtistes();
+            
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            
+            $oVueAdmin->afficheHeaderAdmin();
+			$oVueAdmin->afficheArtistes($aArtistes, $nbreArtistes);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+    
+		}
        
     
         private function listeModifierAdmin_moderateur()
@@ -394,9 +386,11 @@ case 'categories':
             $oArtiste = new MArtistes('', '', '', '', '', '');
             $aArtiste = $oArtiste->getArtisteParId($idArt);
             $aArtistes = $oArtiste->listeArtistes();
+            $nbreArtistes = $oArtiste->nbreArtistes();
             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
             
             if($_GET['idArtiste'] && $_GET['action'] == 'valider') {
                 
@@ -406,7 +400,7 @@ case 'categories':
                 
                 $oVue = new VueDefaut();
                 $aArtistes = $oArtiste->listeArtistes();
-                $oVue->afficheListeModifierArtistes($aArtistes); 
+                $oVueAdmin->afficheArtistes($aArtistes, $nbreArtistes); 
                     
                 }
                 catch (Exception $e)
@@ -416,9 +410,9 @@ case 'categories':
                 
     
             } else {
-                $oVue->modifierUnArtiste($aArtiste);
+                $oVueAdmin->modifierUnArtiste($aArtiste);
             }     
-            $oVue->afficheFooter();   
+            $oVueDefaut->afficheFooter(false, true, false, true);   
         }
     
         private function modifierCategories($idCat)
@@ -458,11 +452,13 @@ case 'categories':
             $oArtiste = new MArtistes('', '', '', '', '', '');
             $oArtiste->supprimerArtiste($idArtiste);
             $aArtistes = $oArtiste::listeArtistes();
+            $nbreArtistes = $oArtiste::nbreArtistes();
             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerArtistes($aArtistes);
-            $oVue->afficheFooter();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheArtistes($aArtistes, $nbreArtistes);
+            $oVueDefaut->afficheFooter(false, true, false, true);
         }
         
         private function modifierUtilisateur($idUtil)
@@ -878,6 +874,28 @@ case 'categories':
         }
 
 
+        private function ajoutArtiste()
+        {     
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+
+            $erreurTitre ='';
+            $message ='';
+            if($_GET['action'] == 'ajoutArtiste')
+
+            {   $oArtiste=new MArtistes('', '', '', '', '', '');
+                $oArtiste->ajoutArtiste($_POST['prenom'], $_POST['nom'], $_POST['collectif'],'' ,'');
+                $message = "Artiste ajouté(e).";
+
+                $oVueAdmin->ajoutArtiste($message);
+
+
+            }
+       
+            $oVueAdmin->ajoutArtiste($message);
+            $oVueDefaut->afficheFooter(false,true,false,false);
+        }
 
 
         /* Ajouter  une ARTISTE

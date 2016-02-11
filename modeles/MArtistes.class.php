@@ -118,9 +118,7 @@ class MArtistes {
             self::$database->bind(':photoArtiste', $photoArtiste);
             return(self::$database->execute());
         }  
-    
-    
-    
+
     
     /*
      * Fonction qui récupère met à jour un artiste

@@ -292,7 +292,7 @@ class VueAdmin
                             <a href="index.php?requete=afficheOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-users fa-fw"></i> Artistes</a>
+                            <a href="index.php?requete=afficheArtistes"><i class="fa fa-users fa-fw"></i> Artistes</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-list fa-fw"></i> Catégories</a>
@@ -672,7 +672,7 @@ class VueAdmin
                     </div>
                 </div>
             </div>
-            
+        </div>   
     <?php
     }
 
@@ -1035,127 +1035,197 @@ class VueAdmin
      /**-------------------------------------------------------------------ARTISTE---------------------------------------------------------------------------- **/
     
     /**
+     * Affiche la page admin artistes
+     * @access public
+     * @author Gautier Piatek
+     * @author German Mahecha
+     * @version 1.0
+     * 
+     */
+    public function afficheArtistes($aArtistes, $nbreArtistes) 
+    { 
+        
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Artistes</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <a href="index.php?requete=ajoutArtiste">
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                                                   
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"> Ajouter un artiste</div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                           
+                              
+                                              
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $nbreArtistes; ?> Artistes</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste des Artistes
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-listeArtistes">
+                                    <thead>
+                                        <tr>
+                                            <th>Prenom</th>
+                                            <th>Nom</th>
+                                            <th>Collectif</th>
+                                            <th>Supprimer</th>
+                                            <th>Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach($aArtistes as $artiste) {
+                                        echo '<tr>';
+                                        echo "<td>".$artiste->getPrenom()."</td>";
+                                        echo "<td>".$artiste->getNom()."</td>";
+                                        echo "<td>".$artiste->getCollectif()."</td>";
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerArtistes&idArtiste='.$artiste->getIdArtiste().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierArtiste&idArtiste='.$artiste->getIdArtiste().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer un artiste, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    <?php
+    }
+    
+    /**
      * Affiche lE FORMULAIRE pour AJOUTER ARTISTE
      * @access public
      * @author Jorge Blanco
+     * @author Gautier Piatek
      */
-    public function formulaireAjouterArtiste() 
+    public function AjoutArtiste($message) 
     {
         ?>
-        <div>
-        <h2 id="titreAdm">Ajouter un artiste</h2>
-        <div class="formulaireAd1">
-        <form method="POST"action="index.php?requete=ajouterUnArtiste&action=ajoutArtiste">
-            <fieldset>
-            Prénom:<br>
-            <input type="text" name="prenom" >
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" >
-            <br> <br>
-            Collectif:<br>
-            <input  type="text" name="collectif" >
-             <br> <br>
-            Prendre une photo:<br><br>
-            <input type="button" name="photoArtiste" value = "prendre une photo" >
-            <br> <br>
+        <div id="page-wrapper">
             
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter un Artiste</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'artiste
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutArtiste&action=ajoutArtiste">
+
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Collectif :</label>
+                                    <input class="form-control" type="text" name="collectif"><span><?php echo $erreurCollectif;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <?php
 
     }
-
-
-
-     /**
-     * Affiche une liste pour modifier les artistes
-     *@access public
-     *@author German Mahecha
-     *@version 1.0
-     */
-    public function afficheListeModifierArtistes($aArtistes)
-    {
-        ?>
-            <h2 id='titreA'>Modifier nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Artiste</th>";
-                echo "<th>Modifier</th>	";
-                echo "</tr>";
-                    foreach($aArtistes as $artiste) {
-                        echo "<tr>";
-                        $idArtiste = $artiste->getIdArtiste();
-                        if($artiste->getNom()==NULL) {
-                            echo "<td><span class='icon-users'></span>";
-                            echo "<td>" .$artiste->getCollectif()."</td>" ;
-
-                        }else{
-                            echo "<td><span class='icon-user'></span>";
-                            echo "<td>".$artiste->getPrenom()." ". $artiste->getNom()."</td>" ;
-                        }
-                        echo "<td><a href='index.php?requete=modifierArtiste&idArtiste=$idArtiste'><span class='icon-edit'></span></a></td>";
-                        
-                        //$idArtiste = $artiste->getIdArtiste();
-                         echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    
-    }
-
-     /**
-     * Affiche une liste pour supprimer les artistes
-     * @access public
-     * @author German Mahecha
-     * @version 1.0
-     */
-    
-    public function afficheListeSupprimerArtistes($aArtistes)
-    {
-            ?>
-            <h2 id='titreA'>Supprimer un <span class="artistes">artiste</span> ou <span class="collectif">collectif</span></h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-    <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Artiste</th>";
-                echo "<th>Supprimer</th>";
-                echo "</tr>";
-                    foreach($aArtistes as $artiste) {
-                        echo "<tr>";
-                        $idArtiste = $artiste->getIdArtiste();
-                        if($artiste->getNom()==NULL) {
-                            echo "<td><span class='icon-users'></span>";
-                            echo "<td>" .$artiste->getCollectif()."</td>" ;
-
-                        }else{
-                            echo "<td><span class='icon-user'></span>";
-                            echo "<td>".$artiste->getPrenom()." ". $artiste->getNom()."</td>" ;
-                        }
-                        echo "<td><a href='index.php?requete=supprimerArtistes&idArtiste=$idArtiste'><span class='icon-remove-user'></span></a></td>";
-                       
-                         echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-            echo "</div>"; 
-    } 
 
 
     /**
@@ -1171,29 +1241,54 @@ class VueAdmin
         $collectif = $aArtiste['collectif'];
         $photoArtiste = $aArtiste['photoArtiste'];
         ?>
-        <div>
-        <h2 id="titre">Modifier un artiste</h2>
-        <form class="formulaire" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider" method='POST'>
-            <fieldset>
-            Prénom:<br>
-            <input type="text" name="prenom" value="<?php echo $prenom; ?>">
-            <br> <br>
-            Nom:<br>
-            <input type="text" name="nom" value="<?php echo $nom; ?>">
-            <br> <br>
-            Collectif:<br>
-            <input  type="text" name="collectif" value="<?php echo $collectif; ?>">
-             <br> <br>
-            Photo:<br><br>
-            <input type="text" name="photoArtiste" value="<?php echo $photoArtiste; ?>">
-            <br> <br>
+        <div id="page-wrapper">
             
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </fieldset>
-        </div>          
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modifier un Artiste</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'artiste
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider">
+
+                                <div class="form-group">
+                                    <label>Prénom :</label>
+                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurTitreNom;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Collectif :</label>
+                                    <input class="form-control" type="text" name="collectif" value="<?php echo $collectif; ?>"><span><?php echo $erreurCollectif;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo :</label>
+                                    <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
+                                </div>
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
         <?php
 
     }
