@@ -303,7 +303,11 @@ class VueAdmin
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Modération<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                
                                 <li>
+                                    <a href="#"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
+                                </li>
+                                   <li>
                                     <a href="#"><i class="fa fa-picture-o fa-fw"></i> Photos</a>
                                 </li>
                                 <li>
@@ -319,7 +323,7 @@ class VueAdmin
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Gestion</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-download fa-fw"></i> Base de données</a>
+                                    <a href="index.php?requete=afficheBDD"><i class="fa fa-download fa-fw"></i> Base de données</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -683,7 +687,7 @@ class VueAdmin
      * @version 1.0
      * 
      */
-    public function afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message) 
+    public function afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng) 
 
     {   
         
@@ -843,7 +847,7 @@ class VueAdmin
      * @version 1.0
      */
     
-    public function modifierOeuvre($aOeuvre, $aArrondissements, $idArtiste, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message) {
+    public function modifierOeuvre($aOeuvre, $aArrondissements, $idArtiste, $aArtistes, $aCategories, $aSousCategories, $erreurTitre, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng) {
         
         $idOeuvre = $aOeuvre['idOeuvre'];
         $titre = $aOeuvre['titreOeuvre'];
@@ -1172,7 +1176,7 @@ class VueAdmin
      * @author Jorge Blanco
      * @author Gautier Piatek
      */
-    public function AjoutArtiste($message) 
+    public function AjoutArtiste($message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste) 
     {
         ?>
         <div id="page-wrapper">
@@ -1202,7 +1206,7 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurTitreNom;?></span>
+                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurNom;?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Collectif :</label>
@@ -1233,7 +1237,7 @@ class VueAdmin
      * @access public
      * @author Gautier Piatek
      */
-    public function modifierUnArtiste($aArtiste) 
+    public function modifierUnArtiste($aArtiste, $message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste) 
     {   
         $idArtiste = $aArtiste['idArtiste'];
         $prenom = $aArtiste['prenom'];
@@ -1268,7 +1272,7 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurTitreNom;?></span>
+                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Collectif :</label>
@@ -1304,13 +1308,14 @@ class VueAdmin
   /* Affiche la page admin catégories
      * @access public
      * @author Thuy Tien Vo
+     * @author Gautier Piatek
      * @version 1.0
      * 
      */
 
-    public function afficheCategories($aCategories) 
+    public function afficheCategories($aCategories, $nbreCategories) 
     { 
-        /*var_dump($aOeuvres);*/
+        
     ?>
 
     <div id="page-wrapper">
@@ -1323,12 +1328,12 @@ class VueAdmin
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <a href="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
+                            <a href="index.php?requete=ajoutCategorie">
                                 <div class="col-xs-3">
                                     <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i></button>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> Ajouter un catégorie</div>
+                                    <div class="huge"> Ajouter une catégorie</div>
                                 </div>
                             </a>
                         </div>
@@ -1341,10 +1346,10 @@ class VueAdmin
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-paint-brush fa-5x"></i>
+                                    <i class="fa fa-list fa-5x"></i>
                                 </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php  ?> Catégorie</div>
+                                        <div class="huge"><?php echo $nbreCategories; ?> Catégories</div>
                                     </div>
                             </div>
                         </div>
@@ -1356,7 +1361,7 @@ class VueAdmin
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Liste des catégorie
+                        Liste des catégories
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -1365,7 +1370,7 @@ class VueAdmin
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Name</th>
+                                        <th>Nom anglais</th>
                                         <th>Supprimer</th>
                                         <th>Modifier</th>
                                     </tr>
@@ -1377,19 +1382,44 @@ class VueAdmin
                                     echo '<tr>';
                                     echo "<td>".$categorie->getNomCategorie()."</td>";
                                     echo "<td>".$categorie-> getNomCatAng()."</td>";
-                                    echo '<td class="text-center"><a href="index.php?requete=supprimerCategories&idCategorie=$idCategorie='.$categorie->getIdCategorie().'"><i class="fa fa-trash"></i></a></td>';    
-                                    echo '<td class="text-center"><a href="index.php?requete=modifierCategories&idCategorie=$idCategorie='.$categorie->getIdCategorie().'"><i class="fa fa-pencil"></i></a></td>';   
+                                    echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerCategories&$idCategorie='.$categorie->getIdCategorie().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';
+                                    echo '<td class="text-center"><a href="index.php?requete=modifierCategories&idCategorie='.$categorie->getIdCategorie().'"><i class="fa fa-pencil"></i></a></td>';   
                                     echo '</tr>';
                                 }
                                 ?>
                                 </tbody>
-                            </table>
+                                </table>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.table-responsive -->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+        
+        <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer une catégorie, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     <?php
     }
@@ -1402,28 +1432,55 @@ class VueAdmin
     * Affiche la page pour ajouter un CATÉGORIE
     * @access public
     * @author Thuy Tien Vo
+    * @author Gautier Piatek
     */
-    public function formulaireAjouterCategorie() 
+    public function formulaireAjouterCategorie($message, $erreurNomCat, $erreurNomCatAng) 
     {   
        
          ?>
-     
-         <h2 id="titreAdm">Ajouter un categorie</h2>
-           <div class="formulaireAd1">
-       
-         <form method="POST" action="index.php?requete=ajouterUnCategorie&action=ajoutCategorie">
-             <fieldset>
-              Nom catégorie:<br>
-             <input type="text" name="nomCategorie" >
-             <br> <br>
-              Nom catégorie en Anglais:<br>
-             <input  type="text" name="nomCatAng" >
-              <br> <br>    
-             <input type="submit" value="Envoyer" id="button">
-             </fieldset>
-         </form>  
-       
-         </div>        
+         
+        <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter une Catégorie</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de la catégorie
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie">
+
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom anglais :</label>
+                                    <input class="form-control" type="text" name="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                </div>
+                                
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+               
          <?php        
     }
 
@@ -1432,104 +1489,63 @@ class VueAdmin
      * Affiche une liste pour modifier les categories
      * @access public
      * @author German Mahecha
-     * @version 1.0
-     */
-    
-    
-    public function afficheListeModifierCategories($aCategories)
-    {
-        ?>
-            <h2 id='titreA'>Modifier nos categories</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Categorie</th>";
-                echo "<th>Modifier</th> ";
-                echo "</tr>";
-                    foreach($aCategories as $categorie) {
-                        echo "<tr>";
-                        $idCategorie = $categorie->getIdCategorie();
-                        echo "<td><span class='icon-list'></span>";
-                        echo "<td>".$categorie->getNomCategorie()."</td>" ;
-                        echo "<td><a href='index.php?requete=modifierCategories&idCategorie=$idCategorie'><span class='icon-edit'></span></a></td>";
-                        echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-
-    
-    /**
-     * Affiche une liste pour suprimer les categories
-     * @access public
-     * @author German Mahecha
-     * @version 1.0
-     */
-    
-    public function afficheListeSupprimerCategories($aCategories)
-    {
-        ?>
-            <h2 id='titreA'>Supprimer nos categories</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Categorie</th>";
-                echo "<th>Supprimer</th>    ";
-                echo "</tr>";
-                    foreach($aCategories as $categorie) {
-                        echo "<tr>";
-                        $idCategorie = $categorie->getIdCategorie();
-                        echo "<td><span class='icon-list'></span>";
-                        echo "<td>".$categorie->getNomCategorie()."</td>" ;
-                        echo "<td><a href='index.php?requete=supprimerCategories&idCategorie=$idCategorie'><span class='icon-erase'></span></a></td>";
-                        echo "</tr>";
-                    }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-
-        /**
-     * Affiche la page pour modifier une CATÉGORIE
-     * @access public
      * @author Gautier Piatek
+     * @version 1.0
      */
-    public function modifierUneCategorie($aCategories) 
-    {   
-        $idCategorie = $aCategories["idCategorie"];
-        $nomCategorie = $aCategories["nomCategorie"];
-        $nomCatAng = $aCategories["nomCatAng"];
+    
+    
+    public function ModifierUneCategorie($aCategorie, $message, $erreurNomCat, $erreurNomCatAng)
+    {
+        $idCategorie = $aCategorie["idCategorie"];
+        $nomCat = $aCategorie["nomCategorie"];
+        $nomCatAng = $aCategorie["nomCatAng"];
         ?>
-        <div>
-        <h2 id="titre">Modifier une catégorie</h2>
-        <form class="formulaire" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider" method='POST'>
-            <fieldset>
-            Nom catégorie:<br>
-        <input type="text" name="nomCategorie" value="<?php echo $nomCategorie; ?>">
-            <br> <br>
-            Nom catégorie en anglais:<br>
-            <input type="text" name="nomCatAng" value="<?php echo $nomCatAng; ?>">
-            <br> <br>
+            <div id="page-wrapper">
             
-            <input type="submit" value="Envoyer" id="button">
-            <fieldset>
-        </form>  
-        </fieldset>
-        </div>          
-        <?php
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter une Catégorie</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de la catégorie
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider">
 
+                                <div class="form-group">
+                                    <label>Nom :</label>
+                                    <input class="form-control" type="text" name="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom anglais :</label>
+                                    <input class="form-control" type="text" name="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                </div>
+                                
+            
+            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
     }
+
+    
+    
     
 
 
@@ -1722,7 +1738,7 @@ class VueAdmin
      * @author  Jorge Blanco
      * @author Gautier Piatek
      */
-    public function ajoutUtilisateur() 
+    public function ajoutUtilisateur($message, $erreurPrenom, $erreurNom, $erreurLoginUtilisateur, $erreurPassUtilisateur, $erreurCourriel, $erreurTelephone, $erreurBio, $erreurPhotoArtiste) 
     {
         ?>
          <div id="page-wrapper">
@@ -1752,7 +1768,7 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurTitreNom;?></span>
+                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurNom;?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Login :</label>
@@ -1772,7 +1788,7 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                     <label>Bio :</label>
-                                    <textarea class="form-control" name="bio" row="3"></textarea><span><?php echo $erreurCourriel;?></span>
+                                    <textarea class="form-control" name="bio" row="3"></textarea><span><?php echo $erreurBio;?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
@@ -1802,7 +1818,7 @@ class VueAdmin
      * @version 1.0
      */
     
-    public function modifierUtilisateur($aUtilisateur)
+    public function modifierUtilisateur($aUtilisateur, $message, $erreurPrenom, $erreurNom, $erreurLoginUtilisateur, $erreurPassUtilisateur, $erreurCourriel, $erreurTelephone, $erreurBio, $erreurPhotoArtiste)
     {
         $idUtilisateur = $aUtilisateur['idUtilisateur']; 
         $prenom = $aUtilisateur['prenomUtil']; 
@@ -1840,7 +1856,7 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurTitreNom;?></span>
+                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Login :</label>
@@ -2004,7 +2020,7 @@ class VueAdmin
        echo "</div>";
     }
 
-      /**
+    /**
      * Fonction qui modifie un ADMIN/MODERATEUR
      * @access public
      * @author Jorge Blanco
@@ -2052,7 +2068,7 @@ class VueAdmin
         
     }
 
-          /**
+    /**
      * Fonction qui affiche une liste de commentaires
      * @access public
      * @author Thuy Tien Vo
@@ -2143,7 +2159,55 @@ class VueAdmin
     <?php
     }
 
+     /**
+     * Fonction qui affiche la gestion BDD
+     * @access public
+     * @author Gautier Piatek
+     * @version 1.0
+     */
+    
+    /*GESTION BDD */
+    
+    public function afficheGestionBDD($message)
+    {
+    ?>
+    
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Gestion Base de données</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Mettre à jour la Base de données
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                            <form action="">
+                                <div class="alert alert-success col-lg-6 col-lg-offset-2">
+                                    Dernière mise à jour : 
+                                </div> 
+                            
+                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"><span><?php echo $message; ?></span>
+                            </form> 
+                           
+                           
 
-
-
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <?php
+    }
 }
