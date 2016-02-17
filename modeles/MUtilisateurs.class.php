@@ -151,7 +151,7 @@ class MUtilisateurs {
      * 
      */
     
-    public static function modifierUtilisateur($idUtilisateur, $loginUtilisateur, $passUtilisateur, $nom, $prenom, $courriel, $telephone, $bio,$photoUtilisateur)
+    public static function modifierUtilisateur($idUtilisateur, $loginUtilisateur, $passUtilisateur, $prenom, $nom, $courriel, $telephone, $bio, $photoUtilisateur)
     {
     	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, nomUtil = :nom, prenomUtil = :prenom, courrielUtil = :courriel, telUtil = :telephone, bio = :bio, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur");
 
