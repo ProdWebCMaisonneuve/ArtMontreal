@@ -37,8 +37,9 @@ class VueUtilisateur
                 <div class="panel panel-info">
                   <div class="panel-heading"> <h3><span class="glyphicon glyphicon-user"></span><?php echo " ".$loginUtil;?></h3></div>
                   <div class="panel-body">
-                       <img src="images/<?php echo $photoUtil;?>" class="img-circle" height="150" width="150" alt="Avatar">
-                       <p><span class="glyphicon glyphicon-envelope"></span><?php echo " ".$courrielUtil;?></p>
+                      <img src="images/<?php echo $photoUtil;?>" class="img-circle" height="150" width="150" alt="Avatar">
+                      <p><strong><?php echo $prenomUtil.' '.$nomUtil;?></strong></p> 
+                      <p><span class="glyphicon glyphicon-envelope"></span><?php echo " ".$courrielUtil;?></p>
                        <p><span class="glyphicon glyphicon-earphone"></span><?php echo " ".$telephoneUtil;?></p>
                        <p><?php echo $bioUtil;?></p>
                         <div class="btn-group">
@@ -64,122 +65,84 @@ class VueUtilisateur
     * @access public
     * @auteure: German Mahecha
     */
-    public function afficherPhotosUtilisateur()
+    public function afficherPhotosUtilisateur($photos)
     {
-         ?>
-              
-              <div class="col-sm-12 col-sm-8 col-md-8 col-lg-9 ">
-                  
-              <div class="panel panel-info">
+        //var_dump($photos);
+        ?>
+            <div class="col-sm-12 col-sm-8 col-md-8 col-lg-9 ">
+                <div class="panel panel-info">
                   <div class="panel-heading"><h4>Mes Photos</h4></div>
-                  <div class="panel-body">
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                           <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-
-                       <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                  </div>
-              </div>
-
-                <div class="panel panel-success">
-                  <div class="panel-heading"><h4>Meilleures Photos</h4></div>
-                  <div class="panel-body">
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-
-                      <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                    <p><span class="glyphicon glyphicon glyphicon-comment"></span>  10 Commentaires</p>
-                                    <p><span class="glyphicon glyphicon-thumbs-up"></span>  2 Likes</p>
-                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
-                                </div>
-                            </div>
-                        </div>
-                  </div>
-              </div>
-
-            </div>
-
-              
-              
-              
+                      <div class="panel-body">
+                      <?php
+                            if(!$photos)
+                            {
+                                echo "Aucune photo validée pour afficher";
+                            }
+                            else
+                            {
+                                foreach($photos as $photo){
+                                    echo "<div class='col-sm-6 col-lg-3 col-md-4'>";
+                                        echo "<div class='thumbnail'>";
+                                            echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
+                                            echo "<div class='caption'>";
+                                                echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>".$photo[3]."</p>";
+                                                echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>".$photo[4]."</p>";
+                                                echo "<button class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Voir detailles</button>";
+                                            echo "</div>";
+                                        echo "</div>";  
+                                    echo "</div>";  
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            
        <?php 
-        
     }
+    
+    /**
+    * Affiche les meilleures photos valides du concours
+    * @access public
+    * @auteure: German Mahecha
+    */
+    public function afficherMeilleuresPhotos($photos)
+    {
+        //var_dump($photos);
+        ?>
+            
+                <div class="panel panel-success">
+                  <div class="panel-heading"><h4>Les meilleures Photos du concours</h4></div>
+                      <div class="panel-body">
+                      <?php
+                             if(!$photos)
+                            {
+                                echo "Aucune photo validée pour afficher";
+                            }
+                            else
+                            {
+                                foreach($photos as $photo){
+                                    echo "<div class='col-sm-6 col-lg-3 col-md-4'>";
+                                        echo "<div class='thumbnail'>";
+                                            echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
+                                            echo "<div class='caption'>";
+                                                echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>".$photo[3]."</p>";
+                                                echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>".$photo[4]."</p>";
+                                                echo "<button class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Voir detailles</button>";
+                                            echo "</div>";
+                                        echo "</div>";  
+                                    echo "</div>";  
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            </div>
+          
+       <?php 
+    }
+    
+    
+    
     
     /**
     * Affiche la page pour soumettre une photo utilisateur
@@ -213,6 +176,7 @@ class VueUtilisateur
                                     <button type="submit" class="btn btn-primary btn-lg" name="photoPropose" value="photoPropose">Ajouter</button>
                                     <button type="reset" class="btn btn-default btn-lg">Annuler</button>
                                 </form>
+                              
                         </div>
                   </div>
               </div>
@@ -274,9 +238,6 @@ class VueUtilisateur
                                 </div>
                               </div>
                     </form>
-                      
-                      
-                      
                 </div> 
             </div>  
         </div>
@@ -294,7 +255,6 @@ class VueUtilisateur
     {
          ?>
         <div class="col-xm-12 col-sm-8 col-md-8 col-lg-7">
-
               <div class="panel panel-info">
                   <div class="panel-heading"><h4>Modifier votre mot de passe</h4></div>
                   <div class="panel-body">            
@@ -387,27 +347,26 @@ class VueUtilisateur
     public function afficherAsideUtilisateur()
     {
          ?>
-        <div class="col-sm-12 col-lg-2 col-md-4 well">
-                <div class="panel panel-info">
-                 <div class="panel-heading"><h4>Dérnière photo ajouté</h4></div>
-                    <div class="panel-body">
-                        <img src="images/img_2.jpg" class="img-thumbnail" alt="Paris">
-                        <p><strong>Nom Photo</strong></p>
-                        <p>Fri. 27 November 2015</p>  
-                        <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+            <div class="col-sm-12 col-lg-2 col-md-4 well">
+                    <div class="panel panel-info">
+                     <div class="panel-heading"><h4>Dérnière photo ajouté</h4></div>
+                        <div class="panel-body">
+                            <img src="images/img_2.jpg" class="img-thumbnail" alt="Paris">
+                            <p><strong>Nom Photo</strong></p>
+                            <p>Fri. 27 November 2015</p>  
+                            <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                        </div>
                     </div>
-                </div>
-                <div class="panel panel-success">
-                    <div class="panel-heading"><h4>Photo plus point</h4></div>
-                    <div class="panel-body">
-                        <img src="images/img_2.jpg" class="img-thumbnail" alt="Avatar">
-                        <p>10 points</p>
-                        <p><strong>Nom Photo</strong></p>
-                        <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                    <div class="panel panel-success">
+                        <div class="panel-heading"><h4>Photo plus point</h4></div>
+                        <div class="panel-body">
+                            <img src="images/img_2.jpg" class="img-thumbnail" alt="Avatar">
+                            <p>10 points</p>
+                            <p><strong>Nom Photo</strong></p>
+                            <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                        </div>
                     </div>
-                </div>
-                
-            </div>    
+                </div>    
 
 
 

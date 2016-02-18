@@ -285,12 +285,14 @@ class VueDefaut
                                  <div class="row">
                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="color_footer">
                                          Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
+
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
                             Sous licence MIT</span> 
+
                                      </div>
-                                 </div>
-                             </div>
-                        </footer>
+                                </div>
+                              </div>
+                    </footer>
                     
                     <?php
                     if($slider) {
@@ -686,8 +688,7 @@ public function afficheSliderAccueil($oeuvres)
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
         </div>
 
-
-            
+    
             <div class= 'row'>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"></div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">

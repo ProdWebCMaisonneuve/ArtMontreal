@@ -1266,8 +1266,13 @@ class Controler
            $oVue->afficheHeader();
            $uVue = new VueUtilisateur();    
            $uVue->afficherProfilUtilisateur($unUtilisateur);
-           $uVue->afficherPhotosUtilisateur();
-           $oVue->afficheFooter(false,false,false,false);
+           
+            $oPhoto=new MPhotos('','','','');
+            $aPhotos = $oPhoto->listerPhotosValidesUtilisateur($unUtilisateur['idUtilisateur']);
+            $uVue->afficherPhotosUtilisateur($aPhotos);
+            $aTousPhotos = $oPhoto->listerMeilleuresPhotos();
+            $uVue->afficherMeilleuresPhotos($aTousPhotos); 
+            $oVue->afficheFooter(false,false,false,false);
             
         }
     /**
@@ -1283,10 +1288,10 @@ class Controler
 
            $oVue = new VueDefaut();
            $oVue->afficheHeader();
-            $uVue = new VueUtilisateur();    
+           $uVue = new VueUtilisateur();    
            $uVue->afficherProfilUtilisateur($unUtilisateur);
-           echo "utilisateur: ".$unUtilisateur['idUtilisateur']."<br/>";
-           echo "idOeuvre: ".$idOeuvre;
+           //echo "utilisateur: ".$unUtilisateur['idUtilisateur']."<br/>";
+           //echo "idOeuvre: ".$idOeuvre;
            $uVue->afficherPropositionPhotosUtilisateur($unUtilisateur['idUtilisateur'],$idOeuvre);
            $oVue->afficheFooter(false,false,false,false);
         }
@@ -1296,18 +1301,13 @@ class Controler
     
         private function  ajouterPhoto($idUtil, $idOeuvre)
         {
-            
-            //echo "nom photo:". $nom;
-            //echo "util:". $idUtil;
-            //echo "oeuvre:". $idOeuvre;
-            //var_dump($_FILES["imagen"]);
             $message='';
             if ($_FILES["imagen"]["error"] > 0){
                  $message= "Erreur dans le procesus";
             } else {
                 //verification si le type de fichier est permis
                 //et que la taille soit plus petite que 50000kb
-                $permis = array("image/jpg", "image/jpeg", "image/gif", "image/png");
+                $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
                 $limite_kb = 10000;
 
                 if (in_array($_FILES['imagen']['type'], $permis) && $_FILES['imagen']['size'] <= $limite_kb * 1024){
@@ -1349,7 +1349,7 @@ class Controler
                     $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";
                 }
             }
-            
+            header("Location:index.php?requete=propositionPhotoUtilisateur&idOeuvre=$idOeuvre");
         }
       /**
      * function  modifierProfilUtilisateur
@@ -1364,7 +1364,7 @@ class Controler
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
             $uVue = new VueUtilisateur();
-            $uVue->afficherProfilUtilisateur($unUtilisateur);
+            
            
             if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
             {
@@ -1372,7 +1372,15 @@ class Controler
                 {
                    $oUtilisateur->modifierProfilUtilisateur($_GET['idUtilisateur'],$_POST['nom'], $_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio']);
                    $message = 'Utilistaeur modifie';
-                   $uVue->afficherModifierProfilUtilisateur($unUtilisateur/*, $message*/);
+                   
+                         
+                   $unUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+                   $uVue->afficherProfilUtilisateur($unUtilisateur);
+                   $oPhoto=new MPhotos('','','','');
+                    $aPhotos = $oPhoto->listerPhotosValidesUtilisateur($unUtilisateur['idUtilisateur']);
+                    $uVue->afficherPhotosUtilisateur($aPhotos);
+                    $aTousPhotos = $oPhoto->listerMeilleuresPhotos();
+                    $uVue->afficherMeilleuresPhotos($aTousPhotos);
                    
                }
                catch (Exception $e)
@@ -1381,6 +1389,8 @@ class Controler
                }
             }else
             {
+                $unUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+                $uVue->afficherProfilUtilisateur($unUtilisateur);
                 $uVue->afficherModifierProfilUtilisateur($unUtilisateur);
             }
             $oVue->afficheFooter(false,false,false,false);
