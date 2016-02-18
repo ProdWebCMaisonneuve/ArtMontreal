@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 18 Février 2016 à 02:01
+-- Généré le :  Jeu 18 Février 2016 à 07:45
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -302,6 +302,23 @@ INSERT INTO `artiste` (`idArtiste`, `prenom`, `nom`, `collectif`, `noInterne`, `
 (734, 'Yvette', 'Bisson', '', 1182, '1182.jpg'),
 (735, 'Catherine', 'Sylvain', '', 5797, '5797.jpg'),
 (736, '', '', 'BGL', 6671, '6671.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `bdd`
+--
+
+CREATE TABLE IF NOT EXISTS `bdd` (
+  `dateMaj` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `bdd`
+--
+
+INSERT INTO `bdd` (`dateMaj`) VALUES
+('18-02-2016 00:24:12 (America/Toronto)');
 
 -- --------------------------------------------------------
 
@@ -1092,7 +1109,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `idOeuvre` int(11) NOT NULL,
   PRIMARY KEY (`idPhoto`),
   KEY `fk_photo_oeuvre` (`idOeuvre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `photo`
@@ -1179,7 +1196,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur_enregistre` (
   `nomUtil` varchar(50) DEFAULT NULL,
   `prenomUtil` varchar(50) DEFAULT NULL,
   `courrielUtil` varchar(100) DEFAULT NULL,
-  `TelUtil` text,
+  `telUtil` text,
   `bio` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `photoUtilisateur` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`)
@@ -1189,7 +1206,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur_enregistre` (
 -- Contenu de la table `utilisateur_enregistre`
 --
 
-INSERT INTO `utilisateur_enregistre` (`idUtilisateur`, `loginUtilisateur`, `passUtilisateur`, `nomUtil`, `prenomUtil`, `courrielUtil`, `TelUtil`, `bio`, `photoUtilisateur`) VALUES
+INSERT INTO `utilisateur_enregistre` (`idUtilisateur`, `loginUtilisateur`, `passUtilisateur`, `nomUtil`, `prenomUtil`, `courrielUtil`, `telUtil`, `bio`, `photoUtilisateur`) VALUES
 (4, 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'toto', 'le magicien', 'totolemagicien@lamagique.com', '5145858585', 'Je suis le magicien plus populaire du monde', 'utilisateurDefaut.jpg'),
 (5, 'gerard', '64d8be661d8a79416eb6662db51e7118', 'Gerard', 'Tremblay', 'gerartremblay@gmail.com', '5145860409', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...', 'Util_1.jpg');
 

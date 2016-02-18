@@ -171,7 +171,7 @@ class MPhotos {
         return(self::$database->execute()); 
     
     }  
-      /* function ajouterPhotoPropose()
+    /* function ajouterPhotoPropose()
 	 * @access public static
      * @author German Mahecha
 	 * @return true ou false
@@ -185,7 +185,7 @@ class MPhotos {
         return(self::$database->execute()); 
     }
      
-      /* function ajouterPhoto()
+    /* function ajouterPhoto()
 	 * @access public static
      * @author German Mahecha
 	 * @return dernier ID de la photo ajoutée
@@ -195,7 +195,47 @@ class MPhotos {
         echo self::$database->dernierId();
     }
     
-
+    /* function qui liste les photos non valides
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return array
+	 */
+    public static function listePhotosNonValides() {
+        self::$database->query("SELECT * FROM photo WHERE validationPhoto = 0");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unPhoto = new MPhotos($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['validationPhoto'], $ligne['idOeuvre']);
+			$photos[] = $unPhoto;
+		}
+		return $photos;
+        
+    }
+    
+    /* function qui compte les photos non valides
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function nbrePhotosNonValides() {
+        self::$database->query("SELECT COUNT(idPhoto) FROM photo WHERE validationPhoto = 0;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idPhoto)"];
+        
+    }
+    
+    /* function qui compte les photos
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function nbrePhotos() {
+        self::$database->query("SELECT COUNT(idPhoto) FROM photo");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idPhoto)"];
+        
+    }
     
 }?>
 

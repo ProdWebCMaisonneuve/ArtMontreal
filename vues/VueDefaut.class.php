@@ -320,7 +320,7 @@ class VueDefaut
                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="color_footer">
                                          Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
-                            Sous licence Creative Commons (BY-NC 3.0)</span> 
+                            Sous licence MIT</span> 
                                      </div>
                                  </div>
                              </div>
@@ -766,7 +766,7 @@ public function afficheSliderAccueil($oeuvres)
                 <p>Arrondissement: <?php echo $arrond; ?></p>
                 <p>Parc: <?php echo $parc; ?></p>
                 <p>Batiment: <?php echo $batiment; ?></p>
-                <p>adresse: <?php echo $adres; ?></p>
+                <p>Adresse: <?php echo $adres; ?></p>
                 <p>Description:<?php echo  $description; ?></p>
                 <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
             </div>
@@ -1072,8 +1072,9 @@ public function afficheSliderAccueil($oeuvres)
 
     {
         ?>
-
+        <div class="text-center">
         <h2>Catégories</h2>
+        </div>
         <?php
         $compteur = 1;
         

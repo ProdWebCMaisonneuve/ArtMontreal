@@ -184,12 +184,7 @@ class VueUtilisateur
     /**
     * Affiche la page pour soumettre une photo utilisateur
     * @access public
-    * @auteure: German Mahecha
-    */
-    /**
-    * Affiche la page pour soumettre une photo utilisateur
-    * @access public
-    * @auteure: German Mahecha
+    * @author: German Mahecha
     */
     public function afficherPropositionPhotosUtilisateur($idUtil, $idOeuvre)
     {
@@ -208,8 +203,8 @@ class VueUtilisateur
                           <div class="col-sm-6 col-lg-6 col-md-4 text-left">
                                 <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="index.php?requete=propositionPhotoUtilisateur&action=ajoutPhoto">
                                     <div class="form-group">
-                                        <input type="hidden" id="idUtil" name='idUtil' value='<?php echo $idUtil; ?>'/>
-                                        <input type="hidden" id="idOeuvre" name='idOeuvre' value='<?php echo $idOeuvre; ?>'/>
+                                        <input type="text" hidden id="idUtil" name='idUtil' value='<?php echo $idUtil; ?>'/>
+                                        <input type="text" hidden id="idOeuvre" name='idOeuvre' value='<?php echo $idOeuvre; ?>'/>
                                     </div>
                                     <div class="form-group">
                                         <label for="photo" class="control-label">Photo:</label>

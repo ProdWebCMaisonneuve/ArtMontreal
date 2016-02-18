@@ -49,28 +49,11 @@
 		$_GET['idUtilisateur'] = '';
 	}
     
-    if(empty($prenom)) {
-        $prenom ='';
-    }
-
-    if(empty($nom)) {
-        $nom ='';
-    }
-
-    if(empty($collectif)) {
-        $collectif ='';
-    }
-
-    if(empty($photoArtiste)) {
-        $photoArtiste ='';
-    }
-   
-    if(empty($oeuvres)) {
-        $oeuvres ='';
-    }
-
-    if(empty($erreurConnexion)) {
-        $erreurConnexion = '';
-    }
+    if(empty($_POST['majBDD']))
+    {
+		$_POST['majBDD'] = '';
+	}
+    
+ 
 
 ?>
