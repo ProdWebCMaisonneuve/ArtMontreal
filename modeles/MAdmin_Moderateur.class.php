@@ -172,7 +172,20 @@ class MAdmin_Moderateur {
         }
     }
     
+     /**
+     * Fonction qui compte le nombre d'admins dans la BDD
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
     
+    public static function nbreAdminMods() {
+        self::$database->query("SELECT COUNT(idAdMod) FROM adminmod;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idAdMod)"];
+    }
+
     
     
 }

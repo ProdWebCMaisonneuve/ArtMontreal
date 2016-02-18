@@ -320,7 +320,7 @@ class VueAdmin
                             <a href="#"><i class="fa fa-unlock-alt fa-fw"></i> Administrateurs<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Gestion</a>
+                                    <a href="index.php?requete=afficheAdminMods"><i class="fa fa-wrench fa-fw"></i> Gestion</a>
                                 </li>
                                 <li>
                                     <a href="index.php?requete=afficheBDD"><i class="fa fa-download fa-fw"></i> Base de données</a>
@@ -1382,7 +1382,7 @@ class VueAdmin
                                     echo '<tr>';
                                     echo "<td>".$categorie->getNomCategorie()."</td>";
                                     echo "<td>".$categorie-> getNomCatAng()."</td>";
-                                    echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerCategories&$idCategorie='.$categorie->getIdCategorie().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';
+                                    echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerCategories&idCategorie='.$categorie->getIdCategorie().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';
                                     echo '<td class="text-center"><a href="index.php?requete=modifierCategories&idCategorie='.$categorie->getIdCategorie().'"><i class="fa fa-pencil"></i></a></td>';   
                                     echo '</tr>';
                                 }
@@ -1905,87 +1905,207 @@ class VueAdmin
     
     /**-------------------------------------------------------------------ADMIN/MODERATEUR---------------------------------------------------------------------------- **/
     
+    /**
+     * Fonction qui affiche la liste ADMIN/MODERATEUR
+     * @access public
+     * @author Gautier Piatek
+     * @version 1.0
+     */
     
+    public function afficheAdminMods($aAdminMods, $nbreAdminMods)
+    {
+        ?>
+        <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Administrateurs et Modérateurs</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2"> 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <a href="index.php?requete=ajoutAdminMod">
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                                                   
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"> Ajouter un administrateur</div>
 
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                           
+                              
+                                              
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $nbreAdminMods; ?> Administrateurs</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste des Administrateurs et Modérateurs
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
+                                    <thead>
+                                        <tr>
+                                            <th>Login</th>
+                                            <th>Rôle</th>
+                                            <th>Supprimer</th>
+                                            <th>Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach($aAdminMods as $adminmod) {
+                                        echo '<tr>';
+                                        echo "<td>".$adminmod->getLogin()."</td>";
+                                        echo "<td>";
+                                        if($adminmod->getRole() == 1){
+                                            echo "Administrateur";
+                                        } else {
+                                            echo "Modérateur";
+                                        } 
+                                        echo "</td>";
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerAdminMod&idAdMod='.$adminmod->getIdAdMod().'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';    
+                                        echo '<td class="text-center"><a href="index.php?requete=modifierAdminMod&idAdMod='.$adminmod->getIdAdMod().'"><i class="fa fa-pencil"></i></a></td>';   
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+           <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer un administrateur, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div>
+            <?php
+    }
     /**
      * Fonction qui montre le FORMULAIRE pour ajouter ADMIN/MODERATEUR
      * @access public
      * @author Jorge Blanco
+     * @author Gautier Piatek
      * @version 1.0
      */
     
-    public function formulaireAjouterAdmin_moderateur()
+    public function AjoutAdminMod($message, $erreurLogin, $erreurPass, $erreurRole)
     {
         ?>
-        <div>
-
         
+        <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Ajouter un Administrateur</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'administrateur
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutAdminMod&action=ajoutAdminMod">
 
-        <h2 id="titreAdm">Ajouter un admin/moderateur</h2>
+                                <div class="form-group">
+                                    <label>Login :</label>
+                                    <input class="form-control" type="text" name="login"><span><?php echo $erreurLogin;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mot de passe :</label>
+                                    <input class="form-control" type="text" name="pass"><span><?php echo $erreurPass;?></span>
+                                </div>
+                               
+                                <div class="form-group">
+                                <label>Rôle :</label>
+                                    <select class="form-control" name="role"><br><span><?php echo $erreurRole;?></span>
+                                    <option value="nonChoisi">Choisir un rôle</option><br>
+                                    <option value="1">Administrateur</option>
+                                    <option value="0">Modérateur</option>
+                               </select>
+                                </div>
+                                
 
-        <div class="formulaireAd1"> 
-        <form  action="index.php?requete=ajouterAdmin_moderateur&action=ajoutAdmin_moderateur" method='POST' name='FormAjoutAdmin' id="FormAjoutAdmin"> 
+                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
 
-            <fieldset>
-                
-                login:<br>
-                <input type="text" name="login"><br><span id="erreurPrenom"></span>
-                Mot de pass:<br>
-                <input type="password" name="pass"><br>
-                role:<br>
-                <select name="role">
-                    <option value='nonChoisi'>choisissez une option</option>
-                    <option value="1">Administrateur</option>
-                    <option value="0">Moderateur</option>
-                </select><br>
-                <input type="button"  onclick="validerFormAjoutAdmin()" value="Envoyer" id="button"> 
-                
-            </fieldset>        
-        </form>                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
         
         <?php
     }
     
-    
 
-
-    /**
-     * Afficher un liste dE MODIFIER ADMIN/MODERATEUR
-     * @access public
-     * @author Jorge Blanco
-     */
-    
-    public function afficheListeModifierAdmin_moderater($aAdmin_moderateur)
-    {
-        ?>
-             <h2 id='titreA'>Modifier nos admins/moderateurs</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-                    
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Admin</th>";
-                echo "<th>Modifier</th>	";
-                echo "</tr>";
-                foreach($aAdmin_moderateur as $admin_moderater){
-                    echo "<tr>";
-                    $idAdMod = $admin_moderater->getIdAdMod();
-                    echo "<td><span class='icon-user'></span>";
-                    echo "<td>" .$admin_moderater->getLogin()."</td>" ;
-                    echo "<td><a href='index.php?requete=modifierAdmin_moderateur&idAdMod=$idAdMod'><span class='icon-edit'></span></a></td>";
-                        echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-    
     /**
      * Afficher un liste dE SUPPRIMER ADMIN/MODERATEUR
      * @access public
@@ -2027,42 +2147,63 @@ class VueAdmin
      * @version 1.0
      */
     
-    public function modifierUnAdmin_moderateur($aAdmin_moderateur)
+    public function modifierUnAdmin_moderateur($aAdmin_moderateur, $message, $erreurLogin, $erreurPass, $erreurRole)
     {
         $idAdMod = $aAdmin_moderateur['idAdMod'];
         $role = $aAdmin_moderateur['role'];
         $login = $aAdmin_moderateur['login'];
-        $pass = $aAdmin_moderateur['pass'];
         
         ?>
-        <div>
-            <h2 id="titreA">Modifier un admin/moderateur</h2>
+        <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modifier un Administrateur</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'administrateur
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=modifierAdminMod&idAdMod=<?php echo $idAdMod; ?>&action=valider">
 
-            <form class="formulaire" action="index.php?requete=modifierAdmin_moderateur&idAdMod=<?php echo $idAdMod; ?>&action=valider" method='POST'> 
-                <fieldset>
-                    Utilisateur:<br>
-                    <input type="text" name="login" value="<?php echo $login; ?>"><br><br>
-                    Mot de passe:<br>
-                    <input type="text" name="pass" placeholder='Nouveau mot de passe'><br><br>
-                    Rôle:
-                    <select name='role'>
-                        <?php
-                            echo "<option value='".'1'."'";
-                            if($role==1){echo "selected";}
-                            echo ">".'Administrateur'."</option>";
-                        ?>
-                        <?php
-                            echo "<option value='".'0'."'";
-                            if($role==0){echo "selected";}
-                            echo ">".'Moderateur'."</option>";
-                        ?>
-                                              
-                    </select> 
-                     <br>
-                    <input type="submit" value="Envoyer" id="button">
-                </fieldset>        
-            </form>                    
+                                <div class="form-group">
+                                    <label>Login :</label>
+                                    <input class="form-control" type="text" name="login" value="<?php echo $login; ?>"><span><?php echo $erreurLogin;?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mot de passe :</label>
+                                    <input class="form-control" type="text" name="pass" placeholder="Entrez le nouveau mot de passe"><span><?php echo $erreurPass;?></span>
+                                </div>
+                               
+                                <div class="form-group">
+                                <label>Rôle :</label>
+                                    <select class="form-control" name="role"><br><span><?php echo $erreurRole;?></span>
+                                        <option value="nonChoisi">Choisir un rôle</option><br>
+                                        <option value="1" <?php if($role == 1) { echo "selected"; }?>>Administrateur</option>
+                                        <option value="0" <?php if($role == 0) { echo "selected"; }?>>Modérateur</option>
+                                   </select>
+                                </div>
+                                
+
+                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
                     
         <?php
         
