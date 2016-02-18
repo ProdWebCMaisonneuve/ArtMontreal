@@ -308,7 +308,7 @@ class VueAdmin
                                     <a href="#"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
                                 </li>
                                    <li>
-                                    <a href="#"><i class="fa fa-picture-o fa-fw"></i> Photos</a>
+                                    <a href="index.php?requete=afficheModPhotos"><i class="fa fa-picture-o fa-fw"></i> Photos</a>
                                 </li>
                                 <li>
                                     <a href="index.php?requete=afficheCommentaires"><i class="fa fa-comment fa-fw"></i> Commentaires</a>
@@ -346,7 +346,7 @@ class VueAdmin
      * @version 1.0
      * 
      */
-    public function afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs) {
+    public function afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs, $nbrePhotos) {
     
     ?>
     
@@ -433,12 +433,12 @@ class VueAdmin
                                     <i class="fa fa-picture-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge"><?php echo $nbrePhotos; ?></div>
                                     <div>Photos</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="index.php?requete=affichePhotos">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -1689,48 +1689,7 @@ class VueAdmin
     <?php
     }
 
-    /**
-     * Afficher un liste d'UTILISATEUR
-     * @access public
-     * @author Jorge Blanco
-     */
-    public function listerUtilisateurs($aUtilisateurs)
-    {
-        ?>
-            <h2>Utilisateurs</h2>
-            <section class='contenu container'>
-                <div class='tableArtistes'>
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Utilisateur</th>";
-                echo "</tr>";
-                
-                foreach($aUtilisateurs as $utilisateur) 
-                {
-                        echo "<tr>";
-                        $idUtilisateur = $utilisateur->getIdUtilisateur();
-                        $loginUtilisateur = $utilisateur->getloginUtilisateur();
-                        $passUtilisateur = $utilisateur->getpassUtilisateur();
-                        $bio = $utilisateur->getbio();
-                        $score = $utilisateur->getscore();
-                        $photoUtilisateur = $utilisateur->getphotoUtilisateur();
-                        echo "<td><span class='icon-user'></span>";
-                        echo "<td><a href='index.php?requete=unUtilisateur&idUtilisateur=$idUtilisateur'>".$utilisateur->getLoginUtilisateur()."</a>" ."</td>" ;
-                        echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-
-    }
-
-
-
-    
+        
     /**
      * Affiche la page ajout UTILISATEUR
      * @access public
@@ -1814,7 +1773,8 @@ class VueAdmin
      /**
      * Affiche une liste pour modifier les utilisateurs
      * @access public
-     * @author German Mahecha
+     * @author Jorge Blanco
+     * @author Gautier Piatek
      * @version 1.0
      */
     
@@ -1909,6 +1869,7 @@ class VueAdmin
      * Fonction qui affiche la liste ADMIN/MODERATEUR
      * @access public
      * @author Gautier Piatek
+     * @author Jorge Blanco
      * @version 1.0
      */
     
@@ -2107,43 +2068,10 @@ class VueAdmin
     
 
     /**
-     * Afficher un liste dE SUPPRIMER ADMIN/MODERATEUR
-     * @access public
-     * @author Jorge Blanco
-     */
-    public function afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur)
-    {
-        ?>
-            
-            <h2 id='titreA'>Supprimer nos admins/moderateurs</h2>
-            <section class='contenu container'>
-            <div class='tableArtistes'>                                      
-        <?php
-                echo "<section class='formulaire2'>";
-                echo "<table>";
-                echo "<tr>";
-                echo "<th></th>";
-                echo "<th>Admin</th>";
-                echo "<th>Supprimer</th>	";
-                echo "</tr>";
-                foreach($aAdmin_moderateur as $admin_moderater){
-                    echo "<tr>";
-                    $idAdMod = $admin_moderater->getIdAdMod();
-                    echo "<td><span class='icon-user'></span>";
-                    echo "<td>" .$admin_moderater->getLogin()."</td>" ;
-                    echo "<td><a href='index.php?requete=supprimerAdmin_moderateur&idAdMod=$idAdMod'><span class='icon-edit'></span></a></td>";
-                        echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-            echo "</section> ";
-       echo "</div>";
-    }
-
-    /**
      * Fonction qui modifie un ADMIN/MODERATEUR
      * @access public
      * @author Jorge Blanco
+     * @author Gautier Piatek
      * @version 1.0
      */
     
@@ -2209,106 +2137,17 @@ class VueAdmin
         
     }
 
-    /**
-     * Fonction qui affiche une liste de commentaires
-     * @access public
-     * @author Thuy Tien Vo
-     * @version 1.0
-     */
-
-
-    public function afficheCommentaires() 
-    { 
-       
-    ?>
-
-
-
     
 
-            <div class="col-lg-4">
-                   <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-paint-brush fa-5x"></i>
-                                </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php  ?> Commentaire</div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>  
-        </div>
-
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Liste des commentaire
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
-                                <thead>
-                                    <tr>
-                                        <th>Utilisateur</th>
-
-                                        <th>Commentaire</th>
-
-                                        <th>Date</th>
-
-                                        <th>Valider</th>
-
-                                        <th>Supprimer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-
-                                //foreach($aCommentaires as $commentaire) 
-                              
-                                {
-                                    echo '<tr>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-pencil"></i></a></td>';  
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>'; 
-                                    echo'</tr>'; 
-
-                                    echo '<tr>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-pencil"></i></a></td>';  
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>'; 
-                                    echo '</tr>';
-                                }
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.table-responsive -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <?php
-    }
-
+    /**--------------------------------------------------------GESTION BDD --------------------------------------**/
+    
      /**
      * Fonction qui affiche la gestion BDD
      * @access public
      * @author Gautier Piatek
      * @version 1.0
      */
-    
-    /*GESTION BDD */
-    
+
     public function afficheGestionBDD($message, $date)
     {
     ?>
@@ -2347,6 +2186,227 @@ class VueAdmin
     </div>
     
     
+    <?php
+    }
+    
+   /**--------------------------------------------------------MODERATION --------------------------------------**/ 
+    
+     /**
+     * Fonction qui affiche la modération des photos
+     * @access public
+     * @author Gautier Piatek
+     * @version 1.0
+     */
+
+    public function afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides)
+    {
+       
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modération des photos</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                
+            <div class="col-lg-4 col-lg-offset-6">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-picture-o fa-5x"></i>
+                                </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo $nbrePhotosNonValides ?> Photos</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>  
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Liste des commentaires
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                           <?php if($aPhotosAValider) { ?>
+                           <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateur</th>
+                                        <th>Photo</th>
+                                        <th>Oeuvre</th>
+                                        <th>Date</th>
+                                        <th>Supprimer</th>
+                                        <th>Valider</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                
+                                    foreach($aPhotosAValider as $photo) 
+                                    {
+                                        echo '<tr>';
+                                        echo '<td>'. $photo[0].'</td>';
+                                        echo '<td>'. $photo[3].'</td>';
+                                        echo '<td>'. $photo[4].'</td>';
+                                        echo '<td>'. $photo[1].'</td>';
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerPhoto&idPhoto='.$photo[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
+                                        echo '<td class="text-center"><a href="index.php?requete=validerPhoto&idPhoto='. $photo[2] .'"><i class="fa fa-check"></i></a></td>'; 
+                                        echo'</tr>'; 
+
+                                    }
+                                
+                                
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php
+                        } else {
+                            echo " Il n'y a pas de photos à valider.";
+                        }
+                        ?>
+                        <!-- /.table-responsive -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     
+    
+    <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer une photo, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div>
+    <?php
+    }
+    
+    /**
+     * Fonction qui affiche une liste de commentaires
+     * @access public
+     * @author Thuy Tien Vo
+     * @version 1.0
+     */
+
+    public function afficheCommentaires() 
+    { 
+       
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modération des commentaires</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                
+            <div class="col-lg-4 col-lg-offset-6">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-paint-brush fa-5x"></i>
+                                </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo "0" ?> Commentaires</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>  
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Liste des commentaires
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateur</th>
+
+                                        <th>Commentaire</th>
+
+                                        <th>Date</th>
+
+                                        <th>Valider</th>
+
+                                        <th>Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+
+                                //foreach($aCommentaires as $commentaire) 
+                              
+                                {
+                                    echo '<tr>';
+                                    echo'<td>';
+                                    echo'<td>';
+                                    echo'<td>';
+                                    echo '<td class="text-center"><a href=""><i class="fa fa-check"></i></a></td>';  
+                                    echo '<td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>'; 
+                                    echo'</tr>'; 
+
+                                    echo '<tr>';
+                                    echo'<td>';
+                                    echo'<td>';
+                                    echo'<td>';
+                                    echo '<td class="text-center"><a href=""><i class="fa fa-check"></i></a></td>';  
+                                    echo '<td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>'; 
+                                    echo '</tr>';
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     <?php
     }
 }

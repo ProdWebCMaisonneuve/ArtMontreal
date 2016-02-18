@@ -234,6 +234,60 @@ class MPhotos {
         $resultat = self::$database->uneLigne();
         
         return $resultat["COUNT(idPhoto)"];
+    
+    
+        
+    }
+    
+    /* function qui liste les photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+     * @author German Mahecha
+	 * @return int
+	 */
+    public static function listePhotosAValider() {
+        self::$database->query("SELECT utilisateur_enregistre.loginUtilisateur, propose.dateProposition, photo.idPhoto, photo.nomPhoto, oeuvre.titreOeuvre 
+FROM photo
+JOIN oeuvre ON photo.idOeuvre = oeuvre.idOeuvre
+JOIN propose ON propose.idPhoto = photo.idPhoto 
+JOIN utilisateur_enregistre ON propose.idUtilisateur= utilisateur_enregistre.idUtilisateur 
+WHERE photo.validationPhoto=0");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unPhoto = array($ligne['loginUtilisateur'], $ligne['dateProposition'], $ligne['idPhoto'], $ligne['nomPhoto'], $ligne['titreOeuvre']);
+			$photos[] = $unPhoto;
+		}
+		return $photos;
+    }
+    
+    /* function qui efface les photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+     * @author German Mahecha
+	 * @return none
+	 */
+    public static function supprimerPhoto($idPhoto) 
+    {
+        self::$database->query("DELETE FROM propose WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        self::$database->execute();
+        self::$database->query("DELETE FROM photo WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        self::$database->execute();
+        
+    }
+    
+    /* function qui valide les photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+     * @author German Mahecha
+	 * @return none
+	 */
+    public static function validerPhoto($idPhoto) 
+    {
+        self::$database->query("UPDATE photo SET validationPhoto = 1 WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        self::$database->execute();
         
     }
     
