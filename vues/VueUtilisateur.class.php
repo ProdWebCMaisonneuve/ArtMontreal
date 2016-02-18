@@ -186,7 +186,12 @@ class VueUtilisateur
     * @access public
     * @auteure: German Mahecha
     */
-    public function afficherPropositionPhotosUtilisateur()
+    /**
+    * Affiche la page pour soumettre une photo utilisateur
+    * @access public
+    * @auteure: German Mahecha
+    */
+    public function afficherPropositionPhotosUtilisateur($idUtil, $idOeuvre)
     {
          ?>
             <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">  
@@ -201,63 +206,21 @@ class VueUtilisateur
                             </div>
                         </div>
                           <div class="col-sm-6 col-lg-6 col-md-4 text-left">
-                                                
-                                <form class="form-horizontal" role="form">
+                                <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="index.php?requete=propositionPhotoUtilisateur&action=ajoutPhoto">
                                     <div class="form-group">
-                                        <label for="nomPhoto" class="control-label" >Nom pour la photo</label>
-                                        <input type="text" class="form-control" id="nomPhoto" placeholder='Nom ici...'/>
+                                        <input type="hidden" id="idUtil" name='idUtil' value='<?php echo $idUtil; ?>'/>
+                                        <input type="hidden" id="idOeuvre" name='idOeuvre' value='<?php echo $idOeuvre; ?>'/>
                                     </div>
                                     <div class="form-group">
                                         <label for="photo" class="control-label">Photo:</label>
-                                        <input type='file' name="photo" id="photo">
+                                        <input type='file' name="imagen" id="imagen">
                                     </div><br/><br/>
-                                    <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+                                    <button type="submit" class="btn btn-primary btn-lg" name="photoPropose" value="photoPropose">Ajouter</button>
                                     <button type="reset" class="btn btn-default btn-lg">Annuler</button>
-                                  </form>     
-                            
+                                </form>
                         </div>
                   </div>
               </div>
-                <div class="panel panel-info">
-                  <div class="panel-heading"><h4>Photos pour cet oeuvre</h4></div>
-                  <div class="panel-body">
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                      <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                      <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <div class="caption">
-                                    <p><strong>Nom Photo</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                  </div>
-              </div>
-
-                
-
             </div>  
               
               
