@@ -424,6 +424,58 @@ class VueUtilisateur
        <?php 
         
     }
+
+
+
+    /**
+    * Affiche la page pour soumettre une commentaire
+    * @access public
+    * @auteure: Thuy Tien Vo
+    */
+    public function afficherPropositionCommentaire()
+    {
+         ?>
+            <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">  
+
+              <div class="panel panel-info">
+                  <div class="panel-heading"><h4>Ajouter une commentaire pour cet oeuvre</h4></div>
+                  <div class="panel-body">
+                        <div class="col-sm-6 col-lg-3 col-md-4">
+                            <div class="thumbnail">
+                                <img src="images/img_2.jpg" alt="">
+                                <h3><strong>La source</strong></h3>
+                            </div>
+                        </div>
+                          <div class="col-sm-6 col-lg-6 col-md-4 text-left">
+                                                
+                                <form class="form-horizontal" role="form" method="POST" action="index.php?requete=propositionCommentaire&action=ajoutCommentaire">
+                                    <div class="form-group">
+                                        <label for="nomPhoto" class="control-label" >Commentaire</label><br/><br/>
+                                        <textarea class="form-control" rows="5" name="commentaire" placeholder='Commentaire ici...'></textarea>
+                                    </div><br/><br/>
+
+                                    <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+                                    <button type="reset" class="btn btn-default btn-lg">Annuler</button>
+                                </form>     
+                            
+                          </div>
+                  </div>
+              </div>
+               
+             
+              </div>
+            </div>  
+              
+              
+       <?php 
+        
+    } 
+
+
+
+
+
+
     
 }
 ?>
