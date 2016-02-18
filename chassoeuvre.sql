@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 10 Février 2016 à 05:48
+-- Généré le :  Jeu 18 Février 2016 à 02:01
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -336,7 +336,16 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   `commentaire` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `validationCommentaire` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idCommentaire`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `commentaire`
+--
+
+INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `validationCommentaire`) VALUES
+(1, 'bla bla bla', 1),
+(2, 'ble ble', 1),
+(3, 'bli bli', 1);
 
 -- --------------------------------------------------------
 
@@ -349,7 +358,15 @@ CREATE TABLE IF NOT EXISTS `contient` (
   `idCommentaire` int(11) NOT NULL,
   PRIMARY KEY (`idPhoto`,`idCommentaire`),
   KEY `FK_contient_idCommentaire` (`idCommentaire`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `contient`
+--
+
+INSERT INTO `contient` (`idPhoto`, `idCommentaire`) VALUES
+(1, 2),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -1075,7 +1092,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `idOeuvre` int(11) NOT NULL,
   PRIMARY KEY (`idPhoto`),
   KEY `fk_photo_oeuvre` (`idOeuvre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `photo`
@@ -1083,8 +1100,8 @@ CREATE TABLE IF NOT EXISTS `photo` (
 
 INSERT INTO `photo` (`idPhoto`, `nomPhoto`, `validationPhoto`, `idOeuvre`) VALUES
 (1, 'img_2.jpg', 1, 3),
-(2, NULL, 0, 4),
-(3, NULL, 0, 2);
+(2, 'img3.jpg', 1, 625),
+(3, 'img4.jpg', 1, 786);
 
 -- --------------------------------------------------------
 
@@ -1095,7 +1112,7 @@ INSERT INTO `photo` (`idPhoto`, `nomPhoto`, `validationPhoto`, `idOeuvre`) VALUE
 CREATE TABLE IF NOT EXISTS `propose` (
   `idUtilisateur` int(11) NOT NULL,
   `idPhoto` int(11) NOT NULL,
-  `dateProposition` datetime DEFAULT NULL,
+  `dateProposition` varchar(20) NOT NULL,
   PRIMARY KEY (`idUtilisateur`,`idPhoto`),
   KEY `FK_propose_idUtilisateur` (`idUtilisateur`),
   KEY `FK_propose_idPhoto` (`idPhoto`)
@@ -1187,7 +1204,15 @@ CREATE TABLE IF NOT EXISTS `vote` (
   `idPhoto` int(11) NOT NULL,
   PRIMARY KEY (`idUtilisateur`,`idPhoto`),
   KEY `FK_vote_idPhoto` (`idPhoto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `vote`
+--
+
+INSERT INTO `vote` (`idUtilisateur`, `idPhoto`) VALUES
+(4, 1),
+(4, 3);
 
 --
 -- Contraintes pour les tables exportées
