@@ -84,6 +84,12 @@ class Controler
                 case 'modifierOeuvre':
                         $this->modifierOeuvre($_GET['idOeuvre']);
                     break; 
+                case 'supprimerPhoto':
+                        $this->supprimerPhoto($_GET['idPhoto']);
+                    break; 
+                case 'validerPhoto':
+                        $this->validerPhoto($_GET['idPhoto']);
+                    break; 
                 case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
                     break;
@@ -199,12 +205,24 @@ class Controler
                     $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
                     break;
 
+                case 'commentaire':
+                    $this->commentaire($_GET['idCommentaire']);
+                    break;
+
+                case 'propositionCommentaire':
+                    $this->propositionCommentaire();
+                    break;
+
                 case 'afficheCommentaires':
                     $this->afficheCommentaires();
                     break;
                 
                 case 'afficheBDD':
                     $this->afficheBDD();
+                    break;
+                
+                case 'afficheModPhotos':
+                    $this->afficheModPhotos();
                     break;
                 
                 
@@ -845,7 +863,7 @@ class Controler
             $erreurMateriaux = '';
             $erreurMateriauxAng ='';
             
-            $oVueAdmin->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            $oVueAdmin->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
 
         }
@@ -906,12 +924,15 @@ class Controler
             $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
             
+            $oPhotos = new MPhotos("", "", "", "");
+            $nbrePhotos = $oPhotos->nbrePhotos();
+             
             $message = '';
              
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
-            $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
+            $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs, $nbrePhotos);
             $oVueDefaut->afficheFooter(false, true, true, false);
         }
     
@@ -1122,11 +1143,14 @@ class Controler
                 $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
                 $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
                 
+                $oPhotos = new MPhotos("", "", "", "");
+                $nbrePhotos = $oPhotos->nbrePhotos();
+                
                 $message = '';
                 $oVueAdmin = new VueAdmin();
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin->afficheHeaderAdmin();
-                $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
+                $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs, $nbrePhotos);
                 $oVueDefaut->afficheFooter(false,true,true,false);
                
             }
@@ -1211,13 +1235,22 @@ class Controler
                     }
                    
                 }
-                
-            
-                
-                
-            
+
             }
         
+        $oVueDefaut = new VueDefaut();
+        $oVueAdmin = new VueAdmin();
+        $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+        $date = $oOeuvre->afficheMajBdd();
+
+        $oVueAdmin->afficheHeaderAdmin();
+        date_default_timezone_set('America/Toronto');
+        $date = date('d-m-Y H:i:s (e)');
+        $oOeuvre->enregistrerMajBdd($date);
+         
+        $message = "Base de données mise à jour !";
+        $oVueAdmin->afficheGestionBDD($message, $date);
+        $oVueDefaut->afficheFooter(false, true, false,false);    
         }
         /**
      * function profilUtilisateurConnexion
@@ -1409,6 +1442,38 @@ class Controler
     
         }
 
+        /**
+         * function proposition Commentaire
+         * @access public
+         * @auteur: Thuy Tien Vo
+         */
+        private function propositionCommentaire()
+        {
+
+           $oUtilisateur = new MUtilisateurs('','','','','','','','','');
+           $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+
+            if($_GET['action'] == 'ajoutCommentaire')
+
+                {   $oCommentaire = new MCommentaires('', '', '');
+                    $oCommentaire->ajoutCommentaire($_POST['commentaire']);
+                    $message = "Commentaire ajoutée.";
+                }
+
+           $oVue = new VueDefaut();
+           $oVue->afficheHeader();
+           $uVue = new VueUtilisateur();    
+           $uVue->afficherProfilUtilisateur($unUtilisateur);
+           $uVue->afficherPropositionCommentaire();
+           $oVue->afficheFooter(false,false,false,false);
+        }
+
+        /**
+         * function affiche le commentaire dans le Panel_Admin
+         * @access public
+         * @auteur: Thuy Tien Vo
+         */
+
         private function afficheCommentaires()
         {
          
@@ -1417,7 +1482,7 @@ class Controler
             
             $oVueAdmin->afficheHeaderAdmin();
             $oVueAdmin->afficheCommentaires();
-            $oVueDefaut->afficheFooter(false, false, false,false);
+            $oVueDefaut->afficheFooter(false, true, false,true);
     
         }
 
@@ -1425,24 +1490,72 @@ class Controler
         {
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $date = $oOeuvre->afficheMajBdd();
             
             $oVueAdmin->afficheHeaderAdmin();
             
+            $oOeuvre->afficheMajBdd();
+            
             $message = "";
-            $oVueAdmin->afficheGestionBDD($message);
+            $oVueAdmin->afficheGestionBDD($message, $date);
             $oVueDefaut->afficheFooter(false, true, false,false);
         }
         
-
-     
-                
+        private function afficheModPhotos()
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oPhotos = new MPhotos('','','','');
+            $nbrePhotosNonValides = $oPhotos->nbrePhotosNonValides();
+            if($nbrePhotosNonValides !=0) {
+                $aPhotosAValider = $oPhotos->listePhotosAValider();
+            } else {
+                $aPhotosAValider = '';
+            }
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+        }
+    
+        private function supprimerPhoto($idPhoto) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oPhotos = new MPhotos('','','','');
+            $oPhotos->supprimerPhoto($idPhoto);
+            $nbrePhotosNonValides = $oPhotos->nbrePhotosNonValides();
+            if($nbrePhotosNonValides !=0) {
+                $aPhotosAValider = $oPhotos->listePhotosAValider();
+            } else {
+                $aPhotosAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
             
             
+        }
+        
+        private function validerPhoto($idPhoto) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oPhotos = new MPhotos('','','','');
+            $oPhotos->validerPhoto($idPhoto);
+            $nbrePhotosNonValides = $oPhotos->nbrePhotosNonValides();
+            if($nbrePhotosNonValides !=0) {
+                $aPhotosAValider = $oPhotos->listePhotosAValider();
+            } else {
+                $aPhotosAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
             
-       
-
-
-
-
-
+            
+        }
+    
+        
 }?>

@@ -402,5 +402,35 @@ class MOeuvres {
         return $ligne['idOeuvre'];
     } 
     
+     /**
+     * Function qui affiche la date de maj de la BDD
+	 * @author Gautier Piatek
+	 * @return string
+	 */
+
+
+    public function afficheMajBdd()
+    {
+        self::$database->query("SELECT * FROM bdd");
+        $ligne=self::$database->uneLigne();
+        return $ligne['dateMaj'];
+    } 
+    
+     /**
+     * Function qui enregistre la date et heyre de mise à jour de la BDD
+	 * @author Gautier Piatek
+	 * @return none
+	 */
+
+    
+
+    public function enregistrerMajBdd($date) 
+    {
+        self::$database->query("UPDATE bdd SET dateMaj = :date");
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':date', $date);
+        self::$database->execute();
+    }
+    
 }
 ?>

@@ -173,7 +173,7 @@ class MPhotos {
         return(self::$database->execute()); 
     
     }  
-      /* function ajouterPhotoPropose()
+    /* function ajouterPhotoPropose()
 	 * @access public static
      * @author German Mahecha
 	 * @return true ou false
@@ -187,7 +187,7 @@ class MPhotos {
         return(self::$database->execute()); 
     }
      
-      /* function ajouterPhoto()
+    /* function ajouterPhoto()
 	 * @access public static
      * @author German Mahecha
 	 * @return dernier ID de la photo ajoutée
@@ -196,6 +196,7 @@ class MPhotos {
         return(self::$database->dernierId());
     }
     
+
     /* listerPhotosValidesUtilisateur()
 	 * @access public static
      * @author German Mahecha
@@ -220,6 +221,102 @@ class MPhotos {
             return false;
     }
 
+
+    /* function qui liste les photos non valides
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return array
+	 */
+    public static function listePhotosNonValides() {
+        self::$database->query("SELECT * FROM photo WHERE validationPhoto = 0");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unPhoto = new MPhotos($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['validationPhoto'], $ligne['idOeuvre']);
+			$photos[] = $unPhoto;
+		}
+		return $photos;
+        
+    }
+    
+    /* function qui compte les photos non valides
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function nbrePhotosNonValides() {
+        self::$database->query("SELECT COUNT(idPhoto) FROM photo WHERE validationPhoto = 0;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idPhoto)"];
+        
+    }
+    
+    /* function qui compte les photos
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function nbrePhotos() {
+        self::$database->query("SELECT COUNT(idPhoto) FROM photo");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idPhoto)"];
+    
+    
+        
+    }
+    
+    /* function qui liste les photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+     * @author German Mahecha
+	 * @return int
+	 */
+    public static function listePhotosAValider() {
+        self::$database->query("SELECT utilisateur_enregistre.loginUtilisateur, propose.dateProposition, photo.idPhoto, photo.nomPhoto, oeuvre.titreOeuvre 
+FROM photo
+JOIN oeuvre ON photo.idOeuvre = oeuvre.idOeuvre
+JOIN propose ON propose.idPhoto = photo.idPhoto 
+JOIN utilisateur_enregistre ON propose.idUtilisateur= utilisateur_enregistre.idUtilisateur 
+WHERE photo.validationPhoto=0");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unPhoto = array($ligne['loginUtilisateur'], $ligne['dateProposition'], $ligne['idPhoto'], $ligne['nomPhoto'], $ligne['titreOeuvre']);
+			$photos[] = $unPhoto;
+		}
+		return $photos;
+    }
+    
+    /* function qui efface les photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+     * @author German Mahecha
+	 * @return none
+	 */
+    public static function supprimerPhoto($idPhoto) 
+    {
+        self::$database->query("DELETE FROM propose WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        self::$database->execute();
+        self::$database->query("DELETE FROM photo WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        self::$database->execute();
+        
+    }
+    
+    /* function qui valide les photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+     * @author German Mahecha
+	 * @return none
+	 */
+    public static function validerPhoto($idPhoto) 
+    {
+        self::$database->query("UPDATE photo SET validationPhoto = 1 WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        self::$database->execute();
+        
+    }
     
 }?>
 
