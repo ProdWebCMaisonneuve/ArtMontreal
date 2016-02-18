@@ -84,6 +84,12 @@ class Controler
                 case 'modifierOeuvre':
                         $this->modifierOeuvre($_GET['idOeuvre']);
                     break; 
+                case 'supprimerPhoto':
+                        $this->supprimerPhoto($_GET['idPhoto']);
+                    break; 
+                case 'validerPhoto':
+                        $this->validerPhoto($_GET['idPhoto']);
+                    break; 
                 case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
                     break;
@@ -213,6 +219,10 @@ class Controler
                 
                 case 'afficheBDD':
                     $this->afficheBDD();
+                    break;
+                
+                case 'afficheModPhotos':
+                    $this->afficheModPhotos();
                     break;
                 
                 
@@ -914,12 +924,15 @@ class Controler
             $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
             
+            $oPhotos = new MPhotos("", "", "", "");
+            $nbrePhotos = $oPhotos->nbrePhotos();
+             
             $message = '';
              
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
-            $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
+            $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs, $nbrePhotos);
             $oVueDefaut->afficheFooter(false, true, true, false);
         }
     
@@ -1130,11 +1143,14 @@ class Controler
                 $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
                 $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
                 
+                $oPhotos = new MPhotos("", "", "", "");
+                $nbrePhotos = $oPhotos->nbrePhotos();
+                
                 $message = '';
                 $oVueAdmin = new VueAdmin();
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin->afficheHeaderAdmin();
-                $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs);
+                $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs, $nbrePhotos);
                 $oVueDefaut->afficheFooter(false,true,true,false);
                
             }
@@ -1456,7 +1472,7 @@ class Controler
             
             $oVueAdmin->afficheHeaderAdmin();
             $oVueAdmin->afficheCommentaires();
-            $oVueDefaut->afficheFooter(false, false, false,false);
+            $oVueDefaut->afficheFooter(false, true, false,true);
     
         }
 
@@ -1476,7 +1492,60 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false,false);
         }
         
-
-
-
+        private function afficheModPhotos()
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oPhotos = new MPhotos('','','','');
+            $nbrePhotosNonValides = $oPhotos->nbrePhotosNonValides();
+            if($nbrePhotosNonValides !=0) {
+                $aPhotosAValider = $oPhotos->listePhotosAValider();
+            } else {
+                $aPhotosAValider = '';
+            }
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+        }
+    
+        private function supprimerPhoto($idPhoto) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oPhotos = new MPhotos('','','','');
+            $oPhotos->supprimerPhoto($idPhoto);
+            $nbrePhotosNonValides = $oPhotos->nbrePhotosNonValides();
+            if($nbrePhotosNonValides !=0) {
+                $aPhotosAValider = $oPhotos->listePhotosAValider();
+            } else {
+                $aPhotosAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+            
+            
+        }
+        
+        private function validerPhoto($idPhoto) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oPhotos = new MPhotos('','','','');
+            $oPhotos->validerPhoto($idPhoto);
+            $nbrePhotosNonValides = $oPhotos->nbrePhotosNonValides();
+            if($nbrePhotosNonValides !=0) {
+                $aPhotosAValider = $oPhotos->listePhotosAValider();
+            } else {
+                $aPhotosAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+            
+            
+        }
+    
+        
 }?>
