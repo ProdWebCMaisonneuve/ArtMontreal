@@ -199,6 +199,14 @@ class Controler
                     $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
                     break;
 
+                case 'commentaire':
+                    $this->commentaire($_GET['idCommentaire']);
+                    break;
+
+                case 'propositionCommentaire':
+                    $this->propositionCommentaire();
+                    break;
+
                 case 'afficheCommentaires':
                     $this->afficheCommentaires();
                     break;
@@ -1407,6 +1415,38 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false,true);
     
         }
+
+        /**
+         * function proposition Commentaire
+         * @access public
+         * @auteur: Thuy Tien Vo
+         */
+        private function propositionCommentaire()
+        {
+
+           $oUtilisateur = new MUtilisateurs('','','','','','','','','');
+           $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+
+            if($_GET['action'] == 'ajoutCommentaire')
+
+                {   $oCommentaire = new MCommentaires('', '', '');
+                    $oCommentaire->ajoutCommentaire($_POST['commentaire']);
+                    $message = "Commentaire ajoutée.";
+                }
+
+           $oVue = new VueDefaut();
+           $oVue->afficheHeader();
+           $uVue = new VueUtilisateur();    
+           $uVue->afficherProfilUtilisateur($unUtilisateur);
+           $uVue->afficherPropositionCommentaire();
+           $oVue->afficheFooter(false,false,false,false);
+        }
+
+        /**
+         * function affiche le commentaire dans le Panel_Admin
+         * @access public
+         * @auteur: Thuy Tien Vo
+         */
 
         private function afficheCommentaires()
         {

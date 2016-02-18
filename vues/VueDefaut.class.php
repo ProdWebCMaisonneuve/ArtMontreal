@@ -693,6 +693,7 @@ public function afficheSliderAccueil($oeuvres)
                                     echo '<p class="info"><span class="glyphicon glyphicon-thumbs-up"></span> 30 likes</p>';
                                     if ($_SESSION['session']){
                                         echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "Proposer Photo " .'</a>';
+                                        echo '<a class="info" href="index.php?requete=propositionCommentaire&idOeuvre='.$idOeuvre.'">'. "Commentaire " .'</a>';
                                         echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "<span class='glyphicon glyphicon-thumbs-up'></span> J'aime" .'</a>';
                                     }
                                 echo '</div>';
@@ -809,106 +810,100 @@ public function afficheSliderAccueil($oeuvres)
     <?php
        
     }
-   
-    /**
+
+
+     /**
      * Affiche les oeuvres par artistes
      * @access public
      *
      */
+
+     /**
+    * Frontend artiste
+    * @access public
+    * @auteure:Thuy Tien Vo
+    */  
+
     public function afficheArtistes($aArtistes, $oOeuvres) 
+
     {
         ?>
-            <h2>Découvrez nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2>
+            <div class="text-center">
+                <h2>Découvrez nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2> </br></br></br>
+            </div>
+    <?php
+ 
+        $compteur = 0;
 
-        <?php
-        
-        $compteur = 1;
-        
-        echo "<section class='contenu container'>";
+        echo'<div class="container">';
 
-        foreach($aArtistes as $artiste) {
+        foreach($aArtistes as $artiste)
+
+        {  
 
             $photo = $artiste->getPhoto();
             $prenom = $artiste->getPrenom();
             $nom = $artiste->getNom();
             $collectif = $artiste->getCollectif();
             $idArtiste = $artiste->getIdArtiste();
-            
-            echo "<div class=' accordion sixcol ";
+ 
 
-            if($compteur%2 == 1){
-                echo "last'>";
-            } else {
-                 echo "first'>";
-            }
+            echo ' <div class="col-xs-6">';
+              
+                echo' <div class="panel-group" id="accordion">';
 
-            echo "<figure class='";
-                if($collectif == ""){
-                    echo "artistes'>";
-                } else {
-                    echo "collectif'>";
-                }
+                    echo'  <div class="panel panel-default">';
 
-            if($photo == ""){
-                echo "<img src='./images/artisteDefaut.jpg'>";
-            } else {
-                echo "<img src='./images/". $photo . "'>";
-            }
+                        echo'<div class="panel-heading" >';
 
-            if($collectif =="") {
-                echo "<input type='checkbox' checked><p>". $prenom . " " . $nom . "</p>";
+                            echo'<h4 class="panel-title">';
 
-            } else {
-                echo "<input type='checkbox' checked><p>" . $collectif . "</p>";
+                                echo "<a data-toggle='collapse' data-parent='#accordion' href='#collapse".$compteur."'> " . $collectif . $nom . " ". $prenom .  "  </a>";
 
-            }
-            echo "<i></i>"
-        ?>
-            <div class="accordion-contenu">
-               
-        <?php
-            
-            $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
-            //var_dump($idArtiste);
-            //var_dump($aOeuvres);
-            $compteurContenu = 1;
-            
-            echo "<div class='sixcol first'>";
-            echo "<ul>";
-            foreach($aOeuvres as $oeuvre){
-                
-                if ($compteurContenu != 11) {
-                    if($compteurContenu ==6) {
-                    echo "</div><div class='sixcol first'>";
-                    echo "<ul>";
-                    $titreOeuvre = $oeuvre->getTitreOeuvre();
-                    $idOeuvre = $oeuvre->getIdOeuvre();
-                   // echo "<li>" . $titreOeuvre . "</li>";
-                    echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a></li>";
-                    $compteurContenu = $compteurContenu+1;
-                }
-                
-                $titreOeuvre = $oeuvre->getTitreOeuvre();
-                $idOeuvre = $oeuvre->getIdOeuvre();
-                //echo "<li>" . $titreOeuvre . "</li>";
-                echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a></li>";
-                }
-                
-                $compteurContenu = $compteurContenu+1;
-            }
-        ?>            
-                    </ul>
-                </div>
-                
-        <?php
-            echo "</figure>";
-            echo "</div>";
+                            echo'</h4>'; 
 
-            $compteur = $compteur + 1;
+                        echo'</div>';
+
+                        echo'<div id="collapse'.$compteur.'" class="panel-collapse collapse">';
+
+                            echo'<div class="panel-body">';
+
+                                echo "<img src='./images/artisteDefaut.jpg'>";
+                    
+                                    $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
+
+                               
+                                    foreach($aOeuvres as $oeuvre)
+
+                                        {   $titreOeuvre = $oeuvre->getTitreOeuvre();
+                                            $idOeuvre = $oeuvre->getIdOeuvre();
+                                            echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a></li>";
+
+                                        }
+
+                                 
+                            echo'</div>';
+
+                        echo'</div>';
+
+                    echo'</div>';
+
+                echo'</div>';
+
+            echo'</div>';
+
+
+            $compteur= $compteur+1;
+
         }
-        echo "</section> ";
+
+    echo'</div>';
+
+
     }
-   
+
+
+
 /**
      * Affiche les arrondissements 
      * @access public
