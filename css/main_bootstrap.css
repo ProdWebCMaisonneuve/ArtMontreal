@@ -270,3 +270,16 @@ transition-delay:.2s;
 -webkit-transition-delay:.2s;
 transition-delay:.2s;
 }
+
+/*AWESOME FONTS */
+
+.jumbotron-icon .fa-6 {
+  font-size: 20em;
+}
+
+/* MODAL BOX */
+
+.modal-regles {
+   background-color: #5c77b9;
+    color: white;
+}

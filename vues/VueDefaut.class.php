@@ -49,7 +49,8 @@ class VueDefaut
 <!--                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">-->
                 <link rel="stylesheet" href="fonts/style.css" type="text/css">
                 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-                
+                <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
+                <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
                 <script src='js/ jquery.validate.js'></script>
@@ -324,8 +325,7 @@ class VueDefaut
                                  </div>
                              </div>
                         </footer>
-
-
+                    
                     <?php
                     if($slider) {
                     ?>
@@ -508,12 +508,11 @@ class VueDefaut
                     });
                     </script>
                     <script>
-        $('#confirmer-effacer').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
+                        $('#confirmer-effacer').on('show.bs.modal', function(e) {
+                            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                        });
+                    </script>
+    
                     <?php
                     }
                     ?>
@@ -612,21 +611,60 @@ public function afficheSliderAccueil($oeuvres)
          if(!($_SESSION['session'])) {
           ?>
             <!-- Jumbotron Header -->
-            <header class="jumbotron" id="slide_">
+            <header class="jumbotron jumbotron-icon" id="slide_">
                 <div class='row'>
                     <div class='col-lg-12'>
                         <div class='row' id="message_bienvenue">
                             <div class='col-lg-1'></div>
-                                <div class='col-lg-10'>
-                                    <h1>Bienvenue à CHASS’OEUVRES Montréal</h1>
-                                    <p>Aide-nous à trouver les photos de toutes les œuvres de la ville de Montréal, vous pouvez recevoir de points sur chaque photo que vous prenez et être le meilleur photographe de notre site.</p>
-                                    <p><a href="index.php?requete=inscription" class="btn btn-primary btn-large">S'inscrire</a></p>
+                                <div class="col-lg-3"><i class="fa fa-camera-retro fa-6"></i></div>
+                                <div class='col-lg-7'>
+                                    <h1>Bienvenue à toi, Chasseur d'Art !</h1>
+                                   
+                                    <p>Deviens le meilleur chasseur d'oeuvres d'art de la ville de Montréal ! </p>
+                                    <p>Capture les oeuvres de la ville avec l'appareil photo de ton téléphone intelligent et tente d'arriver en haut du classement !</p>
+                                    <p><button data-toggle="modal" data-target="#afficher-regles" class="btn btn-primary btn-large"><i class="fa fa-info"></i> Règles du jeu</button> <a href="index.php?requete=inscription" class="btn btn-success btn-large">S'inscrire !</a></p>
 
                                 </div>
                         </div>
                     </div>
                 </div>
             </header>  
+            
+               <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="afficher-regles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header modal-regles">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Les règles du jeu</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Devenez le meilleur chasseur en 4 étapes ! </strong></p>
+                            <p><strong>Etape 1</strong></p>
+                            <p>Prenez la photo d'une oeuvre d'art déjà présente sur le site, d'un graffiti ou d'un tag dans la rue ...</p>
+                            <p><strong>Etape 2</strong></p>
+                            <p>Si vous êtes le premier à capturer l'oeuvre en photo, vous obtenez 5 points !</p>
+                            <ul>
+                                <li>Le second obtient 3 points</li>
+                                <li>Le troisième obtient 2 points</li>
+                                <li>Les suivants obtiennent 1 point</li>
+                            </ul></p>
+                            <p><strong>Etape 3</strong></p>
+                            <p>Vous pouvez donner un coup de pouce aux autres chasseurs en votant pour leurs photos. Ils obtiendront 1 point.</p>
+                            <p><strong>Etape 4</strong></p>
+                            <p>Tentez d'arriver en tête du classement des meilleurs chasseurs en découvrant le plus d'oeuvres possible !</p>
+                        </div>
+
+                        <div class="modal-footer modal-regles">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         <?php
         }
     } 
