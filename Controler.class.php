@@ -36,12 +36,8 @@ class Controler
                         $this->artistes();
                     }
                     break;
-  
-                case 'listeModifierAdmin_moderateur':
-                        $this->listeModifierAdmin_moderateur();
-                    break;
-                case 'listeSupprimerAdmin_moderateur':
-                    $this->listeSupprimerAdmin_moderateur();
+                  case 'afficheAdminMods':
+                    $this->afficheAdminMods();
                     break;    
                 case 'modifierArtiste':
                         $this->modifierArtiste($_GET['idArtiste']);
@@ -73,7 +69,7 @@ class Controler
                         $this->supprimerUtilisateurs($_GET['idUtilisateur']);
                     break;
                     
-                case 'supprimerAdmin_moderateur':
+                case 'supprimerAdminMod':
                     $this->supprimerAdmin_moderateur($_GET['idAdMod']);
                     break;
                 case 'modifierCategories':
@@ -88,7 +84,7 @@ class Controler
                 case 'modifierOeuvre':
                         $this->modifierOeuvre($_GET['idOeuvre']);
                     break; 
-                case 'modifierAdmin_moderateur':
+                case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
                     break;
                 case 'inscription':
@@ -155,8 +151,8 @@ class Controler
                 case 'formulaireAjouterCategorie':
                    $this->afficheAjouterUnCategorie();
                     break;
-                case 'ajouterAdmin_moderateur':
-                    $this->ajouterAdmin_moderateur();
+                case 'ajoutAdminMod':
+                    $this->ajoutAdminMod();
                     break;
                 case 'recherche':
                     $this->rechercheOeuvresMot();
@@ -369,30 +365,19 @@ class Controler
 		}
        
     
-        private function listeModifierAdmin_moderateur()
+        private function afficheAdminMods()
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+            $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-			$oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateur);
-            $oVue->afficheFooter();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+			$oVueAdmin->afficheAdminMods($aAdmin_moderateur, $nbreAdminMods);
+            $oVueDefaut->afficheFooter(false, true, false, true);
         }
-    
-        private function listeSupprimerAdmin_moderateur()
-        {
-            $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
-            
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateur);
-            $oVue->afficheFooter();
-        }
-    
-    
-    
+
         private function modifierArtiste($idArt)
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
@@ -542,17 +527,20 @@ class Controler
             $aAdmin_moderateur = $oAdmin_moderateur->getAdmin_moderateurParId($idAmin_moderateur);
             $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
             
             if($_GET['idAdMod'] && $_GET['action'] == 'valider')
             {
                 try
                 {
-                    $oAdmin_moderateur->modifierAdmin_moderateur($_GET['idAdMod'], $_POST['role'], $_POST['login'], $_POST['pass']);
+                    $oAdmin_moderateur->modifierAdmin_moderateur($_GET['idAdMod'], $_POST['role'], $_POST['login'], md5($_POST['pass']));
                 
-                    $oVue = new VueDefaut();
-                    $oVue->afficheListeModifierAdmin_moderater($aAdmin_moderateurs);
+                    $oVueAdmin = new VueAdmin();
+                    $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+                    $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
+                    $oVueAdmin->afficheAdminMods($aAdmin_moderateurs, $nbreAdminMods);
                }
                 catch (Exception $e)
                 {
@@ -562,13 +550,17 @@ class Controler
             }
             else
             {
-               $oVue->modifierUnAdmin_moderateur($aAdmin_moderateur);
+                $message = '';
+                $erreurLogin = '';
+                $erreurPass = '';
+                $erreurRole = '';
+               $oVueAdmin->modifierUnAdmin_moderateur($aAdmin_moderateur, $message, $erreurLogin, $erreurPass, $erreurRole);
             }
 
             
             
             
-            $oVue->afficheFooter();
+            $oVueDefaut->afficheFooter(false, true, false, true);
         }
     
         private function supprimerUtilisateurs($idUtil)
@@ -591,11 +583,13 @@ class Controler
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
             $oAdmin_moderateur->supprimerAdmin_moderateur($idAmin_moderateur);
             $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+            $nbreAdminMods = $oAdmin_moderateur->nbreAdminMods();
             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
-            $oVue->afficheListeSupprimerAdmin_moderateur($aAdmin_moderateurs);
-            $oVue->afficheFooter();
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheAdminMods($aAdmin_moderateurs, $nbreAdminMods);
+            $oVueDefaut->afficheFooter(false, true, false, true);
         }
     
         private function modifierOeuvre($idOeuvre)
@@ -930,22 +924,27 @@ class Controler
             
         }
     
-        private function ajouterAdmin_moderateur()
+        private function ajoutAdminMod()
         {
-            $erreurTitre ='';
+            $erreurLogin ='';
             $message ='';
-          
-            $oVue = new VueDefaut();
-            $oVue->afficheHeaderAdmin();
+            $erreurPass = '';
+            $erreurRole = '';
             
-            if($_GET['action'] == 'ajoutAdmin_moderateur')
+            
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oVueAdmin->afficheHeaderAdmin();
+            
+            if($_GET['action'] == 'ajoutAdminMod')
             {
                 $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
                 $oAdmin_moderateur->ajoutAdmin_moderateur($_POST['role'], $_POST['login'], $mdp=MD5($_POST['pass']));
+                $message = "Administrateur ajouté(e)";
             }
             
-            $oVue->formulaireAjouterAdmin_moderateur();
-            $oVue->afficheFooter(false,false,false,false);
+            $oVueAdmin->AjoutAdminMod($message, $erreurLogin, $erreurPass, $erreurRole);
+            $oVueDefaut->afficheFooter(false,true,false,false);
         }
 
 
