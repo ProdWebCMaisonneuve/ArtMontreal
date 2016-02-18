@@ -193,7 +193,11 @@ class Controler
                     $this->profilUtilisateurConnexion();
                     break;
                 case 'propositionPhotoUtilisateur':
-                    $this->propositionPhotoUtilisateur();
+                    if($_GET['action'] == 'ajoutPhoto'){
+                        $this->ajouterPhoto($_POST['idUtil'],$_POST['idOeuvre']);  
+                    }else{
+                        $this->propositionPhotoUtilisateur($_GET['idOeuvre']);
+                    }
                     break;
                 case 'modifierProfilUtilisateur':
                     $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
@@ -1239,9 +1243,8 @@ class Controler
      * @access public
      * @auteur: German Mahecha
      */
-        private function propositionPhotoUtilisateur()
+        private function propositionPhotoUtilisateur($idOeuvre)
         {
-
            $oUtilisateur = new MUtilisateurs('','','','','','','','','');
            $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
 
@@ -1250,8 +1253,71 @@ class Controler
            $oVue->afficheHeader();
             $uVue = new VueUtilisateur();    
            $uVue->afficherProfilUtilisateur($unUtilisateur);
-           $uVue->afficherPropositionPhotosUtilisateur();
+           echo "utilisateur: ".$unUtilisateur['idUtilisateur']."<br/>";
+           echo "idOeuvre: ".$idOeuvre;
+           $uVue->afficherPropositionPhotosUtilisateur($unUtilisateur['idUtilisateur'],$idOeuvre);
            $oVue->afficheFooter(false,false,false,false);
+        }
+    
+    
+    
+    
+        private function  ajouterPhoto($idUtil, $idOeuvre)
+        {
+            
+            //echo "nom photo:". $nom;
+            //echo "util:". $idUtil;
+            //echo "oeuvre:". $idOeuvre;
+            //var_dump($_FILES["imagen"]);
+            $message='';
+            if ($_FILES["imagen"]["error"] > 0){
+                 $message= "Erreur dans le procesus";
+            } else {
+                //verification si le type de fichier est permis
+                //et que la taille soit plus petite que 50000kb
+                $permis = array("image/jpg", "image/jpeg", "image/gif", "image/png");
+                $limite_kb = 10000;
+
+                if (in_array($_FILES['imagen']['type'], $permis) && $_FILES['imagen']['size'] <= $limite_kb * 1024){
+                    //Création d'un dossier pour chaque utilisateur
+                    $dossierUtil='photos/photosProposees/'.$idUtil;
+                    //echo $dossierUtil;
+                    //Si le dossier existe déjà, il ne le crée pas.
+                    if(!is_dir($dossierUtil))
+                        mkdir($dossierUtil, 0777);
+                    $chemin = $dossierUtil."/".$_FILES['imagen']['name'];
+                    //echo $ruta;
+                    //Verification pour savoir si la photo existe déjà
+                    if (!file_exists($chemin)){
+                        //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
+                        //resultat contient true ou false pour valider si la copie a été reussi
+                        $resultat = @move_uploaded_file($_FILES["imagen"]["tmp_name"], $chemin);
+                        if ($resultat){
+                            $message= "Le fichier a été televerse correctement";
+                            //Si le fichier a été déplacé correctement
+                            //Affectation de la BD
+                            $photo = new MPhotos('','','','');
+                            $ajoutPhoto=$photo->ajouterPhoto($chemin,$idOeuvre);
+                            if($ajoutPhoto){
+                                //Recuperation de l'id de la derniere photo pour remplir le tableau propose
+                                $dernierPhoto=$photo->recupererDernierId();
+                                //Contruction de la date en chaine 
+                                $today = getdate();
+                                $dateCourrant=$today['year'].'/'.$today['mon'].'/'.$today['mday'];
+                                $photo->ajouterPropositionPhoto($idUtil,$dernierPhoto,$dateCourrant);
+                            }
+                            
+                        } else {
+                            $message= "Un erreur pendant le televersement du fichier.";
+                        }
+                    } else {
+                        $message= "le fichier ".$_FILES['imagen']['name'] .", il existe déjà";
+                    }
+                } else {
+                    $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";
+                }
+            }
+            
         }
       /**
      * function  modifierProfilUtilisateur
@@ -1360,7 +1426,7 @@ class Controler
         
 
      
-            
+                
             
             
             
