@@ -845,7 +845,7 @@ class Controler
             $erreurMateriaux = '';
             $erreurMateriauxAng ='';
             
-            $oVueAdmin->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            $oVueAdmin->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
 
         }
@@ -1211,13 +1211,22 @@ class Controler
                     }
                    
                 }
-                
-            
-                
-                
-            
+
             }
         
+        $oVueDefaut = new VueDefaut();
+        $oVueAdmin = new VueAdmin();
+        $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+        $date = $oOeuvre->afficheMajBdd();
+
+        $oVueAdmin->afficheHeaderAdmin();
+        date_default_timezone_set('America/Toronto');
+        $date = date('d-m-Y H:i:s (e)');
+        $oOeuvre->enregistrerMajBdd($date);
+         
+        $message = "Base de données mise à jour !";
+        $oVueAdmin->afficheGestionBDD($message, $date);
+        $oVueDefaut->afficheFooter(false, true, false,false);    
         }
         /**
      * function profilUtilisateurConnexion
@@ -1415,23 +1424,18 @@ class Controler
         {
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $date = $oOeuvre->afficheMajBdd();
             
             $oVueAdmin->afficheHeaderAdmin();
             
+            $oOeuvre->afficheMajBdd();
+            
             $message = "";
-            $oVueAdmin->afficheGestionBDD($message);
+            $oVueAdmin->afficheGestionBDD($message, $date);
             $oVueDefaut->afficheFooter(false, true, false,false);
         }
         
-
-     
-                
-            
-            
-            
-       
-
-
 
 
 

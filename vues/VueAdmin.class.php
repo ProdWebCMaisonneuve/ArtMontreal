@@ -687,7 +687,7 @@ class VueAdmin
      * @version 1.0
      * 
      */
-    public function afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $erreurTitre, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng) 
+    public function afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng) 
 
     {   
         
@@ -2309,11 +2309,11 @@ class VueAdmin
     
     /*GESTION BDD */
     
-    public function afficheGestionBDD($message)
+    public function afficheGestionBDD($message, $date)
     {
     ?>
     
-    <div id="page-wrapper">
+    <div id="page-wrapper">    
             
             <div class="row">
                 <div class="col-lg-12"> 
@@ -2331,23 +2331,21 @@ class VueAdmin
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="row">
-                            <form action="">
-                                <div class="alert alert-success col-lg-6 col-lg-offset-2">
-                                    Dernière mise à jour : 
+                            <form method="POST" role="form" action="index.php?requete=miseajourjson">
+                                <div class="alert alert-success col-lg-6 col-lg-offset-2 form-group">
+                                    Dernière mise à jour : <?php echo $date; ?>
                                 </div> 
                             
-                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"><span><?php echo $message; ?></span>
+                                <input type="submit" class="btn btn-success" name="majBDD" value="Valider"><span><?php echo $message; ?></span>
                             </form> 
-                           
-                           
 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+    
     
     <?php
     }
