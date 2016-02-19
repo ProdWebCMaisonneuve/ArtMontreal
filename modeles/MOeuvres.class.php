@@ -432,5 +432,22 @@ class MOeuvres {
         self::$database->execute();
     }
     
+    
+     /*
+     * Fonction qui récupère les infos d'une oeuvre selon un idPhoto
+	 * @access public static
+     * @author German Mahecha
+	 * @return array
+	 */
+	public static function getOeuvreParIdPhoto($idPhoto) 
+	{
+		self::$database->query("SELECT * FROM oeuvre 
+                                JOIN photo ON oeuvre.idOeuvre = photo.idOeuvre
+                                WHERE photo.idPhoto=:idPhoto");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idPhoto', $idPhoto);
+        return (self::$database->uneLigne());
+	}
+    
 }
 ?>

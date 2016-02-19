@@ -37,11 +37,11 @@ class VueUtilisateur
                 <div class="panel panel-info">
                   <div class="panel-heading"> <h3><span class="glyphicon glyphicon-user"></span><?php echo " ".$loginUtil;?></h3></div>
                   <div class="panel-body">
-                      <img src="images/<?php echo $photoUtil;?>" class="img-circle" height="150" width="150" alt="Avatar">
-                      <p><strong><?php echo $prenomUtil.' '.$nomUtil;?></strong></p> 
+                      <img src="photos/utilisateurs/<?php echo $photoUtil;?>" class="img-circle" height="150" width="150" alt="Avatar"><hr>
+                      <p><strong><?php echo $prenomUtil.' '.$nomUtil;?></strong></p><hr>
                       <p><span class="glyphicon glyphicon-envelope"></span><?php echo " ".$courrielUtil;?></p>
-                       <p><span class="glyphicon glyphicon-earphone"></span><?php echo " ".$telephoneUtil;?></p>
-                       <p><?php echo $bioUtil;?></p>
+                       <p><span class="glyphicon glyphicon-earphone"></span><?php echo " ".$telephoneUtil;?></p><hr>
+                       <p><?php echo $bioUtil;?></p><hr>
                         <div class="btn-group">
                           <a class="btn btn-primary" href="index.php?requete=profilUtilisateurConnexion"><span class="glyphicon glyphicon-user"></span>  Ton Profil</a>
                           <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
@@ -87,7 +87,9 @@ class VueUtilisateur
                                             echo "<div class='caption'>";
                                                 echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>".$photo[3]."</p>";
                                                 echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>".$photo[4]."</p>";
-                                                echo "<button class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Voir detailles</button>";
+                                                echo "<a class='btn btn-primary' href='index.php?requete=detailsPhotoUtilisateur&idPhoto=".$photo[0]."'><span class='glyphicon glyphicon-eye-open'></span> Voir details</a>";
+                                                
+                                                
                                             echo "</div>";
                                         echo "</div>";  
                                     echo "</div>";  
@@ -127,7 +129,7 @@ class VueUtilisateur
                                             echo "<div class='caption'>";
                                                 echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>".$photo[3]."</p>";
                                                 echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>".$photo[4]."</p>";
-                                                echo "<button class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Voir detailles</button>";
+                                                echo "<a class='btn btn-primary' href='index.php?requete=detailsPhotoUtilisateur&idPhoto=".$photo[0]."'><span class='glyphicon glyphicon-eye-open'></span> Voir details</a>";
                                             echo "</div>";
                                         echo "</div>";  
                                     echo "</div>";  
@@ -147,27 +149,32 @@ class VueUtilisateur
     /**
     * Affiche la page pour soumettre une photo utilisateur
     * @access public
-    * @author: German Mahecha
+    * @auteure: German Mahecha
     */
-    public function afficherPropositionPhotosUtilisateur($idUtil, $idOeuvre)
+    /**
+    * Affiche la page pour soumettre une photo utilisateur
+    * @access public
+    * @auteure: German Mahecha
+    */
+    public function afficherPropositionPhotosUtilisateur($idUtil, $oeuvre)
     {
          ?>
             <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">  
 
               <div class="panel panel-info">
-                  <div class="panel-heading"><h4>Ajouter photo pour cet oeuvre</h4></div>
+                  <div class="panel-heading"><h4>Ajouter photo pour l'oeuvre: <?php echo $oeuvre['titreOeuvre']; ?></h4></div>
                   <div class="panel-body">
                         <div class="col-sm-6 col-lg-3 col-md-4">
                             <div class="thumbnail">
                                 <img src="images/img_2.jpg" alt="">
-                                <h3><strong>La source</strong></h3>
+                                <h3><strong><?php echo $oeuvre['titreOeuvre']; ?></strong></h3>
                             </div>
                         </div>
                           <div class="col-sm-6 col-lg-6 col-md-4 text-left">
                                 <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="index.php?requete=propositionPhotoUtilisateur&action=ajoutPhoto">
                                     <div class="form-group">
-                                        <input type="text" hidden id="idUtil" name='idUtil' value='<?php echo $idUtil; ?>'/>
-                                        <input type="text" hidden id="idOeuvre" name='idOeuvre' value='<?php echo $idOeuvre; ?>'/>
+                                        <input type="hidden" id="idUtil" name='idUtil' value='<?php echo $idUtil; ?>'/>
+                                        <input type="hidden" id="idOeuvre" name='idOeuvre' value='<?php echo $oeuvre['idOeuvre']; ?>'/>
                                     </div>
                                     <div class="form-group">
                                         <label for="photo" class="control-label">Photo:</label>
@@ -246,99 +253,45 @@ class VueUtilisateur
     }
     
     
-    /**
-    * Affiche aside pour profil utilisateur
-    * @access public
-    * @auteure: German Mahecha
-    */
-    public function afficherChangerMotdePasseUtilisateur()
+    public function afficherDetailsPhotoUtilisateur($commentaires, $oeuvre, $photo, $utilisateur,$unUtilisateurProposition)
     {
-         ?>
-        <div class="col-xm-12 col-sm-8 col-md-8 col-lg-7">
-              <div class="panel panel-info">
-                  <div class="panel-heading"><h4>Modifier votre mot de passe</h4></div>
-                  <div class="panel-body">            
-                     <form class="form-horizontal" role="form" action="index.php?requete=modifierMotDePasseUtilisateur&idUtilisateur=<?php echo $utilisateur['idUtilisateur']; ?>&action=valider" method='POST'>
-                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="lastPass">Anterieur mot de passe:</label>
-                                <div class="col-sm-10">
-                                  <input type="password" class="form-control" name="lastPass" id="lastPass">
-                                </div>
-                              </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="newPass">Nouveau mot de passe:</label>
-                                <div class="col-sm-10">
-                                  <input type="password" class="form-control" name="newPass" id="newPass" >
-                                </div>
-                              </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="new2pass">Confirmez mot de passe:</label>
-                                <div class="col-sm-10">
-                                  <input type="password" class="form-control" name="new2pass" id="new2pass" >
-                                </div>
-                              </div>
-                              <div class="form-group"> 
-                                <div class="col-sm-offset-2 col-sm-10">
-                                  <input type="submit" value="Envoyer" class="btn btn-primary btn-lg pull-left" id="button">
-                                </div>
-                              </div>
-                    </form>  
-                </div> 
-            </div>  
-        </div>
-
-
-          </div><!--div row-->
-        </div><!--div container-fluid text-center-->
-
-        </body>
-        </html>
-       <?php 
-        
-    }
-    
-    /**
-    * Affiche aside pour profil utilisateur
-    * @access public
-    * @auteure: German Mahecha
-    */
-    public function afficherChangerPhotoUtilisateur()
-    {
-         ?>
-        <div class="col-sm-12 col-lg-2 col-md-4 well">
+        ?> 
+            <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">
                 <div class="panel panel-info">
-                 <div class="panel-heading"><h4>Dérnière photo ajouté</h4></div>
+                    <div class="panel-heading"><h4><?php echo $oeuvre['titreOeuvre']; ?></h4></div>
                     <div class="panel-body">
-                        <img src="images/img_2.jpg" class="img-thumbnail" alt="Paris">
-                        <p><strong>Nom Photo</strong></p>
-                        <p>Fri. 27 November 2015</p>  
-                        <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                        <div class="thumbnail">
+                            <img class="img-responsive" style='width:300px;' src="<?php echo $photo['nomPhoto']; ?>" alt=""><hr>
+                            <div class="caption-full">
+                                <p>Photographie de: <?php echo $unUtilisateurProposition['prenomUtil']." ".$unUtilisateurProposition['nomUtil'] ; ?></p>
+                                <a href="index.php?requete=accueil&idOeuvre=<?php echo $oeuvre['idOeuvre']; ?>" class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Details de l'oeuvre</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="panel panel-success">
-                    <div class="panel-heading"><h4>Photo plus point</h4></div>
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h4>Commentaires</h4></div>
                     <div class="panel-body">
-                        <img src="images/img_2.jpg" class="img-thumbnail" alt="Avatar">
-                        <p>10 points</p>
-                        <p><strong>Nom Photo</strong></p>
-                        <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                        <?php
+                            if (!$commentaires) {
+                                echo "Il n'y a pas aucune commentaire pour cette photo.";
+                            }else{
+                                 foreach($commentaires as $commentaire){
+                                     echo "<div class='thumbnail'>";
+                                         echo "<div class='text-left'>";
+                                             echo "<p >Écrit par: <strong>".$commentaire[3]." ".$commentaire[4]."</strong>,<em> le ".$commentaire[2]."</em></p>";
+                                             echo "<p>".$commentaire[1]."</p>";                                    
+                                         echo "</div>";
+                                     echo "</div>"; 
+                                }
+                            }
+                        ?>
+                            
                     </div>
                 </div>
-                
-            </div>    
-
-
-
-          </div><!--div row-->
-        </div><!--div container-fluid text-center-->
-
-        </body>
-        </html>
-       <?php 
-        
+            </div>
+      <?php  
     }
-    
-    
     /**
     * Affiche aside pour profil utilisateur
     * @access public
@@ -368,7 +321,7 @@ class VueUtilisateur
                     </div>
                 </div>    
 
-
+              
 
           </div><!--div row-->
         </div><!--div container-fluid text-center-->
@@ -378,58 +331,6 @@ class VueUtilisateur
        <?php 
         
     }
-
-
-
-    /**
-    * Affiche la page pour soumettre une commentaire
-    * @access public
-    * @auteure: Thuy Tien Vo
-    */
-    public function afficherPropositionCommentaire()
-    {
-         ?>
-            <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">  
-
-              <div class="panel panel-info">
-                  <div class="panel-heading"><h4>Ajouter une commentaire pour cet oeuvre</h4></div>
-                  <div class="panel-body">
-                        <div class="col-sm-6 col-lg-3 col-md-4">
-                            <div class="thumbnail">
-                                <img src="images/img_2.jpg" alt="">
-                                <h3><strong>La source</strong></h3>
-                            </div>
-                        </div>
-                          <div class="col-sm-6 col-lg-6 col-md-4 text-left">
-                                                
-                                <form class="form-horizontal" role="form" method="POST" action="index.php?requete=propositionCommentaire&action=ajoutCommentaire">
-                                    <div class="form-group">
-                                        <label for="nomPhoto" class="control-label" >Commentaire</label><br/><br/>
-                                        <textarea class="form-control" rows="5" name="commentaire" placeholder='Commentaire ici...'></textarea>
-                                    </div><br/><br/>
-
-                                    <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
-                                    <button type="reset" class="btn btn-default btn-lg">Annuler</button>
-                                </form>     
-                            
-                          </div>
-                  </div>
-              </div>
-               
-             
-              </div>
-            </div>  
-              
-              
-       <?php 
-        
-    } 
-
-
-
-
-
-
     
 }
 ?>

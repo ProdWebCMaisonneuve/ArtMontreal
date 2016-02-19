@@ -120,6 +120,33 @@ class MCommentaires
     }
     
 
+    /*
+     * Fonction pour obtenir les données des tous les commentaires d'une photo
+     * @access public static
+     * @author German Mahecha
+     * @return: array des commentaires
+     */
+    public static function getAllCommentParIdPhoto($idPhoto)
+    {
+        $commentaires=array();
+        self::$database->query("SELECT commentaire.idCommentaire, commentaire.commentaire, ecrit.dateCommentaire, utilisateur_enregistre.prenomUtil, utilisateur_enregistre.nomUtil
+                                FROM commentaire
+                                JOIN contient ON commentaire.idCommentaire=contient.idCommentaire
+                                JOIN ecrit ON commentaire.idCommentaire=ecrit.idCommentaire
+                                JOIN utilisateur_enregistre ON ecrit.idUtilisateur=utilisateur_enregistre.idUtilisateur
+                                WHERE contient.idPhoto = :idPhoto AND commentaire.validationCommentaire = 1
+                                ORDER BY ecrit.dateCommentaire DESC") ;
+        //On lie les paramètres aux valeurs
+        self::$database->bind(':idPhoto', $idPhoto);
+        $lignes = self::$database->resultset();
+        foreach ($lignes as $ligne) 
+        {
+          $uneCommentaire = array($ligne['idCommentaire'], $ligne['commentaire'], $ligne['dateCommentaire'], $ligne['prenomUtil'], $ligne['nomUtil']);
+          $commentaires[] = $uneCommentaire;
+        }
+        return $commentaires;
+        
+    }
       
 }
  

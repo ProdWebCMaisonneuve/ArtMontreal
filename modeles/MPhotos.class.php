@@ -56,6 +56,7 @@ class MPhotos {
 	 */
     public static function listerPhotosValidesUtilisateur($idUtil)
     {
+        $photos=array();
         self::$database->query('SELECT photo.idPhoto, photo.nomPhoto, photo.idOeuvre,
         (SELECT COUNT(contient.idCommentaire) FROM contient WHERE contient.idPhoto=photo.idPhoto) AS nbCommentaires,
         (SELECT COUNT(vote.idUtilisateur) FROM vote WHERE vote.idPhoto=photo.idPhoto) AS nbVotes
@@ -72,10 +73,7 @@ class MPhotos {
 			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['idOeuvre'],$ligne['nbCommentaires'],$ligne['nbVotes']);
 			$photos[] = $unPhoto;
 		}
-		if($photos)
-            return $photos;
-        else
-            return false;
+		return $photos;
     }
     
     
@@ -84,8 +82,9 @@ class MPhotos {
      * @author German Mahecha
 	 * @return 
 	 */
-    public static function listerPhotosParOeuvre($idOeuvre)
+   public static function listerPhotosParOeuvre($idOeuvre)
     {
+        $photos=array();
         self::$database->query('SELECT * FROM photo WHERE idOeuvre = :idOeuvre AND photo.validationPhoto=1');
         self::$database->bind(':idOeuvre', $idOeuvre);
         $lignes = self::$database->resultset();
@@ -93,10 +92,7 @@ class MPhotos {
 			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['validationPhoto'], $ligne['idOeuvre']);
 			$photos[] = $unPhoto;
 		}
-		if($photos)
-            return $photos;
-        else
-            return false;
+		return $photos;
     }
     
     
@@ -128,6 +124,7 @@ class MPhotos {
 	 */
     public static function listeComentairesIdPhoto()
     {
+        $photos=array();
         self::$database->query('SELECT * FROM commentaire 
         JOIN contient ON commentaire.idCommentaire= contient.idCommentaire
         JOIN photo ON contient.idPhoto=photo.idPhoto
@@ -139,10 +136,7 @@ class MPhotos {
 			$unPhoto = new MPhotos($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['validationPhoto'], $ligne['idOeuvre']);
 			$photos[] = $unPhoto;
 		}
-		if($photos)
-            return $photos;
-        else
-            return false;
+		return $photos;
     }
     
     /* function compterCommentairesPhoto()
@@ -165,10 +159,10 @@ class MPhotos {
      * @author German Mahecha
 	 * @return true ou false
 	 */
-    public static function ajouterPhoto($chemin,$idOeuvre){
-        self::$database->query("INSERT INTO photo VALUES ('',:chemin,0,:idOeuvre)");
+    public static function ajouterPhoto($ruta,$idOeuvre){
+        self::$database->query("INSERT INTO photo VALUES ('',:ruta,'',:idOeuvre)");
         //On lie les paramètres auxvaleurs
-        self::$database->bind(':chemin', $chemin);
+        self::$database->bind(':ruta', $ruta);
         self::$database->bind(':idOeuvre', $idOeuvre);
         return(self::$database->execute()); 
     
@@ -186,17 +180,7 @@ class MPhotos {
         self::$database->bind(':datetime', $dateIns);
         return(self::$database->execute()); 
     }
-     
-    /* function ajouterPhoto()
-	 * @access public static
-     * @author German Mahecha
-	 * @return dernier ID de la photo ajoutée
-	 */
-    public static function recupererDernierId() {
-        return(self::$database->dernierId());
-    }
     
-
     /* listerPhotosValidesUtilisateur()
 	 * @access public static
      * @author German Mahecha
@@ -204,6 +188,7 @@ class MPhotos {
 	 */
     public static function listerMeilleuresPhotos()
     {
+        $photos=array();
         self::$database->query('SELECT photo.idPhoto, photo.nomPhoto, photo.idOeuvre, 
         (SELECT COUNT(contient.idCommentaire) FROM contient WHERE contient.idPhoto=photo.idPhoto) AS nbCommentaires, 
         (SELECT COUNT(vote.idUtilisateur) FROM vote WHERE vote.idPhoto=photo.idPhoto) AS nbVotes 
@@ -215,19 +200,28 @@ class MPhotos {
 			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['idOeuvre'],$ligne['nbCommentaires'],$ligne['nbVotes']);
 			$photos[] = $unPhoto;
 		}
-		if($photos)
-            return $photos;
-        else
-            return false;
+		return $photos;
+        
     }
-
-
+    
+    
+     
+    /* function ajouterPhoto()
+	 * @access public static
+     * @author German Mahecha
+	 * @return dernier ID de la photo ajoutée
+	 */
+    public static function recupererDernierId() {
+        return(self::$database->dernierId());
+    }
+    
     /* function qui liste les photos non valides
 	 * @access public static
      * @author Gautier Piatek
 	 * @return array
 	 */
     public static function listePhotosNonValides() {
+        $photos=array();
         self::$database->query("SELECT * FROM photo WHERE validationPhoto = 0");
         $lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
@@ -273,6 +267,7 @@ class MPhotos {
 	 * @return int
 	 */
     public static function listePhotosAValider() {
+        $photos=array();
         self::$database->query("SELECT utilisateur_enregistre.loginUtilisateur, propose.dateProposition, photo.idPhoto, photo.nomPhoto, oeuvre.titreOeuvre 
 FROM photo
 JOIN oeuvre ON photo.idOeuvre = oeuvre.idOeuvre
@@ -318,6 +313,13 @@ WHERE photo.validationPhoto=0");
         
     }
     
+    public static function getPhotoParId($idPhoto)
+    {
+        self::$database->query("SELECT * FROM photo WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        $ligne=self::$database->uneLigne();
+        return $ligne;
+    }
 }?>
 
 
