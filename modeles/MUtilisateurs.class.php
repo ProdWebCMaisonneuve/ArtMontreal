@@ -286,5 +286,26 @@ class MUtilisateurs {
         
         return $resultat["COUNT(idUtilisateur)"];
     }
+    
+    
+    /**
+	 * Fonction pour recuperer l'info d'un utilisateur par idPhoto
+	 * @return none
+     * @author German Mahecha
+     * @version 1.0
+     * 
+     */
+
+     public static function getUtilisateurParIdPhotoPropose($idPhoto)
+     {
+     	self::$database->query("SELECT * FROM utilisateur_enregistre 
+                                JOIN propose ON propose.idUtilisateur = utilisateur_enregistre.idUtilisateur
+                                JOIN photo ON photo.idPhoto = propose.idPhoto
+                                WHERE photo.idPhoto=:idPhoto");
+        //On lie les paramètres auxvaleurs
+        self::$database->bind(':idPhoto', $idPhoto);
+        $ligne = self::$database->uneLigne();
+        return $ligne;
+     }
 
 }?>

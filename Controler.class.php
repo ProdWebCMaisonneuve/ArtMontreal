@@ -191,7 +191,7 @@ class Controler
                 $this->ajoutCategorie();
                 break;
  
-                 case 'profilUtilisateurConnexion':
+                case 'profilUtilisateurConnexion':
                     $this->profilUtilisateurConnexion();
                     break;
                 case 'propositionPhotoUtilisateur':
@@ -225,7 +225,10 @@ class Controler
                     $this->afficheModPhotos();
                     break;
                 
-                
+                case 'detailsPhotoUtilisateur':
+                    $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
+                    break;
+                    
                 default:
 			    $this->accueil();
 				break;
@@ -1252,7 +1255,9 @@ class Controler
         $oVueAdmin->afficheGestionBDD($message, $date);
         $oVueDefaut->afficheFooter(false, true, false,false);    
         }
-        /**
+     
+    
+       /**
      * function profilUtilisateurConnexion
      * @access public
      * @auteur: German Mahecha
@@ -1292,15 +1297,53 @@ class Controler
            $uVue->afficherProfilUtilisateur($unUtilisateur);
            //echo "utilisateur: ".$unUtilisateur['idUtilisateur']."<br/>";
            //echo "idOeuvre: ".$idOeuvre;
-           $uVue->afficherPropositionPhotosUtilisateur($unUtilisateur['idUtilisateur'],$idOeuvre);
+            
+           $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+           $unOeuvre = $oOeuvre->getOeuvreParId($idOeuvre);
+           $uVue->afficherPropositionPhotosUtilisateur($unUtilisateur['idUtilisateur'],$unOeuvre);
+           $oVue->afficheFooter(false,false,false,false);
+        }
+    
+    
+    /**
+     * function AfficherDetailsPhotoUtilisateur
+     * @access public
+     * @auteur: German Mahecha
+     */
+        private function afficherDetailsPhotoUtilisateur($idPhoto)
+        {
+            //Get Utilisateur
+           $oUtilisateur = new MUtilisateurs('','','','','','','','','');
+           $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+
+           $oVue = new VueDefaut();
+           $oVue->afficheHeader();
+           $uVue = new VueUtilisateur();    
+           $uVue->afficherProfilUtilisateur($unUtilisateur);
+           
+            $oPhoto=new MPhotos('','','','');
+            $aphoto=$oPhoto->getPhotoParId($idPhoto);
+             //Get Oeuvre par idPhoto
+           $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+           $unOeuvre = $oOeuvre->getOeuvreParIdPhoto($idPhoto);   
+            
+            
+            //Utilisateur qui a proposé la photo
+            $unUtilisateurProposition = $oUtilisateur->getUtilisateurParIdPhotoPropose($idPhoto);    
+                
+            //Get commentaires par IdPhoto
+            $oComment = new MCommentaires('','','');
+            $aComments = $oComment->getAllCommentParIdPhoto($idPhoto);
+            
+           $uVue->afficherDetailsPhotoUtilisateur($aComments, $unOeuvre, $aphoto, $unUtilisateur, $unUtilisateurProposition);
            $oVue->afficheFooter(false,false,false,false);
         }
     
     
     
-    
         private function  ajouterPhoto($idUtil, $idOeuvre)
         {
+            echo $idOeuvre;
             $message='';
             if ($_FILES["imagen"]["error"] > 0){
                  $message= "Erreur dans le procesus";
@@ -1396,36 +1439,6 @@ class Controler
             $oVue->afficheFooter(false,false,false,false);
         }
 
-        
-        private function  modifierPhotoUtilisateur($idUtil)
-        {
-            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','', '', '');
-            $unUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
-             
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $uVue = new VueUtilisateur();
-            $uVue->afficherProfilUtilisateur($unUtilisateur);
-           
-            if($_GET['idUtilisateur'] && $_GET['action'] == 'valider')
-            {
-               try
-                {
-                   $oUtilisateur->modifierProfilUtilisateur($_GET['idUtilisateur'],$_POST['nom'], $_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio']);
-                   $message = 'Utilistaeur modifie';
-                   profilUtilisateurConnexion();
-                   
-               }
-               catch (Exception $e)
-               {
-                   $message = $e->getMessage();
-               }
-            }else
-            {
-                $uVue->afficherModifierProfilUtilisateur($unUtilisateur);
-            }
-            $oVue->afficheFooter(false,false,false,false);
-        }
 
 
         private function afficheCategories()
