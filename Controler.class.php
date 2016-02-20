@@ -473,12 +473,12 @@ class Controler
         {   
             $oCategorie = new MCategories('', '', '');
             $aCategorie = $oCategorie->getCategorieParId($idCat);
-            $nbreCategories = $oCategories->nbreCategories();
-                if($nbreCategories !=0) {
-                    $aCategories = $oCategories->listeCategories();
-                } else {
-                    $aCategories = '';
-                }
+            //$nbreCategories = $oCategories->nbreCategories();
+                //if($nbreCategories !=0) {
+                    //$aCategories = $oCategories->listeCategories();
+               // } else {
+                    //$aCategories = '';
+               // }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
