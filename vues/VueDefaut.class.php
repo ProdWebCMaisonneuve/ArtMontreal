@@ -112,7 +112,7 @@ class VueDefaut
                                    <ul class="nav navbar-nav navbar-right">
                                     
                                     
-                                    </li>
+                                
                                     <?php
                                         if($_SESSION["admin"]) {
                                             echo "<li><a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a></li>";
@@ -251,10 +251,13 @@ class VueDefaut
                             <div class="form-group">
                                 <label for="utilisateur" class="control-label">Nom d'utilisateur:</label>  
                                 <input type="text" name="utilisateur" class="form-control" >
+                                <span id="msjUtilisateur1" style="display:none">Veuillez saisir votre nom d'utilisateur</span>
+                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
                             </div>
                             <div class="form-group">
                                 <label for="motDePasse" class="control-label">Mot de passe:</label>  
                                 <input type="password" name="motDePasse" class="form-control" class="form-control">
+                                <span id="msjMotDePasse" style="display:none">Veuillez mettre votre mot de pass</span>
                             </div>
                             <input type="button" value="Connexion" class="btn btn-success" id="button" onclick="encrypte();">
                         </form>
@@ -500,7 +503,7 @@ public function afficheSliderAccueil($oeuvres)
     {
         
         ?>
-        <header class="jumbotron" id="slide_">
+        
             
                 <div class='row'>
                 <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
@@ -555,7 +558,7 @@ public function afficheSliderAccueil($oeuvres)
             </div>
             
           
-        </header>
+      
             
                 
 
@@ -677,63 +680,75 @@ public function afficheSliderAccueil($oeuvres)
     {
          ?>
         <div class='row'>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <h1><?php echo $oeuvre['titreOeuvre'];?></h1>
+            <div class="col-lg-12 text-center" >
+                <h1 ><?php echo $oeuvre['titreOeuvre'];?></h1>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+            <div class="col-lg-12"></div>
         </div>
 
 
             
             <div class= 'row'>
-                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"></div>
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
-                <img src='images/img_2.jpg' alt="">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <img class='img-responsive' src='images/img_2.jpg' width="700" height="700" alt="">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-justify">
+                    <p class='txt_uneOeuvre'> <strong>Description :</strong></p>
+                    <p class='txt_uneOeuvre'><?php echo $oeuvre['description'];?></p>
+                </div>
             </div>
-                
-            
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <?php
-                    
-                   $idOeuvre= $oeuvre['idOeuvre'];
-                   $titre = $oeuvre['titreOeuvre'];
-                   $technique= $oeuvre['technique']; 
-                   $noInternetOeuvre  = $oeuvre['noInterne'];
-                   $description= $oeuvre['description'];
-                   $arrond= $arrondissement['nomArrondissement'];
-                   $adres = $oeuvre['adresseCivic'];
-                   $batiment = $oeuvre['batiment'];
-                   $parc =$oeuvre['parc'];
-                   //$prenom = $oeuvre->getPrenomArtiste();
-                   //$nom = $oeuvre->getNomArtiste();
-                   //$collectif = $oeuvre->getCollectif();
-                   $nomMateriaux=$oeuvre['nomMateriaux'];
-                   $categ = $categorie['nomCategorie'];
-                   $souscat = $sousCategorie['nomSousCat'];
-                    $lat=$oeuvre['latitude'];
-                    $lon=$oeuvre['longitude'];
- 
-                  /*  if($collectif =="") {
-                    echo "<p>Artiste: ".$prenom." ".$nom."</p>";
 
-                    } else {
-                        echo "<p>Artiste: ".$collectif."</p>";
-                    }*/
-                 ?>
+
+
                 
-                <p>Nom de l'oeuvre: <?php echo $titre; ?></p>
-                <p>Categorie: <?php echo $categ; ?></p>
-                <p>Souscategorie: <?php echo $souscat; ?></p>
-                <p>Technique: <?php echo $technique; ?></p>
-                <p>Materiaux: <?php echo $nomMateriaux; ?></p>
-                <p>Arrondissement: <?php echo $arrond; ?></p>
-                <p>Parc: <?php echo $parc; ?></p>
-                <p>Batiment: <?php echo $batiment; ?></p>
-                <p>Adresse: <?php echo $adres; ?></p>
-                <p>Description:<?php echo  $description; ?></p>
-                <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
-            </div>
-        </div>
+                
+            <div class= 'row' id="details_oeuvre">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" ></div>
+                
+              
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <?php
+
+                       $idOeuvre= $oeuvre['idOeuvre'];
+                       $titre = $oeuvre['titreOeuvre'];
+                       $technique= $oeuvre['technique']; 
+                       $noInternetOeuvre  = $oeuvre['noInterne'];
+                       $description= $oeuvre['description'];
+                       $arrond= $arrondissement['nomArrondissement'];
+                       $adres = $oeuvre['adresseCivic'];
+                       $batiment = $oeuvre['batiment'];
+                       $parc =$oeuvre['parc'];
+                       //$prenom = $oeuvre->getPrenomArtiste();
+                       //$nom = $oeuvre->getNomArtiste();
+                       //$collectif = $oeuvre->getCollectif();
+                       $nomMateriaux=$oeuvre['nomMateriaux'];
+                       $categ = $categorie['nomCategorie'];
+                       $souscat = $sousCategorie['nomSousCat'];
+                        $lat=$oeuvre['latitude'];
+                        $lon=$oeuvre['longitude'];
+
+                      /*  if($collectif =="") {
+                        echo "<p>Artiste: ".$prenom." ".$nom."</p>";
+
+                        } else {
+                            echo "<p>Artiste: ".$collectif."</p>";
+                        }*/
+                     ?>
+
+                    <p><strong>Nom de l'oeuvre:</strong> <?php echo $titre; ?></p>
+                    <p><strong>Categorie: </strong>    <?php echo $categ; ?></p>
+                    <p><strong>Souscategorie:</strong>  <?php echo $souscat; ?></p>
+                    <p><strong>Technique:</strong> <?php echo $technique; ?></p>
+                    <p><strong>Materiaux:</strong> <?php echo $nomMateriaux; ?></p>
+                    <p><strong>Arrondissement:</strong> <?php echo $arrond; ?></p>
+                    <p><strong>Parc:</strong> <?php echo $parc; ?></p>
+                    <p><strong>Batiment:</strong> <?php echo $batiment; ?></p>
+                    <p><strong>Adresse:</strong> <?php echo $adres; ?></p>
+                    
+                    <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
+                </div>
+        
            
             <script>
                 var myCenter=new google.maps.LatLng(<?php echo $lat;?>,<?php echo $lon;?>);
@@ -765,8 +780,14 @@ public function afficheSliderAccueil($oeuvres)
 
                 google.maps.event.addDomListener(window, 'load', initialize);
             </script>
+                
             
-            <div id="googleMap" style="width:100%;height:400px;"></div>
+            
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" >
+                    <div id="googleMap" style="width:300px;height:300px;"></div>
+                </div>
+            </div>                
+                            
         
         
     
@@ -935,7 +956,7 @@ public function afficheSliderAccueil($oeuvres)
                 
         <?php
         
-            //var_Dump($aArrondissements);
+            
             $id_Arrondissement= $aArrondissements["idArrondissement"];
             $nom = $aArrondissements["nomArrondissement"];
             echo "<div class='row'>";
@@ -973,20 +994,16 @@ public function afficheSliderAccueil($oeuvres)
                                     echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a>';
                                     echo '<p class="info">likes</p>';
                                     
-                                echo '</div>';
-                            echo '</div>';
-                    echo '</div>';
                     
-                   
-               
-    
-            } 
-            
-            
-  
+                                echo '</div>';
+                    
+                    
+                            echo '</div>';
+                    
+                    echo '</div>';     
+            }  
         }
-        /*echo $lat;
-        echo $lon;*/
+
         ?>
         
                     <script>

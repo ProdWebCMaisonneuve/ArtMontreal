@@ -49,13 +49,15 @@ function validerFormAInscription()
     $bio= $("#bio");
    
     if(valide_valide==false)
-    {
+    {   
+        //doit avoir au moins 4 caracteres 
         if($utilisateur.val().length < 4){
         $( "#msjUtilisateur1" ).css("display", "block");
         valide=false;
         }
 //        http://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
-        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/)){
+        //nom utlisateur : expReg le nom peut contenir lettres et nombres de la A-Z en mayuscule ou minuscule, minmun 4 et maximum 18, puet pas commencer avec un point et peut contenir "." et "_"
+        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$/)){
             $("#msjUtilisateur2" ).css("display", "block");
             $( "#msjUtilisateur1" ).css("display", "none");
             valide=false;
@@ -82,6 +84,7 @@ function validerFormAInscription()
         
         
 //        http://www.godsavethegeek.com/autre/regex-caracteres-accentues-prenom-nom
+        //nom: peut contenir lettrres de la A-Z mayuscules ou minuscules avec accents minimun 4 et maximum 29
         if(!$prenom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
         $( "#msjPrenom" ).css("display", "block");
         valide=false;
@@ -117,7 +120,7 @@ function validerFormAInscription()
             $( "#msjTelephone" ).css("display", "none");
         }
 
-        if(!$("#bio").val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/)){
+        if($bio.val().length < 4){
             $( "#msjBio" ).css("display", "block");
             valide=false;
         }else{
@@ -137,46 +140,13 @@ function validerFormAInscription()
     if(valide==true && valide_valide==false){    
       
       document.formInscription.submit();
+      
     }
 
 
 }
 
 
-
-
-//    
-//    $(document).ready(function() {
-//    $("#ok").hide();
-//
-//    $("#formInscription").validate({
-//        rules: {
-//            bio: { required: true, minlength: 2},
-//            utilisateur: { required: true, minlength: 2},
-//            motDePasse : { required: true, minlength: 2},
-//
-//        },
-//        messages: {
-//            bio: "Debe introducir su nombre.",
-//            utilisateur: "Debe introducir su apellido.",
-//            motDePasse : "Debe introducir un email válido.",
-//
-//        submitHandler: function(form){
-//            var dataString = 'bio='+$('#bio').val()+'&utilisateur='+$('#utilisateur').val()+'...';
-//            $.ajax({
-//                type: "POST",
-//                url:"send.php",
-//                data: dataString,
-//                success: function(data){
-//                    $("#ok").html(data);
-//                    $("#ok").show();
-//                    $("#formid").hide();
-//                }
-//            });
-//        }
-//    });
-//});
-//    
 
 
 /**
