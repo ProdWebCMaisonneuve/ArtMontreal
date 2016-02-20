@@ -811,7 +811,7 @@ public function afficheSliderAccueil($oeuvres)
             $idArtiste = $artiste->getIdArtiste();
  
 
-            echo ' <div class="col-xs-6">';
+            echo ' <div class="col-xs-4">';
               
                 echo' <div class="panel-group" id="accordion">';
 
