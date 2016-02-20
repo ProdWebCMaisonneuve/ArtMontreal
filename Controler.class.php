@@ -228,6 +228,7 @@ class Controler
                 case 'detailsPhotoUtilisateur':
                     $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
                     break;
+
                  case 'voter':
                     $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
                     break;
@@ -1316,7 +1317,6 @@ class Controler
         private function afficherDetailsPhotoUtilisateur($idPhoto)
         {
             $comment=0;
-           //Get Utilisateur
            $oUtilisateur = new MUtilisateurs('','','','','','','','','');
            $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
 
@@ -1340,6 +1340,7 @@ class Controler
             $aComments = $oComment->getAllCommentParIdPhoto($idPhoto);
             
            $uVue->afficherDetailsPhotoUtilisateur($aComments, $unOeuvre, $aphoto, $unUtilisateur, $unUtilisateurProposition);
+
            $pos=10;
             foreach($aComments as $com){
                 $comment++;

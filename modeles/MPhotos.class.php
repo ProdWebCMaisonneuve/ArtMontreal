@@ -320,7 +320,7 @@ WHERE photo.validationPhoto=0");
         $ligne=self::$database->uneLigne();
         return $ligne;
     }
-    
+  
     
     
      public static function getCombienVotesParPhoto($idPhoto)
@@ -330,6 +330,7 @@ WHERE photo.validationPhoto=0");
         $ligne=self::$database->uneLigne();
         return $ligne['votes'];
     }    
+
 }?>
 
 

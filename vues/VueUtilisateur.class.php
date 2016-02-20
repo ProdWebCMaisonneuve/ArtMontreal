@@ -335,7 +335,6 @@ class VueUtilisateur
             </div>     
             </div><!--div row-->
             </div><!--div container-fluid text-center-->
-
         </body>
         </html>
        <?php 
