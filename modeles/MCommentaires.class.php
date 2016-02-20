@@ -105,20 +105,7 @@ class MCommentaires
         return(self::$database->execute());
     } 
   
-   /*
-     * Fonction qui supprimer une commentaire
-     * @access public static
-     * @author Thuy Tien Vo
-     * @return: supprimer une commentaire dans le BDD
-     */
- 	public static function supprimerCommentaire($idCommentaire)
-
-    {
-     	self::$database->query("DELETE FROM commentaire WHERE idCommentaire=:idCommentaire");
-     	self::$database->bind(':idCommentaire', $idCommentaire);
-      	return(self::$database->execute());
-    }
-    
+     
 
     /*
      * Fonction pour obtenir les données des tous les commentaires d'une photo
@@ -147,7 +134,73 @@ class MCommentaires
         return $commentaires;
         
     }
-      
+    
+    /* function qui compte les commentaires
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function nbreCommentairesNonValides() {
+        self::$database->query("SELECT COUNT(idCommentaire) FROM commentaire WHERE validationCommentaire = 0;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idCommentaire)"];  
+    }
+    
+    /* function qui liste les commentaires à valider
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function listeCommentairesAValider() 
+    {
+         $commentaires=array();
+        self::$database->query("SELECT utilisateur_enregistre.loginUtilisateur, ecrit.dateCommentaire, commentaire.idCommentaire, commentaire.commentaire
+FROM commentaire
+JOIN ecrit ON ecrit.idCommentaire = commentaire.idCommentaire
+JOIN utilisateur_enregistre ON ecrit.idUtilisateur= utilisateur_enregistre.idUtilisateur 
+WHERE commentaire.validationCommentaire=0");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unCommentaire = array($ligne['loginUtilisateur'], $ligne['dateCommentaire'], $ligne['idCommentaire'], $ligne['commentaire']);
+			$commentaires[] = $unCommentaire;
+		}
+		return $commentaires;
+    }
+    
+    /* function qui efface les commentaires en attente de validation
+	 * @access public static
+     * @author Thuy Tien Vo
+     * @author Gautier Piatek
+	 * @return none
+	 */
+    public static function supprimerCommentaire($idCommentaire) 
+    {
+       
+        self::$database->query("DELETE FROM contient WHERE idCommentaire = :idCommentaire");
+        self::$database->bind(':idCommentaire', $idCommentaire);
+        self::$database->execute();
+        self::$database->query("DELETE FROM ecrit WHERE idCommentaire = :idCommentaire");
+        self::$database->bind(':idCommentaire', $idCommentaire);
+        self::$database->execute();
+        self::$database->query("DELETE FROM commentaire WHERE idCommentaire = :idCommentaire");
+        self::$database->bind(':idCommentaire', $idCommentaire);
+        self::$database->execute();
+       
+    }
+    
+    /* function qui valide les commentaires en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return none
+	 */
+    public static function validerCommentaire($idCommentaire) 
+    {
+        self::$database->query("UPDATE commentaire SET validationCommentaire = 1 WHERE idCommentaire = :idCommentaire");
+        self::$database->bind(':idCommentaire', $idCommentaire);
+        self::$database->execute();
+        
+    }
 }
  
 ?>

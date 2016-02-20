@@ -87,8 +87,14 @@ class Controler
                 case 'supprimerPhoto':
                         $this->supprimerPhoto($_GET['idPhoto']);
                     break; 
+                case 'supprimerCommentaire':
+                        $this->supprimerCommentaire($_GET['idCommentaire']);
+                    break; 
                 case 'validerPhoto':
                         $this->validerPhoto($_GET['idPhoto']);
+                    break; 
+                case 'validerCommentaire':
+                        $this->validerCommentaire($_GET['idCommentaire']);
                     break; 
                 case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
@@ -213,8 +219,8 @@ class Controler
                     $this->propositionCommentaire();
                     break;
 
-                case 'afficheCommentaires':
-                    $this->afficheCommentaires();
+                case 'afficheModCommentaires':
+                    $this->afficheModCommentaires();
                     break;
                 
                 case 'afficheBDD':
@@ -1487,15 +1493,22 @@ class Controler
          * @auteur: Thuy Tien Vo
          */
 
-        private function afficheCommentaires()
+        private function afficheModCommentaires()
         {
-         
+            
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
+            $oCommentaire = new MCommentaires('','','');
+            $nbreCommentairesNonValides = MCommentaires::nbreCommentairesNonValides();
+            if($nbreCommentairesNonValides !=0) {
+                $aCommentairesAValider = $oCommentaire->listeCommentairesAValider();
+            } else {
+                $aCommentairesAValider = '';
+            }
             
             $oVueAdmin->afficheHeaderAdmin();
-            $oVueAdmin->afficheCommentaires();
-            $oVueDefaut->afficheFooter(false, true, false,true);
+            $oVueAdmin->afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
     
         }
 
@@ -1550,6 +1563,25 @@ class Controler
             
             
         }
+    
+        private function supprimerCommentaire($idCommentaire) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oCommentaires = new MCommentaires('','','','');
+            $oCommentaires->supprimerCommentaire($idCommentaire);
+            $nbreCommentairesNonValides = $oCommentaires->nbreCommentairesNonValides();
+            if($nbreCommentairesNonValides !=0) {
+                $aCommentairesAValider = $oCommentaires->listeCommentairesAValider();
+            } else {
+                $aCommentairesAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+            
+            
+        }
         
         private function validerPhoto($idPhoto) 
         {
@@ -1565,6 +1597,25 @@ class Controler
             }
             $oVueAdmin->afficheHeaderAdmin();
             $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+            
+            
+        } 
+    
+        private function validerCommentaire($idCommentaire) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oCommentaires = new MCommentaires('','','','');
+            $oCommentaires->validerCommentaire($idCommentaire);
+            $nbreCommentairesNonValides = $oCommentaires->nbreCommentairesNonValides();
+            if($nbreCommentairesNonValides !=0) {
+                $aCommentairesAValider = $oCommentaires->listeCommentairesAValider();
+            } else {
+                $aCommentairesAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides);
             $oVueDefaut->afficheFooter(false, true, false, true);
             
             

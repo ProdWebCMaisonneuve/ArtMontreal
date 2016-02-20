@@ -194,65 +194,7 @@ class VueAdmin
             <ul class="nav navbar-top-links navbar-right">
                 
                 <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
+                
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -274,16 +216,8 @@ class VueAdmin
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Rechercher...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
+                        <li>
+                             
                         </li>
                         <li>
                             <a href="index.php?requete=adminPanel"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
@@ -311,7 +245,7 @@ class VueAdmin
                                     <a href="index.php?requete=afficheModPhotos"><i class="fa fa-picture-o fa-fw"></i> Photos</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?requete=afficheCommentaires"><i class="fa fa-comment fa-fw"></i> Commentaires</a>
+                                    <a href="index.php?requete=afficheModCommentaires"><i class="fa fa-comment fa-fw"></i> Commentaires</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -438,7 +372,7 @@ class VueAdmin
                                 </div>
                             </div>
                         </div>
-                        <a href="index.php?requete=affichePhotos">
+                        <a href="index.php?requete=afficheModPhotos">
                             <div class="panel-footer">
                                 <span class="pull-left">Voir les détails</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -468,7 +402,7 @@ class VueAdmin
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                            <i class="fa fa-bell fa-fw"></i> Notifications
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -1785,7 +1719,7 @@ class VueAdmin
         $nom = $aUtilisateur['nomUtil'];
         $login = $aUtilisateur['loginUtilisateur'];
         $courriel = $aUtilisateur['courrielUtil'];
-        $telephone = $aUtilisateur['telUtil'];
+        $telephone = $aUtilisateur['TelUtil'];
         $bio = $aUtilisateur['bio'];
         $photo = $aUtilisateur['photoUtilisateur'];
         ?>
@@ -2170,14 +2104,17 @@ class VueAdmin
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="row">
-                            <form method="POST" role="form" action="index.php?requete=miseajourjson">
-                                <div class="alert alert-success col-lg-6 col-lg-offset-2 form-group">
-                                    Dernière mise à jour : <?php echo $date; ?>
+                                <div class="alert alert-success col-lg-6 col-lg-offset-2">
+                                            Dernière mise à jour : <?php echo $date; ?>
                                 </div> 
-                            
-                                <input type="submit" class="btn btn-success" name="majBDD" value="Valider"><span><?php echo $message; ?></span>
-                            </form> 
-
+                                <div class="col-lg-6 col-lg-offset-2">  
+                                    
+                                    <form method="POST" role="form" action="index.php?requete=miseajourjson">    
+                                            <input type="submit" class="btn btn-success" name="majBDD" value="Mettre à jour"><span><?php echo $message; ?></span>
+                                        
+                                        
+                                    </form> 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2234,13 +2171,13 @@ class VueAdmin
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Liste des commentaires
+                        Liste des photos
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                            <?php if($aPhotosAValider) { ?>
                            <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-listeUtilisateurs">
                                 <thead>
                                     <tr>
                                         <th>Utilisateur</th>
@@ -2318,7 +2255,7 @@ class VueAdmin
      * @version 1.0
      */
 
-    public function afficheCommentaires() 
+    public function afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides) 
     { 
        
     ?>
@@ -2339,10 +2276,10 @@ class VueAdmin
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-paint-brush fa-5x"></i>
+                                    <i class="fa fa-comment fa-5x"></i>
                                 </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo "0" ?> Commentaires</div>
+                                        <div class="huge"><?php echo $nbreCommentairesNonValides ?> Commentaires</div>
                                     </div>
                             </div>
                         </div>
@@ -2358,8 +2295,9 @@ class VueAdmin
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
+                       <?php if($aCommentairesAValider) { ?>
                         <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-listeArtistes">
                                 <thead>
                                     <tr>
                                         <th>Utilisateur</th>
@@ -2368,37 +2306,36 @@ class VueAdmin
 
                                         <th>Date</th>
 
-                                        <th>Valider</th>
-
                                         <th>Supprimer</th>
+
+                                        <th>Valider</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
+                                
+                                    foreach($aCommentairesAValider as $commentaire) 
+                                    {
+                                        echo '<tr>';
+                                        echo '<td>'. $commentaire[0].'</td>';
+                                        echo '<td>'. $commentaire[3].'</td>';
+                                        echo '<td>'. $commentaire[1].'</td>';
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerCommentaire&idCommentaire='.$commentaire[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
+                                        echo '<td class="text-center"><a href="index.php?requete=validerCommentaire&idCommentaire='. $commentaire[2] .'"><i class="fa fa-check"></i></a></td>'; 
+                                        echo'</tr>'; 
 
-                                //foreach($aCommentaires as $commentaire) 
-                              
-                                {
-                                    echo '<tr>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-check"></i></a></td>';  
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>'; 
-                                    echo'</tr>'; 
-
-                                    echo '<tr>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo'<td>';
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-check"></i></a></td>';  
-                                    echo '<td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>'; 
-                                    echo '</tr>';
-                                }
+                                    }
+                                
+                                
                                 ?>
                                 </tbody>
                             </table>
                         </div>
+                        <?php
+                        } else {
+                            echo " Il n'y a pas de commentaires à valider.";
+                        }
+                        ?>
                         <!-- /.table-responsive -->
                     </div>
                 </div>
@@ -2406,7 +2343,30 @@ class VueAdmin
         </div>
     </div>
     
+    <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer une photo, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div>
     <?php
     }
 }
