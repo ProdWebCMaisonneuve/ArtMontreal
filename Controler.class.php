@@ -126,8 +126,8 @@ class Controler
                     $this->afficheCategories();
                     break;
                 case 'sousCategories':
-                   if($_GET['idCategorie'] !=''){
-                        $this->oeuvresParCat($_GET['idCategorie']);
+                   if($_GET['idSousCategorie'] !=''){
+                        $this->oeuvresParCat($_GET['idSousCategorie']);
                     }else{
                         $this->sousCategories();
                     } 
@@ -190,7 +190,7 @@ class Controler
                     break;
 
                 case 'afficheCategories':
-                $this->afficheSousCategories();
+                $this->afficheCategories();
                 break;
                 
                 case 'ajoutCategorie':
