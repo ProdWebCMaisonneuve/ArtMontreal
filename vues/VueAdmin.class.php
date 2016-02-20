@@ -543,6 +543,7 @@ class VueAdmin
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                           <?php if($aOeuvres) { ?>
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
                                     <thead>
@@ -567,6 +568,11 @@ class VueAdmin
                                     </tbody>
                                 </table>
                             </div>
+                            <?php
+                            } else {
+                                echo " Il n'y a pas d'oeuvres à afficher.";
+                            }
+                            ?>
                             <!-- /.table-responsive -->
                         </div>
                     </div>
@@ -1030,6 +1036,7 @@ class VueAdmin
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                           <?php if($aArtistes) { ?>
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-listeArtistes">
                                     <thead>
@@ -1056,6 +1063,11 @@ class VueAdmin
                                     </tbody>
                                 </table>
                             </div>
+                             <?php
+                            } else {
+                                echo " Il n'y a pas d'artistes à afficher.";
+                            }
+                            ?>
                             <!-- /.table-responsive -->
                         </div>
                     </div>
@@ -1284,6 +1296,7 @@ class VueAdmin
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
+                       <?php if($aCategories) { ?>
                         <div class="dataTable_wrapper">
                             <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
                                 <thead>
@@ -1309,6 +1322,11 @@ class VueAdmin
                                 </tbody>
                                 </table>
                                 </div>
+                                <?php
+                                } else {
+                                    echo " Il n'y a pas de catégories à afficher.";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -1547,6 +1565,7 @@ class VueAdmin
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                           <?php if($aUtilisateurs) { ?>
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-listeUtilisateurs">
                                     <thead>
@@ -1575,6 +1594,11 @@ class VueAdmin
                                     </tbody>
                                 </table>
                             </div>
+                            <?php
+                                } else {
+                                    echo " Il n'y a pas d'utilisateurs à afficher.";
+                                }
+                                ?>
                             <!-- /.table-responsive -->
                         </div>
                     </div>
@@ -1856,6 +1880,7 @@ class VueAdmin
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                           <?php if($aAdminMods) { ?>
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-liste">
                                     <thead>
@@ -1886,6 +1911,11 @@ class VueAdmin
                                     </tbody>
                                 </table>
                             </div>
+                             <?php
+                                } else {
+                                    echo " Il n'y a pas d'administrateurs à afficher.";
+                                }
+                                ?>
                             <!-- /.table-responsive -->
                         </div>
                     </div>
