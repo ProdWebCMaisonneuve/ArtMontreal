@@ -153,7 +153,7 @@ class MUtilisateurs {
     
     public static function modifierUtilisateur($idUtilisateur, $loginUtilisateur, $passUtilisateur, $prenom, $nom, $courriel, $telephone, $bio, $photoUtilisateur)
     {
-    	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, nomUtil = :nom, prenomUtil = :prenom, courrielUtil = :courriel, telUtil = :telephone, bio = :bio, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur");
+    	self::$database->query("UPDATE utilisateur_enregistre SET loginUtilisateur = :loginUtilisateur, passUtilisateur = :passUtilisateur, nomUtil = :nom, prenomUtil = :prenom, courrielUtil = :courriel, TelUtil = :telephone, bio = :bio, photoUtilisateur = :photoUtilisateur WHERE idUtilisateur = :idUtilisateur");
 
     	self::$database->bind(':idUtilisateur', $idUtilisateur);
     	self::$database->bind(':loginUtilisateur', $loginUtilisateur);
@@ -228,7 +228,7 @@ class MUtilisateurs {
     
     public static function modifierProfilUtilisateur($idUtil,$nomUtil,$prenomUtil,$courrielUtil,$telUtil,$bioUtil)
     {
-    	self::$database->query("UPDATE utilisateur_enregistre SET nomUtil = :nom, prenomUtil = :prenom, courrielUtil = :courriel, telUtil = :telephone, bio = :bio WHERE idUtilisateur = :idUtilisateur");
+    	self::$database->query("UPDATE utilisateur_enregistre SET nomUtil = :nom, prenomUtil = :prenom, courrielUtil = :courriel, TelUtil = :telephone, bio = :bio WHERE idUtilisateur = :idUtilisateur");
 
     	self::$database->bind(':idUtilisateur', $idUtil);
     	self:: $database->bind(':nom', $nomUtil);

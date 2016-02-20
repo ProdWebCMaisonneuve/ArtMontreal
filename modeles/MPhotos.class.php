@@ -320,6 +320,17 @@ WHERE photo.validationPhoto=0");
         $ligne=self::$database->uneLigne();
         return $ligne;
     }
+  
+    
+    
+     public static function getCombienVotesParPhoto($idPhoto)
+     {
+        self::$database->query("SELECT COUNT(vote.idPhoto) AS votes FROM vote WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        $ligne=self::$database->uneLigne();
+        return $ligne['votes'];
+    }    
+
 }?>
 
 

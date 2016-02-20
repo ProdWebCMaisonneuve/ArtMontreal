@@ -259,7 +259,7 @@ class VueDefaut
                                 <input type="password" name="motDePasse" class="form-control" class="form-control">
                                 <span id="msjMotDePasse" style="display:none">Veuillez mettre votre mot de pass</span>
                             </div>
-                            <input type="button" value="Connexion" id="button" onclick="encrypte();">
+                            <input type="button" value="Connexion" class="btn btn-success" id="button" onclick="encrypte();">
                         </form>
                         <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
                             <input type="hidden" name="utilisateur"/><br/>
@@ -658,12 +658,9 @@ public function afficheSliderAccueil($oeuvres)
                             echo "<img src='images/photoDefaut.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
                                 echo '<div class="overlay">';
                                     echo '<h2>'.$titre .'</h2>';
-                                    echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a>';
-                                    echo '<p class="info"><span class="glyphicon glyphicon-thumbs-up"></span> 30 likes</p>';
+                                    echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a><br/>';
                                     if ($_SESSION['session']){
                                         echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "Proposer Photo " .'</a>';
-                                        echo '<a class="info" href="index.php?requete=propositionCommentaire&idOeuvre='.$idOeuvre.'">'. "Commentaire " .'</a>';
-                                        echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "<span class='glyphicon glyphicon-thumbs-up'></span> J'aime" .'</a>';
                                     }
                                 echo '</div>';
                             echo '</div>';
@@ -999,16 +996,14 @@ public function afficheSliderAccueil($oeuvres)
                                     
                     
                                 echo '</div>';
-                    echo $lat . '-' . $lon;
+                    
                     
                             echo '</div>';
                     
                     echo '</div>';     
             }  
         }
-        
 
-        
         ?>
         
                     <script>
@@ -1114,7 +1109,7 @@ public function afficheSliderAccueil($oeuvres)
             <?php
              if($aOeuvreParCat == "")
             {
-                echo "Il n'y a pas d'oeuvres dans ce catégorie";
+                echo "Il n'y a pas d'oeuvres dans cette catégorie";
             }
             else
             {

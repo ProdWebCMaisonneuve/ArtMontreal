@@ -34,7 +34,7 @@ class VueUtilisateur
           <div class="row">
             <div class="col-xm-12 col-sm-4 col-md-4 col-lg-3 well">
 
-                <div class="panel panel-info">
+                <div class="panel panel-primary">
                   <div class="panel-heading"> <h3><span class="glyphicon glyphicon-user"></span><?php echo " ".$loginUtil;?></h3></div>
                   <div class="panel-body">
                       <img src="photos/utilisateurs/<?php echo $photoUtil;?>" class="img-circle" height="150" width="150" alt="Avatar"><hr>
@@ -47,8 +47,6 @@ class VueUtilisateur
                           <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                           <br/><ul class="dropdown-menu">
                             <li><a href="index.php?requete=modifierProfilUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>">Éditer profil</a></li>
-                            <li><a href="index.php?requete=modifierMotDePasseUtilisateur">Changer mot de passe</a></li>
-                            <li><a href="index.php?requete=modifierPhotoUtilisateur">Changer Photo</a></li>
                             <li class="divider"></li>
                             <li><a href='deconnexion.php'><span class='icon-log-out'></span> Fermer session</a></li>
                           </ul>
@@ -70,8 +68,8 @@ class VueUtilisateur
         //var_dump($photos);
         ?>
             <div class="col-sm-12 col-sm-8 col-md-8 col-lg-9 ">
-                <div class="panel panel-info">
-                  <div class="panel-heading"><h4>Mes Photos</h4></div>
+                <div class="panel panel-primary">
+                  <div class="panel-heading text-left"><h4>Mes Photos</h4></div>
                       <div class="panel-body">
                       <?php
                             if(!$photos)
@@ -82,18 +80,31 @@ class VueUtilisateur
                             {
                                 foreach($photos as $photo){
                                     echo "<div class='col-sm-6 col-lg-3 col-md-4'>";
-                                        echo "<div class='thumbnail'>";
-                                            echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
-                                            echo "<div class='caption'>";
-                                                echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>".$photo[3]."</p>";
-                                                echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>".$photo[4]."</p>";
-                                                echo "<a class='btn btn-primary' href='index.php?requete=detailsPhotoUtilisateur&idPhoto=".$photo[0]."'><span class='glyphicon glyphicon-eye-open'></span> Voir details</a>";
-                                                
-                                                
+                                        echo "<div class='panel panel-primary'>";
+                                            echo "<div class='panel-heading'>";
+                                                echo "<div class='row'>";
+                                                    echo "<div class='col-xs-8'>";
+                                                         echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
+                                                     echo "</div>";
+                                                     echo "<div class='col-xs-4 text-right'>";
+                                                     echo "<p> <i class='fa fa-comments fa-2x'> " .$photo[3]."</i></span></p>";
+                                                     echo "<hr>";
+                                                        echo "<p> <i class='fa fa-thumbs-o-up fa-2x'> " .$photo[4]."</i></span></p>";
+                                                     echo "</div>";
+                                                 echo "</div>";
                                             echo "</div>";
-                                        echo "</div>";  
-                                    echo "</div>";  
+                                            echo "<a href='index.php?requete=detailsPhotoUtilisateur&idPhoto=".$photo[0]."'>";
+                                                echo "<div class='panel-footer'>";
+                                                    echo "<span class='pull-left'>Voir les détails</span>";
+                                                    echo "<span class='pull-right'><i class='fa fa-arrow-circle-right'></i></span>";
+                                                    echo "<div class='clearfix'></div>";
+                                                 echo "</div>";
+                                            echo "</a>";
+                                         echo "</div>";
+                                     echo "</div>";
                                 }
+                                
+                                
                             }
                         ?>
                     </div>
@@ -113,30 +124,42 @@ class VueUtilisateur
         ?>
             
                 <div class="panel panel-success">
-                  <div class="panel-heading"><h4>Les meilleures Photos du concours</h4></div>
+                  <div class="panel-heading text-left"><h4>Les meilleures Photos du concours</h4></div>
                       <div class="panel-body">
                       <?php
-                             if(!$photos)
-                            {
+                            if(!$photos){
                                 echo "Aucune photo validée pour afficher";
                             }
-                            else
-                            {
+                            else{
                                 foreach($photos as $photo){
                                     echo "<div class='col-sm-6 col-lg-3 col-md-4'>";
-                                        echo "<div class='thumbnail'>";
-                                            echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
-                                            echo "<div class='caption'>";
-                                                echo "<p><span class='glyphicon glyphicon glyphicon-comment'></span>".$photo[3]."</p>";
-                                                echo "<p><span class='glyphicon glyphicon-thumbs-up'></span>".$photo[4]."</p>";
-                                                echo "<a class='btn btn-primary' href='index.php?requete=detailsPhotoUtilisateur&idPhoto=".$photo[0]."'><span class='glyphicon glyphicon-eye-open'></span> Voir details</a>";
+                                        echo "<div class='panel panel-success'>";
+                                            echo "<div class='panel-heading'>";
+                                                echo "<div class='row'>";
+                                                    echo "<div class='col-xs-8'>";
+                                                         echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
+                                                     echo "</div>";
+                                                     echo "<div class='col-xs-4 text-right'>";
+                                                     echo "<p> <i class='fa fa-comments fa-2x'> " .$photo[3]."</i></span></p>";
+                                                     echo "<hr>";
+                                                        echo "<p> <i class='fa fa-thumbs-o-up fa-2x'> " .$photo[4]."</i></span></p>";
+                                                     echo "</div>";
+                                                 echo "</div>";
                                             echo "</div>";
-                                        echo "</div>";  
-                                    echo "</div>";  
+                                            echo "<a href='index.php?requete=detailsPhotoUtilisateur&idPhoto=".$photo[0]."'>";
+                                                echo "<div class='panel-footer'>";
+                                                    echo "<span class='pull-left'>Voir les détails</span>";
+                                                    echo "<span class='pull-right'><i class='fa fa-arrow-circle-right'></i></span>";
+                                                    echo "<div class='clearfix'></div>";
+                                                 echo "</div>";
+                                            echo "</a>";
+                                         echo "</div>";
+                                     echo "</div>";
                                 }
                             }
                         ?>
                     </div>
+                    
                 </div>
             </div>
           
@@ -161,7 +184,7 @@ class VueUtilisateur
          ?>
             <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">  
 
-              <div class="panel panel-info">
+              <div class="panel panel-primary">
                   <div class="panel-heading"><h4>Ajouter photo pour l'oeuvre: <?php echo $oeuvre['titreOeuvre']; ?></h4></div>
                   <div class="panel-body">
                         <div class="col-sm-6 col-lg-3 col-md-4">
@@ -188,8 +211,6 @@ class VueUtilisateur
                   </div>
               </div>
             </div>  
-              
-              
        <?php 
         
     } 
@@ -202,10 +223,8 @@ class VueUtilisateur
     public function afficherModifierProfilUtilisateur($utilisateur)
     {
         ?>
-                    
         <div class="col-xm-12 col-sm-8 col-md-8 col-lg-7">
-
-              <div class="panel panel-info">
+              <div class="panel panel-primary">
                   <div class="panel-heading"><h4>Modifier votre profil</h4></div>
                   <div class="panel-body">            
                      <form class="form-horizontal" role="form" action="index.php?requete=modifierProfilUtilisateur&idUtilisateur=<?php echo $utilisateur['idUtilisateur']; ?>&action=valider" method='POST'>
@@ -256,8 +275,8 @@ class VueUtilisateur
     public function afficherDetailsPhotoUtilisateur($commentaires, $oeuvre, $photo, $utilisateur,$unUtilisateurProposition)
     {
         ?> 
-            <div class="col-xm-12 col-sm-8 col-md-8 col-lg-9">
-                <div class="panel panel-info">
+            <div class="col-xm-12 col-sm-8 col-md-8 col-lg-7">
+                <div class="panel panel-primary">
                     <div class="panel-heading"><h4><?php echo $oeuvre['titreOeuvre']; ?></h4></div>
                     <div class="panel-body">
                         <div class="thumbnail">
@@ -265,11 +284,15 @@ class VueUtilisateur
                             <div class="caption-full">
                                 <p>Photographie de: <?php echo $unUtilisateurProposition['prenomUtil']." ".$unUtilisateurProposition['nomUtil'] ; ?></p>
                                 <a href="index.php?requete=accueil&idOeuvre=<?php echo $oeuvre['idOeuvre']; ?>" class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Details de l'oeuvre</a>
+                                <?php
+                                    if($utilisateur['idUtilisateur']!=$unUtilisateurProposition['idUtilisateur'])
+                                        echo "<a href='index.php?requete=voter&idPhoto=".$photo['idPhoto']."&idUtilVote=".$utilisateur['idUtilisateur']."' class='btn btn-warning'><span class='	glyphicon glyphicon-thumbs-up'></span> Voter</a>";
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-info">
+                <div class="panel panel-primary">
                     <div class="panel-heading"><h4>Commentaires</h4></div>
                     <div class="panel-body">
                         <?php
@@ -297,35 +320,50 @@ class VueUtilisateur
     * @access public
     * @auteure: German Mahecha
     */
-    public function afficherAsideUtilisateur()
+    public function afficherAsideUtilisateur($pos,$likes,$comment)
     {
          ?>
             <div class="col-sm-12 col-lg-2 col-md-4 well">
-                    <div class="panel panel-info">
-                     <div class="panel-heading"><h4>Dérnière photo ajouté</h4></div>
-                        <div class="panel-body">
-                            <img src="images/img_2.jpg" class="img-thumbnail" alt="Paris">
-                            <p><strong>Nom Photo</strong></p>
-                            <p>Fri. 27 November 2015</p>  
-                            <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa  fa-trophy fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">À faire</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading"><h4>Photo plus point</h4></div>
-                        <div class="panel-body">
-                            <img src="images/img_2.jpg" class="img-thumbnail" alt="Avatar">
-                            <p>10 points</p>
-                            <p><strong>Nom Photo</strong></p>
-                            <button class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Voir detailles</button>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-thumbs-o-up fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">VOTES <?php echo $likes;?></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>    
-
-              
-
-          </div><!--div row-->
-        </div><!--div container-fluid text-center-->
-
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-comments fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">COMMENTAIRES <?php echo $comment;?> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    
+            </div>     
+            </div><!--div row-->
+            </div><!--div container-fluid text-center-->
         </body>
         </html>
        <?php 

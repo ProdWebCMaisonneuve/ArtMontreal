@@ -87,8 +87,14 @@ class Controler
                 case 'supprimerPhoto':
                         $this->supprimerPhoto($_GET['idPhoto']);
                     break; 
+                case 'supprimerCommentaire':
+                        $this->supprimerCommentaire($_GET['idCommentaire']);
+                    break; 
                 case 'validerPhoto':
                         $this->validerPhoto($_GET['idPhoto']);
+                    break; 
+                case 'validerCommentaire':
+                        $this->validerCommentaire($_GET['idCommentaire']);
                     break; 
                 case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
@@ -120,8 +126,8 @@ class Controler
                     $this->afficheCategories();
                     break;
                 case 'sousCategories':
-                   if($_GET['idCategorie'] !=''){
-                        $this->oeuvresParCat($_GET['idCategorie']);
+                   if($_GET['idSousCategorie'] !=''){
+                        $this->oeuvresParCat($_GET['idSousCategorie']);
                     }else{
                         $this->sousCategories();
                     } 
@@ -184,7 +190,7 @@ class Controler
                     break;
 
                 case 'afficheCategories':
-                $this->afficheSousCategories();
+                $this->afficheCategories();
                 break;
                 
                 case 'ajoutCategorie':
@@ -213,8 +219,8 @@ class Controler
                     $this->propositionCommentaire();
                     break;
 
-                case 'afficheCommentaires':
-                    $this->afficheCommentaires();
+                case 'afficheModCommentaires':
+                    $this->afficheModCommentaires();
                     break;
                 
                 case 'afficheBDD':
@@ -227,6 +233,10 @@ class Controler
                 
                 case 'detailsPhotoUtilisateur':
                     $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
+                    break;
+
+                 case 'voter':
+                    $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
                     break;
                     
                 default:
@@ -1315,7 +1325,7 @@ class Controler
      */
         private function afficherDetailsPhotoUtilisateur($idPhoto)
         {
-            //Get Utilisateur
+            $comment=0;
            $oUtilisateur = new MUtilisateurs('','','','','','','','','');
            $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
 
@@ -1339,6 +1349,13 @@ class Controler
             $aComments = $oComment->getAllCommentParIdPhoto($idPhoto);
             
            $uVue->afficherDetailsPhotoUtilisateur($aComments, $unOeuvre, $aphoto, $unUtilisateur, $unUtilisateurProposition);
+
+           $pos=10;
+            foreach($aComments as $com){
+                $comment++;
+            }
+            $likes=$oPhoto->getCombienVOtesParPhoto($idPhoto);
+            $uVue->afficherAsideUtilisateur($pos,$likes,$comment);
            $oVue->afficheFooter(false,false,false,false);
         }
     
@@ -1490,15 +1507,22 @@ class Controler
          * @auteur: Thuy Tien Vo
          */
 
-        private function afficheCommentaires()
+        private function afficheModCommentaires()
         {
-         
+            
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
+            $oCommentaire = new MCommentaires('','','');
+            $nbreCommentairesNonValides = MCommentaires::nbreCommentairesNonValides();
+            if($nbreCommentairesNonValides !=0) {
+                $aCommentairesAValider = $oCommentaire->listeCommentairesAValider();
+            } else {
+                $aCommentairesAValider = '';
+            }
             
             $oVueAdmin->afficheHeaderAdmin();
-            $oVueAdmin->afficheCommentaires();
-            $oVueDefaut->afficheFooter(false, true, false,true);
+            $oVueAdmin->afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
     
         }
 
@@ -1553,6 +1577,25 @@ class Controler
             
             
         }
+    
+        private function supprimerCommentaire($idCommentaire) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oCommentaires = new MCommentaires('','','','');
+            $oCommentaires->supprimerCommentaire($idCommentaire);
+            $nbreCommentairesNonValides = $oCommentaires->nbreCommentairesNonValides();
+            if($nbreCommentairesNonValides !=0) {
+                $aCommentairesAValider = $oCommentaires->listeCommentairesAValider();
+            } else {
+                $aCommentairesAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+            
+            
+        }
         
         private function validerPhoto($idPhoto) 
         {
@@ -1571,6 +1614,31 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
             
             
+        } 
+    
+        private function validerCommentaire($idCommentaire) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oCommentaires = new MCommentaires('','','','');
+            $oCommentaires->validerCommentaire($idCommentaire);
+            $nbreCommentairesNonValides = $oCommentaires->nbreCommentairesNonValides();
+            if($nbreCommentairesNonValides !=0) {
+                $aCommentairesAValider = $oCommentaires->listeCommentairesAValider();
+            } else {
+                $aCommentairesAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModCommentaires($aCommentairesAValider, $nbreCommentairesNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+            
+            
+        }
+    
+        private function voterPourUnPhoto($idPhoto,$idUtilisateur)
+        {
+            
+            echo "voter";
         }
     
         

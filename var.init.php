@@ -28,7 +28,11 @@
 	{
 		$_POST['categorie'] = '';
 	}
-
+    if(empty($_GET['idSousCategorie']))
+    {
+        $_GET['idSousCategorie']='';
+    } 
+       
     if(empty($oeuvres))
     {
         $oeuvres = '';
@@ -53,7 +57,7 @@
     {
 		$_POST['majBDD'] = '';
 	}
+
     
- 
 
 ?>
