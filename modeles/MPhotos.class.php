@@ -56,27 +56,24 @@ class MPhotos {
 	 */
     public static function listerPhotosValidesUtilisateur($idUtil)
     {
-        self::$database->query('SELECT photo.idPhoto, photo.nomPhoto, photo.validationPhoto,photo.idOeuvre, 
-(SELECT COUNT(contient.idCommentaire) FROM contient WHERE contient.idPhoto=photo.idPhoto) AS nbCommentaires,
- 
- (SELECT COUNT(vote.idUtilisateur) FROM vote WHERE vote.idPhoto=photo.idPhoto) AS nbVotes 
-  
-  
-  FROM photo JOIN contient ON photo.idPhoto = contient.idPhoto 
-  JOIN propose ON propose.idPhoto = photo.idPhoto 
-  JOIN utilisateur_enregistre ON propose.idUtilisateur= utilisateur_enregistre.idUtilisateur 
-  WHERE utilisateur_enregistre.idUtilisateur=:idUtil AND photo.validationPhoto=1');
+        $photos=array();
+        self::$database->query('SELECT photo.idPhoto, photo.nomPhoto, photo.idOeuvre,
+        (SELECT COUNT(contient.idCommentaire) FROM contient WHERE contient.idPhoto=photo.idPhoto) AS nbCommentaires,
+        (SELECT COUNT(vote.idUtilisateur) FROM vote WHERE vote.idPhoto=photo.idPhoto) AS nbVotes
+        FROM photo
+        JOIN propose ON propose.idPhoto = photo.idPhoto 
+        JOIN utilisateur_enregistre ON propose.idUtilisateur= utilisateur_enregistre.idUtilisateur 
+        WHERE utilisateur_enregistre.idUtilisateur=:idUtil AND photo.validationPhoto=1
+        ORDER BY nbVotes DESC');
+        
         
         self::$database->bind(':idUtil', $idUtil);
         $lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
-			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['validationPhoto'], $ligne['idOeuvre'],$ligne['nbCommentaires'],$ligne['nbVotes']);
+			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['idOeuvre'],$ligne['nbCommentaires'],$ligne['nbVotes']);
 			$photos[] = $unPhoto;
 		}
-		if($photos)
-            return $photos;
-        else
-            return false;
+		return $photos;
     }
     
     
@@ -85,8 +82,9 @@ class MPhotos {
      * @author German Mahecha
 	 * @return 
 	 */
-    public static function listerPhotosParOeuvre($idOeuvre)
+   public static function listerPhotosParOeuvre($idOeuvre)
     {
+        $photos=array();
         self::$database->query('SELECT * FROM photo WHERE idOeuvre = :idOeuvre AND photo.validationPhoto=1');
         self::$database->bind(':idOeuvre', $idOeuvre);
         $lignes = self::$database->resultset();
@@ -94,10 +92,7 @@ class MPhotos {
 			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['validationPhoto'], $ligne['idOeuvre']);
 			$photos[] = $unPhoto;
 		}
-		if($photos)
-            return $photos;
-        else
-            return false;
+		return $photos;
     }
     
     
@@ -129,6 +124,7 @@ class MPhotos {
 	 */
     public static function listeComentairesIdPhoto()
     {
+        $photos=array();
         self::$database->query('SELECT * FROM commentaire 
         JOIN contient ON commentaire.idCommentaire= contient.idCommentaire
         JOIN photo ON contient.idPhoto=photo.idPhoto
@@ -164,7 +160,7 @@ class MPhotos {
 	 * @return true ou false
 	 */
     public static function ajouterPhoto($ruta,$idOeuvre){
-        self::$database->query("INSERT INTO photo VALUES ('',:ruta,0,:idOeuvre)");
+        self::$database->query("INSERT INTO photo VALUES ('',:ruta,'',:idOeuvre)");
         //On lie les paramètres auxvaleurs
         self::$database->bind(':ruta', $ruta);
         self::$database->bind(':idOeuvre', $idOeuvre);
@@ -184,6 +180,31 @@ class MPhotos {
         self::$database->bind(':datetime', $dateIns);
         return(self::$database->execute()); 
     }
+    
+    /* listerPhotosValidesUtilisateur()
+	 * @access public static
+     * @author German Mahecha
+	 * @return 
+	 */
+    public static function listerMeilleuresPhotos()
+    {
+        $photos=array();
+        self::$database->query('SELECT photo.idPhoto, photo.nomPhoto, photo.idOeuvre, 
+        (SELECT COUNT(contient.idCommentaire) FROM contient WHERE contient.idPhoto=photo.idPhoto) AS nbCommentaires, 
+        (SELECT COUNT(vote.idUtilisateur) FROM vote WHERE vote.idPhoto=photo.idPhoto) AS nbVotes 
+        FROM photo 
+        WHERE photo.validationPhoto=1
+        ORDER BY nbVotes DESC');
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unPhoto = array($ligne['idPhoto'], $ligne['nomPhoto'], $ligne['idOeuvre'],$ligne['nbCommentaires'],$ligne['nbVotes']);
+			$photos[] = $unPhoto;
+		}
+		return $photos;
+        
+    }
+    
+    
      
     /* function ajouterPhoto()
 	 * @access public static
@@ -192,7 +213,6 @@ class MPhotos {
 	 */
     public static function recupererDernierId() {
         return(self::$database->dernierId());
-        echo self::$database->dernierId();
     }
     
     /* function qui liste les photos non valides
@@ -201,6 +221,7 @@ class MPhotos {
 	 * @return array
 	 */
     public static function listePhotosNonValides() {
+        $photos=array();
         self::$database->query("SELECT * FROM photo WHERE validationPhoto = 0");
         $lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
@@ -246,6 +267,7 @@ class MPhotos {
 	 * @return int
 	 */
     public static function listePhotosAValider() {
+        $photos=array();
         self::$database->query("SELECT utilisateur_enregistre.loginUtilisateur, propose.dateProposition, photo.idPhoto, photo.nomPhoto, oeuvre.titreOeuvre 
 FROM photo
 JOIN oeuvre ON photo.idOeuvre = oeuvre.idOeuvre
@@ -291,6 +313,23 @@ WHERE photo.validationPhoto=0");
         
     }
     
+    public static function getPhotoParId($idPhoto)
+    {
+        self::$database->query("SELECT * FROM photo WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        $ligne=self::$database->uneLigne();
+        return $ligne;
+    }
+    
+    
+    
+     public static function getCombienVotesParPhoto($idPhoto)
+     {
+        self::$database->query("SELECT COUNT(vote.idPhoto) AS votes FROM vote WHERE idPhoto = :idPhoto");
+        self::$database->bind(':idPhoto', $idPhoto);
+        $ligne=self::$database->uneLigne();
+        return $ligne['votes'];
+    }    
 }?>
 
 
