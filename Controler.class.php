@@ -234,6 +234,10 @@ class Controler
                 case 'detailsPhotoUtilisateur':
                     $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
                     break;
+
+                 case 'voter':
+                    $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
+                    break;
                     
                 default:
 			    $this->accueil();
@@ -1318,7 +1322,7 @@ class Controler
      */
         private function afficherDetailsPhotoUtilisateur($idPhoto)
         {
-            //Get Utilisateur
+            $comment=0;
            $oUtilisateur = new MUtilisateurs('','','','','','','','','');
            $unUtilisateur = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
 
@@ -1342,6 +1346,13 @@ class Controler
             $aComments = $oComment->getAllCommentParIdPhoto($idPhoto);
             
            $uVue->afficherDetailsPhotoUtilisateur($aComments, $unOeuvre, $aphoto, $unUtilisateur, $unUtilisateurProposition);
+
+           $pos=10;
+            foreach($aComments as $com){
+                $comment++;
+            }
+            $likes=$oPhoto->getCombienVOtesParPhoto($idPhoto);
+            $uVue->afficherAsideUtilisateur($pos,$likes,$comment);
            $oVue->afficheFooter(false,false,false,false);
         }
     
@@ -1619,6 +1630,12 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
             
             
+        }
+    
+        private function voterPourUnPhoto($idPhoto,$idUtilisateur)
+        {
+            
+            echo "voter";
         }
     
         

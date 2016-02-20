@@ -219,23 +219,12 @@ class VueAdmin
                         <li>
                              
                         </li>
-                        <li>
-                            <a href="index.php?requete=adminPanel"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
-                        </li>
-                        <li>
-                            <a href="index.php?requete=afficheOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
-                        </li>
-                        <li>
-                            <a href="index.php?requete=afficheArtistes"><i class="fa fa-users fa-fw"></i> Artistes</a>
-                        </li>
-                        <li>
-                            <a href="index.php?requete=afficheCategories"><i class="fa fa-list fa-fw"></i> Catégories</a>
-                        </li>
-                        <li>
-                            <a href="index.php?requete=afficheUtilisateurs"><i class="fa fa-user fa-fw"></i> Utilisateurs</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Modération<span class="fa arrow"></span></a>
+                        <li><a href="index.php?requete=adminPanel"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a></li>
+                        <li><a href="index.php?requete=afficheOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a></li>
+                        <li><a href="index.php?requete=afficheArtistes"><i class="fa fa-users fa-fw"></i> Artistes</a></li>
+                        <li><a href="index.php?requete=afficheCategories"><i class="fa fa-list fa-fw"></i> Catégories</a></li>
+                        <li><a href="index.php?requete=afficheUtilisateurs"><i class="fa fa-user fa-fw"></i> Utilisateurs</a></li>
+                        <li><a href="#"><i class="fa fa-sitemap fa-fw"></i> Modération<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 
                                 <li>
@@ -247,18 +236,14 @@ class VueAdmin
                                 <li>
                                     <a href="index.php?requete=afficheModCommentaires"><i class="fa fa-comment fa-fw"></i> Commentaires</a>
                                 </li>
+
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-unlock-alt fa-fw"></i> Administrateurs<span class="fa arrow"></span></a>
+                        <li><a href="#"><i class="fa fa-unlock-alt fa-fw"></i> Administrateurs<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="index.php?requete=afficheAdminMods"><i class="fa fa-wrench fa-fw"></i> Gestion</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?requete=afficheBDD"><i class="fa fa-download fa-fw"></i> Base de données</a>
-                                </li>
+                                <li><a href="index.php?requete=afficheAdminMods"><i class="fa fa-wrench fa-fw"></i> Gestion</a></li>
+                                <li><a href="index.php?requete=afficheBDD"><i class="fa fa-download fa-fw"></i> Base de données</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

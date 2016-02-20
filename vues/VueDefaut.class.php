@@ -655,12 +655,9 @@ public function afficheSliderAccueil($oeuvres)
                             echo "<img src='images/photoDefaut.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
                                 echo '<div class="overlay">';
                                     echo '<h2>'.$titre .'</h2>';
-                                    echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a>';
-                                    echo '<p class="info"><span class="glyphicon glyphicon-thumbs-up"></span> 30 likes</p>';
+                                    echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a><br/>';
                                     if ($_SESSION['session']){
                                         echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "Proposer Photo " .'</a>';
-                                        echo '<a class="info" href="index.php?requete=propositionCommentaire&idOeuvre='.$idOeuvre.'">'. "Commentaire " .'</a>';
-                                        echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "<span class='glyphicon glyphicon-thumbs-up'></span> J'aime" .'</a>';
                                     }
                                 echo '</div>';
                             echo '</div>';
