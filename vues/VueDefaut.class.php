@@ -256,7 +256,7 @@ class VueDefaut
                                 <label for="motDePasse" class="control-label">Mot de passe:</label>  
                                 <input type="password" name="motDePasse" class="form-control" class="form-control">
                             </div>
-                            <input type="button" value="Connexion" id="button" onclick="encrypte();">
+                            <input type="button" value="Connexion" class="btn btn-success" id="button" onclick="encrypte();">
                         </form>
                         <form method="POST" name="formEncrypte" action="index.php?requete=connexion&action=envoyer">
                             <input type="hidden" name="utilisateur"/><br/>
@@ -985,8 +985,8 @@ public function afficheSliderAccueil($oeuvres)
             
   
         }
-        echo $lat;
-        echo $lon;
+        /*echo $lat;
+        echo $lon;*/
         ?>
         
                     <script>
@@ -1092,7 +1092,7 @@ public function afficheSliderAccueil($oeuvres)
             <?php
              if($aOeuvreParCat == "")
             {
-                echo "Il n'y a pas d'oeuvres dans ce catégorie";
+                echo "Il n'y a pas d'oeuvres dans cette catégorie";
             }
             else
             {

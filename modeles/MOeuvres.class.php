@@ -240,14 +240,15 @@ class MOeuvres {
 	 * @return Array Tableau contenant la liste de toutes les oeuvres par CATEGORIE
      * @author Thuy Tien Vo
      * @author German Mahecha
+     * @author Gautier Piatek
      * @version 1.1
      * 
      */
 
 
-	public static function listeOeuvresParCat($idCategorie) {
-		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idCategorie=:idCategorie');
-		self::$database->bind(':idCategorie', $idCategorie);
+	public static function listeOeuvresParCat($idSousCategorie) {
+		self::$database->query('SELECT * FROM oeuvre WHERE oeuvre.idSousCategorie=:idSousCategorie');
+		self::$database->bind(':idSousCategorie', $idSousCategorie);
 		$lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
 			$uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'], $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
@@ -256,7 +257,7 @@ class MOeuvres {
 		if(isset($oeuvres))
         	return $oeuvres;
         else
-            echo "il n'y a pas d'oeuvres dans ce catégorie";            
+            echo "il n'y a pas d'oeuvres dans cette catégorie";            
     }
 
 
