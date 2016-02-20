@@ -96,7 +96,7 @@ class MUtilisateurs {
 		self::$database->query('SELECT * FROM utilisateur_enregistre ORDER BY utilisateur_enregistre.loginUtilisateur ASC');
 		$lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {
-			$unUtilisateur = new MUtilisateurs($ligne['idUtilisateur'], $ligne['loginUtilisateur'], $ligne['passUtilisateur'], $ligne['nomUtil'], $ligne['prenomUtil'], $ligne['courrielUtil'], $ligne['telUtil'], $ligne['bio'], $ligne['photoUtilisateur']);
+			$unUtilisateur = new MUtilisateurs($ligne['idUtilisateur'], $ligne['loginUtilisateur'], $ligne['passUtilisateur'], $ligne['nomUtil'], $ligne['prenomUtil'], $ligne['courrielUtil'], $ligne['TelUtil'], $ligne['bio'], $ligne['photoUtilisateur']);
 			$utilisateurs[] = $unUtilisateur;
 		}
 		return $utilisateurs;

@@ -763,7 +763,7 @@ class Controler
             $erreurTitre ='';
             $message ='';
             
-            
+        
           
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
@@ -774,7 +774,10 @@ class Controler
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
                 $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo ']);
                 $message = "Utilisateur ajoutée.";
+                echo 'utilisateur ajoute';
             }
+            
+            
 
             $oVue->afficheInscription();
 

@@ -46,7 +46,11 @@
 }
 
 
-
+#details_oeuvre{
+    background-color: rgb(252, 232, 186);
+    padding: 50px;
+    margin-top: 50px;
+}
 
 
 
