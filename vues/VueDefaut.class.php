@@ -118,7 +118,7 @@ class VueDefaut
                                             echo "<li><a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a></li>";
                                         }
         
-                                        if($_SESSION["session"]) {
+                                        if($_SESSION["session"] && !$_SESSION["admin"]) {
                                             echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
                                                 echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
                                         } else {
@@ -832,7 +832,7 @@ public function afficheSliderAccueil($oeuvres)
             $idArtiste = $artiste->getIdArtiste();
  
 
-            echo ' <div class="col-xs-6">';
+            echo ' <div class="col-xs-4">';
               
                 echo' <div class="panel-group" id="accordion">';
 
@@ -1054,6 +1054,7 @@ public function afficheSliderAccueil($oeuvres)
         ?>
         <div class="text-center">
         <h2>Catégories</h2>
+        
         </div>
         <?php
         $compteur = 1;
@@ -1105,7 +1106,10 @@ public function afficheSliderAccueil($oeuvres)
 
         {
             ?>
-            <h2>Oeuvre Par Catégorie</h2>
+            <div class="text-center">
+                <h2>Oeuvre Par Catégorie</h2>
+            </div>
+            
             <?php
              if($aOeuvreParCat == "")
             {
