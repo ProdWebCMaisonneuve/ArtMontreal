@@ -445,14 +445,14 @@ class Controler
                 {
                 $oArtiste->modifierArtiste($_GET['idArtiste'], $_POST['prenom'], $_POST['nom'], $_POST['collectif'], $_POST['photoArtiste']);
                 
-                $oVueDefaut = new VueDefaut();
+                $oVueAdmin = new VueAdmin();
                 $nbreArtistes = $oArtiste->nbreArtistes();
                 if($nbreArtistes !=0) {
                     $aArtistes = $oArtiste->listeArtistes();
                 } else {
                     $aArtistes = '';
                 }
-                    
+                $oVueAdmin->afficheArtistes($aArtistes, $nbreArtistes);
                 }
                 catch (Exception $e)
                 {
@@ -723,13 +723,14 @@ class Controler
                   
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin = new VueAdmin();
+                $nbreOeuvres = $oOeuvre->nbreOeuvres();
                 if($nbreOeuvres !=0) {
                     $aOeuvres = $oOeuvre->listeOeuvres();
                 } else {
                     $aOeuvres = '';
                 }
                 $message = "Oeuvre modifiée.";  
-  
+                $oVueAdmin->afficheOeuvres($aOeuvres, $nbreOeuvres);
                 }
                 catch (Exception $e)
                 {

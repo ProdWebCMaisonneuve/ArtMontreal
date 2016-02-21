@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 18 Février 2016 à 07:45
+-- Généré le :  Dim 21 Février 2016 à 00:11
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -313,13 +313,6 @@ CREATE TABLE IF NOT EXISTS `bdd` (
   `dateMaj` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `bdd`
---
-
-INSERT INTO `bdd` (`dateMaj`) VALUES
-('18-02-2016 00:24:12 (America/Toronto)');
-
 -- --------------------------------------------------------
 
 --
@@ -353,16 +346,17 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   `commentaire` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `validationCommentaire` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idCommentaire`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `commentaire`
 --
 
 INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `validationCommentaire`) VALUES
-(1, 'bla bla bla', 1),
-(2, 'ble ble', 1),
-(3, 'bli bli', 1);
+(5, 'Que belle photo!!!', 1),
+(6, 'Il est intéressant...', 1),
+(7, 'C''est triste...', 1),
+(9, 'Il est intéressant...', 1);
 
 -- --------------------------------------------------------
 
@@ -375,15 +369,17 @@ CREATE TABLE IF NOT EXISTS `contient` (
   `idCommentaire` int(11) NOT NULL,
   PRIMARY KEY (`idPhoto`,`idCommentaire`),
   KEY `FK_contient_idCommentaire` (`idCommentaire`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Contenu de la table `contient`
 --
 
 INSERT INTO `contient` (`idPhoto`, `idCommentaire`) VALUES
-(1, 2),
-(1, 3);
+(15, 5),
+(15, 6),
+(18, 7),
+(19, 9);
 
 -- --------------------------------------------------------
 
@@ -397,7 +393,17 @@ CREATE TABLE IF NOT EXISTS `ecrit` (
   `dateCommentaire` date DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`,`idCommentaire`),
   KEY `FK_ecrit_idCommentaire` (`idCommentaire`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Contenu de la table `ecrit`
+--
+
+INSERT INTO `ecrit` (`idUtilisateur`, `idCommentaire`, `dateCommentaire`) VALUES
+(4, 5, '2016-02-18'),
+(4, 7, '2016-02-18'),
+(5, 6, '2016-02-19'),
+(5, 9, '2016-02-19');
 
 -- --------------------------------------------------------
 
@@ -776,7 +782,7 @@ CREATE TABLE IF NOT EXISTS `oeuvre_artiste` (
   `idArtiste` int(11) NOT NULL,
   PRIMARY KEY (`idOeuvre`,`idArtiste`),
   KEY `idArtiste` (`idArtiste`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `oeuvre_artiste`
@@ -798,10 +804,10 @@ INSERT INTO `oeuvre_artiste` (`idOeuvre`, `idArtiste`) VALUES
 (630, 543),
 (631, 543),
 (632, 543),
-(633, 544),
-(633, 545),
 (634, 543),
 (635, 543),
+(633, 544),
+(633, 545),
 (636, 546),
 (637, 546),
 (638, 547),
@@ -826,6 +832,11 @@ INSERT INTO `oeuvre_artiste` (`idOeuvre`, `idArtiste`) VALUES
 (656, 560),
 (657, 560),
 (657, 561),
+(782, 561),
+(783, 561),
+(784, 561),
+(785, 561),
+(786, 561),
 (658, 562),
 (659, 562),
 (660, 563),
@@ -955,11 +966,6 @@ INSERT INTO `oeuvre_artiste` (`idOeuvre`, `idArtiste`) VALUES
 (779, 641),
 (780, 642),
 (781, 643),
-(782, 561),
-(783, 561),
-(784, 561),
-(785, 561),
-(786, 561),
 (787, 644),
 (788, 645),
 (789, 645),
@@ -1109,16 +1115,18 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `idOeuvre` int(11) NOT NULL,
   PRIMARY KEY (`idPhoto`),
   KEY `fk_photo_oeuvre` (`idOeuvre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Contenu de la table `photo`
 --
 
 INSERT INTO `photo` (`idPhoto`, `nomPhoto`, `validationPhoto`, `idOeuvre`) VALUES
-(1, 'img_2.jpg', 1, 3),
-(2, 'img3.jpg', 1, 625),
-(3, 'img4.jpg', 1, 786);
+(15, 'photos/photosProposees/4/source.JPG', 1, 2),
+(17, 'photos/photosProposees/4/laporte.JPG', 1, 3),
+(18, 'photos/photosProposees/4/lemalheureu.JPG', 1, 621),
+(19, 'photos/photosProposees/5/OBELISQUEOBLIQUE.jpg', 1, 625),
+(20, 'photos/photosProposees/4/OBELISQUEOBLIQUE.jpg', 0, 625);
 
 -- --------------------------------------------------------
 
@@ -1134,6 +1142,17 @@ CREATE TABLE IF NOT EXISTS `propose` (
   KEY `FK_propose_idUtilisateur` (`idUtilisateur`),
   KEY `FK_propose_idPhoto` (`idPhoto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `propose`
+--
+
+INSERT INTO `propose` (`idUtilisateur`, `idPhoto`, `dateProposition`) VALUES
+(4, 15, '2016/2/19'),
+(4, 17, '2016/2/19'),
+(4, 18, '2016/2/19'),
+(4, 20, '2016/2/19'),
+(5, 19, '2016/2/19');
 
 -- --------------------------------------------------------
 
@@ -1196,7 +1215,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur_enregistre` (
   `nomUtil` varchar(50) DEFAULT NULL,
   `prenomUtil` varchar(50) DEFAULT NULL,
   `courrielUtil` varchar(100) DEFAULT NULL,
-  `telUtil` text,
+  `TelUtil` text,
   `bio` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `photoUtilisateur` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`)
@@ -1206,9 +1225,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur_enregistre` (
 -- Contenu de la table `utilisateur_enregistre`
 --
 
-INSERT INTO `utilisateur_enregistre` (`idUtilisateur`, `loginUtilisateur`, `passUtilisateur`, `nomUtil`, `prenomUtil`, `courrielUtil`, `telUtil`, `bio`, `photoUtilisateur`) VALUES
-(4, 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'toto', 'le magicien', 'totolemagicien@lamagique.com', '5145858585', 'Je suis le magicien plus populaire du monde', 'utilisateurDefaut.jpg'),
-(5, 'gerard', '64d8be661d8a79416eb6662db51e7118', 'Gerard', 'Tremblay', 'gerartremblay@gmail.com', '5145860409', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...', 'Util_1.jpg');
+INSERT INTO `utilisateur_enregistre` (`idUtilisateur`, `loginUtilisateur`, `passUtilisateur`, `nomUtil`, `prenomUtil`, `courrielUtil`, `TelUtil`, `bio`, `photoUtilisateur`) VALUES
+(4, 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'le magicien', 'Toto', 'totolemagicien@lamagique.com', '5145858585', 'Je suis le magicien plus populaire du monde.', 'toto.jpg'),
+(5, 'gerard', '64d8be661d8a79416eb6662db51e7118', 'Tremblay', 'Gerard', 'gerartremblay@gmail.com', '5145860409', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...', 'gerard.jpg');
 
 -- --------------------------------------------------------
 
@@ -1221,15 +1240,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
   `idPhoto` int(11) NOT NULL,
   PRIMARY KEY (`idUtilisateur`,`idPhoto`),
   KEY `FK_vote_idPhoto` (`idPhoto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Contenu de la table `vote`
---
-
-INSERT INTO `vote` (`idUtilisateur`, `idPhoto`) VALUES
-(4, 1),
-(4, 3);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Contraintes pour les tables exportées
