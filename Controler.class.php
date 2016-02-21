@@ -428,8 +428,12 @@ class Controler
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
             $aArtiste = $oArtiste->getArtisteParId($idArt);
-            $aArtistes = $oArtiste->listeArtistes();
             $nbreArtistes = $oArtiste->nbreArtistes();
+                if($nbreArtistes !=0) {
+                    $aArtistes = $oArtiste->listeArtistes();
+                } else {
+                    $aArtistes = '';
+                }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -442,9 +446,9 @@ class Controler
                 $oArtiste->modifierArtiste($_GET['idArtiste'], $_POST['prenom'], $_POST['nom'], $_POST['collectif'], $_POST['photoArtiste']);
                 
                 $oVueDefaut = new VueDefaut();
-                $nbreArtistes = $oArtistes->nbreArtistes();
+                $nbreArtistes = $oArtiste->nbreArtistes();
                 if($nbreArtistes !=0) {
-                    $aArtistes = $oArtistes->listeArtistes();
+                    $aArtistes = $oArtiste->listeArtistes();
                 } else {
                     $aArtistes = '';
                 }
@@ -473,9 +477,9 @@ class Controler
         {   
             $oCategorie = new MCategories('', '', '');
             $aCategorie = $oCategorie->getCategorieParId($idCat);
-            $nbreCategories = $oCategories->nbreCategories();
+            $nbreCategories = $oCategorie->nbreCategories();
                 if($nbreCategories !=0) {
-                    $aCategories = $oCategories->listeCategories();
+                    $aCategories = $oCategorie->listeCategories();
                 } else {
                     $aCategories = '';
                 }
@@ -491,9 +495,9 @@ class Controler
                 $oCategorie->modifierCategorie($_GET['idCategorie'], $_POST['nomCategorie'], $_POST['nomCatAng']);
                 
                 $oVueAdmin = new VueAdmin();
-                $nbreCategories = $oCategories->nbreCategories();
+                $nbreCategories = $oCategorie->nbreCategories();
                 if($nbreCategories !=0) {
-                    $aCategories = $oCategories->listeCategories();
+                    $aCategories = $oCategorie->listeCategories();
                 } else {
                     $aCategories = '';
                 }
@@ -522,9 +526,9 @@ class Controler
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
             $oArtiste->supprimerArtiste($idArtiste);
-            $nbreArtistes = $oArtistes->nbreArtistes();
+            $nbreArtistes = $oArtiste->nbreArtistes();
             if($nbreArtistes !=0) {
-                $aArtistes = $oArtistes->listeArtistes();
+                $aArtistes = $oArtiste->listeArtistes();
             } else {
                 $aArtistes = '';
             }
@@ -541,8 +545,8 @@ class Controler
             
              $erreurTitre ='';
              $message ='';
-             $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-             $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
+             $oUtilisateurs = new MUtilisateurs('', '', '','', '', '','','','');
+             $aUtilisateur = $oUtilisateurs->getUtilisateurParId($idUtil);
             $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                 if($nbreUtilisateurs !=0) {
                     $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
@@ -599,9 +603,9 @@ class Controler
             $aAdmin_moderateur = $oAdmin_moderateur->getAdmin_moderateurParId($idAmin_moderateur);
             $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
             if($nbreAdminMods !=0) {
-                $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+                $aAdmin_moderateurs = $oAdmin_moderateur::listeAdmin_moderateur();
             } else {
-                $aAdmin_moderateur = '';
+                $aAdmin_moderateurs = '';
             }
             
             $oVueDefaut = new VueDefaut();
@@ -646,8 +650,8 @@ class Controler
     
         private function supprimerUtilisateurs($idUtil)
         {   
-            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-            $oUtilisateur->supprimerUtilisateurs($idUtil);
+            $oUtilisateurs = new MUtilisateurs('', '', '','', '', '','','','');
+            $oUtilisateurs->supprimerUtilisateurs($idUtil);
             $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                 if($nbreUtilisateurs !=0) {
                     $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
@@ -669,9 +673,9 @@ class Controler
             $oAdmin_moderateur->supprimerAdmin_moderateur($idAmin_moderateur);
             $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
             if($nbreAdminMods !=0) {
-                $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+                $aAdmin_moderateurs = $oAdmin_moderateur::listeAdmin_moderateur();
             } else {
-                $aAdmin_moderateur = '';
+                $aAdmin_moderateurs = '';
             }
             
             $oVueDefaut = new VueDefaut();
@@ -719,18 +723,13 @@ class Controler
                   
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin = new VueAdmin();
-                $aOeuvres = $oOeuvre->listeOeuvres();
-                $nbreOeuvres = $oOeuvre->nbreOeuvres();
-                $message = "Oeuvre modifiée.";  
-                
                 if($nbreOeuvres !=0) {
-                    $aOeuvres = $oOeuvres->listeOeuvres();
+                    $aOeuvres = $oOeuvre->listeOeuvres();
                 } else {
                     $aOeuvres = '';
                 }
-                    
-                
-                    
+                $message = "Oeuvre modifiée.";  
+  
                 }
                 catch (Exception $e)
                 {
@@ -765,9 +764,9 @@ class Controler
         {   
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $oOeuvre->supprimerOeuvre($idOeuvre);
-            $nbreOeuvres = $oOeuvres->nbreOeuvres();
+            $nbreOeuvres = $oOeuvre->nbreOeuvres();
             if($nbreOeuvres !=0) {
-                $aOeuvres = $oOeuvres->listeOeuvres();
+                $aOeuvres = $oOeuvre->listeOeuvres();
             } else {
                 $aOeuvres = '';
             }
@@ -993,20 +992,14 @@ class Controler
         {
              
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvres = $oOeuvres->listeOeuvres();
             $nbreOeuvres = $oOeuvres->nbreOeuvres();
              
             $oArtistes = new MArtistes('', '', '', '', '', '');
-            $aArtistes = $oArtistes->listeArtistes();
             $nbreArtistes = $oArtistes->nbreArtistes();
              
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
-            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
             $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
-             
-            $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
-            
+                     
             $oPhotos = new MPhotos("", "", "", "");
             $nbrePhotos = $oPhotos->nbrePhotos();
              
@@ -1148,9 +1141,9 @@ class Controler
         {   
             $oCategorie = new MCategories('', '', '');
             $oCategorie->supprimerCategories($idCategorie);
-            $nbreCategories = $oCategories->nbreCategories();
+            $nbreCategories = $oCategorie->nbreCategories();
                 if($nbreCategories !=0) {
-                    $aCategories = $oCategories->listeCategories();
+                    $aCategories = $oCategorie->listeCategories();
                 } else {
                     $aCategories = '';
                 }
