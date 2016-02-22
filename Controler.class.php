@@ -122,9 +122,6 @@ class Controler
                     } 
                     break;
 
-                case 'afficheCategories':
-                    $this->afficheCategories();
-                    break;
                 case 'sousCategories':
                    if($_GET['idSousCategorie'] !=''){
                         $this->oeuvresParCat($_GET['idSousCategorie']);
@@ -355,8 +352,13 @@ class Controler
         private function afficheOeuvres()
 		{
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvres = $oOeuvres->listeOeuvres();
+            
             $nbreOeuvres = $oOeuvres->nbreOeuvres();
+            if($nbreOeuvres !=0) {
+                $aOeuvres = $oOeuvres->listeOeuvres();
+            } else {
+                $aOeuvres = '';
+            }
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             
@@ -369,8 +371,12 @@ class Controler
         private function afficheUtilisateurs()
 		{
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '', '', '', '');
-            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
             $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+                if($nbreUtilisateurs !=0) {
+                    $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+                } else {
+                    $aUtilisateurs = '';
+                }
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             
@@ -383,8 +389,12 @@ class Controler
         private function afficheArtistes()
 		{
             $oArtistes = new MArtistes('', '', '','', '', '');
-            $aArtistes = $oArtistes->listeArtistes();
             $nbreArtistes = $oArtistes->nbreArtistes();
+            if($nbreArtistes !=0) {
+                $aArtistes = $oArtistes->listeArtistes();
+            } else {
+                $aArtistes = '';
+            }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -399,8 +409,13 @@ class Controler
         private function afficheAdminMods()
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+        
             $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
+            if($nbreAdminMods !=0) {
+                $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+            } else {
+                $aAdmin_moderateur = '';
+            }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -413,8 +428,12 @@ class Controler
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
             $aArtiste = $oArtiste->getArtisteParId($idArt);
-            $aArtistes = $oArtiste->listeArtistes();
             $nbreArtistes = $oArtiste->nbreArtistes();
+                if($nbreArtistes !=0) {
+                    $aArtistes = $oArtiste->listeArtistes();
+                } else {
+                    $aArtistes = '';
+                }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -426,10 +445,14 @@ class Controler
                 {
                 $oArtiste->modifierArtiste($_GET['idArtiste'], $_POST['prenom'], $_POST['nom'], $_POST['collectif'], $_POST['photoArtiste']);
                 
-                $oVue = new VueDefaut();
-                $aArtistes = $oArtiste->listeArtistes();
-                $oVueAdmin->afficheArtistes($aArtistes, $nbreArtistes); 
-                    
+                $oVueAdmin = new VueAdmin();
+                $nbreArtistes = $oArtiste->nbreArtistes();
+                if($nbreArtistes !=0) {
+                    $aArtistes = $oArtiste->listeArtistes();
+                } else {
+                    $aArtistes = '';
+                }
+                $oVueAdmin->afficheArtistes($aArtistes, $nbreArtistes);
                 }
                 catch (Exception $e)
                 {
@@ -454,7 +477,12 @@ class Controler
         {   
             $oCategorie = new MCategories('', '', '');
             $aCategorie = $oCategorie->getCategorieParId($idCat);
-            $aCategories = $oCategorie->listeCategories();
+            $nbreCategories = $oCategorie->nbreCategories();
+                if($nbreCategories !=0) {
+                    $aCategories = $oCategorie->listeCategories();
+                } else {
+                    $aCategories = '';
+                }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -467,8 +495,12 @@ class Controler
                 $oCategorie->modifierCategorie($_GET['idCategorie'], $_POST['nomCategorie'], $_POST['nomCatAng']);
                 
                 $oVueAdmin = new VueAdmin();
-                $aCategories = $oCategorie->listeCategories();
                 $nbreCategories = $oCategorie->nbreCategories();
+                if($nbreCategories !=0) {
+                    $aCategories = $oCategorie->listeCategories();
+                } else {
+                    $aCategories = '';
+                }
                 $oVueAdmin->afficheCategories($aCategories, $nbreCategories); 
                     
                 }
@@ -494,8 +526,12 @@ class Controler
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
             $oArtiste->supprimerArtiste($idArtiste);
-            $aArtistes = $oArtiste::listeArtistes();
-            $nbreArtistes = $oArtiste::nbreArtistes();
+            $nbreArtistes = $oArtiste->nbreArtistes();
+            if($nbreArtistes !=0) {
+                $aArtistes = $oArtiste->listeArtistes();
+            } else {
+                $aArtistes = '';
+            }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -509,10 +545,14 @@ class Controler
             
              $erreurTitre ='';
              $message ='';
-             $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-             $aUtilisateur = $oUtilisateur->getUtilisateurParId($idUtil);
-             $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
-            $nbreUtilisateurs = $oUtilisateur->nbreUtilisateurs();
+             $oUtilisateurs = new MUtilisateurs('', '', '','', '', '','','','');
+             $aUtilisateur = $oUtilisateurs->getUtilisateurParId($idUtil);
+            $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+                if($nbreUtilisateurs !=0) {
+                    $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+                } else {
+                    $aUtilisateurs = '';
+                }
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
@@ -523,7 +563,12 @@ class Controler
                 {
                     $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
                     $oVueAdmin = new VueAdmin();
-                     $aUtilisateurs = $oUtilisateur->listeUtilisateurs();
+                    $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+                    if($nbreUtilisateurs !=0) {
+                        $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+                    } else {
+                        $aUtilisateurs = '';
+                    }
                     $message = 'Utilisateur modifié';
                     $oVueAdmin->afficheUtilisateurs($aUtilisateurs, $nbreUtilisateurs);
                }
@@ -556,7 +601,12 @@ class Controler
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
             $aAdmin_moderateur = $oAdmin_moderateur->getAdmin_moderateurParId($idAmin_moderateur);
-            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
+            $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
+            if($nbreAdminMods !=0) {
+                $aAdmin_moderateurs = $oAdmin_moderateur::listeAdmin_moderateur();
+            } else {
+                $aAdmin_moderateurs = '';
+            }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -569,8 +619,12 @@ class Controler
                     $oAdmin_moderateur->modifierAdmin_moderateur($_GET['idAdMod'], $_POST['role'], $_POST['login'], md5($_POST['pass']));
                 
                     $oVueAdmin = new VueAdmin();
-                    $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
                     $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
+                    if($nbreAdminMods !=0) {
+                        $aAdmin_moderateur = $oAdmin_moderateur::listeAdmin_moderateur();
+                    } else {
+                        $aAdmin_moderateur = '';
+                    }
                     $oVueAdmin->afficheAdminMods($aAdmin_moderateurs, $nbreAdminMods);
                }
                 catch (Exception $e)
@@ -596,10 +650,14 @@ class Controler
     
         private function supprimerUtilisateurs($idUtil)
         {   
-            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-            $oUtilisateur->supprimerUtilisateurs($idUtil);
-            $aUtilisateurs=$oUtilisateur->listeUtilisateurs();
-            $nbreUtilisateurs = $oUtilisateur->nbreUtilisateurs();
+            $oUtilisateurs = new MUtilisateurs('', '', '','', '', '','','','');
+            $oUtilisateurs->supprimerUtilisateurs($idUtil);
+            $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
+                if($nbreUtilisateurs !=0) {
+                    $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+                } else {
+                    $aUtilisateurs = '';
+                }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -613,8 +671,12 @@ class Controler
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
             $oAdmin_moderateur->supprimerAdmin_moderateur($idAmin_moderateur);
-            $aAdmin_moderateurs = $oAdmin_moderateur->listeAdmin_moderateur();
-            $nbreAdminMods = $oAdmin_moderateur->nbreAdminMods();
+            $nbreAdminMods = $oAdmin_moderateur::nbreAdminMods();
+            if($nbreAdminMods !=0) {
+                $aAdmin_moderateurs = $oAdmin_moderateur::listeAdmin_moderateur();
+            } else {
+                $aAdmin_moderateurs = '';
+            }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -661,13 +723,14 @@ class Controler
                   
                 $oVueDefaut = new VueDefaut();
                 $oVueAdmin = new VueAdmin();
-                $aOeuvres = $oOeuvre->listeOeuvres();
                 $nbreOeuvres = $oOeuvre->nbreOeuvres();
-                $message = "Oeuvre modifiée.";    
+                if($nbreOeuvres !=0) {
+                    $aOeuvres = $oOeuvre->listeOeuvres();
+                } else {
+                    $aOeuvres = '';
+                }
+                $message = "Oeuvre modifiée.";  
                 $oVueAdmin->afficheOeuvres($aOeuvres, $nbreOeuvres);
-                    
-                
-                    
                 }
                 catch (Exception $e)
                 {
@@ -702,8 +765,12 @@ class Controler
         {   
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             $oOeuvre->supprimerOeuvre($idOeuvre);
-            $aOeuvres = $oOeuvre->listeOeuvres();
             $nbreOeuvres = $oOeuvre->nbreOeuvres();
+            if($nbreOeuvres !=0) {
+                $aOeuvres = $oOeuvre->listeOeuvres();
+            } else {
+                $aOeuvres = '';
+            }
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();      
             $oVueAdmin->afficheHeaderAdmin();
@@ -926,20 +993,14 @@ class Controler
         {
              
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvres = $oOeuvres->listeOeuvres();
             $nbreOeuvres = $oOeuvres->nbreOeuvres();
              
             $oArtistes = new MArtistes('', '', '', '', '', '');
-            $aArtistes = $oArtistes->listeArtistes();
             $nbreArtistes = $oArtistes->nbreArtistes();
              
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
-            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
             $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
-             
-            $oAdmin_moderateurs = new MAdmin_Moderateur('', '', '', '');
-            $aAdmin_moderateurs = $oAdmin_moderateurs->listeAdmin_moderateur();
-            
+                     
             $oPhotos = new MPhotos("", "", "", "");
             $nbrePhotos = $oPhotos->nbrePhotos();
              
@@ -1081,8 +1142,12 @@ class Controler
         {   
             $oCategorie = new MCategories('', '', '');
             $oCategorie->supprimerCategories($idCategorie);
-            $aCategories = $oCategorie::listeCategories();
-            $nbreCategories = $oCategorie::nbreCategories();
+            $nbreCategories = $oCategorie->nbreCategories();
+                if($nbreCategories !=0) {
+                    $aCategories = $oCategorie->listeCategories();
+                } else {
+                    $aCategories = '';
+                }
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
@@ -1464,8 +1529,12 @@ class Controler
         private function afficheCategories()
         {
             $oCategories = new MCategories('', '', '' ,'', '','');
-            $aCategories = $oCategories->listeCategories();
             $nbreCategories = $oCategories->nbreCategories();
+                if($nbreCategories !=0) {
+                    $aCategories = $oCategories->listeCategories();
+                } else {
+                    $aCategories = '';
+                }
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             
