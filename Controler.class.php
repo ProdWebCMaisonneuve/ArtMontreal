@@ -849,7 +849,7 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo ']);
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo']);
                 $message = "Utilisateur ajoutée.";
                 echo 'utilisateur ajoute';
             }
@@ -1421,7 +1421,7 @@ class Controler
             }
             $likes=$oPhoto->getCombienVOtesParPhoto($idPhoto);
             $uVue->afficherAsideUtilisateur($pos,$likes,$comment);
-           $oVue->afficheFooter(false,false,false,false);
+            $oVue->afficheFooter(false,false,false,false);
         }
     
     
