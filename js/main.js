@@ -51,13 +51,13 @@ function validerFormAInscription()
     if(valide_valide==false)
     {   
         //doit avoir au moins 4 caracteres 
-        if($utilisateur.val().length < 4){
+        if($utilisateur.val().length < 3){
         $( "#msjUtilisateur1" ).css("display", "block");
         valide=false;
         }
 //        http://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
         //nom utlisateur : expReg le nom peut contenir lettres et nombres de la A-Z en mayuscule ou minuscule, minmun 4 et maximum 18, puet pas commencer avec un point et peut contenir "." et "_"
-        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$/)){
+        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){0,18}[a-zA-Z0-9]$/)){
             $("#msjUtilisateur2" ).css("display", "block");
             $( "#msjUtilisateur1" ).css("display", "none");
             valide=false;
