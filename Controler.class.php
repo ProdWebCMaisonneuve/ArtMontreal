@@ -96,6 +96,9 @@ class Controler
                 case 'validerCommentaire':
                         $this->validerCommentaire($_GET['idCommentaire']);
                     break; 
+                case 'validerOeuvre':
+                        $this->validerOeuvre($_GET['idOeuvre']);
+                    break; 
                 case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
                     break;
@@ -226,6 +229,9 @@ class Controler
                 
                 case 'afficheModPhotos':
                     $this->afficheModPhotos();
+                    break;
+                case 'afficheModOeuvres':
+                    $this->afficheModOeuvres();
                     break;
                 
                 case 'detailsPhotoUtilisateur':
@@ -1627,6 +1633,23 @@ class Controler
             $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
+        
+        private function afficheModOeuvres()
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $nbreOeuvresNonValides = $oOeuvres->nbreOeuvresNonValides();
+            if($nbreOeuvresNonValides !=0) {
+                $aOeuvresAValider = $oOeuvres->listeOeuvresAValider();
+            } else {
+                $aOeuvresAValider = '';
+            }
+            
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModOeuvres($aOeuvresAValider, $nbreOeuvresNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
+        }
     
         private function supprimerPhoto($idPhoto) 
         {
@@ -1682,6 +1705,24 @@ class Controler
             $oVueAdmin->afficheModPhotos($aPhotosAValider, $nbrePhotosNonValides);
             $oVueDefaut->afficheFooter(false, true, false, true);
             
+            
+        } 
+    
+        private function validerOeuvre($idOeuvre) 
+        {
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $oOeuvres->validerOeuvrePhoto($idOeuvre);
+            $nbreOeuvresNonValides = $oOeuvres->nbreOeuvresNonValides();
+            if($nbreOeuvresNonValides !=0) {
+                $aOeuvresAValider = $oPhotos->listeOeuvresAValider();
+            } else {
+                $aOeuvresAValider = '';
+            }
+            $oVueAdmin->afficheHeaderAdmin();
+            $oVueAdmin->afficheModOeuvres($aOeuvresAValider, $nbreOeuvresNonValides);
+            $oVueDefaut->afficheFooter(false, true, false, true);
             
         } 
     

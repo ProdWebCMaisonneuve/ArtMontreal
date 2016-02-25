@@ -228,7 +228,7 @@ class VueAdmin
                             <ul class="nav nav-second-level">
                                 
                                 <li>
-                                    <a href="#"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
+                                    <a href="index.php?requete=afficheModOeuvres"><i class="fa fa-paint-brush fa-fw"></i> Oeuvres</a>
                                 </li>
                                    <li>
                                     <a href="index.php?requete=afficheModPhotos"><i class="fa fa-picture-o fa-fw"></i> Photos</a>
@@ -2264,9 +2264,10 @@ class VueAdmin
     }
     
     /**
-     * Fonction qui affiche une liste de commentaires
+     * Fonction qui affiche la modération des commentaires
      * @access public
      * @author Thuy Tien Vo
+     * @author Gautier Piatek
      * @version 1.0
      */
 
@@ -2370,6 +2371,130 @@ class VueAdmin
 
                         <div class="modal-body">
                             <p><strong>Vous allez effacer une photo, cette procédure est irréversible !</strong></p>
+                            <p><strong>Voulez-vous continuer ?</strong></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a class="btn btn-danger btn-ok">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div>
+    <?php
+    } 
+    
+     /**
+     * Fonction qui affiche la modération des photos
+     * @access public
+     * @author Gautier Piatek
+     * @version 1.0
+     */
+    
+    public function afficheModOeuvres($aOeuvresAValider, $nbreOeuvresNonValides) 
+    { 
+       
+    ?>
+    <div id="page-wrapper">
+            
+            <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header">Modération des oeuvres</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <div class="row">
+                
+            <div class="col-lg-4 col-lg-offset-6">
+                   <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-comment fa-5x"></i>
+                                </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo $nbreOeuvresNonValides ?> Oeuvres</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>  
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Liste des oeuvres
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                       <?php if($aOeuvresAValider) { ?>
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-listeUtilisateurs">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateur</th>
+
+                                        <th>Oeuvre</th>
+                                        <th>Photo</th>
+
+                                        <th>Date</th>
+
+                                        <th>Supprimer</th>
+
+                                        <th>Valider</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                
+                                    foreach($aOeuvresAValider as $oeuvre) 
+                                    {
+                                        echo '<tr>';
+                                        echo '<td>'. $oeuvre[0].'</td>';
+                                        echo '<td>'. $oeuvre[4].'</td>';
+                                        echo '<td><img src="'. $oeuvre[3].'" class="img-thumbnail"></td>';
+                                        echo '<td>'. $oeuvre[1].'</td>';
+                                        echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
+                                        echo '<td class="text-center"><a href="index.php?requete=validerOeuvre&idOeuvre='. $oeuvre[2] .'"><i class="fa fa-check"></i></a></td>'; 
+                                        echo'</tr>'; 
+
+                                    }
+                                
+                                
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php
+                        } else {
+                            echo " Il n'y a pas d'oeuvres à valider.";
+                        }
+                        ?>
+                        <!-- /.table-responsive -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Source : https://stackoverflow.com/questions/8982295/confirm-delete-modal-dialog-with-twitter-bootstrap-->
+            <div class="modal fade" id="confirmer-effacer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p><strong>Vous allez effacer une oeuvre, cette procédure est irréversible !</strong></p>
                             <p><strong>Voulez-vous continuer ?</strong></p>
                         </div>
 
