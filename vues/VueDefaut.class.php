@@ -46,10 +46,10 @@ class VueDefaut
                 <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
 -->
                 <link rel="stylesheet" href="./css/main_bootstrap.css" type="text/css" media="screen">
+               
 <!--                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">-->
                 <link rel="stylesheet" href="fonts/style.css" type="text/css">
                 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-                <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
@@ -119,6 +119,7 @@ class VueDefaut
                                         }
         
                                         if($_SESSION["session"] && !$_SESSION["admin"]) {
+                                             echo  "<li>" . "<a href='index.php?requete=proposerOeuvre' class='btn btn-danger'><span class='glyphicon glyphicon-camera'></span> PROPOSER UNE OEUVRE</a></li>";
                                             echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
                                                 echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
                                         } else {
@@ -585,7 +586,7 @@ public function afficheSliderAccueil($oeuvres)
                     <div class='col-lg-12'>
                         <div class='row' id="message_bienvenue">
                             <div class='col-lg-1'></div>
-                                <div class="col-lg-3"><i class="fa fa-camera-retro fa-6"></i></div>
+                                <div class="col-lg-3"><i class="fa fa-camera-retro awesome-responsive"></i></div>
                                 <div class='col-lg-7'>
                                     <h1>Bienvenue à toi, Chasseur d'Art !</h1>
                                    

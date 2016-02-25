@@ -450,5 +450,54 @@ class MOeuvres {
         return (self::$database->uneLigne());
 	}
     
+    /* function qui compte les oeuvres non valides
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return int
+	 */
+    public static function nbreOeuvresNonValides() {
+        self::$database->query("SELECT COUNT(idOeuvre) FROM oeuvre WHERE validationOeuvre = 0;");
+        $resultat = self::$database->uneLigne();
+        
+        return $resultat["COUNT(idOeuvre)"];  
+    }
+    
+    /* function qui valide les oeuvres et leurs photos en attente de validation
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return none
+	 */
+    public static function validerOeuvrePhoto($idOeuvre) 
+    {
+        self::$database->query("UPDATE oeuvre SET validationOeuvre = 1 WHERE idOeuvre = :idOeuvre");
+        self::$database->bind(':idOeuvre', $idOeuvre);
+        self::$database->execute();
+        self::$database->query("UPDATE photo SET validationPhoto = 1 WHERE idOeuvre = :idOeuvre");
+        self::$database->bind(':idOeuvre', $idOeuvre);
+        self::$database->execute();
+        
+    }
+    
+    /* function qui liste les commentaires à valider
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return array
+	 */
+    public static function listeOeuvresAValider() 
+    {
+         $oeuvres=array();
+        self::$database->query("SELECT utilisateur_enregistre.loginUtilisateur, propose.dateProposition, photo.idPhoto, photo.nomPhoto, oeuvre.titreOeuvre, oeuvre.idOeuvre
+FROM oeuvre
+JOIN photo ON photo.idOeuvre = oeuvre.idOeuvre
+JOIN propose ON propose.idPhoto = photo.idPhoto 
+JOIN utilisateur_enregistre ON propose.idUtilisateur= utilisateur_enregistre.idUtilisateur 
+WHERE oeuvre.validationOeuvre=0");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$uneOeuvre = array($ligne['loginUtilisateur'], $ligne['dateProposition'], $ligne['idPhoto'], $ligne['nomPhoto'], $ligne['titreOeuvre'], $ligne['idOeuvre']);
+			$oeuvres[] = $uneOeuvre;
+		}
+		return $oeuvres;
+    }
 }
 ?>
