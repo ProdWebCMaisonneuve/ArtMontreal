@@ -294,6 +294,7 @@ transition-delay:.2s;
 
 #jonathan {
     font-size: 0.8em;
+
 }
 
 /*RESPONSIVE */
@@ -303,5 +304,5 @@ transition-delay:.2s;
     #myCarousel {
         display: none;
     }
-    
+
 }
