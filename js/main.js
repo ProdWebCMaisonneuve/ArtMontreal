@@ -519,6 +519,110 @@ function validerFormModifierOeuvre()
 }
 
 
+function validerFormAjoutArtiste()
+{
+    
+    var valide=true;
+    var valide_valide=false;
+    
+    $prenom = $('#prenom');
+    $nom = $('#nom');
+    $collectif = $('#collectif')
+    
+    if(valide_valide == false)
+    {
+        if(!$prenom.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjPrenom").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjPrenom").css("display", "none");
+        }
+        
+        if(!$nom.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjNom").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjNom").css("display", "none");
+        }
+        
+        if(!$collectif.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjCollectif").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjCollectif").css("display", "none");
+        }
+    }
+     else
+    {
+        valide=true;
+        valide_valide=false;
+    }
+    
+    
+    if(valide==true && valide_valide==false){    
+      
+    
+      document.formAjoutArtiste.submit();
+      
+    }
+
+        
+}
+
+function validerFormAmodifierArtiste()
+{
+    var valide=true;
+    var valide_valide=false;
+    
+    $prenom = $('#prenom');
+    $nom = $('#nom');
+    $collectif = $('#collectif')
+    
+    if(valide_valide == false)
+    {
+        if(!$prenom.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjPrenom").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjPrenom").css("display", "none");
+        }
+        
+        if(!$nom.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjNom").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjNom").css("display", "none");
+        }
+        
+        if(!$collectif.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjCollectif").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjCollectif").css("display", "none");
+        }
+    }
+     else
+    {
+        valide=true;
+        valide_valide=false;
+    }
+    
+    
+    if(valide==true && valide_valide==false){    
+      
+    
+      document.formModifierArtiste.submit();
+      
+    }
+}
+
+
 
 
 /**
