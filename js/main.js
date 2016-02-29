@@ -512,6 +512,7 @@ function validerFormModifierOeuvre()
     
     if(valide==true && valide_valide==false){    
       
+    
       document.formModifierOeuvre.submit();
       
     }
