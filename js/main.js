@@ -176,7 +176,7 @@ function validerFormAjoutOeuvre(){
     if(valide_valide == false)
     {
 
-       if(!$titre.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){ 
+       if(!$titre.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){ 
             $("#msjTitre").css("display", "block");
         valide=false;
         }else
@@ -185,7 +185,7 @@ function validerFormAjoutOeuvre(){
         }
         
         
-        if(!$titreVariante.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$titreVariante.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
             $("#msjTitreVariante").css("display", "block");
         valide=false;
         }else
@@ -193,7 +193,7 @@ function validerFormAjoutOeuvre(){
             $("#msjTitreVariante").css("display", "none");
         }
         
-        if(!$technique.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$technique.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjTechnique").css("display", "block");
         valide=false;
         }else
@@ -201,7 +201,7 @@ function validerFormAjoutOeuvre(){
             $("#msjTechnique").css("display", "none");
         }
         
-        if(!$techniqueAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$techniqueAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjTechniqueAng").css("display", "block");
         valide=false;
         }else
@@ -209,7 +209,7 @@ function validerFormAjoutOeuvre(){
             $("#msjTechniqueAng").css("display", "none");
         }
         
-        if(!$description.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,500}$/)){
+        if(!$description.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,500}$/)){
         $("#msjDescription").css("display", "block");
         valide=false;
         }else
@@ -228,7 +228,7 @@ function validerFormAjoutOeuvre(){
         }
         
         
-        if(!$batiment.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$batiment.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjBatiment").css("display", "block");
         valide=false;
         }else
@@ -236,7 +236,7 @@ function validerFormAjoutOeuvre(){
             $("#msjBatiment").css("display", "none");
         }
         
-        if(!$parc.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$parc.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjParc").css("display", "block");
         valide=false;
         }else
@@ -297,7 +297,7 @@ function validerFormAjoutOeuvre(){
         }
         
         
-        if(!$materiaux.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$materiaux.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjMateriaux").css("display", "block");
         valide=false;
         }else
@@ -307,7 +307,7 @@ function validerFormAjoutOeuvre(){
         
         
                 
-        if(!$materiauxAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$materiauxAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjMateriauxAng").css("display", "block");
         valide=false;
         }else
@@ -363,7 +363,7 @@ function validerFormModifierOeuvre()
     if(valide_valide == false)
     {
 
-       if(!$titre.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){ 
+       if(!$titre.val().match(/^^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){ 
             $("#msjTitre").css("display", "block");
         valide=false;
         }else
@@ -372,7 +372,7 @@ function validerFormModifierOeuvre()
         }
         
         
-        if(!$titreVariante.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$titreVariante.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{2,128}$/)){
             $("#msjTitreVariante").css("display", "block");
         valide=false;
         }else
@@ -380,7 +380,7 @@ function validerFormModifierOeuvre()
             $("#msjTitreVariante").css("display", "none");
         }
         
-        if(!$technique.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$technique.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjTechnique").css("display", "block");
         valide=false;
         }else
@@ -388,7 +388,7 @@ function validerFormModifierOeuvre()
             $("#msjTechnique").css("display", "none");
         }
         
-        if(!$techniqueAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$techniqueAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjTechniqueAng").css("display", "block");
         valide=false;
         }else
@@ -396,7 +396,7 @@ function validerFormModifierOeuvre()
             $("#msjTechniqueAng").css("display", "none");
         }
         
-        if(!$description.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,500}$/)){
+        if(!$description.val().match(/^[^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,500}$/)){
         $("#msjDescription").css("display", "block");
         valide=false;
         }else
@@ -415,7 +415,7 @@ function validerFormModifierOeuvre()
         }
         
         
-        if(!$batiment.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$batiment.val().match(/^^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjBatiment").css("display", "block");
         valide=false;
         }else
@@ -423,7 +423,7 @@ function validerFormModifierOeuvre()
             $("#msjBatiment").css("display", "none");
         }
         
-        if(!$parc.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$parc.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjParc").css("display", "block");
         valide=false;
         }else
@@ -484,7 +484,7 @@ function validerFormModifierOeuvre()
         }
         
         
-        if(!$materiaux.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$materiaux.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjMateriaux").css("display", "block");
         valide=false;
         }else
@@ -494,7 +494,7 @@ function validerFormModifierOeuvre()
         
         
                 
-        if(!$materiauxAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,-]{4,128}$/)){
+        if(!$materiauxAng.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,128}$/)){
         $("#msjMateriauxAng").css("display", "block");
         valide=false;
         }else
