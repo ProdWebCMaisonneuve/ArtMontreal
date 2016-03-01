@@ -53,19 +53,21 @@
 }
 
 
-
-
-/*body { padding-top: 145px; }*/
-
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
-            width: 100%;
-            margin: auto;
-        }
-        
-        .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
+    width: 100%;
+    margin: auto;
+}
+
+#myCarousel {
+    margin-bottom: 2%;
+}
+
+/*NAV */
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
 
 #nav-logo{
     background-color: #f6c351;
@@ -311,8 +313,10 @@ transition-delay:.2s;
 
 /*AWESOME FONTS */
 
-.jumbotron-icon .fa-6 {
-  font-size: 20em;
+.jumbotron-icon .awesome-responsive {
+  font-size: 20vw;
+    float: left;
+    margin-right: 3%;
 }
 
 /* MODAL BOX */
@@ -320,4 +324,19 @@ transition-delay:.2s;
 .modal-regles {
    background-color: #5c77b9;
     color: white;
+}
+
+#jonathan {
+    font-size: 0.8em;
+
+}
+
+/*RESPONSIVE */
+
+@media screen and (max-width: 767px) {
+
+    #myCarousel {
+        display: none;
+    }
+
 }
