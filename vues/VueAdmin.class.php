@@ -2210,7 +2210,7 @@ class VueAdmin
                                     {
                                         echo '<tr>';
                                         echo '<td>'. $photo[0].'</td>';
-                                        echo '<td>'. $photo[3].'</td>';
+                                        echo '<td><img src="'. $photo[3].'" class="img-thumbnail img-respomsive"></td>';
                                         echo '<td>'. $photo[4].'</td>';
                                         echo '<td>'. $photo[1].'</td>';
                                         echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerPhoto&idPhoto='.$photo[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
@@ -2458,7 +2458,7 @@ class VueAdmin
                                         echo '<tr>';
                                         echo '<td>'. $oeuvre[0].'</td>';
                                         echo '<td>'. $oeuvre[4].'</td>';
-                                        echo '<td><img src="'. $oeuvre[3].'" class="img-thumbnail"></td>';
+                                        echo '<td><img src="'. $oeuvre[3].'" class="img-thumbnail img-responsive"></td>';
                                         echo '<td>'. $oeuvre[1].'</td>';
                                         echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
                                         echo '<td class="text-center"><a href="index.php?requete=validerOeuvre&idOeuvre='. $oeuvre[2] .'"><i class="fa fa-check"></i></a></td>'; 

@@ -73,7 +73,7 @@ class VueDefaut
                             
                             <div class="navbar-header">
                               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
+                                <span class="sr-only">Activer la navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -486,7 +486,21 @@ class VueDefaut
                     <?php
                     }
                     ?>
-                                       
+                <!-- Piwik -->
+                <script type="text/javascript">
+                    var _paq = _paq || [];
+                    _paq.push(['trackPageView']);
+                    _paq.push(['enableLinkTracking']);
+                    (function() {
+                    var u="//goom.piwikpro.com/";
+                    _paq.push(['setTrackerUrl', u+'piwik.php']);
+                    _paq.push(['setSiteId', 1]);
+                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+                    })();
+                    </script>
+                <noscript><p><img src="//goom.piwikpro.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+                <!-- End Piwik Code -->                      
                 </body>
             </html>
         <?php
