@@ -600,7 +600,7 @@ public function afficheSliderAccueil($oeuvres)
                     <div class='col-lg-12'>
                         <div class='row' id="message_bienvenue">
                             <div class='col-lg-1'></div>
-                                <div class="col-lg-3"><i class="fa fa-camera-retro fa-6"></i></div>
+                                <div class="col-lg-3"><i class="fa fa-camera-retro awesome-responsive"></i></div>
                                 <div class='col-lg-7'>
                                     <h1>Bienvenue à toi, Chasseur d'Art !</h1>
                                    
