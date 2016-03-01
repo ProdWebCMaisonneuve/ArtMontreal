@@ -1116,6 +1116,9 @@ class Controler
             
             $erreurTitre ='';
             $message ='';
+             $message = "";
+            $erreurNomCat = "";
+            $erreurNomCatAng = "";
             
             if($_GET['action'] == 'ajoutCategorie')
 
@@ -1127,9 +1130,7 @@ class Controler
                     
                 }
             
-            $message = "";
-            $erreurNomCat = "";
-            $erreurNomCatAng = "";
+            
             $oVueAdmin->formulaireAjouterCategorie($message, $erreurNomCat, $erreurNomCatAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
              

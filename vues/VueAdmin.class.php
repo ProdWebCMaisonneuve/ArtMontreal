@@ -1441,19 +1441,21 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie">
+                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie" id ='formAjoutCategorie' name="formAjoutCategorie">
 
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                    <input class="form-control" type="text" name="nomCategorie" id="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                    <span id="msjNomCategorie" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom anglais :</label>
-                                    <input class="form-control" type="text" name="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                    <input class="form-control" type="text" name="nomCatAng" id="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                    <span id="msjNomCatAng" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormAjouterCategorie()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1502,19 +1504,21 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider" id ='formModifierCategorie' name="formModifierCategorie">
 
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                    <input class="form-control" type="text" name="nomCategorie" id="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                    <span id="msjNomCategorie" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom anglais :</label>
-                                    <input class="form-control" type="text" name="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                    <input class="form-control" type="text" name="nomCatAng" id="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                    <span id="msjNomCatAng" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormModifierCategorie()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>

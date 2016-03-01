@@ -623,6 +623,92 @@ function validerFormAmodifierArtiste()
 }
 
 
+function validerFormAjouterCategorie()
+{
+    var valide=true;
+    var valide_valide=false;
+    
+    $nomCategorie = $('#nomCategorie');
+    $nomCatAng = $('#nomCatAng');
+    
+    if(valide_valide == false)
+    {
+        if(!$nomCategorie.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjNomCategorie").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjNomCategorie").css("display", "none");
+        }
+        
+        if(!$nomCatAng.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjNomCatAng").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjNomCatAng").css("display", "none");
+        }
+        
+        
+    }
+     else
+    {
+        valide=true;
+        valide_valide=false;
+    }
+    
+    
+    if(valide==true && valide_valide==false){    
+        
+      document.formAjoutCategorie.submit();
+      
+    }
+}
+
+function validerFormModifierCategorie()
+{
+   
+    var valide=true;
+    var valide_valide=false;
+    
+    $nomCategorie = $('#nomCategorie');
+    $nomCatAng = $('#nomCatAng');
+    
+    if(valide_valide == false)
+    {
+        if(!$nomCategorie.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjNomCategorie").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjNomCategorie").css("display", "none");
+        }
+        
+        if(!$nomCatAng.val().match(/^^[a-zA-ZÀ-ÿ\s\'-]{4,128}$/)){
+        $("#msjNomCatAng").css("display", "block");
+        valide=false;
+        }else
+        {
+            $("#msjNomCatAng").css("display", "none");
+        }
+        
+        
+    }
+     else
+    {
+        valide=true;
+        valide_valide=false;
+    }
+    
+    
+    if(valide==true && valide_valide==false){    
+        
+      document.formModifierCategorie.submit();
+      
+    }
+}
+
+
 
 
 /**
