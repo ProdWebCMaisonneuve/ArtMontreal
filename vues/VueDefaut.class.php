@@ -290,6 +290,9 @@ class VueDefaut
                                          Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
                             Sous licence MIT</span> 
+                                        
+                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> suivre en Facebook</a>
+
                                      </div>
                                  </div>
                              </div>
