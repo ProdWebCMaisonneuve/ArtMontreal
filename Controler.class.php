@@ -1051,6 +1051,10 @@ class Controler
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
+            $erreurPrenom = '';
+            $erreurNom = '';
+            $erreurCollectif = '';
+            $erreurPhotoArtiste = '';
 
             $erreurTitre ='';
             $message ='';
@@ -1065,10 +1069,7 @@ class Controler
 
             }
             
-            $erreurPrenom = '';
-            $erreurNom = '';
-            $erreurCollectif = '';
-            $erreurPhotoArtiste = '';
+            
             
             $oVueAdmin->ajoutArtiste($message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste);
             $oVueDefaut->afficheFooter(false,true,false,false);
@@ -1115,6 +1116,9 @@ class Controler
             
             $erreurTitre ='';
             $message ='';
+             $message = "";
+            $erreurNomCat = "";
+            $erreurNomCatAng = "";
             
             if($_GET['action'] == 'ajoutCategorie')
 
@@ -1126,9 +1130,7 @@ class Controler
                     
                 }
             
-            $message = "";
-            $erreurNomCat = "";
-            $erreurNomCatAng = "";
+            
             $oVueAdmin->formulaireAjouterCategorie($message, $erreurNomCat, $erreurNomCatAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
              

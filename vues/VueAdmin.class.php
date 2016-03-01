@@ -1167,26 +1167,29 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutArtiste&action=ajoutArtiste">
+                           <form method="POST" role="form" action="index.php?requete=ajoutArtiste&action=ajoutArtiste" id ='formAjoutArtiste' name="formAjoutArtiste">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <span id="msjPrenom" style="display:none">Veuillez saisir votre prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez saisir votre nom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Collectif :</label>
-                                    <input class="form-control" type="text" name="collectif"><span><?php echo $erreurCollectif;?></span>
+                                    <input class="form-control" type="text" name="collectif" id="collectif"><span><?php echo $erreurCollectif;?></span>
+                                    <span id="msjCollectif" style="display:none">Veuillez saisir le nom du collectif</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
                                     <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormAjoutArtiste()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1233,26 +1236,31 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider" id ='formModifierArtiste' name="formModifierArtiste">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?>
+                                    </span>
+                                    <span id="msjPrenom" style="display:none">Veuillez saisir votre prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez saisir votre nom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Collectif :</label>
-                                    <input class="form-control" type="text" name="collectif" value="<?php echo $collectif; ?>"><span><?php echo $erreurCollectif;?></span>
+                                    <input class="form-control" type="text" name="collectif" id="collectif" value="<?php echo $collectif; ?>"><span><?php echo $erreurCollectif;?></span>
+                                    <span id="msjCollectif" style="display:none">Veuillez saisir le nom du collectif</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
                                     <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
+                                    
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input  type="button" onclick="validerFormAmodifierArtiste()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1433,19 +1441,21 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie">
+                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie" id ='formAjoutCategorie' name="formAjoutCategorie">
 
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                    <input class="form-control" type="text" name="nomCategorie" id="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                    <span id="msjNomCategorie" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom anglais :</label>
-                                    <input class="form-control" type="text" name="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                    <input class="form-control" type="text" name="nomCatAng" id="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                    <span id="msjNomCatAng" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormAjouterCategorie()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1494,19 +1504,21 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider" id ='formModifierCategorie' name="formModifierCategorie">
 
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                    <input class="form-control" type="text" name="nomCategorie" id="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                    <span id="msjNomCategorie" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom anglais :</label>
-                                    <input class="form-control" type="text" name="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                    <input class="form-control" type="text" name="nomCatAng" id="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                    <span id="msjNomCatAng" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormModifierCategorie()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>

@@ -161,6 +161,22 @@ figcaption {background-color: gray}
     color:red;
 }
 
+#formAjoutArtiste span{
+    color:red;
+}
+
+#formModifierArtiste span{
+    color:red;
+}
+
+#formAjoutCategorie span{
+    color:red;
+}
+
+#formModifierCategorie span{
+    color:red;
+}
+
 
 
 
