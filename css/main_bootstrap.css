@@ -155,10 +155,35 @@ figcaption {background-color: gray}
     color: red;
 }
 
+#formAjoutOeuvre span{
+    color: red;
+}
+
+#formModifierOeuvre span{
+    color:red;
+}
+
+#formAjoutArtiste span{
+    color:red;
+}
+
+#formModifierArtiste span{
+    color:red;
+}
+
+#formAjoutCategorie span{
+    color:red;
+}
+
+#formModifierCategorie span{
+    color:red;
+}
+
 
 
 
 /*HOVER EFFECT 1    http://miketricking.github.io/dist/*/
+
 
 .hovereffect {
 width:100%;
@@ -276,6 +301,7 @@ transition-delay:.2s;
 -webkit-transition-delay:.2s;
 transition-delay:.2s;
 }
+
 
 /*AWESOME FONTS */
 

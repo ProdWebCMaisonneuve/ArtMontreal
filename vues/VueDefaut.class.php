@@ -291,6 +291,9 @@ class VueDefaut
                                          Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
                             Sous licence MIT</span> 
+                                        
+                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i>Nous suivre sur Facebook</a>
+
                                      </div>
                                  </div>
                              </div>
@@ -521,7 +524,7 @@ public function afficheSliderAccueil($oeuvres)
         
             
                 <div class='row'>
-                <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                <div class=' visible-lg visible-md col-lg-12'>
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                   <!-- Indicators -->
                   <ol class="carousel-indicators">
@@ -601,7 +604,7 @@ public function afficheSliderAccueil($oeuvres)
                         <div class='row' id="message_bienvenue">
                             <div class='col-lg-1'></div>
                                 <div class="col-lg-3"><i class="fa fa-camera-retro awesome-responsive"></i></div>
-                                <div class='col-lg-7'>
+       <div class='col-lg-7'>
                                     <h1>Bienvenue à toi, Chasseur d'Art !</h1>
                                    
                                     <p>Deviens le meilleur chasseur d'oeuvres d'art de la ville de Montréal ! </p>
@@ -666,7 +669,7 @@ public function afficheSliderAccueil($oeuvres)
         foreach($oeuvres as $oeuvre) {
                if($oeuvre->getValidationOeuvre()==1)
                {   
-                    echo '<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 hero-feature">';
+                    echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
                         echo '<div class="hovereffect">';
                             $idOeuvre= $oeuvre->getIdOeuvre();
                             $titre = $oeuvre->getTitreOeuvre();
@@ -847,7 +850,7 @@ public function afficheSliderAccueil($oeuvres)
             $idArtiste = $artiste->getIdArtiste();
  
 
-            echo ' <div class="col-xs-4">';
+            echo ' <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">';
               
                 echo' <div class="panel-group" id="accordion">';
 
@@ -867,7 +870,7 @@ public function afficheSliderAccueil($oeuvres)
 
                             echo'<div class="panel-body">';
 
-                                echo "<img src='./images/artisteDefaut.jpg'>";
+                                echo "<img class='img-responsive' src='./images/artisteDefaut.jpg'  width='700' height='700'>";
                     
                                     $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
 

@@ -855,7 +855,7 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo ']);
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo']);
                 $message = "Utilisateur ajoutée.";
                 echo 'utilisateur ajoute';
             }
@@ -1057,6 +1057,10 @@ class Controler
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
+            $erreurPrenom = '';
+            $erreurNom = '';
+            $erreurCollectif = '';
+            $erreurPhotoArtiste = '';
 
             $erreurTitre ='';
             $message ='';
@@ -1071,10 +1075,7 @@ class Controler
 
             }
             
-            $erreurPrenom = '';
-            $erreurNom = '';
-            $erreurCollectif = '';
-            $erreurPhotoArtiste = '';
+            
             
             $oVueAdmin->ajoutArtiste($message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste);
             $oVueDefaut->afficheFooter(false,true,false,false);
@@ -1121,6 +1122,9 @@ class Controler
             
             $erreurTitre ='';
             $message ='';
+             $message = "";
+            $erreurNomCat = "";
+            $erreurNomCatAng = "";
             
             if($_GET['action'] == 'ajoutCategorie')
 
@@ -1132,9 +1136,7 @@ class Controler
                     
                 }
             
-            $message = "";
-            $erreurNomCat = "";
-            $erreurNomCatAng = "";
+            
             $oVueAdmin->formulaireAjouterCategorie($message, $erreurNomCat, $erreurNomCatAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
              
@@ -1427,7 +1429,7 @@ class Controler
             }
             $likes=$oPhoto->getCombienVOtesParPhoto($idPhoto);
             $uVue->afficherAsideUtilisateur($pos,$likes,$comment);
-           $oVue->afficheFooter(false,false,false,false);
+            $oVue->afficheFooter(false,false,false,false);
         }
     
     
