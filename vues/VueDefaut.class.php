@@ -46,10 +46,10 @@ class VueDefaut
                 <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
 -->
                 <link rel="stylesheet" href="./css/main_bootstrap.css" type="text/css" media="screen">
+               
 <!--                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">-->
                 <link rel="stylesheet" href="fonts/style.css" type="text/css">
                 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-                <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
@@ -73,7 +73,7 @@ class VueDefaut
                             
                             <div class="navbar-header">
                               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
+                                <span class="sr-only">Activer la navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -119,6 +119,7 @@ class VueDefaut
                                         }
         
                                         if($_SESSION["session"] && !$_SESSION["admin"]) {
+                                             echo  "<li>" . "<a href='index.php?requete=proposerOeuvre' class='btn btn-danger'><span class='glyphicon glyphicon-camera'></span> PROPOSER UNE OEUVRE</a></li>";
                                             echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
                                                 echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
                                         } else {
@@ -291,7 +292,7 @@ class VueDefaut
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
                             Sous licence MIT</span> 
                                         
-                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> suivre en Facebook</a>
+                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i>Nous suivre sur Facebook</a>
 
                                      </div>
                                  </div>
@@ -488,7 +489,21 @@ class VueDefaut
                     <?php
                     }
                     ?>
-                                       
+                <!-- Piwik -->
+                <script type="text/javascript">
+                    var _paq = _paq || [];
+                    _paq.push(['trackPageView']);
+                    _paq.push(['enableLinkTracking']);
+                    (function() {
+                    var u="//goom.piwikpro.com/";
+                    _paq.push(['setTrackerUrl', u+'piwik.php']);
+                    _paq.push(['setSiteId', 1]);
+                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+                    })();
+                    </script>
+                <noscript><p><img src="//goom.piwikpro.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+                <!-- End Piwik Code -->                      
                 </body>
             </html>
         <?php
@@ -588,8 +603,8 @@ public function afficheSliderAccueil($oeuvres)
                     <div class='col-lg-12'>
                         <div class='row' id="message_bienvenue">
                             <div class='col-lg-1'></div>
-                                <div class="col-lg-3"><i class="visible-lg fa fa-camera-retro fa-6 "></i></div>
-                                <div class='col-lg-7'>
+                                <div class="col-lg-3"><i class="fa fa-camera-retro awesome-responsive"></i></div>
+       <div class='col-lg-7'>
                                     <h1>Bienvenue à toi, Chasseur d'Art !</h1>
                                    
                                     <p>Deviens le meilleur chasseur d'oeuvres d'art de la ville de Montréal ! </p>

@@ -150,7 +150,7 @@ class MCommentaires
     /* function qui liste les commentaires à valider
 	 * @access public static
      * @author Gautier Piatek
-	 * @return int
+	 * @return array
 	 */
     public static function listeCommentairesAValider() 
     {
