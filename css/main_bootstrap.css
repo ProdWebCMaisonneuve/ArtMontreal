@@ -179,6 +179,14 @@ figcaption {background-color: gray}
     color:red;
 }
 
+#formAjoutUtilisateur span{
+    color:red;
+}
+
+#formModifierUtilisateur span{
+    color: red;
+}
+
 
 
 

@@ -567,7 +567,7 @@ class Controler
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
+                    $oUtilisateurs->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
                     $oVueAdmin = new VueAdmin();
                     $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                     if($nbreUtilisateurs !=0) {
