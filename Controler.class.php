@@ -338,7 +338,7 @@ class Controler
             $oVueAdmin->afficheHeaderAdmin();
             
             if($_GET['action'] == "ajoutUtilisateur"){
-                $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["telephone"], $_POST["bio"], $_POST["photoUtilisateur"]);
+                $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["telephone"], $_POST["bio"], 'utilisateurDefaut.jpg');
             }
             
             $message = '';
@@ -855,7 +855,7 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo']);
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], 'utilisateurDefaut.jpg');
                 $message = "Utilisateur ajoutée.";
                 echo 'utilisateur ajoute';
             }
@@ -970,7 +970,7 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], 'utilisateurDefaut.jpg');
                 $message = "Utilisateur ajoutée.";
             }
 
@@ -1433,33 +1433,47 @@ class Controler
         }
     
     
-    
+    /**
+     * function ajouterPhotoProposée
+     * @access public
+     * @auteur: German Mahecha
+     */
         private function  ajouterPhoto($idUtil, $idOeuvre)
         {
-            echo $idOeuvre;
+            //echo $idOeuvre;
             $message='';
-            if ($_FILES["imagen"]["error"] > 0){
+            $file_extension='';$temporary='';
+            date_default_timezone_set('America/Montreal');
+            $today = getdate();
+            //Contruction de la date en chaine 
+            $dateCourrant=$today['year'].'-'.$today['mon'].'-'.$today['mday'].'-'.$today['hours'].'-'.$today['minutes'].'-'.$today['seconds'];
+            
+            if ($_FILES["image"]["error"] > 0){
                  $message= "Erreur dans le procesus";
             } else {
                 //verification si le type de fichier est permis
                 //et que la taille soit plus petite que 50000kb
                 $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
                 $limite_kb = 10000;
-
-                if (in_array($_FILES['imagen']['type'], $permis) && $_FILES['imagen']['size'] <= $limite_kb * 1024){
+                
+                if (in_array($_FILES['image']['type'], $permis) && $_FILES['image']['size'] <= $limite_kb * 1024){
                     //Création d'un dossier pour chaque utilisateur
-                    $dossierUtil='photos/photosProposees/'.$idUtil;
+                    $dossierUtil='photos/proposees/'.$idUtil;
                     //echo $dossierUtil;
                     //Si le dossier existe déjà, il ne le crée pas.
                     if(!is_dir($dossierUtil))
                         mkdir($dossierUtil, 0777);
-                    $chemin = $dossierUtil."/".$_FILES['imagen']['name'];
-                    //echo $ruta;
+                            
+                    $temporary = explode(".", $_FILES["image"]["name"]);
+                    $file_extension = end($temporary);
+                     
+                    $chemin = $dossierUtil."/".$dateCourrant.".".$file_extension;
                     //Verification pour savoir si la photo existe déjà
                     if (!file_exists($chemin)){
+                        
                         //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
                         //resultat contient true ou false pour valider si la copie a été reussi
-                        $resultat = @move_uploaded_file($_FILES["imagen"]["tmp_name"], $chemin);
+                        $resultat = @move_uploaded_file($_FILES["image"]["tmp_name"], $chemin);
                         if ($resultat){
                             $message= "Le fichier a été televerse correctement";
                             //Si le fichier a été déplacé correctement
@@ -1469,9 +1483,7 @@ class Controler
                             if($ajoutPhoto){
                                 //Recuperation de l'id de la derniere photo pour remplir le tableau propose
                                 $dernierPhoto=$photo->recupererDernierId();
-                                //Contruction de la date en chaine 
-                                $today = getdate();
-                                $dateCourrant=$today['year'].'/'.$today['mon'].'/'.$today['mday'];
+                               
                                 $photo->ajouterPropositionPhoto($idUtil,$dernierPhoto,$dateCourrant);
                             }
                             
@@ -1479,13 +1491,14 @@ class Controler
                             $message= "Un erreur pendant le televersement du fichier.";
                         }
                     } else {
-                        $message= "le fichier ".$_FILES['imagen']['name'] .", il existe déjà";
+                        $message= "le fichier ".$_FILES['image']['name'] .", il existe déjà";
                     }
                 } else {
                     $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";
                 }
             }
             header("Location:index.php?requete=propositionPhotoUtilisateur&idOeuvre=$idOeuvre");
+            
         }
       /**
      * function  modifierProfilUtilisateur
