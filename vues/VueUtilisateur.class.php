@@ -37,7 +37,12 @@ class VueUtilisateur
                 <div class="panel panel-primary">
                   <div class="panel-heading"> <h3><span class="glyphicon glyphicon-user"></span><?php echo " ".$loginUtil;?></h3></div>
                   <div class="panel-body">
-                      <img src="photos/utilisateurs/<?php echo $photoUtil;?>" class="img-circle" height="150" width="150" alt="Avatar"><hr>
+                      <?php
+                        if($photoUtil!='utilisateurDefaut.jpg')
+                            echo "<img src='photos/utilisateurs/".$photoUtil."' class='img-circle' height='150' width='150' alt='Avatar'><hr>";
+                        else
+                            echo "<img src='images/utilisateurDefaut.jpg' class='img-circle' height='150' width='150' alt='Avatar'><hr>";
+                        ?>
                       <p><strong><?php echo $prenomUtil.' '.$nomUtil;?></strong></p><hr>
                       <p><span class="glyphicon glyphicon-envelope"></span><?php echo " ".$courrielUtil;?></p>
                        <p><span class="glyphicon glyphicon-earphone"></span><?php echo " ".$telephoneUtil;?></p><hr>
@@ -201,7 +206,7 @@ class VueUtilisateur
                                     </div>
                                     <div class="form-group">
                                         <label for="photo" class="control-label">Photo:</label>
-                                        <input type='file' name="imagen" id="imagen">
+                                        <input type='file' name="image" id="image">
                                     </div><br/><br/>
                                     <button type="submit" class="btn btn-primary btn-lg" name="photoPropose" value="photoPropose">Ajouter</button>
                                     <button type="reset" class="btn btn-default btn-lg">Annuler</button>

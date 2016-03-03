@@ -202,12 +202,6 @@ class VueDefaut
                     <textarea name="bio" placeholder="Entrer un text ici..." class="form-control" rows="8" cols="60" id="bio"></textarea>
                      <span id="msjBio" style="display:none">Remplir bio</span>
                 </div>
-
-                <div class="form-group">
-                    <label for="fichier" class="control-label">Photo:</label> 
-                    <input type="file" name="photo" >
-                    <p class="help-block">maximun 50Mb</p>
-                </div>
                 <input type="button"  onclick="validerFormAInscription()" value="Envoyer" id="button"> 
             </fieldset>
         </form> 

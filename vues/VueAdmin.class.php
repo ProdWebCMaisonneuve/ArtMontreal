@@ -1713,42 +1713,50 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutUtilisateur&action=ajoutUtilisateur">
+                           <form method="POST" role="form" action="index.php?requete=ajoutUtilisateur&action=ajoutUtilisateur" name="formAjoutUtilisateur" id="formAjoutUtilisateur">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <span id="msjPrenom" style="display:none">Veuillez confirmer votre prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez confirmer votre nom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Login :</label>
-                                    <input class="form-control" type="text" name="loginUtilisateur"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="loginUtilisateur" id="loginUtilisateur"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <span id="msjUtilisateur1" style="display:none">Veuillez saisir votre nom d'utilisateur</span>
+                                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Mot de passe :</label>
-                                    <input class="form-control" type="text" name="passUtilisateur"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="passUtilisateur" id="passUtilisateur"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <span id="msjMotDePasse1" style="display:none">Veuillez mettre votre mot de pass</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Courriel :</label>
-                                    <input class="form-control" type="mail" name="courriel"><span><?php echo $erreurCourriel;?></span>
+                                    <input class="form-control" type="mail" name="courriel" id="courriel"><span><?php echo $erreurCourriel;?></span>
+                                    <span id="msjEmail" style="display:none">Veuillez confirmer votre email</span>
                                 </div>
                                  <div class="form-group">
                                     <label>Téléphone :</label>
-                                    <input class="form-control" type="phone" name="telephone"><span><?php echo $erreurTelephone;?></span>
+                                    <input class="form-control" type="phone" name="telephone" id="telephone"><span><?php echo $erreurTelephone;?></span>
+                                     <span id="msjTelephone" style="display:none">Veuillez confirmer votre téléphone</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Bio :</label>
-                                    <textarea class="form-control" name="bio" row="3"></textarea><span><?php echo $erreurBio;?></span>
+                                    <textarea class="form-control" name="bio" id="bio" row="3"></textarea><span><?php echo $erreurBio;?></span>
+                                    <span id="msjBio" style="display:none">Remplir bio</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
-                                    <input type="file" name="photoUtilisateur"><span><?php echo $erreurPhotoArtiste;?></span>
+                                    <input type="file" name="photoUtilisateur" id="photoUtilisateur"><span><?php echo $erreurPhotoArtiste;?></span>
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button"  onclick="validerAjoutUtilisateur()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1802,42 +1810,54 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" name="formModifierUtilisateur" id="formModifierUtilisateur">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                    <span id="msjPrenom" style="display:none">Veuillez confirmer le prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez confirmer le nom</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Login :</label>
-                                    <input class="form-control" type="text" name="loginUtilisateur" value="<?php echo $login; ?>"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="loginUtilisateur" id="loginUtilisateur" value="<?php echo $login; ?>"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <span id="msjUtilisateur1" style="display:none">Veuillez saisir le nom d'utilisateur</span>
+                                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Mot de passe :</label>
-                                    <input class="form-control" type="text" name="passUtilisateur" placeholder="Entrez le nouveau mot de passe"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="passUtilisateur" id="passUtilisateur" placeholder="Entrez le nouveau mot de passe"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <span id="msjMotDePasse1" style="display:none">Veuillez mettre le mot de pass</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Courriel :</label>
-                                    <input class="form-control" type="mail" name="courriel" value="<?php echo $courriel; ?>"><span><?php echo $erreurCourriel;?></span>
+                                    <input class="form-control" type="mail" name="courriel" id="courriel" value="<?php echo $courriel; ?>"><span><?php echo $erreurCourriel;?></span>
+                                    <span id="msjEmail" style="display:none">Veuillez confirmer le email</span>
+                                  
                                 </div>
                                  <div class="form-group">
                                     <label>Téléphone :</label>
-                                    <input class="form-control" type="phone" name="telephone" value="<?php echo $telephone; ?>"><span><?php echo $erreurTelephone;?></span>
+                                    <input class="form-control" type="phone" name="telephone" id="telephone" value="<?php echo $telephone; ?>"><span><?php echo $erreurTelephone;?></span>
+                                     <span id="msjTelephone" style="display:none">Veuillez confirmer le téléphone</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Bio :</label>
-                                    <textarea class="form-control" name="bio" row="3"><?php echo $bio; ?></textarea><span><?php echo $erreurCourriel;?></span>
+                                    <textarea class="form-control" name="bio" id="bio" row="3"><?php echo $bio; ?></textarea><span><?php echo $erreurCourriel;?></span>
+                                    <span id="msjBio" style="display:none">Remplir bio</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
                                     <input type="file" name="photoUtilisateur" value="<?php echo $photo; ?>"><span><?php echo $erreurPhotoArtiste;?></span>
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button"  onclick="validerModifierUtilisateur()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
