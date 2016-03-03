@@ -83,6 +83,10 @@
             color: #ffffff;
         }
 
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
 #artiste{
     color: white;
 }

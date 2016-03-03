@@ -25,10 +25,9 @@ class VueDefaut
             $_SESSION['session'] = '';
         }
         
-        if(!isset($_SESSION['admin'])) {
-            $_SESSION['admin'] = '';
+        if(!isset($_SESSION['sessionAdmin'])) {
+            $_SESSION['sessionAdmin'] = '';
         }
-        
         ?>
         <!DOCTYPE html>
         <html lang="fr">
@@ -40,16 +39,9 @@ class VueDefaut
                 <meta name="description" content="">
                 <meta name="viewport" content="width=device-width">
 
-<!--
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
--->
-                <link rel="stylesheet" href="./css/main_bootstrap.css" type="text/css" media="screen">
-               
-<!--                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">-->
                 <link rel="stylesheet" href="fonts/style.css" type="text/css">
                 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+                <link rel="stylesheet" href="./css/main_bootstrap.css" type="text/css" media="screen">
                 <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
@@ -62,9 +54,14 @@ class VueDefaut
                 <script src="./js/plugins.js"></script>
                 <script src="./js/main.js"></script>
                 <script type="text/javascript" src="./js/md5.js"></script>
+                
+                <!-- Barre de chargement Pace-->
+                <script src="js/pace.min.js"></script>
+                <link rel="stylesheet" href="css/pace.css">
             </head>
 
             <body>
+               
                 <nav class="navbar navbar-default navbar-fixed-top" id="header_back">
                          <div class="col-lg-12" id="nav-logo"><img src="images/logo.png" class="img-responsive" alt="Logo" ></div>
                         <div class="container-fluid">
@@ -110,15 +107,13 @@ class VueDefaut
                                     </form>
                                    
                                    <ul class="nav navbar-nav navbar-right">
-                                    
-                                    
                                 
                                     <?php
-                                        if($_SESSION["admin"]) {
+                                        if($_SESSION["sessionAdmin"]) {
                                             echo "<li><a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a></li>";
                                         }
         
-                                        if($_SESSION["session"] && !$_SESSION["admin"]) {
+                                        if($_SESSION["session"]) {
                                              echo  "<li>" . "<a href='index.php?requete=proposerOeuvre' class='btn btn-danger'><span class='glyphicon glyphicon-camera'></span> PROPOSER UNE OEUVRE</a></li>";
                                             echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
                                                 echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
@@ -286,7 +281,7 @@ class VueDefaut
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
                             Sous licence MIT</span> 
                                         
-                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i>Nous suivre sur Facebook</a>
+                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Nous suivre sur Facebook</a>
 
                                      </div>
                                  </div>
@@ -294,6 +289,9 @@ class VueDefaut
                         </footer>
                     
                     <?php
+        
+                   
+        
                     if($slider) {
                     ?>
 
@@ -483,21 +481,9 @@ class VueDefaut
                     <?php
                     }
                     ?>
-                <!-- Piwik -->
-                <script type="text/javascript">
-                    var _paq = _paq || [];
-                    _paq.push(['trackPageView']);
-                    _paq.push(['enableLinkTracking']);
-                    (function() {
-                    var u="//goom.piwikpro.com/";
-                    _paq.push(['setTrackerUrl', u+'piwik.php']);
-                    _paq.push(['setSiteId', 1]);
-                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-                    })();
-                    </script>
-                <noscript><p><img src="//goom.piwikpro.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-                <!-- End Piwik Code -->                      
+                <!-- Piwik Image Tracker-->
+                    <img src="https://goom.piwikpro.com/piwik.php?idsite=1&rec=1" style="border:0" alt="" />
+                <!-- End Piwik -->                   
                 </body>
             </html>
         <?php
@@ -1472,6 +1458,145 @@ public function afficheSliderAccueil($oeuvres)
             
         }
       
+     /**
+     * Affiche Liste des categories
+     * @access public
+     * @author German Mahecha
+     * @version 1.0
+     */
+    
+    public function proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng)
+
+    {
+        ?>
+        <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header text-center">Proposer une Oeuvre</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'oeuvre
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre" id ='formAjoutOeuvre' name="formAjoutOeuvre">
+
+                                <div class="form-group">
+                                    <label>Titre :</label>
+                                    <input class="form-control" type="text" name="titre" id='titre'><span><?php echo $erreurTitre;?></span>
+                                    <span id="msjTitre" style="display:none">Veuillez saisir le titre de l'oeuvre</span>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Titre (variante) :</label>
+                                    <input class="form-control" type="text" name="titreVariante" id='titreVariante'><span><?php echo $erreurTitreVariante;?></span>
+                                    <span id="msjTitreVariante" style="display:none">Veuillez saisir le titre variante de l'oeuvre</span>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique :</label>
+                                    <input class="form-control" type="text" name="technique" id="technique"><span><?php echo $erreurTechnique;?></span>
+                                    <span id="msjTechnique" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique (anglais):</label>
+                                    <input class="form-control" type="text" name="techniqueAng" id="techniqueAng"><span><?php echo $erreurTechniqueAng;?></span>
+                                    <span id="msjTechniqueAng" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description :</label>
+                                    <textarea class="form-control" rows="3" name="description" id="description"></textarea><span><?php echo $erreurDescription;?></span>
+                                    <span id="msjDescription" style="display:none">Veuillez saisir la descirption de l'oeuvre</span>
+                                </div>
+                                <div class="form-group hidden-lg">
+                                    <label>Localisation :</label>
+                                    <input type="button" onclick="recupererGeolocalisation()" class="btn btn-success form-control"  name="localiser" value="Récupérer ma position">
+                                    <input type="text" hidden name="latitude" id="latitude">
+
+                                    <input type="text" hidden name="longitude" id="longitude">
+                                    <span id="msjLocalisation"></span>
+                                </div>   
+                                <div class="form-group">
+                                <label>Adresse Civique :</label>
+                                    <input class="form-control" type="text" name="adresse" id="adresse"><span><?php echo $erreurAdresse;?></span>
+                                    <span id="msjAdresse" style="display:none">Veuillez saisir une adresse valide</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Batiment :</label>
+                                    <input class="form-control" type="text" name="batiment" id="batiment"><span><?php echo $erreurBatiment;?></span>
+                                    <span id="msjBatiment" style="display:none">Veuillez saisir le nom de batiment</span>
+                                </div>
+                                <div class="form-group">
+                                <label>Parc :</label>
+                                      <input class="form-control" type="text" name="parc" id="parc"><span><?php echo $erreurParc;?></span>
+                                    <span id="msjParc" style="display:none">Veuillez saisir le nom du parc</span>
+                                </div>
+                                
+                               
+                                <div class="form-group">
+                                <label>Arrondissement :</label>
+                                    <select class="form-control" name="arrondissement" id='arrondissements'><br><span><?php echo $erreurArrondissement;?></span>
+                                    <option value="nonChoisi" >Choisir un Arrondissement</option><br>
+                                <?php
+                                    foreach ($aArrondissements as $arrondissement) {
+                                        echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
+                                    }
+                                ?>
+                               </select>
+                                    <span id="msjArrondissement" style="display:none">Veuillez choisir une option</span>
+                                </div>
+                                <div class="form-group">
+                                   <label>Artiste/Collectif :</label>
+                                   <input class="form-control" type="text" name="artiste" id="artiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjArtiste_Collectif" style="display:none">Veuillez choisir une option</span>
+                                </div>
+                               
+                                <div class="form-group">
+                                   <label>Catégorie :</label>
+                                    <select class="form-control" name="sousCategorie" id="sous_categorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Catégorie</option>
+                                <?php
+                                    foreach ($aSousCategories as $sousCategorie) {
+                                        echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
+                                    }
+                                ?>    
+                                    </select>
+                                    <span id="msjSous_categorie" style="display:none">Veuillez choisir une option</span>
+                                    
+                                </div>
+                                <div class="form-group">
+                                   <label>Matériaux :</label>
+                                   <input class="form-control" type="text" name="materiaux" id="materiaux"><span><?php echo $erreurMateriaux;?></span>
+                                    <span id="msjMateriaux" style="display:none">Veuillez saisir un material</span>
+                                </div>
+                                 <div class="form-group">
+                                   <label>Matériaux (anglais) : </label>
+                                    <input class="form-control" type="text" name="materiauxAng" id="materiauxAng"><span><?php echo $erreurMateriauxAng;?></span>
+                                    <span id="msjMateriauxAng" style="display:none">Veuillez saisir un material</span>
+                                </div>
+                                <div class="form-group">
+                                   <label>Photo : </label>
+                                <input type='file' name="imagen" id="imagen">
+                                </div>
+                                <input type="button" onclick="validerFormAjoutOeuvre()" class="btn btn-success"  name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <?php
+    }
 
 }
 ?>
