@@ -845,9 +845,7 @@ class Controler
         {
             $erreurTitre ='';
             $message ='';
-            
         
-          
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
 
@@ -855,9 +853,19 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
+                
+                $login=$oUtilisateur->verifierUtilisateurs($_POST['utilisateur']);
+                var_dump($login);
+                if($login==true)
+                {
                 $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], 'utilisateurDefaut.jpg');
                 $message = "Utilisateur ajoutée.";
                 echo 'utilisateur ajoute';
+                }
+                else
+                {
+                    echo 'utilisateur existe';
+                }
             }
             
             
