@@ -129,7 +129,7 @@ class VueAdmin
     public function afficheHeaderAdmin() 
 
     {
-        if (!$_SESSION['admin']) {
+        if (!$_SESSION['sessionAdmin']) {
             header('Location: index.php');
             exit;
         }
@@ -380,7 +380,8 @@ class VueAdmin
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="morris-area-chart"></div>
+                           <div id="widgetIframe"><iframe width="100%" height="850" src="https://goom.piwik.pro/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=index&idSite=1&period=day&date=today&disableLink=1&widget=1&token_auth=b8a5fb19199a2895da19746d4b5c49d0" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
+                           
                         </div>
                         <!-- /.panel-body -->
                     </div>

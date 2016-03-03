@@ -8,31 +8,11 @@
  *
  */
 
-/**
- * Vérifie le formulaire ajout admin
+/*
+ * Verification des formulaires
  * @access public
  * @author Jorge Blanco
  */
-//function validerFormAjoutAdmin()
-//{
-//    var form = document.getElementById("FormAjoutAdmin");
-//    var valide=true;
-//    for (i=0;i<form.elements.length;i++)
-//    {
-//        if(form.elements[i].value == "")
-//        {
-//            valide=false;
-//            document.getElementById('erreurPrenom').innerHTML = 'remplir ce champ';     
-//        }
-//    }
-//    
-//    if(valide==true)
-//    {
-//        document.FormAjoutAdmin.submit();
-//    }   
-//}
-
-
 function validerFormAInscription()
 {
     
@@ -727,4 +707,55 @@ function encrypte()
     document.formEncrypte.utilisateur.value = document.loginForm.utilisateur.value;
     document.formEncrypte.motDePasse.value = passwordEncryptePlusGrainSel;
     document.formEncrypte.submit();
+}
+
+/**
+ * Recupere la position de l'utilisateur
+ * @access public
+ * @author Gautier Piatek
+ */
+//source : http://www.alsacreations.com/tuto/lire/926-geolocalisation-geolocation-html5.html
+function recupererGeolocalisation()
+{
+    if(navigator.geolocation) {
+
+	// Fonction de callback en cas de succès
+	function affichePosition(position) {
+	
+		lat = position.coords.latitude;
+		long = position.coords.longitude;
+		document.getElementById("latitude").value = lat;
+		document.getElementById("longitude").value = long;
+        document.getElementById("msjLocalisation").innerHTML = "Position enregistrée";
+	}
+
+	// Fonction de callback en cas d’erreur
+	function erreurPosition(error) {
+		var info = "Erreur lors de la géolocalisation : ";
+		switch(error.code) {
+		case error.TIMEOUT:
+			info += "Timeout !";
+		break;
+		case error.PERMISSION_DENIED:
+			info += "Vous n’avez pas donné la permission";
+		break;
+		case error.POSITION_UNAVAILABLE:
+			info += "La position n’a pu être déterminée";
+		break;
+		case error.UNKNOWN_ERROR:
+			info += "Erreur inconnue";
+		break;
+		}
+		document.getElementById("msjLocalisation").innerHTML = info;
+	}
+
+	navigator.geolocation.getCurrentPosition(affichePosition,erreurPosition);
+
+} else {
+
+	document.getElementById("msjLocalisation").innerHTML = "Ce navigateur ne supporte pas la géolocalisation";
+
+}
+
+    
 }

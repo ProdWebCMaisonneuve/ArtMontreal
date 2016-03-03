@@ -22,6 +22,7 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				
+                /*Defaut*/
                 case 'accueil':
                     if($_GET['idOeuvre']){
                         $this->unOeuvre($_GET['idOeuvre']);    
@@ -36,7 +37,11 @@ class Controler
                         $this->artistes();
                     }
                     break;
-                  case 'afficheAdminMods':
+                /*Utilisateur*/
+                    
+                    
+                /*Admin*/
+                case 'afficheAdminMods':
                     $this->afficheAdminMods();
                     break;    
                 case 'modifierArtiste':
@@ -108,8 +113,6 @@ class Controler
                 case 'afficheInscriptionAdmin':
                     $this->afficheInscriptionAdmin();
                     break;
-
-            
                 case 'connexion':
                     if($_GET['action'] == 'envoyer')                    {
                         $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
@@ -180,10 +183,16 @@ class Controler
                 case 'adminPanel':
                     $this->adminPanel();
                     break;
-                
+                    
                 case 'miseajourjson':
+                if($_SESSION["sessionAdmin"]){
                     $this->miseajourjson();
-                    break;
+                    } else {
+                    $this->accueil();
+                }
+                break;
+                
+                
 
                 case 'afficheOeuvres':
                     $this->afficheOeuvres();
@@ -240,6 +249,10 @@ class Controler
 
                  case 'voter':
                     $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
+                    break;
+                
+                case 'proposerOeuvre':
+                    $this->proposerOeuvre();
                     break;
                     
                 default:
@@ -567,7 +580,7 @@ class Controler
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
+                    $oUtilisateurs->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
                     $oVueAdmin = new VueAdmin();
                     $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                     if($nbreUtilisateurs !=0) {
@@ -895,7 +908,7 @@ class Controler
     
         private function ajoutOeuvre()
         {
-            $erreurTitre ='';
+            
             $message ='';
             
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
@@ -1214,8 +1227,8 @@ class Controler
 
             if($pass === $motDePassePlusGrainSel)
             {   
-                $_SESSION["session"] = $login;
-                $_SESSION['admin'] = true;
+                $_SESSION["sessionAdmin"] = $login;
+
                 //rediriger vers la page admin
                 $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
                 $aOeuvres = $oOeuvres ->listeOeuvres();
@@ -1751,6 +1764,48 @@ class Controler
         {
             
             echo "voter";
+        }    
+        
+        private function proposerOeuvre()
+        {
+            
+            $message ='';
+            $erreurTitre ='';
+            $erreurTitreVariante = '';
+            $erreurTechnique = '';
+            $erreurTechniqueAng = '';
+            $erreurDescription = '';
+            $erreurAdresse = '';
+            $erreurBatiment = '';
+            $erreurParc = '';
+            $erreurLatitude = '';
+            $erreurLongitude = '';
+            $erreurArrondissement = '';
+            $erreurArtiste = '';
+            $erreurCategorie = '';
+            $erreurSousCategorie = '';
+            $erreurMateriaux = '';
+            $erreurMateriauxAng ='';
+            
+            $oArtistes = new MArtistes('', '', '' ,'', '', '');
+            $aArtistes = $oArtistes::listeArtistes();
+            
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories::listeCategories();
+            
+            $oSousCategories = new MSousCategories('', '', '', '');
+            $aSousCategories = $oSousCategories::listeSousCategories();
+            
+            $oArrondissements = new MArrondissement('', '');
+            $aArrondissements = $oArrondissements::listeArrondissement();
+
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            
+            $oVueDefaut->afficheHeader();
+            $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            $oVueDefaut->afficheFooter(false, false, false, false);
         }
     
         
