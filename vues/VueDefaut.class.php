@@ -674,7 +674,7 @@ public function afficheSliderAccueil($oeuvres)
      * @access public
      * @auteur: German Mahecha
      */
-    public function afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie) 
+    public function afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie, $photos) 
     {
          ?>
         <div class='row'>
@@ -689,7 +689,13 @@ public function afficheSliderAccueil($oeuvres)
             <div class= 'row'>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    <img class='img-responsive' src='images/img_2.jpg' width="700" height="700" alt="">
+                    <?php
+                        //var_dump($photos);
+                        if($photos)
+                            echo "<img class='img-responsive' src='./photos/proposees/".$photos[0][1]."' style='width:500px; alt=''>";
+                        else
+                            echo "<img class='img-responsive' src='./images/img_2.jpg' style='width:500px; alt=''>";
+                    ?>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-justify">
                     <p class='txt_uneOeuvre'> <strong>Description :</strong></p>
@@ -697,15 +703,30 @@ public function afficheSliderAccueil($oeuvres)
                 </div>
             </div>
 
-
-
-                
+            <div class='row'>
+            <div class="col-lg-12 text-center" >
+            
+            <?php
+            //var_dump($photos);
+            if($photos)
+            {
+                foreach($photos as $photo) {
+                     echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
+                            echo '<div class="hovereffect">';
+                                if($photo[1]!=$photos[0][1])
+                                    echo "<img src='./photos/proposees/".$photo[1]."' alt='' class='img-responsive' style='width:150px;height:150px' id='images_oeuvres'></a>";
+                            echo '</div>';
+                        echo '</div>';   
+                }
+            }
+            ?>
+            </div></div>    
                 
             <div class= 'row' id="details_oeuvre">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" ></div>
                 
               
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <?php
 
                        $idOeuvre= $oeuvre['idOeuvre'];
@@ -745,7 +766,9 @@ public function afficheSliderAccueil($oeuvres)
                     <p><strong>Adresse:</strong> <?php echo $adres; ?></p>
                     
                     <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
-                </div>
+            </div>
+            
+            
         
            
             <script>
