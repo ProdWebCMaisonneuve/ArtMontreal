@@ -8,30 +8,12 @@
  *
  */
 
+
 /**
- * Vérifie le formulaire ajout admin
+ * Vérifie le formulaire d'inscription utilisateur 
  * @access public
  * @author Jorge Blanco
  */
-//function validerFormAjoutAdmin()
-//{
-//    var form = document.getElementById("FormAjoutAdmin");
-//    var valide=true;
-//    for (i=0;i<form.elements.length;i++)
-//    {
-//        if(form.elements[i].value == "")
-//        {
-//            valide=false;
-//            document.getElementById('erreurPrenom').innerHTML = 'remplir ce champ';     
-//        }
-//    }
-//    
-//    if(valide==true)
-//    {
-//        document.FormAjoutAdmin.submit();
-//    }   
-//}
-
 
 function validerFormAInscription()
 {
@@ -147,6 +129,11 @@ function validerFormAInscription()
 }
 
 
+/**
+ * Vérifie le formulaire ajout d'une oeuvre  
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormAjoutOeuvre(){
     
     
@@ -334,6 +321,11 @@ function validerFormAjoutOeuvre(){
 }
 
 
+/**
+ * Vérifie le formulaire de modification d'une oeuvre  
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormModifierOeuvre()
 {
    
@@ -518,7 +510,11 @@ function validerFormModifierOeuvre()
     }
 }
 
-
+/**
+ * Vérifie le formulaire ajouter un artiste  
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormAjoutArtiste()
 {
     
@@ -572,6 +568,13 @@ function validerFormAjoutArtiste()
         
 }
 
+
+
+/**
+ * Vérifie le formulaire modifier un artiste  
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormAmodifierArtiste()
 {
     var valide=true;
@@ -623,6 +626,12 @@ function validerFormAmodifierArtiste()
 }
 
 
+
+/**
+ * Vérifie le formulaire ajouter une categorie 
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormAjouterCategorie()
 {
     var valide=true;
@@ -665,6 +674,12 @@ function validerFormAjouterCategorie()
     }
 }
 
+
+/**
+ * Vérifie le formulaire modifier une categorie 
+ * @access public
+ * @author Jorge Blanco
+ */
 function validerFormModifierCategorie()
 {
    
@@ -709,6 +724,224 @@ function validerFormModifierCategorie()
 }
 
 
+/**
+ * Vérifie le formulaire ajouter une categorie 
+ * @access public
+ * @author Jorge Blanco
+ */
+function validerAjoutUtilisateur()
+{
+    var valide=true;
+    var valide_valide=false;
+    
+    $prenom = $("#prenom");
+    $nom = $("#nom");
+    
+    $utilisateur= $("#loginUtilisateur");
+    $motDePasse1 = $("#passUtilisateur");
+    $email = $("#courriel");
+    $telephone = $("#telephone");
+    $bio= $("#bio");    
+    
+    
+
+   
+    if(valide_valide==false)
+    {  
+        
+        
+//        http://www.godsavethegeek.com/autre/regex-caracteres-accentues-prenom-nom
+        //nom: peut contenir lettrres de la A-Z mayuscules ou minuscules avec accents minimun 4 et maximum 29
+        if(!$prenom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
+        $( "#msjPrenom" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjPrenom" ).css("display", "none");
+        }
+
+        if(!$nom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
+        $( "#msjNom" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjNom" ).css("display", "none");
+        }        
+        
+                
+        //doit avoir au moins 4 caracteres 
+        if($utilisateur.val().length < 3){
+        $( "#msjUtilisateur1" ).css("display", "block");
+        valide=false;
+        }
+//        http://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
+        //nom utlisateur : expReg le nom peut contenir lettres et nombres de la A-Z en mayuscule ou minuscule, minmun 4 et maximum 18, puet pas commencer avec un point et peut contenir "." et "_"
+        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){0,18}[a-zA-Z0-9]$/)){
+            $("#msjUtilisateur2" ).css("display", "block");
+            $( "#msjUtilisateur1" ).css("display", "none");
+            valide=false;
+        }else{
+            $("#msjUtilisateur1" ).css("display", "none");
+            $("#msjUtilisateur2" ).css("display", "none");
+        }
+        
+
+        if($motDePasse1.val().length < 1 ){
+        $( "#msjMotDePasse1" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjMotDePasse1" ).css("display", "none");
+        }
+
+        
+//      http://web.ontuts.com/tutoriales/como-validar-un-formulario-con-php-y-javascript-jquery/        
+        if(!$email.val().match(/^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i)){
+        $( "#msjEmail" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjEmail" ).css("display", "none");
+        }
+
+        
+        
+//      http://www.regexplanet.com/advanced/javascript/index.html
+        if(!$telephone.val().match(/D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})/)){
+        $( "#msjTelephone" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjTelephone" ).css("display", "none");
+        }
+
+        if($bio.val().length < 4){
+            $( "#msjBio" ).css("display", "block");
+            valide=false;
+        }else{
+            $( "#msjBio" ).css("display", "none");
+        }
+        
+    }
+    else
+    {
+        valide=true;
+        valide_valide=false;
+    }
+    
+    
+    
+    
+    if(valide==true && valide_valide==false){    
+      
+      document.formAjoutUtilisateur.submit();
+      
+    }
+
+    
+}
+
+
+
+function validerModifierUtilisateur()
+{
+    var valide=true;
+    var valide_valide=false;
+    
+    $prenom = $("#prenom");
+    $nom = $("#nom");
+    $utilisateur= $("#loginUtilisateur");
+    $motDePasse1 = $("#passUtilisateur");
+    $email = $("#courriel");
+    $telephone = $("#telephone");
+    $bio= $("#bio");    
+    
+    
+
+   
+    if(valide_valide==false)
+    {  
+        
+        
+//        http://www.godsavethegeek.com/autre/regex-caracteres-accentues-prenom-nom
+        //nom: peut contenir lettrres de la A-Z mayuscules ou minuscules avec accents minimun 4 et maximum 29
+        if(!$prenom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
+        $( "#msjPrenom" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjPrenom" ).css("display", "none");
+        }
+
+        if(!$nom.val().match(/^[a-zA-ZÀ-ÿ\s\'-]{4,29}$/)){
+        $( "#msjNom" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjNom" ).css("display", "none");
+        }        
+        
+                
+        //doit avoir au moins 4 caracteres 
+        if($utilisateur.val().length < 3){
+        $( "#msjUtilisateur1" ).css("display", "block");
+        valide=false;
+        }
+//        http://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
+        //nom utlisateur : expReg le nom peut contenir lettres et nombres de la A-Z en mayuscule ou minuscule, minmun 4 et maximum 18, puet pas commencer avec un point et peut contenir "." et "_"
+        else if(!$utilisateur.val().match(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){0,18}[a-zA-Z0-9]$/)){
+            $("#msjUtilisateur2" ).css("display", "block");
+            $( "#msjUtilisateur1" ).css("display", "none");
+            valide=false;
+        }else{
+            $("#msjUtilisateur1" ).css("display", "none");
+            $("#msjUtilisateur2" ).css("display", "none");
+        }
+        
+
+        if($motDePasse1.val().length < 1 ){
+        $( "#msjMotDePasse1" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjMotDePasse1" ).css("display", "none");
+        }
+
+        
+//      http://web.ontuts.com/tutoriales/como-validar-un-formulario-con-php-y-javascript-jquery/        
+        if(!$email.val().match(/^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i)){
+        $( "#msjEmail" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjEmail" ).css("display", "none");
+        }
+
+        
+        
+//      http://www.regexplanet.com/advanced/javascript/index.html
+        if(!$telephone.val().match(/D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})/)){
+        $( "#msjTelephone" ).css("display", "block");
+        valide=false;
+        }else{
+            $( "#msjTelephone" ).css("display", "none");
+        }
+
+        if($bio.val().length < 4){
+            $( "#msjBio" ).css("display", "block");
+            valide=false;
+        }else{
+            $( "#msjBio" ).css("display", "none");
+        }
+        
+    }
+    else
+    {
+        valide=true;
+        valide_valide=false;
+    }
+    
+    
+    
+    
+    if(valide==true && valide_valide==false){    
+      
+      document.formModifierUtilisateur.submit();
+      
+    }
+}
+
 
 
 /**
@@ -727,4 +960,55 @@ function encrypte()
     document.formEncrypte.utilisateur.value = document.loginForm.utilisateur.value;
     document.formEncrypte.motDePasse.value = passwordEncryptePlusGrainSel;
     document.formEncrypte.submit();
+}
+
+/**
+ * Recupere la position de l'utilisateur
+ * @access public
+ * @author Gautier Piatek
+ */
+//source : http://www.alsacreations.com/tuto/lire/926-geolocalisation-geolocation-html5.html
+function recupererGeolocalisation()
+{
+    if(navigator.geolocation) {
+
+	// Fonction de callback en cas de succès
+	function affichePosition(position) {
+	
+		lat = position.coords.latitude;
+		long = position.coords.longitude;
+		document.getElementById("latitude").value = lat;
+		document.getElementById("longitude").value = long;
+        document.getElementById("msjLocalisation").innerHTML = "Position enregistrée";
+	}
+
+	// Fonction de callback en cas d’erreur
+	function erreurPosition(error) {
+		var info = "Erreur lors de la géolocalisation : ";
+		switch(error.code) {
+		case error.TIMEOUT:
+			info += "Timeout !";
+		break;
+		case error.PERMISSION_DENIED:
+			info += "Vous n’avez pas donné la permission";
+		break;
+		case error.POSITION_UNAVAILABLE:
+			info += "La position n’a pu être déterminée";
+		break;
+		case error.UNKNOWN_ERROR:
+			info += "Erreur inconnue";
+		break;
+		}
+		document.getElementById("msjLocalisation").innerHTML = info;
+	}
+
+	navigator.geolocation.getCurrentPosition(affichePosition,erreurPosition);
+
+} else {
+
+	document.getElementById("msjLocalisation").innerHTML = "Ce navigateur ne supporte pas la géolocalisation";
+
+}
+
+    
 }

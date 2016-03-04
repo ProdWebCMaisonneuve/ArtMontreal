@@ -83,6 +83,10 @@
             color: #ffffff;
         }
 
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
 #artiste{
     color: white;
 }
@@ -177,6 +181,14 @@ figcaption {background-color: gray}
 
 #formModifierCategorie span{
     color:red;
+}
+
+#formAjoutUtilisateur span{
+    color:red;
+}
+
+#formModifierUtilisateur span{
+    color: red;
 }
 
 
