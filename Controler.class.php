@@ -22,6 +22,7 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				
+                /*Defaut*/
                 case 'accueil':
                     if($_GET['idOeuvre']){
                         $this->unOeuvre($_GET['idOeuvre']);    
@@ -36,7 +37,11 @@ class Controler
                         $this->artistes();
                     }
                     break;
-                  case 'afficheAdminMods':
+                /*Utilisateur*/
+                    
+                    
+                /*Admin*/
+                case 'afficheAdminMods':
                     $this->afficheAdminMods();
                     break;    
                 case 'modifierArtiste':
@@ -108,8 +113,6 @@ class Controler
                 case 'afficheInscriptionAdmin':
                     $this->afficheInscriptionAdmin();
                     break;
-
-            
                 case 'connexion':
                     if($_GET['action'] == 'envoyer')                    {
                         $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
@@ -180,10 +183,16 @@ class Controler
                 case 'adminPanel':
                     $this->adminPanel();
                     break;
-                
+                    
                 case 'miseajourjson':
+                if($_SESSION["sessionAdmin"]){
                     $this->miseajourjson();
-                    break;
+                    } else {
+                    $this->accueil();
+                }
+                break;
+                
+                
 
                 case 'afficheOeuvres':
                     $this->afficheOeuvres();
@@ -208,7 +217,11 @@ class Controler
                     }
                     break;
                 case 'modifierProfilUtilisateur':
-                    $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
+                    if($_GET['action'] == 'changerPhotoProfil'){
+                        $this->changerPhotoProfil($_POST['idUtil']);  
+                    }else{
+                        $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
+                    }
                     break;
 
                 case 'commentaire':
@@ -240,6 +253,10 @@ class Controler
 
                  case 'voter':
                     $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
+                    break;
+                
+                case 'proposerOeuvre':
+                    $this->proposerOeuvre();
                     break;
                     
                 default:
@@ -288,8 +305,11 @@ class Controler
             
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
-			$oVue->afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie);
-			$oVue->afficheFooter(false,false, false, false);
+            $oPhotos = new MPhotos('','','','');
+            $aPhotos = $oPhotos::listerPhotosParOeuvre($oeuvre['idOeuvre']);
+            
+			$oVue->afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie,$aPhotos);
+            $oVue->afficheFooter(false,false, false, false);
 			
 		}
 
@@ -903,7 +923,7 @@ class Controler
     
         private function ajoutOeuvre()
         {
-            $erreurTitre ='';
+            
             $message ='';
             
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
@@ -1222,8 +1242,8 @@ class Controler
 
             if($pass === $motDePassePlusGrainSel)
             {   
-                $_SESSION["session"] = $login;
-                $_SESSION['admin'] = true;
+                $_SESSION["sessionAdmin"] = $login;
+
                 //rediriger vers la page admin
                 $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
                 $aOeuvres = $oOeuvres ->listeOeuvres();
@@ -1772,6 +1792,98 @@ class Controler
         {
             
             echo "voter";
+        }    
+        
+        private function proposerOeuvre()
+        {
+            
+            $message ='';
+            $erreurTitre ='';
+            $erreurTitreVariante = '';
+            $erreurTechnique = '';
+            $erreurTechniqueAng = '';
+            $erreurDescription = '';
+            $erreurAdresse = '';
+            $erreurBatiment = '';
+            $erreurParc = '';
+            $erreurLatitude = '';
+            $erreurLongitude = '';
+            $erreurArrondissement = '';
+            $erreurArtiste = '';
+            $erreurCategorie = '';
+            $erreurSousCategorie = '';
+            $erreurMateriaux = '';
+            $erreurMateriauxAng ='';
+            
+            $oArtistes = new MArtistes('', '', '' ,'', '', '');
+            $aArtistes = $oArtistes::listeArtistes();
+            
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories::listeCategories();
+            
+            $oSousCategories = new MSousCategories('', '', '', '');
+            $aSousCategories = $oSousCategories::listeSousCategories();
+            
+            $oArrondissements = new MArrondissement('', '');
+            $aArrondissements = $oArrondissements::listeArrondissement();
+
+            $oVueDefaut = new VueDefaut();
+            $oVueAdmin = new VueAdmin();
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            
+            $oVueDefaut->afficheHeader();
+            $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            $oVueDefaut->afficheFooter(false, false, false, false);
+        }
+    
+    
+    
+       /**
+     * function  changerPhotoProfil
+     * @access public
+     * @auteur: German Mahecha
+     */  
+        private function  changerPhotoProfil($idUtilisateur)
+        {
+            //echo $idOeuvre;
+            $message='';
+            $file_extension='';$temporary='';
+            
+            if ($_FILES["photoUtil"]["error"] > 0){
+                 $message= "Erreur dans le procesus";
+            } else {
+                //verification si le type de fichier est permis
+                //et que la taille soit plus petite que 50000kb
+                $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
+                $limite_kb = 10000;
+                
+                if (in_array($_FILES['photoUtil']['type'], $permis) && $_FILES['photoUtil']['size'] <= $limite_kb * 1024){
+                    //Création d'un dossier pour chaque utilisateur
+                    $dossierUtil='photos/utilisateurs/';
+                    //echo $dossierUtil;
+                    //Si le dossier existe déjà, il ne le crée pas.
+                    if(!is_dir($dossierUtil))
+                        mkdir($dossierUtil, 0777);
+                            
+                    $temporary = explode(".", $_FILES["photoUtil"]["name"]);
+                    $file_extension = end($temporary);
+                    $fichier= $idUtilisateur.".".$file_extension;
+                    $chemin = $dossierUtil."/".$fichier;
+                    //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
+                    //resultat contient true ou false pour valider si la copie a été reussi
+                    $resultat = @move_uploaded_file($_FILES["photoUtil"]["tmp_name"], $chemin);
+                    if ($resultat){
+                        $message= "Le fichier a été televerse correctement";
+                        //Si le fichier a été déplacé correctement
+                        //Affectation de la BD
+                        $utilis = new MUtilisateurs('','','','','','','','','');
+                         $ajoutPhoto=$utilis->modifierPhotoProfil($idUtilisateur,$fichier);
+                     } else { $message= "Un erreur pendant le televersement du fichier."; }
+                    
+                } else { $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";}
+            }
+            header("Location:index.php?requete=profilUtilisateurConnexion");
+  
         }
     
         
