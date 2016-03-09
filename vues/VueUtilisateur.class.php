@@ -89,7 +89,7 @@ class VueUtilisateur
                                             echo "<div class='panel-heading'>";
                                                 echo "<div class='row'>";
                                                     echo "<div class='col-xs-8'>";
-                                                         echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
+                                                         echo "<img src=./photos/proposees/".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
                                                      echo "</div>";
                                                      echo "<div class='col-xs-4 text-right'>";
                                                      echo "<p> <i class='fa fa-comments fa-2x'> " .$photo[3]."</i></span></p>";
@@ -142,7 +142,7 @@ class VueUtilisateur
                                             echo "<div class='panel-heading'>";
                                                 echo "<div class='row'>";
                                                     echo "<div class='col-xs-8'>";
-                                                         echo "<img src=".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
+                                                         echo "<img src=./photos/proposees/".$photo[1]." class='img-thumbnail img-responsive' style='width:150px;height:150px' alt=''>";
                                                      echo "</div>";
                                                      echo "<div class='col-xs-4 text-right'>";
                                                      echo "<p> <i class='fa fa-comments fa-2x'> " .$photo[3]."</i></span></p>";
@@ -229,7 +229,29 @@ class VueUtilisateur
     {
         ?>
         <div class="col-xm-12 col-sm-8 col-md-8 col-lg-7">
-              <div class="panel panel-primary">
+              
+            <div class="panel panel-primary">
+                  <div class="panel-heading"><h4>Modifier votre photo</h4></div>
+                  <div class="panel-body">            
+                     <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="index.php?requete=modifierProfilUtilisateur&action=changerPhotoProfil">
+                            <div class="form-group"><input type="hidden" id="idUtil" name='idUtil' value='<?php echo $utilisateur['idUtilisateur']; ?>'/></div>
+                                    <div class="form-group">
+                                        <label for="photoUtil" class="control-label col-sm-2">Changer Photo:</label>
+                                        <input type='file' name="photoUtil" id="photoUtil"><br/>
+                                        
+                                    </div>
+                                    
+                            <div class="form-group"> 
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary pull-left" name="photoPropose" value="photoPropose">Changer</button>
+                                 </div>
+                              </div>
+                         
+                        </form>
+                </div> 
+            </div> 
+            
+            <div class="panel panel-primary">
                   <div class="panel-heading"><h4>Modifier votre profil</h4></div>
                   <div class="panel-body">            
                      <form class="form-horizontal" role="form" action="index.php?requete=modifierProfilUtilisateur&idUtilisateur=<?php echo $utilisateur['idUtilisateur']; ?>&action=valider" method='POST'>
@@ -271,6 +293,12 @@ class VueUtilisateur
                     </form>
                 </div> 
             </div>  
+            
+            
+             
+            
+            
+            
         </div>
         <?php
 
@@ -318,6 +346,7 @@ class VueUtilisateur
                     </div>
                 </div>
             </div>
+                  </div>
       <?php  
     }
     /**
