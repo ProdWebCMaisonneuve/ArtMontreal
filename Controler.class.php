@@ -37,11 +37,84 @@ class Controler
                         $this->artistes();
                     }
                     break;
+                /*Utilisateur*/
+                    
+                    
+                /*Admin*/
+                case 'afficheAdminMods':
+                    $this->afficheAdminMods();
+                    break;    
+                case 'modifierArtiste':
+                        $this->modifierArtiste($_GET['idArtiste']);
+                    break;
+                case 'afficheArtistes':
+                        $this->afficheArtistes();
+                    break;
+                case 'ajoutArtiste':
+                        $this->ajoutArtiste();
+                    break;   
+                    
+                case 'supprimerArtistes':
+                        $this->supprimerArtistes($_GET['idArtiste']);
+                    break;
+                
+                case 'afficheUtilisateurs':
+                        $this->afficheUtilisateurs();
+                    break;
+                
+                case 'ajoutUtilisateur':
+                        $this->ajoutUtilisateur();
+                    break;
+                    
+                case 'modifierUtilisateur':
+                        $this->modifierUtilisateur($_GET['idUtilisateur']);
+                    break;
+
+                case 'supprimerUtilisateurs':
+                        $this->supprimerUtilisateurs($_GET['idUtilisateur']);
+                    break;
+                    
+                case 'supprimerAdminMod':
+                    $this->supprimerAdmin_moderateur($_GET['idAdMod']);
+                    break;
+                case 'modifierCategories':
+                        $this->modifierCategories($_GET['idCategorie']);
+                    break;
+                case 'supprimerCategories':
+                        $this->supprimerCategories($_GET['idCategorie']);
+                    break;
+                case 'supprimerOeuvres':
+                        $this->supprimerOeuvres($_GET['idOeuvre']);
+                    break; 
+                case 'modifierOeuvre':
+                        $this->modifierOeuvre($_GET['idOeuvre']);
+                    break; 
+                case 'supprimerPhoto':
+                        $this->supprimerPhoto($_GET['idPhoto']);
+                    break; 
+                case 'supprimerCommentaire':
+                        $this->supprimerCommentaire($_GET['idCommentaire']);
+                    break; 
+                case 'validerPhoto':
+                        $this->validerPhoto($_GET['idPhoto']);
+                    break; 
+                case 'validerCommentaire':
+                        $this->validerCommentaire($_GET['idCommentaire']);
+                    break; 
+                case 'validerOeuvre':
+                        $this->validerOeuvre($_GET['idOeuvre']);
+                    break; 
+                case 'modifierAdminMod':
+                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
+                    break;
                 case 'inscription':
                     $this->inscription();
-                    break;    
+                    break;
+                case 'afficheInscriptionAdmin':
+                    $this->afficheInscriptionAdmin();
+                    break;
                 case 'connexion':
-                    if($_GET['action'] == 'envoyer') {
+                    if($_GET['action'] == 'envoyer')                    {
                         $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
                     }else{
                         $this->connexion();
@@ -65,234 +138,40 @@ class Controler
                 case 'unOeuvre':
                     $this->unOeuvre($_GET['idOeuvre']);
                     break;
-                 case 'oeuvresParCat':
+                case 'unUtilisateur':
+                    $this->unUtilisateur($_GET['idUtilisateur']);
+                    break;
+                case 'oeuvresParCat':
                     $this->oeuvresParCat();
                     break;
                 case 'oeuvresParArr';
-                	$this->oeuvresParArr();
-                	break;    
+                 	$this->oeuvresParArr();
+                 	break;
+                case 'ajoutOeuvre':
+                    $this->ajoutOeuvre();
+                    break; 
+                case 'profilUtilisateur':
+                    $this->profilUtilisateur();
+                    break;
+                case 'listerUtilisateurs':
+                    $this->listerUtilisateurs();
+                    break;
+               
+                case 'formulaireAjouterArtiste':
+                    $this->afficheAjouterUnArtiste();
+                    break;
+                case 'ajouterUnCategorie':
+                    $this->ajouterUnCategorie();
+                    break;
+                case 'formulaireAjouterCategorie':
+                   $this->afficheAjouterUnCategorie();
+                    break;
+                case 'ajoutAdminMod':
+                    $this->ajoutAdminMod();
+                    break;
                 case 'recherche':
                     $this->rechercheOeuvresMot();
-                    break; 
-                case 'commentaire':
-                    $this->commentaire($_GET['idCommentaire']);
-                    break;
-                case 'unUtilisateur':
-                    $this->unUtilisateur($_GET['idUtilisateur']);
-                    break;    
-                /*Utilisateur*/   
-                case 'profilUtilisateurConnexion':
-                    if($_SESSION["session"]){
-                        $this->profilUtilisateurConnexion();
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                case 'propositionPhotoUtilisateur':
-                    if($_SESSION["session"]){
-                        if($_GET['action'] == 'ajoutPhoto'){
-                            $this->ajouterPhoto($_POST['idUtil'],$_POST['idOeuvre']);  
-                        }else{
-                            $this->propositionPhotoUtilisateur($_GET['idOeuvre']);
-                        }
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                case 'modifierProfilUtilisateur':
-                    if($_SESSION["session"]){
-                        $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                case 'detailsPhotoUtilisateur':
-                    if($_SESSION["session"]){
-                        $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-
-                 case 'voter':
-                    if($_SESSION["session"]){
-                        $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                
-                case 'proposerOeuvre':
-                    if($_SESSION["session"]){
-                        $this->proposerOeuvre();
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                case 'propositionCommentaire':
-                    if($_SESSION["session"]){
-                        $this->propositionCommentaire();
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                    
-                /*Admin*/
-                case 'afficheAdminMods':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheAdminMods();
-                    } else {
-                        $this->accueil();
-                    }
-                    break;    
-                case 'modifierArtiste':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->modifierArtiste($_GET['idArtiste']);
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                case 'afficheArtistes':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheArtistes();
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                case 'ajoutArtiste':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->ajoutArtiste();
-                    } else {
-                        $this->accueil();
-                    }
-                    break;   
-                    
-                case 'supprimerArtistes':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->supprimerArtistes($_GET['idArtiste']);
-                    } else {
-                        $this->accueil();
-                    }
-                    break;
-                
-                case 'afficheUtilisateurs':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheUtilisateurs();
-                    } else {
-                        $this->accueil();
-                    }    
-                    break;
-                
-                case 'ajoutUtilisateur':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->ajoutUtilisateur();
-                    } else {
-                        $this->accueil();
-                    }  
-                    break;
-                    
-                case 'modifierUtilisateur':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->modifierUtilisateur($_GET['idUtilisateur']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-
-                case 'supprimerUtilisateurs':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->supprimerUtilisateurs($_GET['idUtilisateur']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                    
-                case 'supprimerAdminMod':
-                    if($_SESSION["sessionAdmin"]){
-                    $this->supprimerAdmin_moderateur($_GET['idAdMod']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                case 'modifierCategories':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->modifierCategories($_GET['idCategorie']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                case 'supprimerCategories':
-                     if($_SESSION["sessionAdmin"]){
-                        $this->supprimerCategories($_GET['idCategorie']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                case 'supprimerOeuvres':
-                     if($_SESSION["sessionAdmin"]){
-                        $this->supprimerOeuvres($_GET['idOeuvre']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break; 
-                case 'modifierOeuvre':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->modifierOeuvre($_GET['idOeuvre']);
-                    } else {
-                        $this->accueil();
-                    }     
-                    break; 
-                case 'supprimerPhoto':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->supprimerPhoto($_GET['idPhoto']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break; 
-                case 'supprimerCommentaire':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->supprimerCommentaire($_GET['idCommentaire']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break; 
-                case 'validerPhoto':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->validerPhoto($_GET['idPhoto']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break; 
-                case 'validerCommentaire':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->validerCommentaire($_GET['idCommentaire']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break; 
-                case 'validerOeuvre':
-                     if($_SESSION["sessionAdmin"]){
-                        $this->validerOeuvre($_GET['idOeuvre']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break; 
-                case 'modifierAdminMod':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->modifierAdmin_moderateur($_GET['idAdMod']);
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                
-                case 'afficheInscriptionAdmin':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheInscriptionAdmin();
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;
-                    
+                    break;                
                 case 'admin':           
                     if($_GET['action'] == 'envoyer'){
                         $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
@@ -302,108 +181,80 @@ class Controler
                     break;
                 
                 case 'adminPanel':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->adminPanel();
-                    } else {
-                        $this->accueil();
-                    } 
+                    $this->adminPanel();
                     break;
                     
                 case 'miseajourjson':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->miseajourjson();
+                if($_SESSION["sessionAdmin"]){
+                    $this->miseajourjson();
                     } else {
-                        $this->accueil();
-                    }
-                    break;
- 
-                case 'ajoutOeuvre':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->ajoutOeuvre();
-                    } else {
-                        $this->accueil();
-                    }
-                    break; 
+                    $this->accueil();
+                }
+                break;
+                
+                
 
-                case 'listerUtilisateurs':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->listerUtilisateurs();
-                    } else {
-                        $this->accueil();
+                case 'afficheOeuvres':
+                    $this->afficheOeuvres();
+                    break;
+
+                case 'afficheCategories':
+                $this->afficheCategories();
+                break;
+                
+                case 'ajoutCategorie':
+                $this->ajoutCategorie();
+                break;
+ 
+                case 'profilUtilisateurConnexion':
+                    $this->profilUtilisateurConnexion();
+                    break;
+                case 'propositionPhotoUtilisateur':
+                    if($_GET['action'] == 'ajoutPhoto'){
+                        $this->ajouterPhoto($_POST['idUtil'],$_POST['idOeuvre']);  
+                    }else{
+                        $this->propositionPhotoUtilisateur($_GET['idOeuvre']);
                     }
-                    break; 
-               
-                case 'formulaireAjouterArtiste':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheAjouterUnArtiste();
-                    } else {
-                        $this->accueil();
-                    }    
                     break;
-                case 'ajouterUnCategorie':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->ajouterUnCategorie();
-                    } else {
-                        $this->accueil();
-                    } 
+                case 'modifierProfilUtilisateur':
+                    $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
                     break;
-                case 'ajoutAdminMod':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->ajoutAdminMod();
-                    } else {
-                        $this->accueil();
-                    } 
+
+                case 'commentaire':
+                    $this->commentaire($_GET['idCommentaire']);
                     break;
+
+                case 'propositionCommentaire':
+                    $this->propositionCommentaire();
+                    break;
+
                 case 'afficheModCommentaires':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheModCommentaires();
-                    } else {
-                        $this->accueil();
-                    } 
+                    $this->afficheModCommentaires();
                     break;
+                
                 case 'afficheBDD':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheBDD();
-                    } else {
-                        $this->accueil();
-                    } 
+                    $this->afficheBDD();
                     break;
+                
                 case 'afficheModPhotos':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheModPhotos();
-                    } else {
-                        $this->accueil();
-                    } 
+                    $this->afficheModPhotos();
                     break;
                 case 'afficheModOeuvres':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheModOeuvres();
-                    } else {
-                        $this->accueil();
-                    } 
-                    break;             
-                case 'afficheOeuvres':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheOeuvres();
-                    } else {
-                        $this->accueil();
-                    } 
+                    $this->afficheModOeuvres();
                     break;
-                case 'afficheCategories':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->afficheCategories();
-                    } else {
-                        $this->accueil();
-                    } 
+                
+                case 'detailsPhotoUtilisateur':
+                    $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
                     break;
-                case 'ajoutCategorie':
-                    if($_SESSION["sessionAdmin"]){
-                        $this->ajoutCategorie();
-                     } else {
-                        $this->accueil();
-                    }
+
+                 case 'voter':
+                    $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
                     break;
- 
+                
+                case 'proposerOeuvre':
+                    $this->proposerOeuvre();
+                    break;
+                    
                 default:
 			    $this->accueil();
 				break;
@@ -1141,6 +992,21 @@ class Controler
         } 
          
 
+        
+
+        private function profilUtilisateur()
+        {
+
+            $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
+            $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
+
+
+            $oVue = new VueDefaut();
+            $oVue->afficheHeaderAdmin();
+            //$oVue->ajouterUnArtiste();
+            $oVue->listerUtilisateurs($aUtilisateurs);
+            $oVue->afficheFooter(false,false,false,false);
+        }
 
          private function adminPanel()
         {
