@@ -506,14 +506,16 @@ public function afficheSliderAccueil($oeuvres)
             
                 <div class='row'>
                 <div class=' visible-lg visible-md col-lg-12'>
+           
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                   
                   <!-- Indicators -->
                   <ol class="carousel-indicators">
                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                     <li data-target="#myCarousel" data-slide-to="1"></li>
                     <li data-target="#myCarousel" data-slide-to="2"></li>
                   </ol>
-                
+                 
                   <!-- Wrapper for slides -->
                  <div class="carousel-inner" role="listbox">
                    <?php
@@ -528,7 +530,7 @@ public function afficheSliderAccueil($oeuvres)
                     <?php $compteur = $compteur+1; } ?>
                     
                   </div>
-
+                </div>
                   <!-- Left and right controls -->
                   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -541,14 +543,6 @@ public function afficheSliderAccueil($oeuvres)
             </div>
                 
                 </div>
-
-            </div>
-            
-          
-      
-            
-                
-
 
 
         <?php
