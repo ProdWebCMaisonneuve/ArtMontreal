@@ -58,6 +58,11 @@
 		$_POST['majBDD'] = '';
 	}
 
+	if(empty($_POST['page']))
+    {
+		$_POST['page'] = '';
+	}
+
     
 
 ?>

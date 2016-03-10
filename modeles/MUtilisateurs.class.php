@@ -307,7 +307,32 @@ class MUtilisateurs {
         $ligne = self::$database->uneLigne();
         return $ligne;
      }
+
     
+    /**
+	 * Fonction pour valider si un utilisateur existe
+	 * @return none
+     * @author Jorge Blanco
+     * @version 1.0
+     * 
+     */
+    
+    public static function verifierUtilisateurs($login)
+    {
+        self::$database->query("SELECT loginUtilisateur FROM utilisateur_enregistre WHERE loginUtilisateur = :login");
+        self::$database->bind(':login', $login);
+        $resultat = self::$database->uneLigne();
+        
+        if($resultat>0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     /**
 	 * Fonction pour changer la photo du profil d'un utilisateur
 	 * @return none
@@ -322,6 +347,7 @@ class MUtilisateurs {
         self::$database->bind(':nomPhoto', $nomPhoto);
         self::$database->execute();
         
+
     }
 
 }?>
