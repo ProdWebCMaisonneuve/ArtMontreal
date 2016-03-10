@@ -12,13 +12,19 @@
 
 	require_once("./config.php");
 
-/*    switch($_GET['requete'])
+    switch($_GET['requete'])
     {
-        case 'ajoutOeuvre': 
-            ajoutOeuvre();
+        case 'chargerPlusOeuvres': 
+            chargerPlusOeuvres();
             break;
         
     }
+    
+    
+   
+    
+    
+/*
 
     function ajoutOeuvre()
     {
@@ -42,7 +48,28 @@
         $oVue->;
     }*/
 
-
+     private function chargerPlusOeuvres()
+		{
+            
+            //var_dump(chargerPlusOeuvres());
+            
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            
+            $aOeuvres = $oOeuvres->listeOeuvres();
+            
+//            if($nbreOeuvres !=0) {
+//                $aOeuvres = $oOeuvres->listeOeuvres();
+//            } else {
+//                $aOeuvres = '';
+//            }
+           $oVueDefaut = new VueDefaut();
+            //$oVueAdmin = new VueAdmin();
+            
+            
+			$oVueDefaut->chargerPlusOeuvres($aOeuvres);
+           
+    
+		}
 
 
 

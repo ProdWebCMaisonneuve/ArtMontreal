@@ -426,17 +426,35 @@ class Controler
         } 
 		
         private function accueil()
-		{
+        {
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvres = $oOeuvres::listeOeuvres();
             $oVue = new VueDefaut();
-			$oVue->afficheHeader();
+            
+            $oeuvresParPage = 8;
+            $nbreOeuvres = $oOeuvres->nbreOeuvres();
+            $pagesTotales = ceil($nbreOeuvres/$oeuvresParPage);
+            
+            if(isset($_GET['page']))
+            {
+                $_GET['page'] = intval($_GET['page']);
+                $pageCourante = $_GET['page'];
+            }
+            else
+            {
+                $pageCourante = 1;
+            }
+            
+            $depart = ($pageCourante-1)*$oeuvresParPage;
+            $aOeuvres = $oOeuvres::listeOeuvres_limit($depart, $oeuvresParPage);
+            
+            $oVue->afficheHeader();
             $oVue->afficheSliderAccueil($aOeuvres);
             $oVue->afficheJumbotronAccueil();
-			$oVue->afficheOeuvresAccueil($aOeuvres);
-			$oVue->afficheFooter(true, false, false, false);
-			
-		} 
+            $oVue->afficheOeuvresAccueil($aOeuvres);
+            $oVue->afficherPages($pagesTotales, $pageCourante);
+            $oVue->afficheFooter(true, false, false, false);
+            
+        } 
 
         private function unOeuvre($idget)
 		{
@@ -1014,9 +1032,7 @@ class Controler
         {
             $erreurTitre ='';
             $message ='';
-            
         
-          
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
 
@@ -1024,9 +1040,19 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
+                
+                $login=$oUtilisateur->verifierUtilisateurs($_POST['utilisateur']);
+                var_dump($login);
+                if($login==true)
+                {
                 $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], 'utilisateurDefaut.jpg');
                 $message = "Utilisateur ajoutée.";
                 echo 'utilisateur ajoute';
+                }
+                else
+                {
+                    echo 'utilisateur existe';
+                }
             }
             
             
@@ -1348,8 +1374,24 @@ class Controler
                 $_SESSION["session"] = $login;
                 //rediriger vers la page accueil
                 $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-                $aOeuvres = $oOeuvres->listeOeuvres();
+                //$aOeuvres = $oOeuvres->listeOeuvres();
                 
+                $oeuvresParPage = 8;
+                $nbreOeuvres = $oOeuvres->nbreOeuvres();
+                $pagesTotales = ceil($nbreOeuvres/$oeuvresParPage);
+
+                if(isset($_GET['page']))
+                {
+                    $_GET['page'] = intval($_GET['page']);
+                    $pageCourante = $_GET['page'];
+                }
+                else
+                {
+                    $pageCourante = 1;
+                }
+
+                $depart = ($pageCourante-1)*$oeuvresParPage;
+                $aOeuvres = $oOeuvres::listeOeuvres_limit($depart, $oeuvresParPage);
                 
                 
                 $oVue = new VueDefaut();
@@ -1357,6 +1399,7 @@ class Controler
                 $oVue->afficheSliderAccueil($aOeuvres);
                 $oVue->afficheJumbotronAccueil();
                 $oVue->afficheOeuvresAccueil($aOeuvres);
+                $oVue->afficherPages($pagesTotales, $pageCourante);
                 $oVue->afficheFooter(false,false,false,false);
             }
             else

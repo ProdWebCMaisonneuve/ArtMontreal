@@ -165,7 +165,25 @@ class MOeuvres {
 	 * @return Array Tableau contenant la liste de tout
 	 */
 	public static function listeOeuvres() {
-		self::$database->query('SELECT * FROM oeuvre LIMIT 0,12');
+		self::$database->query('SELECT * FROM oeuvre');
+		
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {	
+            $uneOeuvre = new MOeuvres($ligne['idOeuvre'],$ligne['titreOeuvre'],$ligne['titreVariante'],$ligne['technique'],$ligne['techniqueAng'],
+                                    $ligne['noInterne'],$ligne['description'],$ligne['validationOeuvre'],$ligne['idArrondissement'],$ligne['nomMateriaux'], $ligne['nomMateriauxAng'],$ligne['idCategorie'],$ligne['idSousCategorie'],$ligne['adresseCivic'],$ligne['batiment'],$ligne['parc'],$ligne['latitude'],$ligne['longitude']);
+			$oeuvres[] = $uneOeuvre;
+		}
+		return $oeuvres;
+	}
+
+
+	/**
+	 * @access public static
+     * @author Jorge Blanco
+	 * @return Array Tableau contenant la liste de tout avec un limit 
+	 */
+	public static function listeOeuvres_limit($depart, $oeuvresParPage) {
+		self::$database->query('SELECT * FROM oeuvre ORDER by idOeuvre ASC LIMIT '.$depart.','.$oeuvresParPage);
 		
         $lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {	

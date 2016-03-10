@@ -56,8 +56,15 @@
     if(empty($_POST['majBDD']))
     {
 		$_POST['majBDD'] = '';
-	} 
-    
+
+	}
+
+	if(empty($_POST['page']))
+    {
+		$_POST['page'] = '';
+	}
+
+
     
 
 ?>
