@@ -62,7 +62,7 @@ class VueDefaut
 
             <body>
                
-                <nav class="navbar navbar-default navbar-fixed-top" id="header_back">
+                <nav class="navbar navbar-default" id="header_back">
                          <div class="col-lg-12" id="nav-logo"><img src="images/logo.png" class="img-responsive" alt="Logo" ></div>
                         <div class="container-fluid">
 
@@ -645,28 +645,64 @@ public function afficheSliderAccueil($oeuvres)
      */
     public function afficheOeuvresAccueil($oeuvres) 
     {
-        
+        echo '<div id="tous_les_oeuvres" class="row">';
         foreach($oeuvres as $oeuvre) {
                if($oeuvre->getValidationOeuvre()==1)
                {   
-                    echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
-                        echo '<div class="hovereffect">';
-                            $idOeuvre= $oeuvre->getIdOeuvre();
-                            $titre = $oeuvre->getTitreOeuvre();
-                            echo "<img src='images/photoDefaut.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
-                                echo '<div class="overlay">';
-                                    echo '<h2>'.$titre .'</h2>';
-                                    echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a><br/>';
-                                    if ($_SESSION['session']){
-                                        echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "Proposer Photo " .'</a>';
-                                    }
+                   
+                        echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature oeuvres_" >';
+                            echo '<div class="hovereffect">';
+                                $idOeuvre= $oeuvre->getIdOeuvre();
+                                $titre = $oeuvre->getTitreOeuvre();
+                                echo "<img src='images/photoDefaut.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
+                                    echo '<div class="overlay">';
+                                        echo '<h2>'.$titre .'</h2>';
+                                        echo '<a class="info" href="index.php?requete=accueil&idOeuvre='.$idOeuvre.'">'. "plus d'info" .'</a><br/>';
+                                        if ($_SESSION['session']){
+                                            echo '<a class="info" href="index.php?requete=propositionPhotoUtilisateur&idOeuvre='.$idOeuvre.'">'. "Proposer Photo " .'</a>';
+                                        }
+                                    echo '</div>';
                                 echo '</div>';
-                            echo '</div>';
-                    echo '</div>';
+                        echo '</div>';
+    
+               } 
+             
+        }
+        echo '</div>';
 
-               }   
-        } 
-    } 
+    }  
+
+    public function afficherPages($pagesTotales, $pageCourante)
+    {
+        echo '<div id="pagination">';
+        for($i=1;$i<=$pagesTotales;$i++) {
+         if($i == $pageCourante) {
+            echo $i.' ';
+         } elseif ($i == $pageCourante+1){
+             echo '<a href="index.php?page='.$i.'" class="suivante">'.$i.'</a> ';
+         }else {
+            echo '<a href="index.php?page='.$i.'">'.$i.'</a> ';
+         }
+      }
+        echo '</div>';
+        ?>
+            <script src="js/jquery-ias.min.js"></script>
+            <script>
+                var ias = jQuery.ias({
+                  container:  '#tous_les_oeuvres',
+                  item:       '.oeuvres_',
+                  pagination: '#pagination',
+                  next:       '.suivante'
+                });
+            ias.extension(new IASSpinnerExtension({
+            src: 'images/loader.gif', // optionally
+            }));
+            ias.extension(new IASNoneLeftExtension({
+            text: "il n'y a plus d'oeuvres", // optionally
+            }));
+            </script>
+        <?php
+    }
 
 
     /**

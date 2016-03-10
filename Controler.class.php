@@ -422,17 +422,35 @@ class Controler
         } 
 		
         private function accueil()
-		{
+        {
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-            $aOeuvres = $oOeuvres::listeOeuvres();
             $oVue = new VueDefaut();
-			$oVue->afficheHeader();
+            
+            $oeuvresParPage = 8;
+            $nbreOeuvres = $oOeuvres->nbreOeuvres();
+            $pagesTotales = ceil($nbreOeuvres/$oeuvresParPage);
+            
+            if(isset($_GET['page']))
+            {
+                $_GET['page'] = intval($_GET['page']);
+                $pageCourante = $_GET['page'];
+            }
+            else
+            {
+                $pageCourante = 1;
+            }
+            
+            $depart = ($pageCourante-1)*$oeuvresParPage;
+            $aOeuvres = $oOeuvres::listeOeuvres_limit($depart, $oeuvresParPage);
+            
+            $oVue->afficheHeader();
             $oVue->afficheSliderAccueil($aOeuvres);
             $oVue->afficheJumbotronAccueil();
-			$oVue->afficheOeuvresAccueil($aOeuvres);
-			$oVue->afficheFooter(true, false, false, false);
-			
-		} 
+            $oVue->afficheOeuvresAccueil($aOeuvres);
+            $oVue->afficherPages($pagesTotales, $pageCourante);
+            $oVue->afficheFooter(true, false, false, false);
+            
+        } 
 
         private function unOeuvre($idget)
 		{
@@ -1352,8 +1370,24 @@ class Controler
                 $_SESSION["session"] = $login;
                 //rediriger vers la page accueil
                 $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-                $aOeuvres = $oOeuvres->listeOeuvres();
+                //$aOeuvres = $oOeuvres->listeOeuvres();
                 
+                $oeuvresParPage = 8;
+                $nbreOeuvres = $oOeuvres->nbreOeuvres();
+                $pagesTotales = ceil($nbreOeuvres/$oeuvresParPage);
+
+                if(isset($_GET['page']))
+                {
+                    $_GET['page'] = intval($_GET['page']);
+                    $pageCourante = $_GET['page'];
+                }
+                else
+                {
+                    $pageCourante = 1;
+                }
+
+                $depart = ($pageCourante-1)*$oeuvresParPage;
+                $aOeuvres = $oOeuvres::listeOeuvres_limit($depart, $oeuvresParPage);
                 
                 
                 $oVue = new VueDefaut();
@@ -1361,6 +1395,7 @@ class Controler
                 $oVue->afficheSliderAccueil($aOeuvres);
                 $oVue->afficheJumbotronAccueil();
                 $oVue->afficheOeuvresAccueil($aOeuvres);
+                $oVue->afficherPages($pagesTotales, $pageCourante);
                 $oVue->afficheFooter(false,false,false,false);
             }
             else
