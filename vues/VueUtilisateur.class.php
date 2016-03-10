@@ -28,8 +28,7 @@ class VueUtilisateur
         $bioUtil=$utilisateur["bio"];
         $photoUtil=$utilisateur["photoUtilisateur"];
                   
-        //var_dump($utilisateur);
-         ?>
+        ?>
         <div class="container-fluid text-center">    
           <div class="row">
             <div class="col-xm-12 col-sm-4 col-md-4 col-lg-3 well">
@@ -39,9 +38,9 @@ class VueUtilisateur
                   <div class="panel-body">
                       <?php
                         if($photoUtil!='utilisateurDefaut.jpg')
-                            echo "<img src='photos/utilisateurs/".$photoUtil."' class='img-circle' height='150' width='150' alt='Avatar'><hr>";
+                            echo "<img src='./photos/utilisateurs/".$photoUtil."' class='img-circle' height='150' width='150' alt='Avatar'><hr>";
                         else
-                            echo "<img src='images/utilisateurDefaut.jpg' class='img-circle' height='150' width='150' alt='Avatar'><hr>";
+                            echo "<img src='./images/utilisateurDefaut.jpg' class='img-circle' height='150' width='150' alt='Avatar'><hr>";
                         ?>
                       <p><strong><?php echo $prenomUtil.' '.$nomUtil;?></strong></p><hr>
                       <p><span class="glyphicon glyphicon-envelope"></span><?php echo " ".$courrielUtil;?></p>
@@ -125,11 +124,10 @@ class VueUtilisateur
     */
     public function afficherMeilleuresPhotos($photos)
     {
-        //var_dump($photos);
         ?>
             
                 <div class="panel panel-success">
-                  <div class="panel-heading text-left"><h4>Les meilleures Photos du concours</h4></div>
+                  <div class="panel-heading text-left"><h4>Concours - Essayez de les battre!!!!</h4></div>
                       <div class="panel-body">
                       <?php
                             if(!$photos){
@@ -170,15 +168,7 @@ class VueUtilisateur
           
        <?php 
     }
-    
-    
-    
-    
-    /**
-    * Affiche la page pour soumettre une photo utilisateur
-    * @access public
-    * @auteure: German Mahecha
-    */
+   
     /**
     * Affiche la page pour soumettre une photo utilisateur
     * @access public
@@ -303,8 +293,7 @@ class VueUtilisateur
         <?php
 
     }
-    
-    
+        
     public function afficherDetailsPhotoUtilisateur($commentaires, $oeuvre, $photo, $utilisateur,$unUtilisateurProposition)
     {
         ?> 
@@ -313,7 +302,7 @@ class VueUtilisateur
                     <div class="panel-heading"><h4><?php echo $oeuvre['titreOeuvre']; ?></h4></div>
                     <div class="panel-body">
                         <div class="thumbnail">
-                            <img class="img-responsive" style='width:300px;' src="<?php echo $photo['nomPhoto']; ?>" alt=""><hr>
+                            <img class="img-responsive" style='width:300px;' src="./photos/proposees/<?php echo $photo['nomPhoto']; ?>" alt=''><hr>
                             <div class="caption-full">
                                 <p>Photographie de: <?php echo $unUtilisateurProposition['prenomUtil']." ".$unUtilisateurProposition['nomUtil'] ; ?></p>
                                 <a href="index.php?requete=accueil&idOeuvre=<?php echo $oeuvre['idOeuvre']; ?>" class='btn btn-primary'><span class='glyphicon glyphicon-eye-open'></span> Details de l'oeuvre</a>
