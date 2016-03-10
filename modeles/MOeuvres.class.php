@@ -165,7 +165,7 @@ class MOeuvres {
 	 * @return Array Tableau contenant la liste de tout
 	 */
 	public static function listeOeuvres() {
-		self::$database->query('SELECT * FROM oeuvre');
+		self::$database->query('SELECT * FROM oeuvre LIMIT 0,12');
 		
         $lignes = self::$database->resultset();
 		foreach ($lignes as $ligne) {	

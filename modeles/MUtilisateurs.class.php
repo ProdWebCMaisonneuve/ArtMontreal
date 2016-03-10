@@ -307,5 +307,21 @@ class MUtilisateurs {
         $ligne = self::$database->uneLigne();
         return $ligne;
      }
+    
+    /**
+	 * Fonction pour changer la photo du profil d'un utilisateur
+	 * @return none
+     * @author German Mahecha
+     * @version 1.0
+     * 
+     */
+    public static function modifierPhotoProfil($idUtil, $nomPhoto)
+    {
+        self::$database->query("UPDATE utilisateur_enregistre SET photoUtilisateur = :nomPhoto WHERE idUtilisateur = :idUtil");
+        self::$database->bind(':idUtil', $idUtil);
+        self::$database->bind(':nomPhoto', $nomPhoto);
+        self::$database->execute();
+        
+    }
 
 }?>

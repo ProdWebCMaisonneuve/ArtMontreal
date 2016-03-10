@@ -650,6 +650,7 @@ public function afficheSliderAccueil($oeuvres)
         foreach($oeuvres as $oeuvre) {
                if($oeuvre->getValidationOeuvre()==1)
                {   
+
                    $idOeuvre= $oeuvre->getIdOeuvre();
                     $titre = $oeuvre->getTitreOeuvre();
                     echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
@@ -676,7 +677,7 @@ public function afficheSliderAccueil($oeuvres)
      * @access public
      * @auteur: German Mahecha
      */
-    public function afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie) 
+    public function afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie, $photos) 
     {
          ?>
         <div class='row'>
@@ -691,7 +692,13 @@ public function afficheSliderAccueil($oeuvres)
             <div class= 'row'>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    <img class='img-responsive' src='images/img_2.jpg' width="700" height="700" alt="">
+                    <?php
+                        //var_dump($photos);
+                        if($photos)
+                            echo "<img class='img-responsive' src='./photos/proposees/".$photos[0][1]."' style='width:500px; alt=''>";
+                        else
+                            echo "<img class='img-responsive' src='./images/img_2.jpg' style='width:500px; alt=''>";
+                    ?>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-justify">
                     <p class='txt_uneOeuvre'> <strong>Description :</strong></p>
@@ -699,15 +706,30 @@ public function afficheSliderAccueil($oeuvres)
                 </div>
             </div>
 
-
-
-                
+            <div class='row'>
+            <div class="col-lg-12 text-center" >
+            
+            <?php
+            //var_dump($photos);
+            if($photos)
+            {
+                foreach($photos as $photo) {
+                     echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
+                            echo '<div class="hovereffect">';
+                                if($photo[1]!=$photos[0][1])
+                                    echo "<img src='./photos/proposees/".$photo[1]."' alt='' class='img-responsive' style='width:150px;height:150px' id='images_oeuvres'></a>";
+                            echo '</div>';
+                        echo '</div>';   
+                }
+            }
+            ?>
+            </div></div>    
                 
             <div class= 'row' id="details_oeuvre">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" ></div>
                 
               
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <?php
 
                        $idOeuvre= $oeuvre['idOeuvre'];
@@ -747,7 +769,9 @@ public function afficheSliderAccueil($oeuvres)
                     <p><strong>Adresse:</strong> <?php echo $adres; ?></p>
                     
                     <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
-                </div>
+            </div>
+            
+            
         
            
             <script>
@@ -1488,7 +1512,9 @@ public function afficheSliderAccueil($oeuvres)
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
+
                            <form method="POST" role="form" action="index.php?requete=proposerOeuvre&action=valider" enctype="multipart/form-data" id='formPropositionOeuvre' name="formPropositionOeuvre">
+
 
                                 <div class="form-group">
                                     <label>Titre :</label>
@@ -1555,6 +1581,7 @@ public function afficheSliderAccueil($oeuvres)
                                     <span id="msjArrondissement" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
+
                                    <label>Artiste :</label><br>
                                    <label>Prénom :</label>
                                    <input class="form-control" type="text" name="prenomArtiste" id="prenomArtiste"><?php echo $erreurArtiste;?></span>
@@ -1565,6 +1592,7 @@ public function afficheSliderAccueil($oeuvres)
                                     <label>Collectif :</label>
                                    <input class="form-control" type="text" name="collectifArtiste" id="collectifArtiste"><?php echo $erreurArtiste;?></span>
                                     <span id="msjCollectifArtiste" style="display:none">Veuillez remplir le champ</span>
+
                                 </div>
                                
                                 <div class="form-group">
@@ -1592,10 +1620,12 @@ public function afficheSliderAccueil($oeuvres)
                                 </div>
                                 <div class="form-group">
                                    <label>Photo : </label>
+
                                 <input type='file' name="image" id="image">
                                 <span id="msjImage" style="display:none">Veuillez choisir une photo</span>
                                 </div>
                                 <input type="button" onclick="validerFormPropositionOeuvre()" class="btn btn-success"  name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+
                            </form>
 
                             </div>

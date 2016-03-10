@@ -77,7 +77,11 @@ class Controler
                 case 'commentaire':
                     $this->commentaire($_GET['idCommentaire']);
                     break;
-                    
+
+                case 'unUtilisateur':
+                    $this->unUtilisateur($_GET['idUtilisateur']);
+                    break;    
+
                 /*Utilisateur*/   
                 case 'profilUtilisateurConnexion':
                     if($_SESSION["session"]){
@@ -137,140 +141,273 @@ class Controler
                     
                 /*Admin*/
                 case 'afficheAdminMods':
-                    $this->afficheAdminMods();
+
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheAdminMods();
+                    } else {
+                        $this->accueil();
+                    }
+
                     break;    
                 case 'modifierArtiste':
+                    if($_SESSION["sessionAdmin"]){
                         $this->modifierArtiste($_GET['idArtiste']);
+                    } else {
+                        $this->accueil();
+                    }
                     break;
                 case 'afficheArtistes':
+                    if($_SESSION["sessionAdmin"]){
                         $this->afficheArtistes();
+                    } else {
+                        $this->accueil();
+                    }
                     break;
                 case 'ajoutArtiste':
+                    if($_SESSION["sessionAdmin"]){
                         $this->ajoutArtiste();
+                    } else {
+                        $this->accueil();
+                    }
                     break;   
                     
                 case 'supprimerArtistes':
+                    if($_SESSION["sessionAdmin"]){
                         $this->supprimerArtistes($_GET['idArtiste']);
+                    } else {
+                        $this->accueil();
+                    }
                     break;
                 
                 case 'afficheUtilisateurs':
+                    if($_SESSION["sessionAdmin"]){
                         $this->afficheUtilisateurs();
+                    } else {
+                        $this->accueil();
+                    }    
                     break;
                 
                 case 'ajoutUtilisateur':
+                    if($_SESSION["sessionAdmin"]){
                         $this->ajoutUtilisateur();
+                    } else {
+                        $this->accueil();
+                    }  
                     break;
                     
                 case 'modifierUtilisateur':
+                    if($_SESSION["sessionAdmin"]){
                         $this->modifierUtilisateur($_GET['idUtilisateur']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
 
                 case 'supprimerUtilisateurs':
+                    if($_SESSION["sessionAdmin"]){
                         $this->supprimerUtilisateurs($_GET['idUtilisateur']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                     
                 case 'supprimerAdminMod':
+                    if($_SESSION["sessionAdmin"]){
                     $this->supprimerAdmin_moderateur($_GET['idAdMod']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'modifierCategories':
+                    if($_SESSION["sessionAdmin"]){
                         $this->modifierCategories($_GET['idCategorie']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'supprimerCategories':
+                     if($_SESSION["sessionAdmin"]){
                         $this->supprimerCategories($_GET['idCategorie']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'supprimerOeuvres':
+                     if($_SESSION["sessionAdmin"]){
                         $this->supprimerOeuvres($_GET['idOeuvre']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break; 
                 case 'modifierOeuvre':
+                    if($_SESSION["sessionAdmin"]){
                         $this->modifierOeuvre($_GET['idOeuvre']);
+                    } else {
+                        $this->accueil();
+                    }     
                     break; 
                 case 'supprimerPhoto':
+                    if($_SESSION["sessionAdmin"]){
                         $this->supprimerPhoto($_GET['idPhoto']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break; 
                 case 'supprimerCommentaire':
+                    if($_SESSION["sessionAdmin"]){
                         $this->supprimerCommentaire($_GET['idCommentaire']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break; 
                 case 'validerPhoto':
+                    if($_SESSION["sessionAdmin"]){
                         $this->validerPhoto($_GET['idPhoto']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break; 
                 case 'validerCommentaire':
+                    if($_SESSION["sessionAdmin"]){
                         $this->validerCommentaire($_GET['idCommentaire']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break; 
                 case 'validerOeuvre':
+                     if($_SESSION["sessionAdmin"]){
                         $this->validerOeuvre($_GET['idOeuvre']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break; 
                 case 'modifierAdminMod':
+                    if($_SESSION["sessionAdmin"]){
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 
                 case 'afficheInscriptionAdmin':
-                    $this->afficheInscriptionAdmin();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheInscriptionAdmin();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
+                    
                 case 'admin':           
-                if($_GET['action'] == 'envoyer'){
-                    $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                }else{
-                    $this->admin();
-                }
-                break;
+                    if($_GET['action'] == 'envoyer'){
+                        $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }else{
+                        $this->admin();
+                    }
+                    break;
                 
                 case 'adminPanel':
-                    $this->adminPanel();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->adminPanel();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                     
                 case 'miseajourjson':
-                if($_SESSION["sessionAdmin"]){
-                    $this->miseajourjson();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->miseajourjson();
                     } else {
-                    $this->accueil();
-                }
-                break;
-                
-                case 'unUtilisateur':
-                    $this->unUtilisateur($_GET['idUtilisateur']);
+                        $this->accueil();
+                    }
                     break;
-               
+ 
                 case 'ajoutOeuvre':
-                    $this->ajoutOeuvre();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->ajoutOeuvre();
+                    } else {
+                        $this->accueil();
+                    }
                     break; 
-                case 'profilUtilisateur':
-                    $this->profilUtilisateur();
-                    break;
+
                 case 'listerUtilisateurs':
-                    $this->listerUtilisateurs();
-                    break;
+                    if($_SESSION["sessionAdmin"]){
+                        $this->listerUtilisateurs();
+                    } else {
+                        $this->accueil();
+                    }
+                    break; 
                
                 case 'formulaireAjouterArtiste':
-                    $this->afficheAjouterUnArtiste();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheAjouterUnArtiste();
+                    } else {
+                        $this->accueil();
+                    }    
                     break;
                 case 'ajouterUnCategorie':
-                    $this->ajouterUnCategorie();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->ajouterUnCategorie();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'ajoutAdminMod':
-                    $this->ajoutAdminMod();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->ajoutAdminMod();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'afficheModCommentaires':
-                    $this->afficheModCommentaires();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheModCommentaires();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'afficheBDD':
-                    $this->afficheBDD();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheBDD();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'afficheModPhotos':
-                    $this->afficheModPhotos();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheModPhotos();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'afficheModOeuvres':
-                    $this->afficheModOeuvres();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheModOeuvres();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;             
                 case 'afficheOeuvres':
-                    $this->afficheOeuvres();
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheOeuvres();
+                    } else {
+                        $this->accueil();
+                    } 
                     break;
                 case 'afficheCategories':
-                $this->afficheCategories();
-                break;
+                    if($_SESSION["sessionAdmin"]){
+                        $this->afficheCategories();
+                    } else {
+                        $this->accueil();
+                    } 
+                    break;
                 case 'ajoutCategorie':
-                $this->ajoutCategorie();
-                break;
- 
+                    if($_SESSION["sessionAdmin"]){
+                        $this->ajoutCategorie();
+                     } else {
+                        $this->accueil();
+                    }
+                    break;
+
                 default:
 			    $this->accueil();
 				break;
@@ -317,8 +454,11 @@ class Controler
             
             $oVue = new VueDefaut();
 			$oVue->afficheHeader();
-			$oVue->afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie);
-			$oVue->afficheFooter(false,false, false, false);
+            $oPhotos = new MPhotos('','','','');
+            $aPhotos = $oPhotos::listerPhotosParOeuvre($oeuvre['idOeuvre']);
+            
+			$oVue->afficheUnOeuvre($oeuvre,$arrondissement,$categorie,$sousCategorie,$aPhotos);
+            $oVue->afficheFooter(false,false, false, false);
 			
 		}
 
@@ -1827,7 +1967,7 @@ class Controler
             
             $oArrondissements = new MArrondissement('', '');
             $aArrondissements = $oArrondissements::listeArrondissement();
-            
+
             $oUtilisateur = new MUtilisateurs('', '', '', '','', '', '', '', '');
             $aUtil = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
             $idUtil = $aUtil['idUtilisateur'];
@@ -1944,6 +2084,58 @@ class Controler
             }
             
             $oVueDefaut->afficheFooter(false, false, false, false);
+
+        }
+    
+    
+    
+       /**
+     * function  changerPhotoProfil
+     * @access public
+     * @auteur: German Mahecha
+     */  
+        private function  changerPhotoProfil($idUtilisateur)
+        {
+            //echo $idOeuvre;
+            $message='';
+            $file_extension='';$temporary='';
+            
+            if ($_FILES["photoUtil"]["error"] > 0){
+                 $message= "Erreur dans le procesus";
+            } else {
+                //verification si le type de fichier est permis
+                //et que la taille soit plus petite que 50000kb
+                $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
+                $limite_kb = 10000;
+                
+                if (in_array($_FILES['photoUtil']['type'], $permis) && $_FILES['photoUtil']['size'] <= $limite_kb * 1024){
+                    //Création d'un dossier pour chaque utilisateur
+                    $dossierUtil='photos/utilisateurs/';
+                    //echo $dossierUtil;
+                    //Si le dossier existe déjà, il ne le crée pas.
+                    if(!is_dir($dossierUtil))
+                        mkdir($dossierUtil, 0777);
+                            
+                    $temporary = explode(".", $_FILES["photoUtil"]["name"]);
+                    $file_extension = end($temporary);
+                    $fichier= $idUtilisateur.".".$file_extension;
+                    $chemin = $dossierUtil."/".$fichier;
+                    //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
+                    //resultat contient true ou false pour valider si la copie a été reussi
+                    $resultat = @move_uploaded_file($_FILES["photoUtil"]["tmp_name"], $chemin);
+                    if ($resultat){
+                        $message= "Le fichier a été televerse correctement";
+                        //Si le fichier a été déplacé correctement
+                        //Affectation de la BD
+                        $utilis = new MUtilisateurs('','','','','','','','','');
+                         $ajoutPhoto=$utilis->modifierPhotoProfil($idUtilisateur,$fichier);
+                     } else { $message= "Un erreur pendant le televersement du fichier."; }
+                    
+                } else { $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";}
+            }
+            header("Location:index.php?requete=profilUtilisateurConnexion");
+  
+
         }
     
         
