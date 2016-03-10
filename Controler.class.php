@@ -102,10 +102,10 @@ class Controler
                     }
                     break;
                 case 'modifierProfilUtilisateur':
-                    if($_SESSION["session"]){
+                    if($_GET['action'] == 'changerPhotoProfil'){
+                        $this->changerPhotoProfil($_POST['idUtil']);  
+                    }else{
                         $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
-                    } else {
-                        $this->accueil();
                     }
                     break;
                 case 'detailsPhotoUtilisateur':
@@ -1182,8 +1182,6 @@ class Controler
 
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '','','','');
             $aUtilisateurs = $oUtilisateurs->listeUtilisateurs();
-
-
             $oVue = new VueDefaut();
             $oVue->afficheHeaderAdmin();
             //$oVue->ajouterUnArtiste();
@@ -1671,7 +1669,7 @@ class Controler
                 
                 if (in_array($_FILES['image']['type'], $permis) && $_FILES['image']['size'] <= $limite_kb * 1024){
                     //Création d'un dossier pour chaque utilisateur
-                    $dossierUtil='photos/proposees/'.$idUtil;
+                    $dossierUtil='photos/proposees/';
                     //echo $dossierUtil;
                     //Si le dossier existe déjà, il ne le crée pas.
                     if(!is_dir($dossierUtil))
@@ -1680,7 +1678,8 @@ class Controler
                     $temporary = explode(".", $_FILES["image"]["name"]);
                     $file_extension = end($temporary);
                      
-                    $chemin = $dossierUtil."/".$dateCourrant.".".$file_extension;
+                    $chemin = $dossierUtil."/".$idUtil."/".$dateCourrant.".".$file_extension;
+                    $nomPhoto=$idUtil."/".$dateCourrant.".".$file_extension;
                     //Verification pour savoir si la photo existe déjà
                     if (!file_exists($chemin)){
                         
@@ -1692,7 +1691,7 @@ class Controler
                             //Si le fichier a été déplacé correctement
                             //Affectation de la BD
                             $photo = new MPhotos('','','','');
-                            $ajoutPhoto=$photo->ajouterPhoto($chemin,$idOeuvre);
+                            $ajoutPhoto=$photo->ajouterPhoto($nomPhoto,$idOeuvre);
                             if($ajoutPhoto){
                                 //Recuperation de l'id de la derniere photo pour remplir le tableau propose
                                 $dernierPhoto=$photo->recupererDernierId();
@@ -2179,8 +2178,6 @@ class Controler
             }
             header("Location:index.php?requete=profilUtilisateurConnexion");
   
-
         }
-    
         
 }?>

@@ -710,8 +710,6 @@ public function afficheSliderAccueil($oeuvres)
             <div class="col-lg-12"></div>
         </div>
 
-
-            
             <div class= 'row'>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
@@ -732,20 +730,7 @@ public function afficheSliderAccueil($oeuvres)
             <div class='row'>
             <div class="col-lg-12 text-center" >
             
-            <?php
-            //var_dump($photos);
-            if($photos)
-            {
-                foreach($photos as $photo) {
-                     echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
-                            echo '<div class="hovereffect">';
-                                if($photo[1]!=$photos[0][1])
-                                    echo "<img src='./photos/proposees/".$photo[1]."' alt='' class='img-responsive' style='width:150px;height:150px' id='images_oeuvres'></a>";
-                            echo '</div>';
-                        echo '</div>';   
-                }
-            }
-            ?>
+           
             </div></div>    
                 
             <div class= 'row' id="details_oeuvre">
@@ -779,24 +764,39 @@ public function afficheSliderAccueil($oeuvres)
                         } else {
                             echo "<p>Artiste: ".$collectif."</p>";
                         }*/
-                     ?>
-
-                    <p><strong>Nom de l'oeuvre:</strong> <?php echo $titre; ?></p>
-                    <p><strong>Categorie: </strong>    <?php echo $categ; ?></p>
-                    <p><strong>Souscategorie:</strong>  <?php echo $souscat; ?></p>
-                    <p><strong>Technique:</strong> <?php echo $technique; ?></p>
-                    <p><strong>Materiaux:</strong> <?php echo $nomMateriaux; ?></p>
-                    <p><strong>Arrondissement:</strong> <?php echo $arrond; ?></p>
-                    <p><strong>Parc:</strong> <?php echo $parc; ?></p>
-                    <p><strong>Batiment:</strong> <?php echo $batiment; ?></p>
-                    <p><strong>Adresse:</strong> <?php echo $adres; ?></p>
+                     if ($titre) {
+                         echo "<p><strong>Nom de l'oeuvre: </strong> ".$titre."</p>";
+                     }
+                    if ($categ) {
+                        echo "<p><strong>Categorie: </strong> ".$categ."</p>";
+                    }
+                    if ($souscat) {
+                        echo "<p><strong>Souscategorie: </strong> ".$souscat."</p>";
+                    }
+                    if ($technique) {
+                        echo "<p><strong>Technique: </strong>".$technique."</p>";
+                    }
+                    if ($nomMateriaux) {
+                        echo "<p><strong>Materiaux: </strong>".$nomMateriaux."</p>";
+                    }
+                    if ($arrond) {
+                        echo "<p><strong>Arrondissement: </strong>".$arrond."</p>";
+                    }
+                    if ($parc) {
+                        echo "<p><strong>Parc: </strong>".$parc."</p>";
+                    }
+                    if ($batiment) {
+                        echo "<p><strong>Batiment: </strong>".$batiment."</p>";
+                    }
+                    if ($adres) {
+                        echo "<p><strong>Adresse: </strong>".$adres."</p>";
+                    }
                     
-                    <a href='index.php?requete=accueil'><span class='icon-reply'></span> Retourner</a>
+                    ?>
+                    
+                    <a href='index.php?requete=accueil' class="btn btn-primary btn-lg"><span class='icon-reply'></span> Retourner</a>
             </div>
             
-            
-        
-           
             <script>
                 var myCenter=new google.maps.LatLng(<?php echo $lat;?>,<?php echo $lon;?>);
 
@@ -827,29 +827,18 @@ public function afficheSliderAccueil($oeuvres)
 
                 google.maps.event.addDomListener(window, 'load', initialize);
             </script>
-                
-            
-            
+             
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" >
                     <div id="googleMap" style="width:300px;height:300px;"></div>
                 </div>
             </div>                
-                            
-        
-        
-    
-    <?php
-       
+    <?php    
     }
 
 
      /**
      * Affiche les oeuvres par artistes
      * @access public
-     *
-     */
-
-     /**
     * Frontend artiste
     * @access public
     * @auteure:Thuy Tien Vo
