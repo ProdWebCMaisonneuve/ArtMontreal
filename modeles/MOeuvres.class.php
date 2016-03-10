@@ -539,6 +539,25 @@ WHERE oeuvre.validationOeuvre=0");
         }
         return $coordonnees;
     }
+    
+    /* function qui récupère les dernières photo validées pour le slider
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return array
+	 */
+    public static function photosSlider() 
+    {
+         $photos=array();
+        self::$database->query("SELECT photo.nomPhoto, photo.idPhoto, oeuvre.titreOeuvre, oeuvre.idOeuvre FROM oeuvre 
+        JOIN photo ON photo.idOeuvre = oeuvre.idOeuvre 
+        WHERE photo.validationPhoto = 1 ORDER BY photo.idPhoto DESC LIMIT 3 ");
+        $lignes = self::$database->resultset();
+		foreach ($lignes as $ligne) {
+			$unePhoto = array($ligne['nomPhoto'], $ligne['idPhoto'], $ligne['titreOeuvre'], $ligne['idOeuvre']);
+			$photos[] = $unePhoto;
+		}
+		return $photos;
+    }
 
 }
 ?>
