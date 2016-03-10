@@ -307,8 +307,7 @@ class MUtilisateurs {
         $ligne = self::$database->uneLigne();
         return $ligne;
      }
-    
-<<<<<<< HEAD
+
     
     /**
 	 * Fonction pour valider si un utilisateur existe
@@ -332,7 +331,8 @@ class MUtilisateurs {
         {
             return true;
         }
-=======
+    }
+
     /**
 	 * Fonction pour changer la photo du profil d'un utilisateur
 	 * @return none
@@ -347,7 +347,7 @@ class MUtilisateurs {
         self::$database->bind(':nomPhoto', $nomPhoto);
         self::$database->execute();
         
->>>>>>> ProdWebCMaisonneuve/master
+
     }
 
 }?>
