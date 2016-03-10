@@ -56,8 +56,8 @@
     if(empty($_POST['majBDD']))
     {
 		$_POST['majBDD'] = '';
-	}
-
+	} 
+    
     
 
 ?>

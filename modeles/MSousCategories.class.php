@@ -90,9 +90,6 @@ class MSousCategories
         return (self::$database->uneLigne());
 	}
     
-    
-    
-    
     public function ajoutSousCategorie($nomSousCat,$nomSousCatAng,$idCategorie)
 
         {
@@ -149,6 +146,8 @@ class MSousCategories
         return $ligne['idSousCategorie'];
         
     } 
+    
+    
     
 }
 

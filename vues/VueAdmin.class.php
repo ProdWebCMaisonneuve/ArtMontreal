@@ -54,6 +54,7 @@ class VueAdmin
 
                 <!-- Custom Fonts -->
                 <link href="./lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+                
 
                 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
                 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -128,7 +129,7 @@ class VueAdmin
     public function afficheHeaderAdmin() 
 
     {
-        if (!$_SESSION['admin']) {
+        if (!$_SESSION['sessionAdmin']) {
             header('Location: index.php');
             exit;
         }
@@ -165,6 +166,8 @@ class VueAdmin
                 <!-- Barre de chargement Pace-->
                 <script src="js/pace.min.js"></script>
                 <link rel="stylesheet" href="css/pace.css">
+                
+                <script src="./js/main.js"></script>
 
                 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
                 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -201,9 +204,6 @@ class VueAdmin
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
-                        </li>
-                        <li class="divider"></li>
                         <li><a href="deconnexion.php"><i class="fa fa-sign-out fa-fw"></i> Déconnexion</a>
                         </li>
                     </ul>
@@ -377,88 +377,13 @@ class VueAdmin
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="morris-area-chart"></div>
+                           <div id="widgetIframe"><iframe width="100%" height="850" src="https://goom.piwik.pro/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=index&idSite=1&period=day&date=today&disableLink=1&widget=1&token_auth=b8a5fb19199a2895da19746d4b5c49d0" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
+                           
                         </div>
                         <!-- /.panel-body -->
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
-                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-money fa-fw"></i> Payment Received
-                                    <span class="pull-right text-muted small"><em>Yesterday</em>
-                                    </span>
-                                </a>
-                            </div>
-                            <!-- /.list-group -->
-                            
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>            
-
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> Photos
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-donut-chart"></div>
-                                
-                            </div>
-                            <!-- /.panel-body -->
-                    </div>
-                </div>    
-                <!-- /.panel -->
         </div>          
     </div>
     <?php
@@ -636,27 +561,34 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre">
+                           <form method="POST" role="form" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre" id ='formAjoutOeuvre' name="formAjoutOeuvre">
 
                                 <div class="form-group">
                                     <label>Titre :</label>
-                                    <input class="form-control" type="text" name="titre"><span><?php echo $erreurTitre;?></span>
+                                    <input class="form-control" type="text" name="titre" id='titre'><span><?php echo $erreurTitre;?></span>
+                                    <span id="msjTitre" style="display:none">Veuillez saisir le titre de l'oeuvre</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Titre (variante) :</label>
-                                    <input class="form-control" type="text" name="titreVariante"><span><?php echo $erreurTitreVariante;?></span>
+                                    <input class="form-control" type="text" name="titreVariante" id='titreVariante'><span><?php echo $erreurTitreVariante;?></span>
+                                    <span id="msjTitreVariante" style="display:none">Veuillez saisir le titre variante de l'oeuvre</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Technique :</label>
-                                    <input class="form-control" type="text" name="technique"><span><?php echo $erreurTechnique;?></span>
+                                    <input class="form-control" type="text" name="technique" id="technique"><span><?php echo $erreurTechnique;?></span>
+                                    <span id="msjTechnique" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Technique (anglais):</label>
-                                    <input class="form-control" type="text" name="techniqueAng"><span><?php echo $erreurTechniqueAng;?></span>
+                                    <input class="form-control" type="text" name="techniqueAng" id="techniqueAng"><span><?php echo $erreurTechniqueAng;?></span>
+                                    <span id="msjTechniqueAng" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Description :</label>
-                                    <textarea class="form-control" rows="3" name="description"></textarea><span><?php echo $erreurDescription;?></span>
+                                    <textarea class="form-control" rows="3" name="description" id="description"></textarea><span><?php echo $erreurDescription;?></span>
+                                    <span id="msjDescription" style="display:none">Veuillez saisir la descirption de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Validation :</label>
@@ -669,38 +601,44 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                 <label>Adresse Civique :</label>
-                                    <input class="form-control" type="text" name="adresse"><span><?php echo $erreurAdresse;?></span>
+                                    <input class="form-control" type="text" name="adresse" id="adresse"><span><?php echo $erreurAdresse;?></span>
+                                    <span id="msjAdresse" style="display:none">Veuillez saisir une adresse valide</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Batiment :</label>
-                                    <input class="form-control" type="text" name="batiment"><span><?php echo $erreurBatiment;?></span>
+                                    <input class="form-control" type="text" name="batiment" id="batiment"><span><?php echo $erreurBatiment;?></span>
+                                    <span id="msjBatiment" style="display:none">Veuillez saisir le nom de batiment</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Parc :</label>
-                                      <input class="form-control" type="text" name="parc"><span><?php echo $erreurParc;?>
+                                      <input class="form-control" type="text" name="parc" id="parc"><span><?php echo $erreurParc;?></span>
+                                    <span id="msjParc" style="display:none">Veuillez saisir le nom du parc</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Latitude :</label>
-                                     <input class="form-control" type="text" name="latitude"><span><?php echo $erreurLatitude;?></span>
+                                     <input class="form-control" type="text" name="latitude" id="latitude"><span><?php echo $erreurLatitude;?></span>
+                                    <span id="msjLatitude" style="display:none">Veuillez saisir la latitude</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Longitude :</label>
-                                    <input class="form-control" type="text" name="longitude"><span><?php echo $erreurLongitude;?></span>
+                                    <input class="form-control" type="text" name="longitude" id="longitude"><span><?php echo $erreurLongitude;?></span>
+                                    <span id="msjLongitude" style="display:none">Veuillez saisir la longitude</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Arrondissement :</label>
-                                    <select class="form-control" name="arrondissement"><br><span><?php echo $erreurArrondissement;?></span>
-                                    <option value="nonChoisi">Choisir un Arrondissement</option><br>
+                                    <select class="form-control" name="arrondissement" id='arrondissements'><br><span><?php echo $erreurArrondissement;?></span>
+                                    <option value="nonChoisi" >Choisir un Arrondissement</option><br>
                                 <?php
                                     foreach ($aArrondissements as $arrondissement) {
                                         echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
                                     }
                                 ?>
                                </select>
+                                    <span id="msjArrondissement" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Artiste/Collectif :</label>
-                                   <select class="form-control" name="artiste"><span><?php echo $erreurArtiste;?></span>
+                                   <select class="form-control" name="artiste" id="artiste_Collectif"><span><?php echo $erreurArtiste;?></span>
                                     <option value="nonChoisi">Choisir un Artiste/Collectif</option>
                                 <?php
                                     foreach ($aArtistes as $artiste) {
@@ -715,10 +653,11 @@ class VueAdmin
                                     }
                                 ?>
                                     </select>
+                                    <span id="msjArtiste_Collectif" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Catégorie :</label>
-                                   <select class="form-control" name="categorie"><span><?php echo $erreurCategorie;?></span>
+                                   <select class="form-control" name="categorie" id="categories"><span><?php echo $erreurCategorie;?></span>
                                     <option value="nonChoisi">Choisir une Catégorie</option>
                                 <?php 
                                     foreach ($aCategories as $categorie) {
@@ -726,10 +665,11 @@ class VueAdmin
                                     }
                                 ?>
                                    </select>
+                                    <span id="msjCategorie" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Sous-Catégorie :</label>
-                                    <select class="form-control" name="sousCategorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <select class="form-control" name="sousCategorie" id="sous_categorie"><span><?php echo $erreurSousCategorie;?></span>
                                     <option value="nonChoisi">Choisir une Sous-Catégorie</option>
                                 <?php
                                     foreach ($aSousCategories as $sousCategorie) {
@@ -737,17 +677,21 @@ class VueAdmin
                                     }
                                 ?>    
                                     </select>
+                                    <span id="msjSous_categorie" style="display:none">Veuillez choisir une option</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                    <label>Matériaux :</label>
-                                   <input class="form-control" type="text" name="materiaux"><span><?php echo $erreurMateriaux;?></span>
+                                   <input class="form-control" type="text" name="materiaux" id="materiaux"><span><?php echo $erreurMateriaux;?></span>
+                                    <span id="msjMateriaux" style="display:none">Veuillez saisir un material</span>
                                 </div>
                                  <div class="form-group">
                                    <label>Matériaux (anglais) : </label>
-                                    <input class="form-control" type="text" name="materiauxAng"><span><?php echo $erreurMateriauxAng;?></span>
+                                    <input class="form-control" type="text" name="materiauxAng" id="materiauxAng"><span><?php echo $erreurMateriauxAng;?></span>
+                                    <span id="msjMateriauxAng" style="display:none">Veuillez saisir un material</span>
                                 </div>
 
-                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                                <input type="button" onclick="validerFormAjoutOeuvre()" class="btn btn-success"  name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -812,27 +756,32 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                            <form method="POST" role="form" action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider">
+                            <form method="POST" role="form" action="index.php?requete=modifierOeuvre&idOeuvre=<?php echo $idOeuvre; ?>&action=valider" id ='formModifierOeuvre' name="formModifierOeuvre">
 
                                 <div class="form-group">
                                     <label>Titre :</label>
-                                    <input class="form-control" type="text" name="titre" value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?></span>
+                                    <input class="form-control" type="text" name="titre" id='titre' value="<?php echo $titre; ?>"><span><?php echo $erreurTitre;?></span>
+                                    <span id="msjTitre" style="display:none">Veuillez saisir le titre de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Titre (variante) :</label>
-                                    <input class="form-control" type="text" name="titreVariante" value="<?php echo $titreVariante; ?>"><span><?php echo $erreurTitreVariante;?></span>
+                                    <input class="form-control" type="text" name="titreVariante" id="titreVariante"  value="<?php echo $titreVariante; ?>"><span><?php echo $erreurTitreVariante;?></span>
+                                    <span id="msjTitreVariante" style="display:none">Veuillez saisir le titre variante de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Technique :</label>
-                                    <input class="form-control" type="text" name="technique" value="<?php echo $technique; ?>"><span><?php echo $erreurTechnique;?></span>
+                                    <input class="form-control" type="text" name="technique" id="technique" value="<?php echo $technique; ?>"><span><?php echo $erreurTechnique;?></span>
+                                    <span id="msjTechnique" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Technique (anglais):</label>
-                                    <input class="form-control" type="text" name="techniqueAng" value="<?php echo $techniqueAng; ?>"><span><?php echo $erreurTechniqueAng;?></span>
+                                    <input class="form-control" type="text" name="techniqueAng" id="techniqueAng" value="<?php echo $techniqueAng; ?>"><span><?php echo $erreurTechniqueAng;?></span>
+                                    <span id="msjTechniqueAng" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Description :</label>
-                                    <textarea class="form-control" rows="3" name="description"><?php echo $description; ?></textarea><span><?php echo $erreurDescription;?></span>
+                                    <textarea class="form-control" rows="3" name="description" id="description"><?php echo $description; ?></textarea><span><?php echo $erreurDescription;?></span>
+                                    <span id="msjDescription" style="display:none">Veuillez saisir la descirption de l'oeuvre</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Validation :</label>
@@ -845,27 +794,32 @@ class VueAdmin
                                 </div>
                                 <div class="form-group">
                                 <label>Adresse Civique :</label>
-                                    <input class="form-control" type="text" name="adresse" value="<?php echo $adresse; ?>"><span><?php echo $erreurAdresse;?></span>
+                                    <input class="form-control" type="text" name="adresse" id="adresse" value="<?php echo $adresse; ?>"><span><?php echo $erreurAdresse;?></span>
+                                    <span id="msjAdresse" style="display:none">Veuillez saisir une adresse valide</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Batiment :</label>
-                                    <input class="form-control" type="text" name="batiment" value="<?php echo $batiment; ?>"><span><?php echo $erreurBatiment;?></span>
+                                    <input class="form-control" type="text" name="batiment" id="batiment" value="<?php echo $batiment; ?>"><span><?php echo $erreurBatiment;?></span>
+                                    <span id="msjBatiment" style="display:none">Veuillez saisir le nom de batiment</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Parc :</label>
-                                      <input class="form-control" type="text" name="parc" value="<?php echo $parc; ?>"><span><?php echo $erreurParc;?>
+                                      <input class="form-control" type="text" name="parc" id="parc" value="<?php echo $parc; ?>"><span><?php echo $erreurParc;?></span>
+                                    <span id="msjParc" style="display:none">Veuillez saisir le nom du parc</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Latitude :</label>
-                                     <input class="form-control" type="text" name="latitude" value="<?php echo $latitude; ?>"><span><?php echo $erreurLatitude;?></span>
+                                     <input class="form-control" type="text" name="latitude" id="latitude" value="<?php echo $latitude; ?>"><span><?php echo $erreurLatitude;?></span>
+                                    <span id="msjLatitude" style="display:none">Veuillez saisir la latitude</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Longitude :</label>
-                                    <input class="form-control" type="text" name="longitude" value="<?php echo $longitude; ?>"><span><?php echo $erreurLongitude;?></span>
+                                    <input class="form-control" type="text" name="longitude" id="longitude" value="<?php echo $longitude; ?>"><span><?php echo $erreurLongitude;?></span>
+                                    <span id="msjLongitude" style="display:none">Veuillez saisir la longitude</span>
                                 </div>
                                 <div class="form-group">
                                 <label>Arrondissement :</label>
-                                    <select class="form-control" name="arrondissement"><br><span><?php echo $erreurArrondissement;?></span>
+                                    <select class="form-control" name="arrondissement" id="arrondissements"><br><span><?php echo $erreurArrondissement;?></span>
                                     <option value="nonChoisi">Choisir un Arrondissement</option><br>
                                 <?php
                                 foreach ($aArrondissements as $arrondissement) {
@@ -877,10 +831,11 @@ class VueAdmin
                                 }
                             ?>
                                </select>
+                                <span id="msjArrondissement" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Artiste/Collectif :</label>
-                                   <select class="form-control" name="artiste"><span><?php echo $erreurArtiste;?></span>
+                                   <select class="form-control" name="artiste" id="artiste_Collectif"><span><?php echo $erreurArtiste;?></span>
                                     <option value="nonChoisi">Choisir un Artiste/Collectif</option>
                                 <?php
                                 foreach ($aArtistes as $artiste) {
@@ -903,10 +858,11 @@ class VueAdmin
                                 }
                             ?>
                                     </select>
+                                    <span id="msjArtiste_Collectif" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Catégorie :</label>
-                                   <select class="form-control" name="categorie"><span><?php echo $erreurCategorie;?></span>
+                                   <select class="form-control" name="categorie" name="categories"><span><?php echo $erreurCategorie;?></span>
                                     <option value="nonChoisi">Choisir une Catégorie</option>
                                 <?php 
                                 foreach ($aCategories as $categorie) {
@@ -918,10 +874,11 @@ class VueAdmin
                                 }
                                 ?>
                                    </select>
+                                    <span id="msjCategorie" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Sous-Catégorie :</label>
-                                    <select class="form-control" name="sousCategorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <select class="form-control" name="sousCategorie" id="sous_categorie"><span><?php echo $erreurSousCategorie;?></span>
                                     <option value="nonChoisi">Choisir une Sous-Catégorie</option>
                                 <?php
                                 foreach ($aSousCategories as $sousCategorie) {
@@ -933,17 +890,20 @@ class VueAdmin
                                 }
                                 ?>     
                                     </select>
+                                    <span id="msjSous_categorie" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
                                    <label>Matériaux :</label>
-                                   <input class="form-control" type="text" name="materiaux" value="<?php echo $nomMateriaux; ?>"><span><?php echo $erreurMateriaux;?></span>
+                                   <input class="form-control" type="text" name="materiaux" id="materiaux" value="<?php echo $nomMateriaux; ?>"><span><?php echo $erreurMateriaux;?></span>
+                                    <span id="msjMateriaux" style="display:none">Veuillez saisir un material</span>
                                 </div>
                                  <div class="form-group">
                                    <label>Matériaux (anglais) : </label>
-                                    <input class="form-control" type="text" name="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><span><?php echo $erreurMateriauxAng;?></span>
+                                    <input class="form-control" type="text" name="materiauxAng" id="materiauxAng" value="<?php echo $nomMateriauxAng; ?>"><span><?php echo $erreurMateriauxAng;?></span>
+                                     <span id="msjMateriauxAng" style="display:none">Veuillez saisir un material</span>
                                 </div>
 
-                                <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                                <input type="button" onclick="validerFormModifierOeuvre()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1129,26 +1089,29 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutArtiste&action=ajoutArtiste">
+                           <form method="POST" role="form" action="index.php?requete=ajoutArtiste&action=ajoutArtiste" id ='formAjoutArtiste' name="formAjoutArtiste">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <span id="msjPrenom" style="display:none">Veuillez saisir votre prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez saisir votre nom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Collectif :</label>
-                                    <input class="form-control" type="text" name="collectif"><span><?php echo $erreurCollectif;?></span>
+                                    <input class="form-control" type="text" name="collectif" id="collectif"><span><?php echo $erreurCollectif;?></span>
+                                    <span id="msjCollectif" style="display:none">Veuillez saisir le nom du collectif</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
                                     <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormAjoutArtiste()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1195,26 +1158,31 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierArtiste&idArtiste=<?php echo $idArtiste; ?>&action=valider" id ='formModifierArtiste' name="formModifierArtiste">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?>
+                                    </span>
+                                    <span id="msjPrenom" style="display:none">Veuillez saisir votre prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez saisir votre nom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Collectif :</label>
-                                    <input class="form-control" type="text" name="collectif" value="<?php echo $collectif; ?>"><span><?php echo $erreurCollectif;?></span>
+                                    <input class="form-control" type="text" name="collectif" id="collectif" value="<?php echo $collectif; ?>"><span><?php echo $erreurCollectif;?></span>
+                                    <span id="msjCollectif" style="display:none">Veuillez saisir le nom du collectif</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
                                     <input type="file" name="photoArtiste"><span><?php echo $erreurPhotoArtiste;?></span>
+                                    
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input  type="button" onclick="validerFormAmodifierArtiste()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1395,19 +1363,21 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie">
+                           <form method="POST" role="form" action="index.php?requete=ajoutCategorie&action=ajoutCategorie" id ='formAjoutCategorie' name="formAjoutCategorie">
 
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                    <input class="form-control" type="text" name="nomCategorie" id="nomCategorie"><span><?php echo $erreurNomCat;?></span>
+                                    <span id="msjNomCategorie" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom anglais :</label>
-                                    <input class="form-control" type="text" name="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                    <input class="form-control" type="text" name="nomCatAng" id="nomCatAng"><span><?php echo $erreurNomCatAng;?></span>
+                                    <span id="msjNomCatAng" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormAjouterCategorie()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1456,19 +1426,21 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierCategories&idCategorie=<?php echo $idCategorie; ?>&action=valider" id ='formModifierCategorie' name="formModifierCategorie">
 
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                    <input class="form-control" type="text" name="nomCategorie" id="nomCategorie" value ="<?php echo $nomCat; ?>"><span><?php echo $erreurNomCat;?></span>
+                                    <span id="msjNomCategorie" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom anglais :</label>
-                                    <input class="form-control" type="text" name="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                    <input class="form-control" type="text" name="nomCatAng" id="nomCatAng" value ="<?php echo $nomCatAng; ?>"><span><?php echo $erreurNomCatAng;?></span>
+                                    <span id="msjNomCatAng" style="display:none">Veuillez saisir le nom de la categorie</span>
                                 </div>
                                 
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button" onclick="validerFormModifierCategorie()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1662,42 +1634,50 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutUtilisateur&action=ajoutUtilisateur">
+                           <form method="POST" role="form" action="index.php?requete=ajoutUtilisateur&action=ajoutUtilisateur" name="formAjoutUtilisateur" id="formAjoutUtilisateur">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom"><span><?php echo $erreurPrenom;?></span>
+                                    <span id="msjPrenom" style="display:none">Veuillez confirmer votre prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez confirmer votre nom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Login :</label>
-                                    <input class="form-control" type="text" name="loginUtilisateur"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="loginUtilisateur" id="loginUtilisateur"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <span id="msjUtilisateur1" style="display:none">Veuillez saisir votre nom d'utilisateur</span>
+                                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Mot de passe :</label>
-                                    <input class="form-control" type="text" name="passUtilisateur"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="passUtilisateur" id="passUtilisateur"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <span id="msjMotDePasse1" style="display:none">Veuillez mettre votre mot de pass</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Courriel :</label>
-                                    <input class="form-control" type="mail" name="courriel"><span><?php echo $erreurCourriel;?></span>
+                                    <input class="form-control" type="mail" name="courriel" id="courriel"><span><?php echo $erreurCourriel;?></span>
+                                    <span id="msjEmail" style="display:none">Veuillez confirmer votre email</span>
                                 </div>
                                  <div class="form-group">
                                     <label>Téléphone :</label>
-                                    <input class="form-control" type="phone" name="telephone"><span><?php echo $erreurTelephone;?></span>
+                                    <input class="form-control" type="phone" name="telephone" id="telephone"><span><?php echo $erreurTelephone;?></span>
+                                     <span id="msjTelephone" style="display:none">Veuillez confirmer votre téléphone</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Bio :</label>
-                                    <textarea class="form-control" name="bio" row="3"></textarea><span><?php echo $erreurBio;?></span>
+                                    <textarea class="form-control" name="bio" id="bio" row="3"></textarea><span><?php echo $erreurBio;?></span>
+                                    <span id="msjBio" style="display:none">Remplir bio</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
-                                    <input type="file" name="photoUtilisateur"><span><?php echo $erreurPhotoArtiste;?></span>
+                                    <input type="file" name="photoUtilisateur" id="photoUtilisateur"><span><?php echo $erreurPhotoArtiste;?></span>
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button"  onclick="validerAjoutUtilisateur()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -1751,42 +1731,54 @@ class VueAdmin
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider">
+                           <form method="POST" role="form" action="index.php?requete=modifierUtilisateur&idUtilisateur=<?php echo $idUtilisateur; ?>&action=valider" name="formModifierUtilisateur" id="formModifierUtilisateur">
 
                                 <div class="form-group">
                                     <label>Prénom :</label>
-                                    <input class="form-control" type="text" name="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                    <input class="form-control" type="text" name="prenom" id="prenom" value="<?php echo $prenom; ?>"><span><?php echo $erreurPrenom;?></span>
+                                    <span id="msjPrenom" style="display:none">Veuillez confirmer le prenom</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nom :</label>
-                                    <input class="form-control" type="text" name="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $nom; ?>"><span><?php echo $erreurNom;?></span>
+                                    <span id="msjNom" style="display:none">Veuillez confirmer le nom</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Login :</label>
-                                    <input class="form-control" type="text" name="loginUtilisateur" value="<?php echo $login; ?>"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="loginUtilisateur" id="loginUtilisateur" value="<?php echo $login; ?>"><span><?php echo $erreurLoginUtilisateur;?></span>
+                                    <span id="msjUtilisateur1" style="display:none">Veuillez saisir le nom d'utilisateur</span>
+                                    <span id="msjUtilisateur2" style="display:none">caractères de l A à la Z</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Mot de passe :</label>
-                                    <input class="form-control" type="text" name="passUtilisateur" placeholder="Entrez le nouveau mot de passe"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <input class="form-control" type="text" name="passUtilisateur" id="passUtilisateur" placeholder="Entrez le nouveau mot de passe"><span><?php echo $erreurPassUtilisateur;?></span>
+                                    <span id="msjMotDePasse1" style="display:none">Veuillez mettre le mot de pass</span>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <label>Courriel :</label>
-                                    <input class="form-control" type="mail" name="courriel" value="<?php echo $courriel; ?>"><span><?php echo $erreurCourriel;?></span>
+                                    <input class="form-control" type="mail" name="courriel" id="courriel" value="<?php echo $courriel; ?>"><span><?php echo $erreurCourriel;?></span>
+                                    <span id="msjEmail" style="display:none">Veuillez confirmer le email</span>
+                                  
                                 </div>
                                  <div class="form-group">
                                     <label>Téléphone :</label>
-                                    <input class="form-control" type="phone" name="telephone" value="<?php echo $telephone; ?>"><span><?php echo $erreurTelephone;?></span>
+                                    <input class="form-control" type="phone" name="telephone" id="telephone" value="<?php echo $telephone; ?>"><span><?php echo $erreurTelephone;?></span>
+                                     <span id="msjTelephone" style="display:none">Veuillez confirmer le téléphone</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Bio :</label>
-                                    <textarea class="form-control" name="bio" row="3"><?php echo $bio; ?></textarea><span><?php echo $erreurCourriel;?></span>
+                                    <textarea class="form-control" name="bio" id="bio" row="3"><?php echo $bio; ?></textarea><span><?php echo $erreurCourriel;?></span>
+                                    <span id="msjBio" style="display:none">Remplir bio</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Photo :</label>
                                     <input type="file" name="photoUtilisateur" value="<?php echo $photo; ?>"><span><?php echo $erreurPhotoArtiste;?></span>
                                 </div>
             
-            <input type="submit" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+            <input type="button"  onclick="validerModifierUtilisateur()" class="btn btn-success" name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
                            </form>
 
                             </div>
@@ -2210,7 +2202,9 @@ class VueAdmin
                                     {
                                         echo '<tr>';
                                         echo '<td>'. $photo[0].'</td>';
-                                        echo '<td><img src="'. $photo[3].'" class="img-thumbnail"></td>';
+
+                                        echo '<td><img src="'. $photo[3].'" class="img-thumbnail img-responsive"></td>';
+
                                         echo '<td>'. $photo[4].'</td>';
                                         echo '<td>'. $photo[1].'</td>';
                                         echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerPhoto&idPhoto='.$photo[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
@@ -2458,7 +2452,7 @@ class VueAdmin
                                         echo '<tr>';
                                         echo '<td>'. $oeuvre[0].'</td>';
                                         echo '<td>'. $oeuvre[4].'</td>';
-                                        echo '<td><img src="'. $oeuvre[3].'" class="img-thumbnail"></td>';
+                                        echo '<td><img src="'. $oeuvre[3].'" class="img-thumbnail img-responsive"></td>';
                                         echo '<td>'. $oeuvre[1].'</td>';
                                         echo '<td class="text-center"><a href="#" data-href="index.php?requete=supprimerOeuvres&idOeuvre='.$oeuvre[2].'" data-toggle="modal" data-target="#confirmer-effacer"><i class="fa fa-trash"></i></a></td>';  
                                         echo '<td class="text-center"><a href="index.php?requete=validerOeuvre&idOeuvre='. $oeuvre[2] .'"><i class="fa fa-check"></i></a></td>'; 

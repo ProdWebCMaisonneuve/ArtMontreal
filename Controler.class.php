@@ -22,6 +22,7 @@ class Controler
 		{
 			switch ($_GET['requete']) {
 				
+                /*Defaut*/
                 case 'accueil':
                     if($_GET['idOeuvre']){
                         $this->unOeuvre($_GET['idOeuvre']);    
@@ -36,7 +37,106 @@ class Controler
                         $this->artistes();
                     }
                     break;
-                  case 'afficheAdminMods':
+                case 'inscription':
+                    $this->inscription();
+                    break;    
+                case 'connexion':
+                    if($_GET['action'] == 'envoyer') {
+                        $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                    }else{
+                        $this->connexion();
+                    }
+                    break;
+                case 'arrondissements':
+                    if($_GET['idArrondissement'] !=''){
+                        $this->oeuvresParArr($_GET['idArrondissement']);
+                    }else{
+                        $this->arrondissements();
+                    } 
+                    break;
+
+                case 'sousCategories':
+                   if($_GET['idSousCategorie'] !=''){
+                        $this->oeuvresParCat($_GET['idSousCategorie']);
+                    }else{
+                        $this->sousCategories();
+                    } 
+                    break;
+                case 'unOeuvre':
+                    $this->unOeuvre($_GET['idOeuvre']);
+                    break;
+                 case 'oeuvresParCat':
+                    $this->oeuvresParCat();
+                    break;
+                case 'oeuvresParArr';
+                	$this->oeuvresParArr();
+                	break;    
+                case 'recherche':
+                    $this->rechercheOeuvresMot();
+                    break; 
+                case 'commentaire':
+                    $this->commentaire($_GET['idCommentaire']);
+                    break;
+                    
+                /*Utilisateur*/   
+                case 'profilUtilisateurConnexion':
+                    if($_SESSION["session"]){
+                        $this->profilUtilisateurConnexion();
+                    } else {
+                        $this->accueil();
+                    }
+                    break;
+                case 'propositionPhotoUtilisateur':
+                    if($_SESSION["session"]){
+                        if($_GET['action'] == 'ajoutPhoto'){
+                            $this->ajouterPhoto($_POST['idUtil'],$_POST['idOeuvre']);  
+                        }else{
+                            $this->propositionPhotoUtilisateur($_GET['idOeuvre']);
+                        }
+                    } else {
+                        $this->accueil();
+                    }
+                    break;
+                case 'modifierProfilUtilisateur':
+                    if($_SESSION["session"]){
+                        $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
+                    } else {
+                        $this->accueil();
+                    }
+                    break;
+                case 'detailsPhotoUtilisateur':
+                    if($_SESSION["session"]){
+                        $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
+                    } else {
+                        $this->accueil();
+                    }
+                    break;
+
+                 case 'voter':
+                    if($_SESSION["session"]){
+                        $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
+                    } else {
+                        $this->accueil();
+                    }
+                    break;
+                
+                case 'proposerOeuvre':
+                    if($_SESSION["session"]){
+                        $this->proposerOeuvre();
+                    } else {
+                        $this->accueil();
+                    }
+                    break;
+                case 'propositionCommentaire':
+                    if($_SESSION["session"]){
+                        $this->propositionCommentaire();
+                    } else {
+                        $this->accueil();
+                    } 
+                    break;
+                    
+                /*Admin*/
+                case 'afficheAdminMods':
                     $this->afficheAdminMods();
                     break;    
                 case 'modifierArtiste':
@@ -102,48 +202,34 @@ class Controler
                 case 'modifierAdminMod':
                         $this->modifierAdmin_moderateur($_GET['idAdMod']);
                     break;
-                case 'inscription':
-                    $this->inscription();
-                    break;
+                
                 case 'afficheInscriptionAdmin':
                     $this->afficheInscriptionAdmin();
                     break;
-
-            
-                case 'connexion':
-                    if($_GET['action'] == 'envoyer')                    {
-                        $this->validerConnexion($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                    }else{
-                        $this->connexion();
-                    }
+                case 'admin':           
+                if($_GET['action'] == 'envoyer'){
+                    $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
+                }else{
+                    $this->admin();
+                }
+                break;
+                
+                case 'adminPanel':
+                    $this->adminPanel();
                     break;
-                case 'arrondissements':
-                    if($_GET['idArrondissement'] !=''){
-                        $this->oeuvresParArr($_GET['idArrondissement']);
-                    }else{
-                        $this->arrondissements();
-                    } 
-                    break;
-
-                case 'sousCategories':
-                   if($_GET['idSousCategorie'] !=''){
-                        $this->oeuvresParCat($_GET['idSousCategorie']);
-                    }else{
-                        $this->sousCategories();
-                    } 
-                    break;
-                case 'unOeuvre':
-                    $this->unOeuvre($_GET['idOeuvre']);
-                    break;
+                    
+                case 'miseajourjson':
+                if($_SESSION["sessionAdmin"]){
+                    $this->miseajourjson();
+                    } else {
+                    $this->accueil();
+                }
+                break;
+                
                 case 'unUtilisateur':
                     $this->unUtilisateur($_GET['idUtilisateur']);
                     break;
-                case 'oeuvresParCat':
-                    $this->oeuvresParCat();
-                    break;
-                case 'oeuvresParArr';
-                 	$this->oeuvresParArr();
-                 	break;
+               
                 case 'ajoutOeuvre':
                     $this->ajoutOeuvre();
                     break; 
@@ -160,88 +246,31 @@ class Controler
                 case 'ajouterUnCategorie':
                     $this->ajouterUnCategorie();
                     break;
-                case 'formulaireAjouterCategorie':
-                   $this->afficheAjouterUnCategorie();
-                    break;
                 case 'ajoutAdminMod':
                     $this->ajoutAdminMod();
                     break;
-                case 'recherche':
-                    $this->rechercheOeuvresMot();
-                    break;                
-                case 'admin':           
-                    if($_GET['action'] == 'envoyer'){
-                        $this->validerConnexionAdmin($_POST['utilisateur'], $_POST['motDePasse'], $_POST['grainSel']);    
-                    }else{
-                        $this->admin();
-                    }
-                    break;
-                
-                case 'adminPanel':
-                    $this->adminPanel();
-                    break;
-                
-                case 'miseajourjson':
-                    $this->miseajourjson();
-                    break;
-
-                case 'afficheOeuvres':
-                    $this->afficheOeuvres();
-                    break;
-
-                case 'afficheCategories':
-                $this->afficheCategories();
-                break;
-                
-                case 'ajoutCategorie':
-                $this->ajoutCategorie();
-                break;
- 
-                case 'profilUtilisateurConnexion':
-                    $this->profilUtilisateurConnexion();
-                    break;
-                case 'propositionPhotoUtilisateur':
-                    if($_GET['action'] == 'ajoutPhoto'){
-                        $this->ajouterPhoto($_POST['idUtil'],$_POST['idOeuvre']);  
-                    }else{
-                        $this->propositionPhotoUtilisateur($_GET['idOeuvre']);
-                    }
-                    break;
-                case 'modifierProfilUtilisateur':
-                    $this->modifierProfilUtilisateur($_GET['idUtilisateur']);
-                    break;
-
-                case 'commentaire':
-                    $this->commentaire($_GET['idCommentaire']);
-                    break;
-
-                case 'propositionCommentaire':
-                    $this->propositionCommentaire();
-                    break;
-
                 case 'afficheModCommentaires':
                     $this->afficheModCommentaires();
                     break;
-                
                 case 'afficheBDD':
                     $this->afficheBDD();
                     break;
-                
                 case 'afficheModPhotos':
                     $this->afficheModPhotos();
                     break;
                 case 'afficheModOeuvres':
                     $this->afficheModOeuvres();
+                    break;             
+                case 'afficheOeuvres':
+                    $this->afficheOeuvres();
                     break;
-                
-                case 'detailsPhotoUtilisateur':
-                    $this->afficherDetailsPhotoUtilisateur($_GET['idPhoto']);
-                    break;
-
-                 case 'voter':
-                    $this->voterPourUnPhoto($_GET['idPhoto'],$_GET['idUtilVote']);
-                    break;
-                    
+                case 'afficheCategories':
+                $this->afficheCategories();
+                break;
+                case 'ajoutCategorie':
+                $this->ajoutCategorie();
+                break;
+ 
                 default:
 			    $this->accueil();
 				break;
@@ -338,7 +367,7 @@ class Controler
             $oVueAdmin->afficheHeaderAdmin();
             
             if($_GET['action'] == "ajoutUtilisateur"){
-                $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["telephone"], $_POST["bio"], $_POST["photoUtilisateur"]);
+                $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["telephone"], $_POST["bio"], 'utilisateurDefaut.jpg');
             }
             
             $message = '';
@@ -567,7 +596,7 @@ class Controler
             {
                try
                 {
-                    $oUtilisateur->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
+                    $oUtilisateurs->modifierUtilisateur($_GET['idUtilisateur'], $_POST['loginUtilisateur'], md5($_POST['passUtilisateur']), $_POST['prenom'], $_POST['nom'], $_POST['courriel'], $_POST['telephone'], $_POST['bio'], $_POST['photoUtilisateur']);
                     $oVueAdmin = new VueAdmin();
                     $nbreUtilisateurs = $oUtilisateurs->nbreUtilisateurs();
                     if($nbreUtilisateurs !=0) {
@@ -855,7 +884,7 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo ']);
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], 'utilisateurDefaut.jpg');
                 $message = "Utilisateur ajoutée.";
                 echo 'utilisateur ajoute';
             }
@@ -895,7 +924,7 @@ class Controler
     
         private function ajoutOeuvre()
         {
-            $erreurTitre ='';
+            
             $message ='';
             
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
@@ -970,7 +999,7 @@ class Controler
             {
                 
                 $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], $_POST['photoUtilisateur']);
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']),  $_POST['bio'], $_POST['score'], 'utilisateurDefaut.jpg');
                 $message = "Utilisateur ajoutée.";
             }
 
@@ -1057,6 +1086,10 @@ class Controler
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
+            $erreurPrenom = '';
+            $erreurNom = '';
+            $erreurCollectif = '';
+            $erreurPhotoArtiste = '';
 
             $erreurTitre ='';
             $message ='';
@@ -1071,10 +1104,7 @@ class Controler
 
             }
             
-            $erreurPrenom = '';
-            $erreurNom = '';
-            $erreurCollectif = '';
-            $erreurPhotoArtiste = '';
+            
             
             $oVueAdmin->ajoutArtiste($message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste);
             $oVueDefaut->afficheFooter(false,true,false,false);
@@ -1121,6 +1151,9 @@ class Controler
             
             $erreurTitre ='';
             $message ='';
+             $message = "";
+            $erreurNomCat = "";
+            $erreurNomCatAng = "";
             
             if($_GET['action'] == 'ajoutCategorie')
 
@@ -1132,9 +1165,7 @@ class Controler
                     
                 }
             
-            $message = "";
-            $erreurNomCat = "";
-            $erreurNomCatAng = "";
+            
             $oVueAdmin->formulaireAjouterCategorie($message, $erreurNomCat, $erreurNomCatAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
              
@@ -1212,8 +1243,8 @@ class Controler
 
             if($pass === $motDePassePlusGrainSel)
             {   
-                $_SESSION["session"] = $login;
-                $_SESSION['admin'] = true;
+                $_SESSION["sessionAdmin"] = $login;
+
                 //rediriger vers la page admin
                 $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
                 $aOeuvres = $oOeuvres ->listeOeuvres();
@@ -1427,37 +1458,51 @@ class Controler
             }
             $likes=$oPhoto->getCombienVOtesParPhoto($idPhoto);
             $uVue->afficherAsideUtilisateur($pos,$likes,$comment);
-           $oVue->afficheFooter(false,false,false,false);
+            $oVue->afficheFooter(false,false,false,false);
         }
     
     
-    
+    /**
+     * function ajouterPhotoProposée
+     * @access public
+     * @auteur: German Mahecha
+     */
         private function  ajouterPhoto($idUtil, $idOeuvre)
         {
-            echo $idOeuvre;
+            //echo $idOeuvre;
             $message='';
-            if ($_FILES["imagen"]["error"] > 0){
+            $file_extension='';$temporary='';
+            date_default_timezone_set('America/Montreal');
+            $today = getdate();
+            //Contruction de la date en chaine 
+            $dateCourrant=$today['year'].'-'.$today['mon'].'-'.$today['mday'].'-'.$today['hours'].'-'.$today['minutes'].'-'.$today['seconds'];
+            
+            if ($_FILES["image"]["error"] > 0){
                  $message= "Erreur dans le procesus";
             } else {
                 //verification si le type de fichier est permis
                 //et que la taille soit plus petite que 50000kb
                 $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
                 $limite_kb = 10000;
-
-                if (in_array($_FILES['imagen']['type'], $permis) && $_FILES['imagen']['size'] <= $limite_kb * 1024){
+                
+                if (in_array($_FILES['image']['type'], $permis) && $_FILES['image']['size'] <= $limite_kb * 1024){
                     //Création d'un dossier pour chaque utilisateur
-                    $dossierUtil='photos/photosProposees/'.$idUtil;
+                    $dossierUtil='photos/proposees/'.$idUtil;
                     //echo $dossierUtil;
                     //Si le dossier existe déjà, il ne le crée pas.
                     if(!is_dir($dossierUtil))
                         mkdir($dossierUtil, 0777);
-                    $chemin = $dossierUtil."/".$_FILES['imagen']['name'];
-                    //echo $ruta;
+                            
+                    $temporary = explode(".", $_FILES["image"]["name"]);
+                    $file_extension = end($temporary);
+                     
+                    $chemin = $dossierUtil."/".$dateCourrant.".".$file_extension;
                     //Verification pour savoir si la photo existe déjà
                     if (!file_exists($chemin)){
+                        
                         //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
                         //resultat contient true ou false pour valider si la copie a été reussi
-                        $resultat = @move_uploaded_file($_FILES["imagen"]["tmp_name"], $chemin);
+                        $resultat = @move_uploaded_file($_FILES["image"]["tmp_name"], $chemin);
                         if ($resultat){
                             $message= "Le fichier a été televerse correctement";
                             //Si le fichier a été déplacé correctement
@@ -1467,9 +1512,7 @@ class Controler
                             if($ajoutPhoto){
                                 //Recuperation de l'id de la derniere photo pour remplir le tableau propose
                                 $dernierPhoto=$photo->recupererDernierId();
-                                //Contruction de la date en chaine 
-                                $today = getdate();
-                                $dateCourrant=$today['year'].'/'.$today['mon'].'/'.$today['mday'];
+                               
                                 $photo->ajouterPropositionPhoto($idUtil,$dernierPhoto,$dateCourrant);
                             }
                             
@@ -1477,13 +1520,14 @@ class Controler
                             $message= "Un erreur pendant le televersement du fichier.";
                         }
                     } else {
-                        $message= "le fichier ".$_FILES['imagen']['name'] .", il existe déjà";
+                        $message= "le fichier ".$_FILES['image']['name'] .", il existe déjà";
                     }
                 } else {
                     $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";
                 }
             }
             header("Location:index.php?requete=propositionPhotoUtilisateur&idOeuvre=$idOeuvre");
+            
         }
       /**
      * function  modifierProfilUtilisateur
@@ -1749,6 +1793,157 @@ class Controler
         {
             
             echo "voter";
+        }    
+        
+        private function proposerOeuvre()
+        {
+            
+            $message ='';
+            $erreurTitre ='';
+            $erreurTitreVariante = '';
+            $erreurTechnique = '';
+            $erreurTechniqueAng = '';
+            $erreurDescription = '';
+            $erreurAdresse = '';
+            $erreurBatiment = '';
+            $erreurParc = '';
+            $erreurLatitude = '';
+            $erreurLongitude = '';
+            $erreurArrondissement = '';
+            $erreurArtiste = '';
+            $erreurCategorie = '';
+            $erreurSousCategorie = '';
+            $erreurMateriaux = '';
+            $erreurMateriauxAng ='';
+            
+            $oArtistes = new MArtistes('', '', '' ,'', '', '');
+            $aArtistes = $oArtistes::listeArtistes();
+            
+            $oCategories = new MCategories('', '', '' ,'', '','');
+            $aCategories = $oCategories::listeCategories();
+            
+            $oSousCategories = new MSousCategories('', '', '', '');
+            $aSousCategories = $oSousCategories::listeSousCategories();
+            
+            $oArrondissements = new MArrondissement('', '');
+            $aArrondissements = $oArrondissements::listeArrondissement();
+            
+            $oUtilisateur = new MUtilisateurs('', '', '', '','', '', '', '', '');
+            $aUtil = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+            $idUtil = $aUtil['idUtilisateur'];
+            
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            
+            $oVueDefaut = new VueDefaut();
+                        
+            $oVueDefaut->afficheHeader();
+            
+            if($_GET['action'] == 'valider') {
+                
+                if($_POST['latitude'] == '' || $_POST['longitude'] == '') {
+                    
+                    $aLatLong = $oOeuvre-> getLatLongAdresse($_POST['adresse']." Montreal");
+                    $latitude = $aLatLong['lat'];
+                    $longitude = $aLatLong['lon'];
+                } else {
+                    $latitude = $_POST['latitude'];
+                    $longitude = $_POST['longitude'];
+                }
+
+                $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+                $oArtiste = new MArtistes('', '', '', '', '', '');
+                $oSousCategorie = new MSousCategories('', '', '', '');
+                $aSousCategorie = $oSousCategorie->getSousCategorieParId($_POST['sousCategorie']);
+                $categorie = $aSousCategorie['idCategorie'];
+                                         
+                try
+                {
+                    //ajout artiste
+                    $oArtiste->ajoutArtiste($_POST['prenomArtiste'], $_POST['nomArtiste'], $_POST['collectifArtiste'], null, null);
+                    
+                    $idArtiste = $oOeuvre->recupererDernierId();
+                    
+                    //ajout oeuvre
+                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], null, $_POST['description'], "0", $_POST['arrondissement'], $_POST['materiaux'], $_POST['materiauxAng'], $categorie, $_POST['sousCategorie'], $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $latitude, $longitude);
+                    
+                    $idOeuvre = $oOeuvre->recupererDernierId();
+                    
+                    //liaison oeuvre et artiste
+                    $oArtiste->enregistrerOeuvreArtiste($idOeuvre, $idArtiste);
+                    
+                    //ajout de la photo
+                    $message='';
+                    $file_extension='';$temporary='';
+                    date_default_timezone_set('America/Montreal');
+                    $today = getdate();
+                    //Contruction de la date en chaine 
+                    $dateCourrant=$today['year'].'-'.$today['mon'].'-'.$today['mday'].'-'.$today['hours'].'-'.$today['minutes'].'-'.$today['seconds'];
+
+                    if ($_FILES["image"]["error"] > 0){
+                         $message= "Erreur dans le procesus";
+                    } else {
+                        //verification si le type de fichier est permis
+                        //et que la taille soit plus petite que 50000kb
+                        $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
+                        $limite_kb = 10000;
+
+                        if (in_array($_FILES['image']['type'], $permis) && $_FILES['image']['size'] <= $limite_kb * 1024){
+                            //Création d'un dossier pour chaque utilisateur
+                            $dossierUtil='photos/proposees/'.$idUtil;
+                            //echo $dossierUtil;
+                            //Si le dossier existe déjà, il ne le crée pas.
+                            if(!is_dir($dossierUtil))
+                                mkdir($dossierUtil, 0777);
+
+                            $temporary = explode(".", $_FILES["image"]["name"]);
+                            $file_extension = end($temporary);
+
+                            $chemin = $dossierUtil."/".$dateCourrant.".".$file_extension;
+                            //Verification pour savoir si la photo existe déjà
+                            if (!file_exists($chemin)){
+
+                                //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
+                                //resultat contient true ou false pour valider si la copie a été reussi
+                                $resultat = @move_uploaded_file($_FILES["image"]["tmp_name"], $chemin);
+                                if ($resultat){
+                                    $message= "Le fichier a été televerse correctement";
+                                    //Si le fichier a été déplacé correctement
+                                    //Affectation de la BD
+                                    $photo = new MPhotos('','','','');
+                                    $ajoutPhoto=$photo->ajouterPhoto($chemin,$idOeuvre);
+                                    if($ajoutPhoto){
+                                        //Recuperation de l'id de la derniere photo pour remplir le tableau propose
+                                        $dernierPhoto=$photo->recupererDernierId();
+
+                                        $photo->ajouterPropositionPhoto($idUtil,$dernierPhoto,$dateCourrant);
+                                    }
+
+                                } else {
+                                    $message= "Un erreur pendant le televersement du fichier.";
+                                }
+                            } else {
+                                $message= "le fichier ".$_FILES['image']['name'] .", il existe déjà";
+                            }
+                        } else {
+                            $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";
+                        }
+                    }
+         
+
+                        $message = "Oeuvre ajoutée.";
+                        $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+                    
+                }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();     
+                }
+                
+            } else {
+                $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            }
+            
+            $oVueDefaut->afficheFooter(false, false, false, false);
         }
     
         

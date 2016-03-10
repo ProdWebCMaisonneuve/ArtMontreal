@@ -25,10 +25,9 @@ class VueDefaut
             $_SESSION['session'] = '';
         }
         
-        if(!isset($_SESSION['admin'])) {
-            $_SESSION['admin'] = '';
+        if(!isset($_SESSION['sessionAdmin'])) {
+            $_SESSION['sessionAdmin'] = '';
         }
-        
         ?>
         <!DOCTYPE html>
         <html lang="fr">
@@ -40,21 +39,15 @@ class VueDefaut
                 <meta name="description" content="">
                 <meta name="viewport" content="width=device-width">
 
-<!--
-                <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
-                <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
--->
-                <link rel="stylesheet" href="./css/main_bootstrap.css" type="text/css" media="screen">
-               
-<!--                <link rel="stylesheet" href="./css/_grid.css" type="text/css" media="screen">-->
                 <link rel="stylesheet" href="fonts/style.css" type="text/css">
                 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+                <link rel="stylesheet" href="./css/main_bootstrap.css" type="text/css" media="screen">
                 <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
-                <script src='js/ jquery.validate.js'></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+                <script src='js/jquery.validate.js'></script>
+                
                 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
                 
                 <script src="http://maps.googleapis.com/maps/api/js"></script>
@@ -62,9 +55,14 @@ class VueDefaut
                 <script src="./js/plugins.js"></script>
                 <script src="./js/main.js"></script>
                 <script type="text/javascript" src="./js/md5.js"></script>
+                
+                <!-- Barre de chargement Pace-->
+                <script src="js/pace.min.js"></script>
+                <link rel="stylesheet" href="css/pace.css">
             </head>
 
             <body>
+               
                 <nav class="navbar navbar-default navbar-fixed-top" id="header_back">
                          <div class="col-lg-12" id="nav-logo"><img src="images/logo.png" class="img-responsive" alt="Logo" ></div>
                         <div class="container-fluid">
@@ -73,7 +71,7 @@ class VueDefaut
                             
                             <div class="navbar-header">
                               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
+                                <span class="sr-only">Activer la navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -110,15 +108,13 @@ class VueDefaut
                                     </form>
                                    
                                    <ul class="nav navbar-nav navbar-right">
-                                    
-                                    
                                 
                                     <?php
-                                        if($_SESSION["admin"]) {
+                                        if($_SESSION["sessionAdmin"]) {
                                             echo "<li><a href='index.php?requete=adminPanel'><span class='glyphicon glyphicon-user'></span> PANEL ADMIN </a></li>";
                                         }
         
-                                        if($_SESSION["session"] && !$_SESSION["admin"]) {
+                                        if($_SESSION["session"]) {
                                              echo  "<li>" . "<a href='index.php?requete=proposerOeuvre' class='btn btn-danger'><span class='glyphicon glyphicon-camera'></span> PROPOSER UNE OEUVRE</a></li>";
                                             echo  "<li>" . "<a href='index.php?requete=profilUtilisateurConnexion'><span class='glyphicon glyphicon-user'></span> PROFIL ".$_SESSION["session"]."</a>". "</li>";
                                                 echo  "<li>" ."<a href='deconnexion.php'><span class='icon-log-out'></span> DECONNEXION</a>". "</li>";
@@ -207,12 +203,6 @@ class VueDefaut
                     <textarea name="bio" placeholder="Entrer un text ici..." class="form-control" rows="8" cols="60" id="bio"></textarea>
                      <span id="msjBio" style="display:none">Remplir bio</span>
                 </div>
-
-                <div class="form-group">
-                    <label for="fichier" class="control-label">Photo:</label> 
-                    <input type="file" name="photo" >
-                    <p class="help-block">maximun 50Mb</p>
-                </div>
                 <input type="button"  onclick="validerFormAInscription()" value="Envoyer" id="button"> 
             </fieldset>
         </form> 
@@ -291,12 +281,18 @@ class VueDefaut
                                          Chass'Oeuvres 2015-2016 - Codé avec &hearts; par Jorge Blanco, German Mahecha, Gautier Piatek, Thuy Vo Tien<br>
                             <span id="jonathan">Certains droits réservés @ Jonathan Martel (2013)<br>
                             Sous licence MIT</span> 
+                                        
+                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Nous suivre sur Facebook</a>
+
                                      </div>
                                  </div>
                              </div>
                         </footer>
                     
                     <?php
+        
+                   
+        
                     if($slider) {
                     ?>
 
@@ -486,7 +482,9 @@ class VueDefaut
                     <?php
                     }
                     ?>
-                                       
+                <!-- Piwik Image Tracker-->
+                    <img src="https://goom.piwikpro.com/piwik.php?idsite=1&rec=1" style="border:0" alt="" />
+                <!-- End Piwik -->                   
                 </body>
             </html>
         <?php
@@ -507,7 +505,7 @@ public function afficheSliderAccueil($oeuvres)
         
             
                 <div class='row'>
-                <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                <div class=' visible-lg visible-md col-lg-12'>
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                   <!-- Indicators -->
                   <ol class="carousel-indicators">
@@ -587,7 +585,7 @@ public function afficheSliderAccueil($oeuvres)
                         <div class='row' id="message_bienvenue">
                             <div class='col-lg-1'></div>
                                 <div class="col-lg-3"><i class="fa fa-camera-retro awesome-responsive"></i></div>
-                                <div class='col-lg-7'>
+       <div class='col-lg-7'>
                                     <h1>Bienvenue à toi, Chasseur d'Art !</h1>
                                    
                                     <p>Deviens le meilleur chasseur d'oeuvres d'art de la ville de Montréal ! </p>
@@ -652,10 +650,11 @@ public function afficheSliderAccueil($oeuvres)
         foreach($oeuvres as $oeuvre) {
                if($oeuvre->getValidationOeuvre()==1)
                {   
-                    echo '<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 hero-feature">';
-                        echo '<div class="hovereffect">';
-                            $idOeuvre= $oeuvre->getIdOeuvre();
-                            $titre = $oeuvre->getTitreOeuvre();
+                   $idOeuvre= $oeuvre->getIdOeuvre();
+                    $titre = $oeuvre->getTitreOeuvre();
+                    echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature">';
+                        echo '<div class="hovereffect" id="'.$idOeuvre.'">';
+                            
                             echo "<img src='images/photoDefaut.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
                                 echo '<div class="overlay">';
                                     echo '<h2>'.$titre .'</h2>';
@@ -833,7 +832,7 @@ public function afficheSliderAccueil($oeuvres)
             $idArtiste = $artiste->getIdArtiste();
  
 
-            echo ' <div class="col-xs-4">';
+            echo ' <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">';
               
                 echo' <div class="panel-group" id="accordion">';
 
@@ -853,7 +852,7 @@ public function afficheSliderAccueil($oeuvres)
 
                             echo'<div class="panel-body">';
 
-                                echo "<img src='./images/artisteDefaut.jpg'>";
+                                echo "<img class='img-responsive' src='./images/artisteDefaut.jpg'  width='700' height='700'>";
                     
                                     $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
 
@@ -1461,6 +1460,153 @@ public function afficheSliderAccueil($oeuvres)
             
         }
       
+     /**
+     * Affiche Liste des categories
+     * @access public
+     * @author German Mahecha
+     * @version 1.0
+     */
+    
+    public function proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng)
+
+    {
+        ?>
+        <div class="row">
+                <div class="col-lg-12"> 
+                    <h1 class="page-header text-center">Proposer une Oeuvre</h1>
+                </div>    
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Détails de l'oeuvre
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-lg-6 col-lg-offset-3">   
+                           <form method="POST" role="form" action="index.php?requete=proposerOeuvre&action=valider" enctype="multipart/form-data" id='formPropositionOeuvre' name="formPropositionOeuvre">
+
+                                <div class="form-group">
+                                    <label>Titre :</label>
+                                    <input class="form-control" type="text" name="titre" id='titre'><span><?php echo $erreurTitre;?></span>
+                                    <span id="msjTitre" style="display:none">Veuillez saisir le titre de l'oeuvre</span>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Titre (variante) :</label>
+                                    <input class="form-control" type="text" name="titreVariante" id='titreVariante'><span><?php echo $erreurTitreVariante;?></span>
+                                    <span id="msjTitreVariante" style="display:none">Veuillez saisir le titre variante de l'oeuvre</span>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique :</label>
+                                    <input class="form-control" type="text" name="technique" id="technique"><span><?php echo $erreurTechnique;?></span>
+                                    <span id="msjTechnique" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technique (anglais):</label>
+                                    <input class="form-control" type="text" name="techniqueAng" id="techniqueAng"><span><?php echo $erreurTechniqueAng;?></span>
+                                    <span id="msjTechniqueAng" style="display:none">Veuillez saisir la technique de l'oeuvre</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description :</label>
+                                    <textarea class="form-control" rows="3" name="description" id="description"></textarea><span><?php echo $erreurDescription;?></span>
+                                    <span id="msjDescription" style="display:none">Veuillez saisir la descirption de l'oeuvre</span>
+                                </div>
+                                <div class="form-group hidden-lg">
+                                    <label>Localisation :</label>
+                                    <input type="button" onclick="recupererGeolocalisation()" class="btn btn-success form-control"  name="localiser" value="Récupérer ma position">
+                                    <input type="text" hidden name="latitude" id="latitude">
+
+                                    <input type="text" hidden name="longitude" id="longitude">
+                                    <span id="msjLocalisation"></span>
+                                </div>   
+                                <div class="form-group">
+                                <label>Adresse Civique :</label>
+                                    <input class="form-control" type="text" name="adresse" id="adresse"><span><?php echo $erreurAdresse;?></span>
+                                    <span id="msjAdresse" style="display:none">Veuillez saisir une adresse valide</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Batiment :</label>
+                                    <input class="form-control" type="text" name="batiment" id="batiment"><span><?php echo $erreurBatiment;?></span>
+                                    <span id="msjBatiment" style="display:none">Veuillez saisir le nom de batiment</span>
+                                </div>
+                                <div class="form-group">
+                                <label>Parc :</label>
+                                      <input class="form-control" type="text" name="parc" id="parc"><span><?php echo $erreurParc;?></span>
+                                    <span id="msjParc" style="display:none">Veuillez saisir le nom du parc</span>
+                                </div>
+                                
+                               
+                                <div class="form-group">
+                                <label>Arrondissement :</label>
+                                    <select class="form-control" name="arrondissement" id='arrondissements'><br><span><?php echo $erreurArrondissement;?></span>
+                                    <option value="nonChoisi" >Choisir un Arrondissement</option><br>
+                                <?php
+                                    foreach ($aArrondissements as $arrondissement) {
+                                        echo "<option value='".$arrondissement->getidArrondissement()."'>".$arrondissement->getnomArrondissement()."</option>"; 
+                                    }
+                                ?>
+                               </select>
+                                    <span id="msjArrondissement" style="display:none">Veuillez choisir une option</span>
+                                </div>
+                                <div class="form-group">
+                                   <label>Artiste :</label><br>
+                                   <label>Prénom :</label>
+                                   <input class="form-control" type="text" name="prenomArtiste" id="prenomArtiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjPrenomArtiste" style="display:none">Veuillez remplir le champ</span>
+                                    <label>Nom :</label>
+                                   <input class="form-control" type="text" name="nomArtiste" id="nomArtiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjNomArtiste" style="display:none">Veuillez remplir le champ</span>
+                                    <label>Collectif :</label>
+                                   <input class="form-control" type="text" name="collectifArtiste" id="collectifArtiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjCollectifArtiste" style="display:none">Veuillez remplir le champ</span>
+                                </div>
+                               
+                                <div class="form-group">
+                                   <label>Catégorie :</label>
+                                    <select class="form-control" name="sousCategorie" id="sous_categorie"><span><?php echo $erreurSousCategorie;?></span>
+                                    <option value="nonChoisi">Choisir une Catégorie</option>
+                                <?php
+                                    foreach ($aSousCategories as $sousCategorie) {
+                                        echo "<option value='".$sousCategorie->getidSousCategorie()."'>".$sousCategorie->getnomSousCategorie()."</option>"; 
+                                    }
+                                ?>    
+                                    </select>
+                                    <span id="msjSous_categorie" style="display:none">Veuillez choisir une option</span>
+                                    
+                                </div>
+                                <div class="form-group">
+                                   <label>Matériaux :</label>
+                                   <input class="form-control" type="text" name="materiaux" id="materiaux"><span><?php echo $erreurMateriaux;?></span>
+                                    <span id="msjMateriaux" style="display:none">Veuillez saisir un material</span>
+                                </div>
+                                 <div class="form-group">
+                                   <label>Matériaux (anglais) : </label>
+                                    <input class="form-control" type="text" name="materiauxAng" id="materiauxAng"><span><?php echo $erreurMateriauxAng;?></span>
+                                    <span id="msjMateriauxAng" style="display:none">Veuillez saisir un material</span>
+                                </div>
+                                <div class="form-group">
+                                   <label>Photo : </label>
+                                <input type='file' name="image" id="image">
+                                <span id="msjImage" style="display:none">Veuillez choisir une photo</span>
+                                </div>
+                                <input type="button" onclick="validerFormPropositionOeuvre()" class="btn btn-success"  name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                           </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <?php
+    }
 
 }
 ?>

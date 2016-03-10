@@ -83,6 +83,10 @@
             color: #ffffff;
         }
 
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
 #artiste{
     color: white;
 }
@@ -155,10 +159,47 @@ figcaption {background-color: gray}
     color: red;
 }
 
+#formAjoutOeuvre span{
+    color: red;
+}
+
+#formModifierOeuvre span{
+    color:red;
+}
+
+#formAjoutArtiste span{
+    color:red;
+}
+
+#formPropositionOeuvre span{
+    color:red;
+}
+
+#formModifierArtiste span{
+    color:red;
+}
+
+#formAjoutCategorie span{
+    color:red;
+}
+
+#formModifierCategorie span{
+    color:red;
+}
+
+#formAjoutUtilisateur span{
+    color:red;
+}
+
+#formModifierUtilisateur span{
+    color: red;
+}
+
 
 
 
 /*HOVER EFFECT 1    http://miketricking.github.io/dist/*/
+
 
 .hovereffect {
 width:100%;
@@ -216,7 +257,7 @@ opacity:0;
 filter:alpha(opacity=0);
 -webkit-transition:all .2s ease-in-out;
 transition:all .2s ease-in-out;
-margin:80px 0 0;
+margin:30px 0 0;
 padding:7px 14px;
 }
 
@@ -276,6 +317,7 @@ transition-delay:.2s;
 -webkit-transition-delay:.2s;
 transition-delay:.2s;
 }
+
 
 /*AWESOME FONTS */
 
