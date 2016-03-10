@@ -517,5 +517,28 @@ WHERE oeuvre.validationOeuvre=0");
 		}
 		return $oeuvres;
     }
+    
+    /* function qui récupère la latitude et longitude depuis une adresse
+	 * @access public static
+     * @author Gautier Piatek
+	 * @return array
+	 */
+    public static function getLatLongAdresse($addresse)
+    {
+        $coordonnees=array();
+        $url_base="http://maps.googleapis.com/maps/api/geocode/xml?";
+        $requete = $url_base . "address=" . urlencode($addresse).'&sensor=false&region=CA';
+        $xml = simplexml_load_file($requete) or die("Erreur chargement");
+        
+        $coordonnees['lat']=$coordonnees['lon']='';
+        $coordonnees['status'] = $xml->status ;
+        if($coordonnees['status']=='OK')
+        {
+            $coordonnees['lat'] = $xml->result->geometry->location->lat ;
+            $coordonnees['lon'] = $xml->result->geometry->location->lng ;
+        }
+        return $coordonnees;
+    }
+
 }
 ?>

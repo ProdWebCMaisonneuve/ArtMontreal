@@ -45,8 +45,9 @@ class VueDefaut
                 <link rel="stylesheet" href="lib/SBAdmin2/bower_components/font-awesome/css/font-awesome.min.css">
                 <link href="css/bootstrap.min.css" rel="stylesheet">
                 <link href="css/heroic-features.css" rel="stylesheet">
-                <script src='js/ jquery.validate.js'></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+                <script src='js/jquery.validate.js'></script>
+                
                 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
                 
                 <script src="http://maps.googleapis.com/maps/api/js"></script>
@@ -649,11 +650,12 @@ public function afficheSliderAccueil($oeuvres)
         foreach($oeuvres as $oeuvre) {
                if($oeuvre->getValidationOeuvre()==1)
                {   
-                   
+
+                    $idOeuvre= $oeuvre->getIdOeuvre();
+                    $titre = $oeuvre->getTitreOeuvre();
                         echo '<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature oeuvres_" >';
                             echo '<div class="hovereffect">';
-                                $idOeuvre= $oeuvre->getIdOeuvre();
-                                $titre = $oeuvre->getTitreOeuvre();
+                                
                                 echo "<img src='images/photoDefaut.jpg' alt='' class='img-responsive' id='images_oeuvres'></a>";
                                     echo '<div class="overlay">';
                                         echo '<h2>'.$titre .'</h2>';
@@ -1545,7 +1547,9 @@ public function afficheSliderAccueil($oeuvres)
                         <div class="panel-body">
                             <div class="row">
                                     <div class="col-lg-6 col-lg-offset-3">   
-                           <form method="POST" role="form" action="index.php?requete=ajoutOeuvre&action=ajoutOeuvre" id ='formAjoutOeuvre' name="formAjoutOeuvre">
+
+                           <form method="POST" role="form" action="index.php?requete=proposerOeuvre&action=valider" enctype="multipart/form-data" id='formPropositionOeuvre' name="formPropositionOeuvre">
+
 
                                 <div class="form-group">
                                     <label>Titre :</label>
@@ -1612,9 +1616,18 @@ public function afficheSliderAccueil($oeuvres)
                                     <span id="msjArrondissement" style="display:none">Veuillez choisir une option</span>
                                 </div>
                                 <div class="form-group">
-                                   <label>Artiste/Collectif :</label>
-                                   <input class="form-control" type="text" name="artiste" id="artiste"><?php echo $erreurArtiste;?></span>
-                                    <span id="msjArtiste_Collectif" style="display:none">Veuillez choisir une option</span>
+
+                                   <label>Artiste :</label><br>
+                                   <label>Prénom :</label>
+                                   <input class="form-control" type="text" name="prenomArtiste" id="prenomArtiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjPrenomArtiste" style="display:none">Veuillez remplir le champ</span>
+                                    <label>Nom :</label>
+                                   <input class="form-control" type="text" name="nomArtiste" id="nomArtiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjNomArtiste" style="display:none">Veuillez remplir le champ</span>
+                                    <label>Collectif :</label>
+                                   <input class="form-control" type="text" name="collectifArtiste" id="collectifArtiste"><?php echo $erreurArtiste;?></span>
+                                    <span id="msjCollectifArtiste" style="display:none">Veuillez remplir le champ</span>
+
                                 </div>
                                
                                 <div class="form-group">
@@ -1642,9 +1655,12 @@ public function afficheSliderAccueil($oeuvres)
                                 </div>
                                 <div class="form-group">
                                    <label>Photo : </label>
-                                <input type='file' name="imagen" id="imagen">
+
+                                <input type='file' name="image" id="image">
+                                <span id="msjImage" style="display:none">Veuillez choisir une photo</span>
                                 </div>
-                                <input type="button" onclick="validerFormAjoutOeuvre()" class="btn btn-success"  name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+                                <input type="button" onclick="validerFormPropositionOeuvre()" class="btn btn-success"  name="sauvegarder" value="Valider"> <input type="reset" class="btn btn-danger" name="reset" value="Réinitialiser"><span><?php echo $message; ?></span>
+
                            </form>
 
                             </div>

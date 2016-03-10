@@ -77,9 +77,11 @@ class Controler
                 case 'commentaire':
                     $this->commentaire($_GET['idCommentaire']);
                     break;
+
                 case 'unUtilisateur':
                     $this->unUtilisateur($_GET['idUtilisateur']);
                     break;    
+
                 /*Utilisateur*/   
                 case 'profilUtilisateurConnexion':
                     if($_SESSION["session"]){
@@ -139,11 +141,13 @@ class Controler
                     
                 /*Admin*/
                 case 'afficheAdminMods':
+
                     if($_SESSION["sessionAdmin"]){
                         $this->afficheAdminMods();
                     } else {
                         $this->accueil();
                     }
+
                     break;    
                 case 'modifierArtiste':
                     if($_SESSION["sessionAdmin"]){
@@ -403,7 +407,7 @@ class Controler
                         $this->accueil();
                     }
                     break;
- 
+
                 default:
 			    $this->accueil();
 				break;
@@ -2007,13 +2011,123 @@ class Controler
             $oArrondissements = new MArrondissement('', '');
             $aArrondissements = $oArrondissements::listeArrondissement();
 
-            $oVueDefaut = new VueDefaut();
-            $oVueAdmin = new VueAdmin();
-            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $oUtilisateur = new MUtilisateurs('', '', '', '','', '', '', '', '');
+            $aUtil = $oUtilisateur->getUtilisateurParLogin($_SESSION['session']);
+            $idUtil = $aUtil['idUtilisateur'];
             
+            $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            
+            $oVueDefaut = new VueDefaut();
+                        
             $oVueDefaut->afficheHeader();
-            $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            
+            if($_GET['action'] == 'valider') {
+                
+                if($_POST['latitude'] == '' || $_POST['longitude'] == '') {
+                    
+                    $aLatLong = $oOeuvre-> getLatLongAdresse($_POST['adresse']." Montreal");
+                    $latitude = $aLatLong['lat'];
+                    $longitude = $aLatLong['lon'];
+                } else {
+                    $latitude = $_POST['latitude'];
+                    $longitude = $_POST['longitude'];
+                }
+
+                $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+                $oArtiste = new MArtistes('', '', '', '', '', '');
+                $oSousCategorie = new MSousCategories('', '', '', '');
+                $aSousCategorie = $oSousCategorie->getSousCategorieParId($_POST['sousCategorie']);
+                $categorie = $aSousCategorie['idCategorie'];
+                                         
+                try
+                {
+                    //ajout artiste
+                    $oArtiste->ajoutArtiste($_POST['prenomArtiste'], $_POST['nomArtiste'], $_POST['collectifArtiste'], null, null);
+                    
+                    $idArtiste = $oOeuvre->recupererDernierId();
+                    
+                    //ajout oeuvre
+                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], null, $_POST['description'], "0", $_POST['arrondissement'], $_POST['materiaux'], $_POST['materiauxAng'], $categorie, $_POST['sousCategorie'], $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $latitude, $longitude);
+                    
+                    $idOeuvre = $oOeuvre->recupererDernierId();
+                    
+                    //liaison oeuvre et artiste
+                    $oArtiste->enregistrerOeuvreArtiste($idOeuvre, $idArtiste);
+                    
+                    //ajout de la photo
+                    $message='';
+                    $file_extension='';$temporary='';
+                    date_default_timezone_set('America/Montreal');
+                    $today = getdate();
+                    //Contruction de la date en chaine 
+                    $dateCourrant=$today['year'].'-'.$today['mon'].'-'.$today['mday'].'-'.$today['hours'].'-'.$today['minutes'].'-'.$today['seconds'];
+
+                    if ($_FILES["image"]["error"] > 0){
+                         $message= "Erreur dans le procesus";
+                    } else {
+                        //verification si le type de fichier est permis
+                        //et que la taille soit plus petite que 50000kb
+                        $permis = array("image/png","image/jpg", "image/jpeg", "image/gif");
+                        $limite_kb = 10000;
+
+                        if (in_array($_FILES['image']['type'], $permis) && $_FILES['image']['size'] <= $limite_kb * 1024){
+                            //Création d'un dossier pour chaque utilisateur
+                            $dossierUtil='photos/proposees/'.$idUtil;
+                            //echo $dossierUtil;
+                            //Si le dossier existe déjà, il ne le crée pas.
+                            if(!is_dir($dossierUtil))
+                                mkdir($dossierUtil, 0777);
+
+                            $temporary = explode(".", $_FILES["image"]["name"]);
+                            $file_extension = end($temporary);
+
+                            $chemin = $dossierUtil."/".$dateCourrant.".".$file_extension;
+                            //Verification pour savoir si la photo existe déjà
+                            if (!file_exists($chemin)){
+
+                                //Déplacement du ficher tmp au dossier prevu pour cet utilisateur
+                                //resultat contient true ou false pour valider si la copie a été reussi
+                                $resultat = @move_uploaded_file($_FILES["image"]["tmp_name"], $chemin);
+                                if ($resultat){
+                                    $message= "Le fichier a été televerse correctement";
+                                    //Si le fichier a été déplacé correctement
+                                    //Affectation de la BD
+                                    $photo = new MPhotos('','','','');
+                                    $ajoutPhoto=$photo->ajouterPhoto($chemin,$idOeuvre);
+                                    if($ajoutPhoto){
+                                        //Recuperation de l'id de la derniere photo pour remplir le tableau propose
+                                        $dernierPhoto=$photo->recupererDernierId();
+
+                                        $photo->ajouterPropositionPhoto($idUtil,$dernierPhoto,$dateCourrant);
+                                    }
+
+                                } else {
+                                    $message= "Un erreur pendant le televersement du fichier.";
+                                }
+                            } else {
+                                $message= "le fichier ".$_FILES['image']['name'] .", il existe déjà";
+                            }
+                        } else {
+                            $message= "Le fichier n'est pas permis, ou est plus grand de $limite_kb Kilobytes";
+                        }
+                    }
+         
+
+                        $message = "Oeuvre ajoutée.";
+                        $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+                    
+                }
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();     
+                }
+                
+            } else {
+                $oVueDefaut->proposerOeuvre($aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
+            }
+            
             $oVueDefaut->afficheFooter(false, false, false, false);
+
         }
     
     
@@ -2064,6 +2178,7 @@ class Controler
             }
             header("Location:index.php?requete=profilUtilisateurConnexion");
   
+
         }
     
         
