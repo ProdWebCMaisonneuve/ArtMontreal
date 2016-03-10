@@ -673,7 +673,6 @@ function validerFormAjouterCategorie()
     }
 }
 
->>>>>>> origin/master
 
 /**
  * Vérifie le formulaire modifier une categorie 
