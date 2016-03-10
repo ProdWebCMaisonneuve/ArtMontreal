@@ -513,32 +513,20 @@ public function afficheSliderAccueil($oeuvres)
                     <li data-target="#myCarousel" data-slide-to="1"></li>
                     <li data-target="#myCarousel" data-slide-to="2"></li>
                   </ol>
-
+                
                   <!-- Wrapper for slides -->
                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="images/img1.jpg" alt="image1">
-                        <div class="carousel-caption">
-                            <h3>Chania</h3>
-                            <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-                          </div>
-                    </div>
-
-                    <div class="item">
-                      <img src="images/img2.jpg" alt="image2">
-                        <div class="carousel-caption">
-                            <h3>Chania</h3>
-                            <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-                          </div>
-                    </div>
-
-                    <div class="item">
-                      <img src="images/img3.jpg" alt="image3">
-                        <div class="carousel-caption">
-                            <h3>Chania</h3>
-                            <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-                          </div>
-                    </div>
+                   <?php
+                    $compteur = 1;
+                    foreach($oeuvres as $oeuvre) { ?>
+                        <div class="item <?php if($compteur == 1){ echo 'active'; } ?>">
+                          <img src="<?php echo $oeuvre[0]; ?>" alt="<?php echo $oeuvre[2]; ?>" class='imgSlider'>
+                            <div class="carousel-caption">
+                                <a href="<?php echo 'index.php?requete=unOeuvre&idOeuvre='. $oeuvre[3]; ?>"><h3><?php echo $oeuvre[2]; ?></h3></a>
+                            </div>
+                        </div>
+                    <?php $compteur = $compteur+1; } ?>
+                    
                   </div>
 
                   <!-- Left and right controls -->
