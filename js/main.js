@@ -2027,3 +2027,31 @@ function validerFormPropositionOeuvre(){
     }
     
 }
+
+function listeArtiste()
+
+{
+//Quand le document a fini de loader
+$(document).ready(function(e){
+    
+    //Ajout function click
+    $('#alphabet').on("click", function(e)
+    {
+        $.ajax(
+        {
+        //On appelle du controler avec url suivant:
+        url : 'ajaxControler.php?requete=artistes',  
+        method : 'POST',
+        data:{val:$(e.target)},
+        // On reçoit la réponse de ajax controler dans la variable reponse
+        success : function(reponse){
+
+        $("#resultat").html(reponse);
+        }
+
+        });
+
+    });
+});
+
+}
