@@ -414,7 +414,11 @@ class Controler
 			}
             
 		}
-
+        
+    
+         /* afficher la page admin
+         * @access private
+         */
         private function afficheContenuAdmin()
         {
 
@@ -425,6 +429,10 @@ class Controler
             
         } 
 		
+    
+        /* afficher la page accueil
+         * @access private
+         */
         private function accueil()
         {
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
@@ -456,7 +464,10 @@ class Controler
             $oVue->afficheFooter(true, false, false, false);
             
         } 
-
+        
+        /* afficher la page details d'une oeuvre
+         * @access private
+         */
         private function unOeuvre($idget)
 		{
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
@@ -480,7 +491,10 @@ class Controler
             $oVue->afficheFooter(false,false, false, false);
 			
 		}
-
+        
+        /* afficher le détail d'un utilisateur
+         * @access private
+         */
         private function unUtilisateur($idGetUtilisateur)
         {
             $oUtilisateur = new MUtilisateurs('','','','','','');
@@ -491,7 +505,9 @@ class Controler
             $oVue->afficheFooter(false,false, false, false);
         }
 		
-		
+		/* afficher la page artiste
+         * @access private
+         */
          private function artistes()
 		{
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
@@ -505,7 +521,10 @@ class Controler
             $oVue->afficheFooter(false,false, false, false);
     
 		}
-
+        
+        /* afficher la liste des utilisateurs
+         * @access private
+         */
         private function listerUtilisateurs()
         {
             $oUtilisateurs = new MUtilisateurs('','','','','','','','','');
@@ -516,7 +535,11 @@ class Controler
             $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter(false,false, false, false);
         }
-    
+        
+        
+        /* afficher la page ajout utilisateurs
+         * @access private
+         */
         private function ajoutUtilisateur()
         {
             $oUtilisateur = new MUtilisateurs('', '', '', '', '', '', '', '', '');
@@ -542,7 +565,10 @@ class Controler
             $oVueAdmin->ajoutUtilisateur($message, $erreurPrenom, $erreurNom, $erreurLoginUtilisateur, $erreurPassUtilisateur, $erreurCourriel, $erreurTelephone, $erreurBio, $erreurPhotoArtiste);
             $oVueDefaut->afficheFooter(false, true, false, false);
         }
-    
+        
+        /* afficher la page gestion des oeuvres
+         * @access private
+         */
         private function afficheOeuvres()
 		{
             $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
@@ -561,7 +587,10 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
     
 		}
-    
+        
+        /* afficher la page gestion des utilisateurs
+         * @access private
+         */
         private function afficheUtilisateurs()
 		{
             $oUtilisateurs = new MUtilisateurs('', '', '', '', '', '', '', '', '');
@@ -579,7 +608,10 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
     
 		}
-    
+        
+        /* afficher la page gestion des artistes
+         * @access private
+         */
         private function afficheArtistes()
 		{
             $oArtistes = new MArtistes('', '', '','', '', '');
@@ -599,7 +631,9 @@ class Controler
     
 		}
        
-    
+        /* afficher la page gestion des admins
+         * @access private
+         */
         private function afficheAdminMods()
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
@@ -617,7 +651,10 @@ class Controler
 			$oVueAdmin->afficheAdminMods($aAdmin_moderateur, $nbreAdminMods);
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
-
+        
+        /* afficher la page modification artistes
+         * @access private
+         */
         private function modifierArtiste($idArt)
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
@@ -666,7 +703,10 @@ class Controler
             }     
             $oVueDefaut->afficheFooter(false, true, false, true);   
         }
-    
+        
+        /* afficher la page modification categories
+         * @access private
+         */
         private function modifierCategories($idCat)
         {   
             $oCategorie = new MCategories('', '', '');
@@ -715,7 +755,10 @@ class Controler
             }     
             $oVueDefaut->afficheFooter(false, true, false, true);   
         }
-    
+        
+        /* afficher la page suppression artistes
+         * @access private
+         */
         private function supprimerArtistes($idArtiste)
         {   
             $oArtiste = new MArtistes('', '', '', '', '', '');
@@ -734,6 +777,10 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
         
+    
+        /* afficher la page modification utilisateur
+         * @access private
+         */
         private function modifierUtilisateur($idUtil)
         {   
             
@@ -790,7 +837,10 @@ class Controler
 
 
         }
-    
+        
+        /* afficher la page modification admins
+         * @access private
+         */
         private function modifierAdmin_moderateur($idAmin_moderateur)
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
@@ -841,7 +891,10 @@ class Controler
             
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
-    
+        
+        /* afficher la page suppression utilisateurs
+         * @access private
+         */
         private function supprimerUtilisateurs($idUtil)
         {   
             $oUtilisateurs = new MUtilisateurs('', '', '','', '', '','','','');
@@ -860,7 +913,9 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
     
-    
+        /* afficher la page suppression admins
+         * @access private
+         */
         private function supprimerAdmin_moderateur($idAmin_moderateur)
         {
             $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
@@ -878,7 +933,10 @@ class Controler
             $oVueAdmin->afficheAdminMods($aAdmin_moderateurs, $nbreAdminMods);
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
-    
+        
+        /* afficher la page modification oeuvres
+         * @access private
+         */
         private function modifierOeuvre($idOeuvre)
         {   
             $erreurTitre ='';
@@ -954,7 +1012,10 @@ class Controler
             }     
             $oVueDefaut->afficheFooter(false, true, false, true);  
         }
-    
+        
+        /* afficher la page suppression oeuvres
+         * @access private
+         */
         private function supprimerOeuvres($idOeuvre) 
         {   
             $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
@@ -972,7 +1033,9 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
     
-        
+        /* afficher la page arrondissements
+         * @access private
+         */
 		private function arrondissements()
 		{
 
@@ -986,7 +1049,10 @@ class Controler
             $oVue->afficheFooter(false, true, false, true);
     
 		}
-
+        
+        /* afficher la page oeuvres par arrondissement
+         * @access private
+         */
 		private function oeuvresParArr($getIdArr)
         {   
             $oOeuvreParArr = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
@@ -1000,7 +1066,10 @@ class Controler
             $oVue->afficheOeuvre_Par_Arr($aOeuvreParArr, $aArrondissements);
             $oVue->afficheFooter(false, true, false, true);
         }
-
+        
+        /* afficher la page categories
+         * @access private
+         */
         private function categories()
         {
             $oCategories = new MCategories('', '', '' ,'', '','');
@@ -1013,7 +1082,9 @@ class Controler
     
         }
 
-
+        /* afficher la page oeuvres par categories
+         * @access private
+         */
         private function oeuvresParCat($id_cat)
         {   
          
@@ -1028,7 +1099,9 @@ class Controler
         }
 
 
-    
+        /* afficher la page inscription utilisateur
+         * @access private
+         */
         private function inscription()
         {
             $erreurTitre ='';
@@ -1064,7 +1137,10 @@ class Controler
     
 
         } 
-
+        
+        /* afficher la page connexion utilisateur
+         * @access private
+         */
         private function connexion()
         {   
             $nombreAleatoire = rand(1, 1000);
@@ -1076,7 +1152,10 @@ class Controler
             $oVue->afficheFooter(false,false,false,false);
             
         } 
-
+        
+        /* afficher la page resultats de recherche
+         * @access private
+         */
         private function rechercheOeuvresMot()
         {
             $oVue = new VueDefaut();
@@ -1088,7 +1167,10 @@ class Controler
             $oVue->afficheFooter(false,false,false,false);
                 
         }
-    
+        
+        /* afficher la page ajout d'oeuvres
+         * @access private
+         */
         private function ajoutOeuvre()
         {
             
@@ -1152,7 +1234,10 @@ class Controler
             $oVueDefaut->afficheFooter(false,true,false,false);
 
         }
-
+        
+        /* afficher la page ajout admin
+         * @access private
+         */
         private function afficheInscriptionAdmin()
         {
           
@@ -1174,9 +1259,9 @@ class Controler
             $oVue->afficheFooter(false,false,false,false);    
         } 
          
-
-        
-
+        /* afficher la page profil utilisateur
+         * @access private
+         */
         private function profilUtilisateur()
         {
 
@@ -1188,7 +1273,10 @@ class Controler
             $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter(false,false,false,false);
         }
-
+        
+        /* afficher la page gestion admin
+         * @access private
+         */
          private function adminPanel()
         {
              
@@ -1212,7 +1300,10 @@ class Controler
             $oVueAdmin->afficheGestion($nbreOeuvres, $nbreArtistes, $nbreUtilisateurs, $nbrePhotos);
             $oVueDefaut->afficheFooter(false, true, true, false);
         }
-    
+        
+        /* afficher la page connexion admin
+         * @access private
+         */
          private function admin()
         {
             $erreurConnexion = '';
@@ -1221,7 +1312,10 @@ class Controler
             $oVue->afficheConnexionAdmin($nombreAleatoire, $erreurConnexion);
             
         }
-    
+        
+        /* afficher la page ajout Admin
+         * @access private
+         */
         private function ajoutAdminMod()
         {
             $erreurLogin ='';
@@ -1245,7 +1339,9 @@ class Controler
             $oVueDefaut->afficheFooter(false,true,false,false);
         }
 
-
+        /* afficher la page ajout artistes
+         * @access private
+         */
         private function ajoutArtiste()
         {     
             $oVueDefaut = new VueDefaut();
@@ -1275,23 +1371,11 @@ class Controler
             $oVueDefaut->afficheFooter(false,true,false,false);
         }
 
-
-        private function afficheAjouterUnArtiste()
-        {
-          
-            $oVue = new VueDefaut();
-            $oVue->afficheHeader();
-            $oVue->afficheAjouterUnArtiste();
-            $oVue->afficheFooter(false,false,false,false);
-            
-        } 
         
         /* Ajouter une Sous_Catégorie
         * Auteure: Thuy Tien Vo
         */
- 
-
-        private function Souscategories()
+         private function Souscategories()
         {
             $oSousCategories = new MSousCategories('', '', '' ,'', '','');
             $aSousCategories = $oSousCategories::listeSousCategories();
@@ -1466,7 +1550,9 @@ class Controler
             }
         }
     
-    
+        /* mise a jour de la BDD
+         * @access private
+         */
         private function miseajourjson()
         {
             $contenuJSON = file_get_contents("http://donnees.ville.montreal.qc.ca/dataset/2980db3a-9eb4-4c0e-b7c6-a6584cb769c9/resource/18705524-c8a6-49a0-bca7-92f493e6d329/download/oeuvresdonneesouvertes.json");
@@ -1555,7 +1641,7 @@ class Controler
      
     
        /**
-     * function profilUtilisateurConnexion
+     * function afficher le profil Utilisateur selon la Connexion
      * @access public
      * @auteur: German Mahecha
      */
@@ -1578,7 +1664,7 @@ class Controler
             
         }
     /**
-     * function propositionPhotoUtilisateur
+     * function afficher la proposition de Photo Utilisateur
      * @access public
      * @auteur: German Mahecha
      */
@@ -1603,7 +1689,7 @@ class Controler
     
     
     /**
-     * function AfficherDetailsPhotoUtilisateur
+     * function Afficher les Details de la Photo Utilisateur
      * @access public
      * @auteur: German Mahecha
      */
@@ -1645,7 +1731,7 @@ class Controler
     
     
     /**
-     * function ajouterPhotoProposée
+     * function ajouter la Photo Proposée pour une oeuvre
      * @access public
      * @auteur: German Mahecha
      */
@@ -1713,7 +1799,7 @@ class Controler
             
         }
       /**
-     * function  modifierProfilUtilisateur
+     * function  afficher la modification de Profil Utilisateur
      * @access public
      * @auteur: German Mahecha
      */  
@@ -1758,7 +1844,9 @@ class Controler
         }
 
 
-
+        /* afficher la page des categories
+         * @access private
+         */
         private function afficheCategories()
         {
             $oCategories = new MCategories('', '', '' ,'', '','');
@@ -1778,7 +1866,7 @@ class Controler
         }
 
         /**
-         * function proposition Commentaire
+         * function afficher la proposition de Commentaire
          * @access public
          * @auteur: Thuy Tien Vo
          */
@@ -1804,7 +1892,7 @@ class Controler
         }
 
         /**
-         * function affiche le commentaire dans le Panel_Admin
+         * function affiche la gestion des commentaires
          * @access public
          * @auteur: Thuy Tien Vo
          */
@@ -1827,7 +1915,10 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
     
         }
-
+        
+        /* afficher la page de mise a jour de la BDD
+         * @access private
+         */
         private function afficheBDD()
         {
             $oVueDefaut = new VueDefaut();
@@ -1844,6 +1935,9 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false,false);
         }
         
+        /* afficher la page de modération des photos
+         * @access private
+         */
         private function afficheModPhotos()
         {
             $oVueDefaut = new VueDefaut();
@@ -1861,6 +1955,9 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
         
+        /* afficher la page de modération des oeuvres
+         * @access private
+         */
         private function afficheModOeuvres()
         {
             $oVueDefaut = new VueDefaut();
@@ -1877,7 +1974,10 @@ class Controler
             $oVueAdmin->afficheModOeuvres($aOeuvresAValider, $nbreOeuvresNonValides);
             $oVueDefaut->afficheFooter(false, true, false, true);
         }
-    
+        
+        /* supprime une photo
+         * @access private
+         */
         private function supprimerPhoto($idPhoto) 
         {
             $oVueDefaut = new VueDefaut();
@@ -1896,7 +1996,10 @@ class Controler
             
             
         }
-    
+        
+         /* supprime un commentaire
+         * @access private
+         */
         private function supprimerCommentaire($idCommentaire) 
         {
             $oVueDefaut = new VueDefaut();
@@ -1916,6 +2019,9 @@ class Controler
             
         }
         
+        /* valide une photo
+         * @access private
+         */
         private function validerPhoto($idPhoto) 
         {
             $oVueDefaut = new VueDefaut();
@@ -1934,7 +2040,10 @@ class Controler
             
             
         } 
-    
+        
+         /* valide une oeuvre
+         * @access private
+         */
         private function validerOeuvre($idOeuvre) 
         {
             $oVueDefaut = new VueDefaut();
@@ -1952,7 +2061,10 @@ class Controler
             $oVueDefaut->afficheFooter(false, true, false, true);
             
         } 
-    
+        
+         /* valide un commentaire
+         * @access private
+         */
         private function validerCommentaire($idCommentaire) 
         {
             $oVueDefaut = new VueDefaut();
@@ -1971,13 +2083,19 @@ class Controler
             
             
         }
-    
+        
+         /* voter pour une photo
+         * @access private
+         */
         private function voterPourUnPhoto($idPhoto,$idUtilisateur)
         {
             
             echo "voter";
         }    
         
+         /* affiche la page de proposition d'une oeuvre
+         * @access private
+         */
         private function proposerOeuvre()
         {
             
@@ -2133,7 +2251,7 @@ class Controler
     
     
        /**
-     * function  changerPhotoProfil
+     * function  changer la Photo de Profil
      * @access public
      * @auteur: German Mahecha
      */  
