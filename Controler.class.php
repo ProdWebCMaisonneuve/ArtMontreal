@@ -516,14 +516,19 @@ class Controler
             $oVue->listerUtilisateurs($aUtilisateurs);
             $oVue->afficheFooter(false,false, false, false);
         }
-       private function ajoutUtilisateur()
+    
+        private function ajoutUtilisateur()
         {
             $oUtilisateur = new MUtilisateurs('', '', '', '', '', '', '', '', '');
             
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
-
+            
+            if($_GET['action'] == "ajoutUtilisateur"){
+                $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["telephone"], $_POST["bio"], 'utilisateurDefaut.jpg');
+            }
+            
             $message = '';
             $erreurPrenom = '';
             $erreurNom = '';
@@ -534,67 +539,8 @@ class Controler
             $erreurBio = '';
             $erreurPhotoArtiste = '';
             
-            if($_GET['action'] == "ajoutUtilisateur")
-
-
-                {   if(empty($_POST["nom"]))
-                    {
-                        $erreurs = true;
-                        $erreurNom = "*Veuillez entrer un nom !";
-                    }
-
-                    if(empty($_POST["prenom"]))
-                    {
-                        $erreurs = true;
-                        $erreurPrenom = "*Veuillez entrer un prénom !";
-                    }
-
-                    if(empty($_POST["loginUtilisateur"]))
-                    {
-                        $erreurs = true;
-                        $erreurLoginUtilisateur = "*Veuillez entrer un login !";
-                    }
-
-                    if(empty($_POST["passUtilisateur"]))
-                    {
-                        $erreurs = true;
-                        $erreurPassUtilisateur = "*Veuillez entrer un mot de passe !";
-                    }
-
-                    if(empty($_POST["courriel"]))
-                    {
-                        $erreurs = true;
-                        $erreurCourriel = "*Veuillez entrer un courriel !";
-                    }
-
-                    if(empty($_POST["telephone"]))
-                    {
-                        $erreurs = true;
-                        $erreurTelephone = "*Veuillez entrer un numéro de telephone !";
-                    }
-
-                    if(empty($_POST["bio"]))
-                    {
-                        $erreurs = true;
-                        $erreurBio = "*Veuillez entrer un biographie !";
-                    }
-                    
-
-                    else
-                    {
-                        $oUtilisateur->ajoutUtilisateur($_POST["loginUtilisateur"], $_POST["passUtilisateur"], $_POST["nom"], $_POST["prenom"], 
-                        $_POST["courriel"], $_POST["telephone"], $_POST["bio"], $_POST["photoUtilisateur"]) ;
-                         $message = 'Utilisateur ajouté(e)';
-
-                    }
-
-                }
-                
-         
-            
             $oVueAdmin->ajoutUtilisateur($message, $erreurPrenom, $erreurNom, $erreurLoginUtilisateur, $erreurPassUtilisateur, $erreurCourriel, $erreurTelephone, $erreurBio, $erreurPhotoArtiste);
             $oVueDefaut->afficheFooter(false, true, false, false);
-
         }
     
         private function afficheOeuvres()
@@ -1083,61 +1029,31 @@ class Controler
 
 
     
-      
         private function inscription()
         {
-             
-            $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
-
-            $erreurUtilisateur='';
-            $erreurMotDePasse='';
-          
-            $erreurNom='';
-            $erreurPrenom='';
-
             $erreurTitre ='';
             $message ='';
-            
         
-          
             $oVue = new VueDefaut();
             $oVue->afficheHeader();
 
             if($_GET['action'] == 'ajoutUtilisateur') 
-           {     
-                if(empty($_POST["utilisateur"]))
-                    {
-                        $erreurs = true;
-                        $erreurPrenom = "*Veuillez entrer un nom d'utilisateur !";
-                    }
-
-                if(empty($_POST["motDePasse"]))
-                    {
-                        $erreurs = true;
-                        $erreurPrenom = "*Veuillez entrer un mot de passe !";
-                    }
-
-                if(empty($_POST["prenom"]))
-                    {
-                        $erreurs = true;
-                        $erreurPrenom = "*Veuillez entrer un prénom!";
-                    }
-
-                if(empty($_POST["nom"]))
-                    {
-                        $erreurs = true;
-                        $erreurNom = "*Veuillez entrer un nom !";
-                    }
-
-                else
-                {   
-                    $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], $_POST['photo']);
-                    $message = "Utilisateur ajoutée.";
-                    echo 'utilisateur ajoute';
-
-
+            {
+                
+                $oUtilisateur = new MUtilisateurs('', '', '','', '', '','','','');
+                
+                $login=$oUtilisateur->verifierUtilisateurs($_POST['utilisateur']);
+                var_dump($login);
+                if($login==true)
+                {
+                $oUtilisateur->ajoutUtilisateur($_POST['utilisateur'], $mdp=MD5($_POST['motDePasse']), $_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['telephone'], $_POST['bio'], 'utilisateurDefaut.jpg');
+                $message = "Utilisateur ajoutée.";
+                echo 'utilisateur ajoute';
                 }
-
+                else
+                {
+                    echo 'utilisateur existe';
+                }
             }
             
             
@@ -1148,7 +1064,7 @@ class Controler
     
 
         } 
-        
+
         private function connexion()
         {   
             $nombreAleatoire = rand(1, 1000);
@@ -1173,31 +1089,10 @@ class Controler
                 
         }
     
-      private function ajoutOeuvre()
+        private function ajoutOeuvre()
         {
             
-            $arrondissement='';
-            $erreurs = false;
-            $erreurTitre ='';
             $message ='';
-
-            $erreurTitre ='';
-            $erreurTitreVariante = '';
-            $erreurTechnique = '';
-            $erreurTechniqueAng = '';
-            $erreurDescription = '';
-            $erreurAdresse = '';
-            $erreurBatiment = '';
-            $erreurParc = '';
-            $erreurLatitude = '';
-            $erreurLongitude = '';
-            $erreurArrondissement = '';
-            $erreurArtiste = '';
-            $erreurCategorie = '';
-            $erreurSousCategorie = '';
-            $erreurMateriaux = '';
-            $erreurMateriauxAng ='';
-
             
             $oArtistes = new MArtistes('', '', '' ,'', '', '');
             $aArtistes = $oArtistes::listeArtistes();
@@ -1215,177 +1110,48 @@ class Controler
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
             
-            if($_GET['action'] == 'ajoutOeuvre')
-
-            {
-                    $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
-                    $oArtiste = new MArtistes('', '', '', '', '', '');
+            if($_GET['action'] == 'ajoutOeuvre') {
+                $oOeuvre = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+                $oArtiste = new MArtistes('', '', '', '', '', '');
                                          
-              
-                {       if(empty($_POST["titre"]))
-                        {
-                            $erreurs = true;
-                            $erreurTitre = "*Veuillez entrer le titre !";
-                        }
-
-                        if(empty($_POST["titreVariante"]))
-                        {
-                            $erreurs = true;
-                            $erreurTitreVariante = "*Veuillez entrer le titre variante !";
-                        }
-
-                        if(empty($_POST["technique"]))
-                        {
-                            $erreurs = true;
-                            $erreurTechnique = "*Veuillez entrer le technique!";
-                        }
-
-                        if(empty($_POST["techniqueAng"]))
-                        {
-                            $erreurs = true;
-                            $erreurTechniqueAng = "*Veuillez entrer le technique en anglais!";
-                        }
-
-                        if(empty($_POST["description"]))
-                        {
-                            $erreurs = true;
-                            $erreurDescription = "*Veuillez entrer la description!";
-                        }
-
-                        if(empty($_POST["adresse"]))
-                        {
-                            $erreurs = true;
-                            $erreurAdresse = "*Veuillez entrer l'adresse!";
-                        }
-
-                        if(empty($_POST["batiment"]))
-                        {
-                            $erreurs = true;
-                            $erreurBatiment = "*Veuillez entrer le nom de batiment!";
-                        }
-
-                        if(empty($_POST["parc"]))
-                        {
-                            $erreurs = true;
-                            $erreurParc = "*Veuillez entrer le nom de parc!";
-                        }
-
-                        if(empty($_POST["latitude"]))
-                        {
-                            $erreurs = true;
-                            $erreurLatitude = "*Veuillez entrer le nom de latitude!";
-                        }
-
-                        if(empty($_POST["longitude"]))
-                        {
-                            $erreurs = true;
-                            $erreurLongitude = "*Veuillez entrer le nom de longitude!";
-                        }
-
-                        if($_POST)
-                            {        
-
-                                if(isset($_POST["arrondissement"])) 
-                                { 
-                                    if($_POST['arrondissement'] == 'nonChoisi')
-                                    {   
-                                        
-                                        $erreurs = true;
-                                        $erreurArrondissement = "*Vous n'avez pas sélectionné d'un arrondissement!";
-                                    }
-
-                                }   
-
-                            }
-
-                        if(empty($_POST["materiaux"]))
-                        {
-                            $erreurs = true;
-                            $erreurMateriaux = "*Veuillez entrer le nom de materiaux!";
-                        }
-
-                        if(empty($_POST["materiauxAng"]))
-                        {
-                            $erreurs = true;
-                            $erreurMateriauxAng = "*Veuillez entrer le nom de materiaux en anglais!";
-                        }
-
-
-
-                        else
-                        {   
-                            if(isset($_POST["arrondissement"])) 
-                            { 
-                                if($_POST['arrondissement'] == 'nonChoisi')
-                                {   
-                                    
-                                    $erreurs = true;
-                                    $erreurArrondissement = "*Vous n'avez pas sélectionné d'un arrondissement!";
-                                }
-
-                            }   
-
-                            if(isset($_POST["artiste"])) 
-                            { 
-                                if($_POST['artiste'] == 'nonChoisi')
-                                {   
-                                    
-                                    $erreurs = true;
-                                    $erreurArtiste = "*Vous n'avez pas sélectionné d'un artiste!";
-                                }
-
-                            } 
-
-                            if(isset($_POST["categorie"])) 
-                            { 
-                                if($_POST['categorie'] == 'nonChoisi')
-                                {   
-                                    
-                                    $erreurs = true;
-                                    $erreurCategorie = "*Vous n'avez pas sélectionné d'un categorie!";
-                                }
-
-                            } 
-
-                            if(isset($_POST["sousCategorie"])) 
-                            { 
-                                if($_POST['sousCategorie'] == 'nonChoisi')
-                                {   
-                                    
-                                    $erreurs = true;
-                                    $erreurSousCategorie = "*Vous n'avez pas sélectionné d'un sous categorie!";
-                                }
-
-                            } 
-
-                            else
-
-                            {
-
-                            $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], null, $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $_POST['materiaux'], $_POST['materiauxAng'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
-                            
-                            $idOeuvre = $oOeuvre->recupererDernierId();
-                            
-                            $oArtiste->enregistrerOeuvreArtiste($idOeuvre,$_POST['artiste']);
-                        
-                            $message = "Oeuvre ajoutée.";
-
-                            }
-
-
-                        }
-                 
+                try
+                {
+                    $oOeuvre->ajouterOeuvre($_POST['titre'], $_POST['titreVariante'],  $_POST['technique'], $_POST['techniqueAng'], null, $_POST['description'], $_POST['validation'], $_POST['arrondissement'], $_POST['materiaux'], $_POST['materiauxAng'], $_POST['categorie'], $_POST['sousCategorie'], $_POST['adresse'], $_POST['batiment'], $_POST['parc'], $_POST['latitude'], $_POST['longitude']);
+                    
+                    $idOeuvre = $oOeuvre->recupererDernierId();
+                    
+                    $oArtiste->enregistrerOeuvreArtiste($idOeuvre,$_POST['artiste']);
+                
+                $message = "Oeuvre ajoutée.";
+                    
                 }
-
+                catch (Exception $e)
+                {
+                    $message = $e->getMessage();     
+                }
                 
             }
-
+            $erreurTitre ='';
+            $erreurTitreVariante = '';
+            $erreurTechnique = '';
+            $erreurTechniqueAng = '';
+            $erreurDescription = '';
+            $erreurAdresse = '';
+            $erreurBatiment = '';
+            $erreurParc = '';
+            $erreurLatitude = '';
+            $erreurLongitude = '';
+            $erreurArrondissement = '';
+            $erreurArtiste = '';
+            $erreurCategorie = '';
+            $erreurSousCategorie = '';
+            $erreurMateriaux = '';
+            $erreurMateriauxAng ='';
             
             $oVueAdmin->afficheAjoutOeuvre($aArtistes, $aCategories, $aArrondissements, $aSousCategories, $message, $erreurTitre, $erreurTitreVariante, $erreurTechniqueAng, $erreurTechnique, $erreurTechniqueAng, $erreurDescription, $erreurAdresse, $erreurBatiment, $erreurParc, $erreurLatitude, $erreurLongitude, $erreurArrondissement, $erreurArtiste, $erreurCategorie, $erreurSousCategorie, $erreurMateriaux, $erreurMateriauxAng);
             $oVueDefaut->afficheFooter(false,true,false,false);
 
         }
-
 
         private function afficheInscriptionAdmin()
         {
@@ -1456,7 +1222,7 @@ class Controler
             
         }
     
-         private function ajoutAdminMod()
+        private function ajoutAdminMod()
         {
             $erreurLogin ='';
             $message ='';
@@ -1470,30 +1236,9 @@ class Controler
             
             if($_GET['action'] == 'ajoutAdminMod')
             {
-                if(empty($_POST["login"]))
-                    {
-                        $erreurs = true;
-                        $erreurLogin = "*Veuillez entrer le login !";
-                    }
-
-                if(empty($_POST["pass"]))
-                    {
-                        $erreurs = true;
-                        $erreurPass= "*Veuillez entrer le mot de passe !";
-                    }
-
-
-
-
-                else  
-
-                {   $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
-                    $oAdmin_moderateur->ajoutAdmin_moderateur($_POST['role'], $_POST['login'], $mdp=MD5($_POST['pass']));
-                    $message = "Administrateur ajouté(e)";
-                }
-
-
-
+                $oAdmin_moderateur = new MAdmin_Moderateur('', '', '', '');
+                $oAdmin_moderateur->ajoutAdmin_moderateur($_POST['role'], $_POST['login'], $mdp=MD5($_POST['pass']));
+                $message = "Administrateur ajouté(e)";
             }
             
             $oVueAdmin->AjoutAdminMod($message, $erreurLogin, $erreurPass, $erreurRole);
@@ -1503,11 +1248,9 @@ class Controler
 
         private function ajoutArtiste()
         {     
-            $oArtiste=new MArtistes('', '', '', '', '', '');
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
-
             $erreurPrenom = '';
             $erreurNom = '';
             $erreurCollectif = '';
@@ -1515,41 +1258,22 @@ class Controler
 
             $erreurTitre ='';
             $message ='';
-
             if($_GET['action'] == 'ajoutArtiste')
 
-            {   if(empty($_POST["prenom"]))
-                    {
-                        $erreurs = true;
-                        $erreurPrenom = "*Veuillez entrer le prénom !";
-                    }
+            {   $oArtiste=new MArtistes('', '', '', '', '', '');
+                $oArtiste->ajoutArtiste($_POST['prenom'], $_POST['nom'], $_POST['collectif'],'' ,'');
+                $message = "Artiste ajouté(e).";
 
-                if(empty($_POST["nom"]))
-                    {
-                        $erreurs = true;
-                        $erreurNom = "*Veuillez entrer le nom!";
-                    }
-
-                if(empty($_POST["collectif"]))
-                    {
-                        $erreurs = true;
-                        $erreurCollectif = "*Veuillez entrer le nom du collectif!";
-                    }
-
-                else
-
-                {   $oArtiste->ajoutArtiste($_POST['prenom'], $_POST['nom'], $_POST['collectif'],'' ,'');
-                    $message = "Artiste ajouté(e).";
-
-                }
+                $oVueAdmin->ajoutArtiste($message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste);
 
 
             }
             
+            
+            
             $oVueAdmin->ajoutArtiste($message, $erreurPrenom, $erreurNom, $erreurCollectif, $erreurPhotoArtiste);
             $oVueDefaut->afficheFooter(false,true,false,false);
         }
-
 
 
         private function afficheAjouterUnArtiste()
@@ -1579,39 +1303,31 @@ class Controler
     
         }
 
-       private function ajoutCategorie()
-        {     
+        /* Ajouter une Catégorie
+        * @author Thuy Tien Vo
+        * @author Gautier Piatek
+        */
+ 
+         private function ajoutCategorie()
+         {     
             $oVueDefaut = new VueDefaut();
             $oVueAdmin = new VueAdmin();
             $oVueAdmin->afficheHeaderAdmin();
-
-            $oArtiste=new MCategories('', '', '');
+            
             $erreurTitre ='';
             $message ='';
+             $message = "";
             $erreurNomCat = "";
             $erreurNomCatAng = "";
             
             if($_GET['action'] == 'ajoutCategorie')
 
-                {   if(empty($_POST["nomCategorie"]))
-                    {
-                        $erreurs = true;
-                        $erreurNomCat= "*Veuillez entrer un categorie !";
-                    }
-
-                    if(empty($_POST["nomCatAng"]))
-                    {
-                        $erreurs = true;
-                        $erreurNomCatAng= "*Veuillez entrer un categorie en anglais !";
-                    }
-
-                    else
-
-                    {
-                        $oArtiste->ajoutCategorie($_POST['nomCategorie'], $_POST['nomCatAng']);
-                        $message = "Catégorie ajoutée.";
-                    }
-                        
+                {   
+                    $oArtiste=new MCategories('', '', '');
+                    $oArtiste->ajoutCategorie($_POST['nomCategorie'], $_POST['nomCatAng']);
+                    $message = "Catégorie ajoutée.";
+                    $oVueAdmin->formulaireAjouterCategorie($message, $erreurNomCat, $erreurNomCatAng);
+                    
                 }
             
             
@@ -1619,12 +1335,6 @@ class Controler
             $oVueDefaut->afficheFooter(false,true,false,false);
              
         } 
-
-
-
-
-
-
         
         /* Supprimer  un Catégorie
         * @author Thuy Tien Vo
