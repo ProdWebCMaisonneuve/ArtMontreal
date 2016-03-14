@@ -1200,7 +1200,7 @@ function validerFormModifierOeuvre()
             $("#msjTechniqueAng").css("display", "none");
         }
         
-        if(!$description.val().match(/^[^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,500}$/)){
+        if(!$description.val().match(/^[a-zA-ZÀ-ÿ\s\'\:\;\.\,\/\(\)\"-]{4,500}$/)){
         $("#msjDescription").css("display", "block");
         valide=false;
         }else

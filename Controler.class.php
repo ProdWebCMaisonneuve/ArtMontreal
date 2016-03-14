@@ -434,7 +434,7 @@ class Controler
             $nbreOeuvres = $oOeuvres->nbreOeuvres();
             $pagesTotales = ceil($nbreOeuvres/$oeuvresParPage);
             
-            if(isset($_GET['page']))
+            if(isset($_GET['page']) && !empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $pagesTotales)
             {
                 $_GET['page'] = intval($_GET['page']);
                 $pageCourante = $_GET['page'];
@@ -1379,7 +1379,7 @@ class Controler
                 $nbreOeuvres = $oOeuvres->nbreOeuvres();
                 $pagesTotales = ceil($nbreOeuvres/$oeuvresParPage);
 
-                if(isset($_GET['page']))
+                if(isset($_GET['page'])&& !empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $pagesTotales)
                 {
                     $_GET['page'] = intval($_GET['page']);
                     $pageCourante = $_GET['page'];
