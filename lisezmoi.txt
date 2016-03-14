@@ -1,0 +1,11 @@
+Accès webdev : http://e1495377.webdev.cmaisonneuve.qc.ca/ArtMontreal/
+
+Utilisateur :
+
+login : toto
+pass : toto
+
+Accès Admin : Accès webdev : http://e1495377.webdev.cmaisonneuve.qc.ca/ArtMontreal/?requete=admin
+
+login : admin
+pass : admin

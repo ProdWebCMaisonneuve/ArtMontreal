@@ -1391,11 +1391,11 @@ class Controler
 
                 $depart = ($pageCourante-1)*$oeuvresParPage;
                 $aOeuvres = $oOeuvres::listeOeuvres_limit($depart, $oeuvresParPage);
-                
+                $aOeuvresSlider = $oOeuvres::photosSlider();
                 
                 $oVue = new VueDefaut();
                 $oVue->afficheHeader();
-                $oVue->afficheSliderAccueil($aOeuvres);
+                $oVue->afficheSliderAccueil($aOeuvresSlider);
                 $oVue->afficheJumbotronAccueil();
                 $oVue->afficheOeuvresAccueil($aOeuvres);
                 $oVue->afficherPages($pagesTotales, $pageCourante);

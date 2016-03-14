@@ -62,20 +62,25 @@
     margin-bottom: 2%;
 }
 
-.carousel {
-    max-height: 400px;
-    margin: auto 0;
-    overflow: hidden;
-
+.carousel-inner {
+    height: 400px;
+    
 }
 
-.item img {
-    width: 100%;
-}  
+.item{
+    position: relative;
+    height:100%;
+}
+
+.imgSlider {
+    position: absolute;   
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .carousel-caption {
-  position: fixed;
-    top: 0;
+  position: absolute;
+    top: 50%;
 
 }
 
