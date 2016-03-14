@@ -17,15 +17,8 @@
         case 'chargerPlusOeuvres': 
             chargerPlusOeuvres();
             break;
-
-        case 'artistes':
-        artisteParLettre($_GET['lettre']);
-        break;
         
     }
-
-   
-
     
     
    
@@ -55,42 +48,28 @@
         $oVue->;
     }*/
 
-   //  private function chargerPlusOeuvres()
-		//{
+     private function chargerPlusOeuvres()
+		{
             
             //var_dump(chargerPlusOeuvres());
             
-           // $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
+            $oOeuvres = new MOeuvres('', '', '','', '', '', '', '', '', '', '', '', '','','','','','');
             
-           // $aOeuvres = $oOeuvres->listeOeuvres();
+            $aOeuvres = $oOeuvres->listeOeuvres();
             
 //            if($nbreOeuvres !=0) {
 //                $aOeuvres = $oOeuvres->listeOeuvres();
 //            } else {
 //                $aOeuvres = '';
 //            }
-          // $oVueDefaut = new VueDefaut();
+           $oVueDefaut = new VueDefaut();
             //$oVueAdmin = new VueAdmin();
             
-			//$oVueDefaut->chargerPlusOeuvres($aOeuvres);
+            
+			$oVueDefaut->chargerPlusOeuvres($aOeuvres);
            
     
-		//}
-
-
-
-
-function artisteParLettre($lettre)
-
-    {   
-
-        $oArtisteParLettre=new MArtistes('', '', '' ,'', '', '');
-        $aArtisteParLettre = $oArtisteParLettre->artisteParLettre($lettre);
-        $oVue = new VueDefaut();
-        $oVue->afficheArtisteParLettre($aArtisteParLettre);
-
-    }
-
+		}
 
 
 
