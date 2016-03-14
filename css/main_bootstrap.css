@@ -218,7 +218,12 @@ figcaption {background-color: gray}
 }
 
 
-
+.text_dessus{
+    position: absolute;
+	color: #7715D1;
+	font-size: 30px;
+	font-family: arial;
+}
 
 /*HOVER EFFECT 1    http://miketricking.github.io/dist/*/
 
@@ -260,11 +265,13 @@ text-align:center;
 position:relative;
 font-size:17px;
 background:rgba(0,0,0,0.6);
+
 -webkit-transform:translatey(-100px);
 -ms-transform:translatey(-100px);
 transform:translatey(-100px);
 -webkit-transition:all .2s ease-in-out;
 transition:all .2s ease-in-out;
+
 padding:20px;
 }
 
@@ -275,7 +282,7 @@ text-transform:uppercase;
 color:#fff;
 border:1px solid #fff;
 background-color:transparent;
-opacity:0;
+opacity:1;
 filter:alpha(opacity=0);
 -webkit-transition:all .2s ease-in-out;
 transition:all .2s ease-in-out;
@@ -290,7 +297,7 @@ padding:7px 14px;
     color: #fff;
     
     background-color: transparent;
-    opacity: 0;
+    opacity: 1;
     filter: alpha(opacity=0);
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
