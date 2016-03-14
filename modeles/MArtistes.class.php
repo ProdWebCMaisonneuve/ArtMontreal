@@ -247,6 +247,41 @@ class MArtistes {
         return(self::$database->execute());
         
 	}
+
+        /*
+     * Fonction qui liste artiste par lettre
+     * @access public static
+     * @author Thuy Tien Vo
+     * @return 
+     */
+
+
+    public static function artisteParLettre($lettre) 
+    {
+        $lettre = "'" . $lettre . "%'";
+        self::$database->query("SELECT * FROM artiste WHERE nom LIKE " . $lettre);
+     
+        $lignes = self::$database->resultset();
+
+        foreach ($lignes as $ligne) 
+        {
+            $unArtiste = new MArtistes($ligne['idArtiste'], $ligne['prenom'], $ligne['nom'], $ligne['collectif'],$ligne['noInterne'], $ligne['photoArtiste']);
+            $artistes[] = $unArtiste;
+        }
+    
+        return $artistes;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
 
 ?>

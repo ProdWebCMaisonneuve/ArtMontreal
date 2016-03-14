@@ -838,83 +838,167 @@ public function afficheSliderAccueil($oeuvres)
     * @auteure:Thuy Tien Vo
     */  
 
-    public function afficheArtistes($aArtistes, $oOeuvres) 
+     public function afficheArtistes($aArtistes, $oOeuvres) 
 
     {
         ?>
             <div class="text-center">
                 <h2>Découvrez nos <span class="artistes">artistes</span> et <span class="collectif">collectifs</span></h2> </br></br></br>
             </div>
-    <?php
+        <?php
  
-        $compteur = 0;
+        //$compteur = 0;
 
-        echo'<div class="container">';
+       //echo'<div class="container">';
 
-        foreach($aArtistes as $artiste)
+       // foreach($aArtistes as $artiste)
 
-        {  
+       // {  
 
-            $photo = $artiste->getPhoto();
-            $prenom = $artiste->getPrenom();
-            $nom = $artiste->getNom();
-            $collectif = $artiste->getCollectif();
-            $idArtiste = $artiste->getIdArtiste();
+           // $photo = $artiste->getPhoto();
+            //$prenom = $artiste->getPrenom();
+            //$nom = $artiste->getNom();
+            //$collectif = $artiste->getCollectif();
+           // $idArtiste = $artiste->getIdArtiste();
  
 
-            echo ' <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">';
+            //echo ' <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">';
               
-                echo' <div class="panel-group" id="accordion">';
+              // echo' <div class="panel-group" id="accordion">';
 
-                    echo'  <div class="panel panel-default">';
+                   // echo'  <div class="panel panel-default">';
 
-                        echo'<div class="panel-heading" >';
+                       // echo'<div class="panel-heading" >';
 
-                            echo'<h4 class="panel-title">';
+                          // echo'<h4 class="panel-title">';
 
-                                echo "<a data-toggle='collapse' data-parent='#accordion' href='#collapse".$compteur."'> " . $collectif . $nom . " ". $prenom .  "  </a>";
+                               //echo "<a data-toggle='collapse' data-parent='#accordion' href='#collapse".$compteur."'> " . $collectif . $nom . " ". $prenom .  "  </a>";
 
-                            echo'</h4>'; 
+                           //echo'</h4>'; 
 
-                        echo'</div>';
+                      // echo'</div>';
 
-                        echo'<div id="collapse'.$compteur.'" class="panel-collapse collapse">';
+                       //echo'<div id="collapse'.$compteur.'" class="panel-collapse collapse">';
+//
+                       // echo'<div class="panel-body">';
 
-                            echo'<div class="panel-body">';
-
-                                echo "<img class='img-responsive' src='./images/artisteDefaut.jpg'  width='700' height='700'>";
+                                //echo "<img class='img-responsive' src='./images/artisteDefaut.jpg'  width='700' height='700'>";
                     
-                                    $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
+                                   // $aOeuvres = $oOeuvres::listeOeuvresParArtiste($idArtiste);
 
                                
-                                    foreach($aOeuvres as $oeuvre)
+                                   // foreach($aOeuvres as $oeuvre)
 
-                                        {   $titreOeuvre = $oeuvre->getTitreOeuvre();
-                                            $idOeuvre = $oeuvre->getIdOeuvre();
-                                            echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a></li>";
+                                       //{   $titreOeuvre = $oeuvre->getTitreOeuvre();
+                                            //$idOeuvre = $oeuvre->getIdOeuvre();
+                                          // echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a> </li>";
 
-                                        }
+                                        //}
 
                                  
-                            echo'</div>';
+                            //echo'</div>';
 
-                        echo'</div>';
+                        //echo'</div>';
 
+                    //echo'</div>';
+
+                //echo'</div>';
+
+          // echo'</div>';
+
+
+            //$compteur= $compteur+1;
+
+       //}
+
+    //echo'</div>';
+
+        ?>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=a' id='alphabet' class=''> A </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=b' id='alphabet' class=''> B</a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=c' id='alphabet' class=''> C </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=d' id='alphabet' class=''> D </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=e' id='alphabet' class=''> E </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=f' id='alphabet' class=''> F </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=g' id='alphabet' class=''> G </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=h' id='alphabet' class=''> H </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=i' id='alphabet' class=''> I </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=j' id='alphabet' class=''> J </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=k' id='alphabet' class=''> K </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=l' id='alphabet' class=''> L </a> </i> </div> <br/> <br/> <br/> <br/>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=m' id='alphabet' class=''> M </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=n' id='alphabet' class=''> N </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=o' id='alphabet' class=''> O </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=p' id='alphabet' class=''> P </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=q' id='alphabet' class=''> Q </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=r' id='alphabet' class=''> R</a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=s' id='alphabet' class=''> S</a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=t' id='alphabet' class=''> T </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=u' id='alphabet' class=''> U </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=v' id='alphabet' class=''> V </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=w' id='alphabet' class=''> W </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=x' id='alphabet' class=''> X</a> </i> </div> <br/> <br/> <br/> <br/>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=y' id='alphabet' class=''> Y </a> </i> </div>
+                    <div class="col-md-1"><i class='list-group-item'> <a href = 'ajaxControler.php?requete=artistes&lettre=z' id='alphabet' class=''> Z </a> </i> </div >       
+   
+                </div><br/><br/>
+                <table  class= "table table-bordered" id="resultat">    </table>
+
+
+            </div>
+
+        <?php
+
+}
+        
+
+
+/**
+     * Affiche tous les artistes par lettre a,b,c...
+     * @access public
+     * @author Thuy Tien Vo
+     * @version 1.0
+     * 
+     */
+    public function afficheArtisteParLettre($aArtistes)
+        {
+            foreach($aArtistes as $artiste)
+               {  
+                    $photo = $artiste->getPhoto();
+                    $prenom = $artiste->getPrenom();
+                    $nom = $artiste->getNom();
+                    $collectif = $artiste->getCollectif();
+                    $idArtiste = $artiste->getIdArtiste();
+
+                    echo'<div class="container">';
+                    echo "<table  class= 'table table-bordered' > " ;
+                    echo"<tr>";
+                    echo"<td>";
+                    echo " <a href = 'index.php?requete=artistes&idArtiste=$idArtiste'> " . $collectif . $nom . " ". $prenom .  "  </a>";
+                    echo"</td>";
+                    echo"</tr>";
+                    echo"</table>";
                     echo'</div>';
+               } 
+     
+        } //FIN FUNCTION affiche Artiste
 
-                echo'</div>';
+    public static function affichelisteOeuvresParArtiste($aArtistes, $aOeuvres)
 
-            echo'</div>';
+        {   $aOeuvres = $oOeuvresParArt::listeOeuvresParArtiste($idArtiste);
 
+                foreach($aOeuvres as $oeuvre)
 
-            $compteur= $compteur+1;
-
+                    {   $titreOeuvre = $oeuvre->getTitreOeuvre();
+                        $idOeuvre = $oeuvre->getIdOeuvre();
+                         echo "<li><a href='index.php?requete=artistes&idOeuvre=" . $idOeuvre . "'>" . $titreOeuvre . "</a> </li>";
+                    }
         }
 
-    echo'</div>';
 
-
-    }
 
 
 
@@ -1072,8 +1156,8 @@ public function afficheSliderAccueil($oeuvres)
     }    //FIN FUNCTION afficheOeuvre_Par_Arr
     
 
-   /**
-     * Affiche catégories
+/**
+     * Affiche sous_catégories
      * @access public
      * @author Thuy Tien VO
      * @version 1.0
@@ -1087,42 +1171,32 @@ public function afficheSliderAccueil($oeuvres)
         
         </div>
         <?php
-        $compteur = 1;
+      
         
         echo "<section class='contenu container'>";
 
-        foreach($aSousCategories as $sousCategorie)
-        {
-            $id_SousCategorie= $sousCategorie->getIdSousCategorie();
-            //$categorie->afficher();
-            $nom = $sousCategorie->getNomSousCategorie();
+            foreach($aSousCategories as $sousCategorie)
+            {
+                $id_SousCategorie= $sousCategorie->getIdSousCategorie();
+              
+                $nom = $sousCategorie->getNomSousCategorie();
 
-            echo "<div class=' accordion sixcol ";
+            
+                echo' <div class="col-sm-4">';
 
-            if($compteur%2 == 1)
-                {
-                    echo "last'>";
-                } 
-            else 
-                {
-                     echo "first'>";
-                }
-        
-            echo "<figure class='sousCategorie'>";  
+                    echo"<ul class='list-group-item'>";
+                
+                        echo "<a href = 'index.php?requete=sousCategories&idSousCategorie=$id_SousCategorie' class='sousCategorie'> " . $nom. "</a>";
+                  
+                    echo"</ul>";
 
-            echo'<div class="container">';
-            echo"<ul class='list-group-item'>"; 
-                 echo "<a href = 'index.php?requete=sousCategories&idSousCategorie=$id_SousCategorie' class='sousCategorie'> " . $nom. "</a>";
-            echo"</ul>";
-            echo'</div>';
+                echo'</div>';   
+            }
 
-            echo "</figure>";
-            echo "</div>";
-            $compteur = $compteur + 1;
-        }
         echo "</section>";
         
-    } //FIN FUNCTION afficheCategorie
+    } //FIN FUNCTION afficheSousCategorie
+
 
 
 /**
@@ -1141,19 +1215,23 @@ public function afficheSliderAccueil($oeuvres)
             </div>
             
             <?php
+
              if($aOeuvreParCat == "")
             {
                 echo "Il n'y a pas d'oeuvres dans cette catégorie";
             }
+
             else
             {
             
+                echo'<div class="container">';
+
                 foreach($aOeuvreParCat as $oeuvre)
                 {    
                     $idOeuvre= $oeuvre->getIdOeuvre();
                     $titre = $oeuvre->getTitreOeuvre();
 
-                    echo'<div class="container">';
+                    echo' <div class="col-sm-4">';
 
                         echo"<ul class='list-group-item'>";
 
@@ -1162,8 +1240,13 @@ public function afficheSliderAccueil($oeuvres)
                         echo"</ul>";
 
                     echo'</div>';
+
                 }
+                
+                echo'</div>';
+
             }
+            
         }    //FIN FUNCTION afficheOeuvreParCat
 
     /**
